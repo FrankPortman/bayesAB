@@ -12,10 +12,10 @@ plotBeta <- function(alpha, beta) {
   seq <- seq(0, 1, .001)
   hseq <- dbeta(seq, alpha, beta)
   
-  p <- qplot(x = seq, y = hseq, geom = "line") +
-          xlab(NULL) + 
-          ylab('PDF') + 
-          ggtitle(paste('Probability Density Function for Parameters: alpha = ', alpha, ', beta = ', beta, sep = ''))
+  p <- ggplot2::qplot(x = seq, y = hseq, geom = "line") +
+          ggplot2::xlab(NULL) + 
+          ggplot2::ylab('PDF') + 
+          ggplot2::ggtitle(paste('Probability Density Function for Parameters: alpha = ', alpha, ', beta = ', beta, sep = ''))
   
   
   print(p)

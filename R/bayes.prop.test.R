@@ -1,4 +1,4 @@
-bayes.prop.test <- function(clicks_a, views_a, clicks_b, views_b, alpha = 1, beta = 1, percent_lift = 0, N_samp = 1e6, min_lift = FALSE) {
+bayesPropTest <- function(clicks_a, views_a, clicks_b, views_b, alpha = 1, beta = 1, percent_lift = 0, N_samp = 1e6, min_lift = FALSE) {
   
   test_samples <- rbeta(N_samp, clicks_a + alpha, views_a - clicks_a + beta)
   test_samples <- rbeta(N_samp, clicks_b + alpha, views_b - clicks_b + beta)
