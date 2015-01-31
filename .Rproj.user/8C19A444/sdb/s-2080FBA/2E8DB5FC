@@ -1,0 +1,17 @@
+{
+    "contents" : "#' Plot the PDF of the Beta distribution.\n#' \n#' @param alpha α parameter of the Beta distribution.\n#' @param beta β parameter of the Beta distribution.\n#' @return The PDF of Beta(α, β).\n#' @examples\n#' plotBeta(1, 1)\n#' plotBeta(2, 5)\n\nplotBeta <- function(alpha, beta) {\n  \n  seq <- seq(0, 1, .001)\n  hseq <- dbeta(seq, alpha, beta)\n  \n  p <- qplot(x = seq, y = hseq, geom = \"line\") +\n          xlab(NULL) + \n          ylab('PDF') + \n          ggtitle(paste('Probability Density Function for Parameters: alpha = ', alpha, ', beta = ', beta, sep = ''))\n  \n  \n  print(p)\n  \n}\n",
+    "created" : 1422731780934.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4264704703",
+    "id" : "2E8DB5FC",
+    "lastKnownWriteTime" : 1422735549,
+    "path" : "~/packages/bayesAB/R/plotBeta.R",
+    "project_path" : "R/plotBeta.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

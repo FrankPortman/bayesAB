@@ -1,0 +1,3 @@
+useDynLib(bayesAB)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)

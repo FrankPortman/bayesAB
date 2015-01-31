@@ -1,0 +1,17 @@
+{
+    "contents" : "plot.plda <- function(result, Xnew, y, n.seq = 100, threshold = 5, ...) {    \n\n  \n  df <- data.frame(a = result$test_samples, b = result$control_samples)\n  df <- melt(df)\n  \n  \n  \n}",
+    "created" : 1422738167826.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3239964814",
+    "id" : "F85946B5",
+    "lastKnownWriteTime" : 1422738543,
+    "path" : "~/packages/bayesAB/R/generics.R",
+    "project_path" : "R/generics.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

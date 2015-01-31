@@ -1,0 +1,16 @@
+{
+    "contents" : "Package: bayesAB\nType: Package\nTitle: AB Testing for Counts and Proportions using Bayesian Methods\nVersion: 1.0\nDate: 2015-01-30\nAuthor: Frank Portman\nMaintainer: frank1214@gmail.com\nDescription: bayesAB provides a suite of functions that allow the user to analyze AB test data in a similar light to common frequentist hypothesis tests (t-test, proportion test, etc.). bayesAB contains functions for choosing an informative prior and will allow you to directly state the probability P(A > B) for counts and proportions. This has several implications, namely in terms of interpretability. Frequentist t-tests that rely on p-values are notoriously hard to interpret for statisticians and non-statisticians alike.\nLicense: GPL (>= 2)\nImports: Rcpp (>= 0.11.4)\nLinkingTo: Rcpp\n",
+    "created" : 1422735690991.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "981949271",
+    "id" : "BB2915B7",
+    "lastKnownWriteTime" : 1422737024,
+    "path" : "~/packages/bayesAB/DESCRIPTION",
+    "project_path" : "DESCRIPTION",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "dcf"
+}

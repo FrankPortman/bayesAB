@@ -1,0 +1,17 @@
+{
+    "contents" : "bayes.prop.test <- function(clicks_a, views_a, clicks_b, views_b, alpha = 1, beta = 1, percent_lift = 0, N_samp = 1e6, min_lift = FALSE) {\n  \n  test_samples <- rbeta(N_samp, clicks_a + alpha, views_a - clicks_a + beta)\n  test_samples <- rbeta(N_samp, clicks_b + alpha, views_b - clicks_b + beta)\n  \n  prob <- get.prob(A_samples, B_samples, percent_lift = percent_lift)\n  \n  ans <- 0\n  \n  if(min_lift) {\n    \n    ans <- min.lift(A_samples, B_samples)\n    \n  }\n  \n  list(prob = prob, \n       min.lift = ans,\n       test_samples = test_samples,\n       control_samples = control_samples)\n  \n}\n\nget.prob <- function(A_samples, B_samples, percent_lift = 0) {\n  \n  prob <- mean((100 * (A_samples - B_samples) / B_samples > percent_lift))\n  \n  prob\n  \n}\n\n",
+    "created" : 1422737704930.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2343623253",
+    "id" : "BE75F48D",
+    "lastKnownWriteTime" : 1422738488,
+    "path" : "~/packages/bayesAB/R/bayes.prop.test.R",
+    "project_path" : "R/bayes.prop.test.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
