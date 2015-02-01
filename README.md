@@ -25,6 +25,10 @@ devtools::install_github("frankportman/bayesAB")
 
 ```{r}
 library(bayesAB)
+
+plotBeta(alpha = 1,
+         beta = 1)
+
 AB1 <- bayesPropTest(clicks_test = 75,
                      views_test = 250,
                      clicks_control = 50,
@@ -35,6 +39,8 @@ AB1 <- bayesPropTest(clicks_test = 75,
 liftAB1 <- getMinLift(AB1)
 
 plot(AB1)
-AB1
-liftAB1
+ 
+print(AB1)
+
+print(liftAB1)
 ```
