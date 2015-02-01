@@ -47,3 +47,15 @@ print.bayesPropTest <- function(result) {
   
 }
 
+print.minLift <- function(result) {
+  
+  print(get(result$test))
+  
+  cat('\n')
+  cat('--------------------------------------------\n')
+  cat('Maximum Lift that returns a ', result$probability * 100, '% (+- ', result$threshold, ') result is ', result$minLift, '%.\n', sep = "")
+  cat('P(Test > Control) by at least ', result$minLift, '% = ', result$actualProb, '\n', sep = "")
+  cat('Access directly with $minLift\n', sep = "")
+  
+}
+

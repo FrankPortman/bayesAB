@@ -5,6 +5,42 @@
 
 using namespace Rcpp;
 
+// alt_count
+double alt_count(double alpha_1, double beta_1, double alpha_2, double beta_2);
+RcppExport SEXP bayesAB_alt_count(SEXP alpha_1SEXP, SEXP beta_1SEXP, SEXP alpha_2SEXP, SEXP beta_2SEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< double >::type alpha_1(alpha_1SEXP );
+        Rcpp::traits::input_parameter< double >::type beta_1(beta_1SEXP );
+        Rcpp::traits::input_parameter< double >::type alpha_2(alpha_2SEXP );
+        Rcpp::traits::input_parameter< double >::type beta_2(beta_2SEXP );
+        double __result = alt_count(alpha_1, beta_1, alpha_2, beta_2);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// alt_prop
+double alt_prop(double alpha_1, double beta_1, double alpha_2, double beta_2);
+RcppExport SEXP bayesAB_alt_prop(SEXP alpha_1SEXP, SEXP beta_1SEXP, SEXP alpha_2SEXP, SEXP beta_2SEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< double >::type alpha_1(alpha_1SEXP );
+        Rcpp::traits::input_parameter< double >::type beta_1(beta_1SEXP );
+        Rcpp::traits::input_parameter< double >::type alpha_2(alpha_2SEXP );
+        Rcpp::traits::input_parameter< double >::type beta_2(beta_2SEXP );
+        double __result = alt_prop(alpha_1, beta_1, alpha_2, beta_2);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // rcpp_hello_world
 List rcpp_hello_world();
 RcppExport SEXP bayesAB_rcpp_hello_world() {
