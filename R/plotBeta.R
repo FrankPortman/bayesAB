@@ -13,6 +13,7 @@ plotBeta <- function(alpha, beta) {
   hseq <- dbeta(seq, alpha, beta)
   
   p <- ggplot2::qplot(x = seq, y = hseq, geom = "line") +
+          ggplot2::scale_x_continuous(breaks = seq(0, 1, .1)) +
           ggplot2::xlab(NULL) + 
           ggplot2::ylab('PDF') + 
           ggplot2::ggtitle(paste('Probability Density Function for Parameters: alpha = ', alpha, ', beta = ', beta, sep = ''))
