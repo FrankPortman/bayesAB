@@ -21,15 +21,43 @@ plot.bayesPropTest <- function(result) {
   plotPosteriors(pos$control_alpha, pos$control_beta, pos$test_alpha, pos$test_beta)
   
   ## Plot the test samples minus the control samples
-  testResult <- ggplot2::qplot(result$test_samples - result$control_samples, binwidth = diff(range(result$test_samples - result$control_samples)) / 50) +
-                    ggplot2::xlab('Test Samples - Control Samples') +
-                    ggplot2::ylab('Samples') +
-                    ggplot2::ggtitle('Histogram of Test - Control Probability') +
-                    ggplot2::geom_vline(x = 0)
-  
-  print(testResult)
+#   testResult <- ggplot2::qplot(result$test_samples - result$control_samples, binwidth = diff(range(result$test_samples - result$control_samples)) / 50) +
+#                     ggplot2::xlab('Test Samples - Control Samples') +
+#                     ggplot2::ylab('Samples') +
+#                     ggplot2::ggtitle('Histogram of Test - Control Probability') +
+#                     ggplot2::geom_vline(x = 0)
+#   
+#   print(testResult)
+
+plotSamples(result$test_samples, result$control_samples, result$inputs, result$percent_lift)
   
   par(ask = FALSE)
+  
+}
+
+plotSamples <- function(test_samples, control_samples, inputs, percent_lift) {
+  
+  ratio <- inputs$clicks_control / inputs$views_control
+  cutoff <- ratio * percent_lift / 100
+  
+  diff <- test_samples - control_samples
+  diff <- data.frame(diff = diff, cutoff = diff < cutoff)
+  
+  prop <- 1 - sum(diff$cutoff) / nrow(diff)
+  prop <- round(prop * 100, digits = 1)
+  
+  p <- ggplot2::qplot(diff, data = diff, fill = cutoff, binwidth = diff(range(diff)) / 250) + 
+    ggplot2::geom_vline(x = cutoff)
+  
+  m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
+  
+  p <- p + ggplot2::annotate('text', x = mean(diff$diff[diff$cutoff == F]), y = m / 3, label = paste(prop, '%', sep = "")) +
+    ggplot2::xlab('Test Samples - Control Samples') +
+    ggplot2::ylab('Samples of Beta Distribution') +
+    ggplot2::ggtitle('Histogram of Test - Control Probability') +
+    ggplot2::theme(legend.position = "none")
+  
+  print(p) 
   
 }
 
@@ -44,11 +72,11 @@ plotPosteriors <- function(control_alpha, control_beta, test_alpha, test_beta) {
   dat <- cbind(dat, seq)
   
   posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x = seq, y = value, group = Var2, fill = Var2)) + 
-    ggplot2::geom_ribbon(aes(ymin = 0, ymax = value)) +
+    ggplot2::geom_ribbon(ggplot2::aes(ymin = 0, ymax = value)) +
     ggplot2::xlab(NULL) +
     ggplot2::ylab('Density') +
     ggplot2::ggtitle('Test and Control Posteriors') +
-    guides(fill=guide_legend(title=NULL))
+    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
     
   print(posteriors)
   
