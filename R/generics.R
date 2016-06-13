@@ -29,7 +29,7 @@ plot.bayesPropTest <- function(result) {
 #   
 #   print(testResult)
 
-plotSamples(result$test_samples, result$control_samples, result$inputs, result$percent_lift)
+  plotSamples(result$test_samples, result$control_samples, result$inputs, result$percent_lift)
   
   par(ask = FALSE)
   
@@ -47,7 +47,7 @@ plotSamples <- function(test_samples, control_samples, inputs, percent_lift) {
   prop <- round(prop * 100, digits = 1)
   
   p <- ggplot2::qplot(diff, data = diff, fill = cutoff, binwidth = diff(range(diff)) / 250) + 
-    ggplot2::geom_vline(x = cutoff)
+    ggplot2::geom_vline(xintercept = cutoff)
   
   m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
   
