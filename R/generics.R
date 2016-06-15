@@ -72,7 +72,7 @@ plotPosteriors <- function(control_alpha, control_beta, test_alpha, test_beta) {
   dat <- cbind(dat, seq)
   
   posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x = seq, y = value, group = Var2, fill = Var2)) + 
-    ggplot2::geom_ribbon(ggplot2::aes(ymin = 0, ymax = value)) +
+    ggplot2::geom_ribbon(ggplot2::aes(ymin = 0, ymax = value), alpha = 0.75) +
     ggplot2::xlab(NULL) +
     ggplot2::ylab('Density') +
     ggplot2::ggtitle('Test and Control Posteriors') +
