@@ -1,4 +1,4 @@
-draw_mus_and_sigmas <- function(data, m0, k0, s_sq0, v0, n_samples = 100) {
+draw_mus_and_sigmas <- function(data, m0, k0, s_sq0, v0, n_samples = 10000) {
   
   N <- length(data)
   the_mean <- mean(data)
@@ -128,3 +128,41 @@ print(mean(A_sig_sqs > B_sig_sqs))
 print mean(A_mus > B_mus) 
 # probability that variance of A is greater than variance of B:
 print mean(A_sig_sqs > B_sig_sqs)
+
+
+###
+
+sig_sq_samples <- (1 / rgamma(n_samples, alpha, beta))
+
+
+xs <- seq(.5, 1.1, .001)
+
+xs <- seq(0, 2, .001)
+
+thing <- dgamma(xs, alpha, beta)
+thing <- 1 / thing
+
+qplot(xs, thing)
+
+qplot(sig_sq_samples)
+
+qplot(xs, dinvgamma(xs, alpha, beta))
+
+qplot(thing, dinvgamma(xs, alpha, beta))
+
+
+dinvgamma <- function(x, shape, scale) {
+  
+  if (shape <= 0 | scale <= 0) {
+    stop("Shape or scale parameter negative in dinvgamma().\n")
+  }
+  
+  alpha <- shape
+  beta <- scale
+  log.density <- alpha * log(beta) - lgamma(alpha) - (alpha + 1) * log(x) - (beta / x)
+  
+  return(exp(log.density))
+  
+}
+
+
