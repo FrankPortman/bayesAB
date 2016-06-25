@@ -119,18 +119,18 @@ dinvgamma <- function(x, shape, scale) {
   
 }
 
-plotInvGamma <- function(shape, scale) {
+qinvgamma <- function(p, shape, scale) {
   
-  support <- seq(0, 50, .01)
-  hseq <- dinvgamma(support, shape, scale)
-  
-  p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
-    ggplot2::xlab(NULL) +
-    ggplot2::ylab('PDF') +
-    ggplot2::ggtitle(paste('Probability Density Function for Parameters: shape = ', shape, ', scale = ', scale, sep = ""))
-  
-  print(p)
-  
+  if(alpha > 0 & beta > 0 & all(p > 0) & all(p < 1)) {
+    if((1 - p) <= .Machine$double.eps) {
+      out <- Inf
+    }
+    else {
+      out <- 1 / qgamma(1 - p, shape, scale)
+    }
+  }
+  else stop('qinvgamma: invalid parameters\n')
+  return(out)
 }
 
 plotNormal(5, 3)
@@ -144,3 +144,19 @@ plotInvGamma(1, 2)
 plotInvGamma(1, 17)
 plotInvGamma
 
+plotInvGamma <- function(shape, scale) {
+  
+  support <- seq(0, qinvgamma(.95, shape, scale), .01)
+  hseq <- dinvgamma(support, shape, scale)
+  
+  p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('PDF') +
+    ggplot2::ggtitle(paste('Probability Density Function for Parameters: shape = ', shape, ', scale = ', scale, sep = ""))
+  
+  print(p)
+  
+}
+
+plotInvGamma(2, 4)
+plotInvGamma(1, 17)
