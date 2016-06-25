@@ -8,6 +8,5 @@ Description: bayesAB provides a suite of functions that allow the user to analyz
 License: GPL (>= 2)
 Imports: Rcpp (>= 0.11.4),
     ggplot2,
-    reshape2,
-    MCMCpack
+    reshape2
 LinkingTo: Rcpp

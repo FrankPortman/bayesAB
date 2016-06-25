@@ -46,3 +46,43 @@ plotBeta <- function(alpha, beta) {
   print(p)
   
 }
+
+#' Plot the PDF of the Inverse Gamma distribution.
+#' 
+#' @param shape shape parameter of the Inverse Gamma distribution.
+#' @param scale scale parameter of the Inverse Gamma distribution.
+#' @param p 
+#' @return The PDF of InvGamma(shape, scale).
+#' @examples
+#' plotInvGamma(2, 4)
+#' plotInvGamma(1, 17)
+
+plotInvGamma <- function(shape, scale, p = .95) {
+  
+  if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
+  
+  support <- seq(0, qinvgamma(p, shape, scale), .01)
+  hseq <- dinvgamma(support, shape, scale)
+  
+  p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('PDF') +
+    ggplot2::ggtitle(paste('Probability Density Function for Parameters: shape = ', shape, ', scale = ', scale, sep = ""))
+  
+  print(p)
+  
+}
+
+qinvgamma <- function(p, shape, scale) {
+  
+  if(shape > 0 & beta > 0 & all(p > 0) & all(p < 1)) {
+    if((1 - p) <= .Machine$double.eps) {
+      out <- Inf
+    }
+    else {
+      out <- 1 / qgamma(1 - p, shape, scale)
+    }
+  }
+  else stop('qinvgamma: invalid parameters\n')
+  return(out)
+}
