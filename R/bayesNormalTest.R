@@ -67,3 +67,80 @@ bayesNormalTest <- function(A_data,
   
   
 }
+
+## mu prior
+m0 <- 4
+k0 <- 1
+s_sq0 <- 1
+v0 <- 1
+
+
+plotBeta <- function(alpha, beta) {
+  
+  seq <- seq(0, 1, .001)
+  hseq <- dbeta(seq, alpha, beta)
+  
+  p <- ggplot2::qplot(x = seq, y = hseq, geom = "line") +
+    ggplot2::scale_x_continuous(breaks = seq(0, 1, .1)) +
+    ggplot2::xlab(NULL) + 
+    ggplot2::ylab('PDF') + 
+    ggplot2::ggtitle(paste('Probability Density Function for Parameters: alpha = ', alpha, ', beta = ', beta, sep = ''))
+  
+  
+  print(p)
+  
+}
+
+plotNormal <- function(mu, s_sq) {
+  
+  support <- seq(mu - s_sq * 5, mu + s_sq * 5, .001)
+  hseq <- dnorm(support, mu, s_sq)
+  
+  p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('PDF') +
+    ggplot2::ggtitle(paste('Probability Density Function for Parameters: mu = ', mu, ', s_sq = ', s_sq, sep = ""))
+  
+  print(p)
+  
+}
+
+dinvgamma <- function(x, shape, scale) {
+  
+  if (shape <= 0 | scale <= 0) {
+    stop("Shape or scale parameter negative in dinvgamma().\n")
+  }
+  
+  alpha <- shape
+  beta <- scale
+  log.density <- alpha * log(beta) - lgamma(alpha) - (alpha + 1) * log(x) - (beta / x)
+  
+  return(exp(log.density))
+  
+}
+
+plotInvGamma <- function(shape, scale) {
+  
+  support <- seq(0, 50, .01)
+  hseq <- dinvgamma(support, shape, scale)
+  
+  p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('PDF') +
+    ggplot2::ggtitle(paste('Probability Density Function for Parameters: shape = ', shape, ', scale = ', scale, sep = ""))
+  
+  print(p)
+  
+}
+
+plotNormal(5, 3)
+
+plotInvGamma(1, 1)
+plotInvGamma(1, 1)
+
+plotInvGamma(4000, 8000)
+plotInvGamma(2, 4)
+plotInvGamma(1, 2)
+plotInvGamma(1, 17)
+plotInvGamma
+

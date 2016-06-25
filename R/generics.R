@@ -1,34 +1,15 @@
 plot.bayesPropTest <- function(result) {    
-
-  ## Create data frame for 
-#   df <- data.frame(Test = result$test_samples, Control = result$control_samples)
-#   df <- reshape2::melt(df, id.vars = NULL)
   
   par(ask = TRUE)
   
   ## Plot the prior
   plotBeta(result$alpha, result$beta)
   
-  ## Plot the results post simulation
-#   posterior <- ggplot2::ggplot(df, ggplot2::aes(x = value, group = variable, fill = variable)) + 
-#                   ggplot2::geom_density() +
-#                   ggplot2::xlab(NULL) +
-#                   ggplot2::ylab('Density') +
-#                   ggplot2::ggtitle('Test and Control Posteriors')
-#   
-#   print(posterior)
+  ## Plot the posteriors
   pos <- result$posteriors
   plotPosteriors(pos$control_alpha, pos$control_beta, pos$test_alpha, pos$test_beta)
   
-  ## Plot the test samples minus the control samples
-#   testResult <- ggplot2::qplot(result$test_samples - result$control_samples, binwidth = diff(range(result$test_samples - result$control_samples)) / 50) +
-#                     ggplot2::xlab('Test Samples - Control Samples') +
-#                     ggplot2::ylab('Samples') +
-#                     ggplot2::ggtitle('Histogram of Test - Control Probability') +
-#                     ggplot2::geom_vline(x = 0)
-#   
-#   print(testResult)
-
+  ## Plot the samples
   plotSamples(result$test_samples, result$control_samples, result$inputs, result$percent_lift)
   
   par(ask = FALSE)
