@@ -19,7 +19,11 @@ plot.bayesTest <- function(result) {
     ## Plot the posteriors
     pos <- result$posteriors
     plotNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, pos$alphas, pos$betas)
+   
+    ## Plot the samples
+    plotNormalSamples(result$posteriors$A_mus, result$posteriors$B_mus)
     
+     
   }
   
   
@@ -29,9 +33,35 @@ plot.bayesTest <- function(result) {
 
 
 plotSamples <- function(test_samples, control_samples, inputs, percent_lift) {
-  
+
   ratio <- inputs$clicks_control / inputs$views_control
   cutoff <- ratio * percent_lift / 100
+  
+  diff <- test_samples - control_samples
+  diff <- data.frame(diff = diff, cutoff = diff < cutoff)
+  
+  prop <- 1 - sum(diff$cutoff) / nrow(diff)
+  prop <- round(prop * 100, digits = 1)
+  
+  p <- ggplot2::qplot(diff, data = diff, fill = cutoff, binwidth = diff(range(diff)) / 250) + 
+    ggplot2::geom_vline(xintercept = cutoff)
+  
+  m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
+  
+  p <- p + ggplot2::annotate('text', x = mean(diff$diff[diff$cutoff == F]), y = m / 3, label = paste(prop, '%', sep = "")) +
+    ggplot2::xlab('Test Samples - Control Samples') +
+    ggplot2::ylab('Samples of Beta Distribution') +
+    ggplot2::ggtitle('Histogram of Test - Control Probability') +
+    ggplot2::theme(legend.position = "none")
+  
+  print(p) 
+  
+}
+
+plotNormalSamples <- function(test_samples, control_samples, cutoff = 0) {
+  
+  # ratio <- inputs$clicks_control / inputs$views_control
+  # cutoff <- ratio * percent_lift / 100
   
   diff <- test_samples - control_samples
   diff <- data.frame(diff = diff, cutoff = diff < cutoff)
