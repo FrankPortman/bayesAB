@@ -1,20 +1,30 @@
-plot.bayesPropTest <- function(result) {    
+plot.bayesTest <- function(result) {    
   
   par(ask = TRUE)
   
-  ## Plot the prior
-  plotBeta(result$alpha, result$beta)
+  if (is(result,'bayesPropTest')) {
+    
+    ## Plot the prior
+    plotBeta(result$alpha, result$beta)
+    
+    ## Plot the posteriors
+    pos <- result$posteriors
+    plotPosteriors(pos$control_alpha, pos$control_beta, pos$test_alpha, pos$test_beta)
+    
+    ## Plot the samples
+    plotSamples(result$test_samples, result$control_samples, result$inputs, result$percent_lift)
+    
+  } else if (is(result,'bayesNormalTest')) {
+    ## Plot the posteriors
+    pos <- result$posteriors
+    plotNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs)
+  }
   
-  ## Plot the posteriors
-  pos <- result$posteriors
-  plotPosteriors(pos$control_alpha, pos$control_beta, pos$test_alpha, pos$test_beta)
-  
-  ## Plot the samples
-  plotSamples(result$test_samples, result$control_samples, result$inputs, result$percent_lift)
   
   par(ask = FALSE)
   
 }
+
 
 plotSamples <- function(test_samples, control_samples, inputs, percent_lift) {
   
@@ -58,9 +68,22 @@ plotPosteriors <- function(control_alpha, control_beta, test_alpha, test_beta) {
     ggplot2::ylab('Density') +
     ggplot2::ggtitle('Test and Control Posteriors') +
     ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
-    
+  
   print(posteriors)
   
+}
+
+plotNormalPosteriors <- function(A_mus, B_mus, A_sig_sqs, B_sig_sqs) {
+  
+  dat <- reshape2::melt(cbind(A_mus,B_mus))
+  posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
+    ggplot2::geom_density(alpha = 0.75) +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('Density') +
+    ggplot2::ggtitle('Test and Control Posteriors') +
+    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
+  
+  print(posteriors)
 }
 
 print.bayesPropTest <- function(result) {

@@ -27,7 +27,7 @@ bayesPropTest <- function(clicks_test, views_test, clicks_control, views_control
                  
   )
   
-  class(result) <- 'bayesPropTest'
+  class(result) <- c('bayesPropTest','bayesTest')
   
   return(result)
   

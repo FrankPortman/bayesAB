@@ -43,4 +43,16 @@ plot(AB1)
 print(AB1)
 
 print(liftAB1)
+
+A_data <- rnorm(1000,mean = 10,sd = 1)
+B_data <- rnorm(1000, mean = 10.1, sd = 3)
+
+AB1Norm <- bayesNormalTest(A_data,
+                      B_data,
+                      9,
+                      3,
+                      1,
+                      1)
+                      
+plot(AB1Norm)
 ```

@@ -64,6 +64,8 @@ bayesNormalTest <- function(A_data,
                    B_sig_sqs = B_sig_sqs
                  ))
   
+  class(result) <- c('bayesNormalTest','bayesTest')
   
+  return(result)
   
 }
