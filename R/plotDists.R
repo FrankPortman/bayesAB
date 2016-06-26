@@ -86,3 +86,17 @@ qinvgamma <- function(p, shape, scale) {
   else stop('qinvgamma: invalid parameters\n')
   return(out)
 }
+
+dinvgamma <- function(x, shape, scale) {
+
+    if (shape <= 0 | scale <= 0) {
+      stop("Shape or scale parameter negative in dinvgamma().\n")
+    }
+
+    alpha <- shape
+    beta <- scale
+    log.density <- alpha * log(beta) - lgamma(alpha) - (alpha + 1) * log(x) - (beta / x)
+
+    return(exp(log.density))
+
+  }
