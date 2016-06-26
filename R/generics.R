@@ -76,7 +76,7 @@ plotNormalSamples <- function(test_samples, control_samples, cutoff = 0) {
   
   p <- p + ggplot2::annotate('text', x = mean(diff$diff[diff$cutoff == F]), y = m / 3, label = paste(prop, '%', sep = "")) +
     ggplot2::xlab('Test Samples - Control Samples') +
-    ggplot2::ylab('Samples of Beta Distribution') +
+    ggplot2::ylab('Samples of Mu Distribution') +
     ggplot2::ggtitle('Histogram of Test - Control Probability') +
     ggplot2::theme(legend.position = "none")
   
