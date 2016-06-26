@@ -66,7 +66,7 @@ bayesLogNormalTest <- function(A_data,
                    B_modes = B_modes,
                    
                    A_vars = A_vars,
-                   B_vars = B_vars
+                   B_vars = B_vars,
                    
                    
                    
