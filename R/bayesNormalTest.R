@@ -1,4 +1,4 @@
-draw_mus_and_sigmas <- function(data, m0, k0, s_sq0, v0, n_samples = 100) {
+draw_mus_and_sigmas <- function(data, m0, k0, s_sq0, v0, n_samples = 1e5) {
   
   N <- length(data)
   the_mean <- mean(data)
@@ -35,8 +35,8 @@ bayesNormalTest <- function(A_data,
                             n_samples = 1e5) {
   
   
-  A <- draw_mus_and_sigmas(A_data, m0, k0, s_sq0, v0)
-  B <- draw_mus_and_sigmas(B_data, m0, k0, s_sq0, v0)
+  A <- draw_mus_and_sigmas(A_data, m0, k0, s_sq0, v0, n_samples)
+  B <- draw_mus_and_sigmas(B_data, m0, k0, s_sq0, v0, n_samples)
   
   A_mus <- A$mu_samples
   B_mus <- B$mu_samples
