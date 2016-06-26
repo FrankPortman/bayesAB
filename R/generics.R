@@ -15,9 +15,11 @@ plot.bayesTest <- function(result) {
     plotSamples(result$test_samples, result$control_samples, result$inputs, result$percent_lift)
     
   } else if (is(result,'bayesNormalTest')) {
+    
     ## Plot the posteriors
     pos <- result$posteriors
-    plotNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs)
+    plotNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, pos$alphas, pos$betas)
+    
   }
   
   
@@ -73,17 +75,33 @@ plotPosteriors <- function(control_alpha, control_beta, test_alpha, test_beta) {
   
 }
 
-plotNormalPosteriors <- function(A_mus, B_mus, A_sig_sqs, B_sig_sqs) {
+plotNormalPosteriors <- function(A_mus, B_mus, A_sig_sqs, B_sig_sqs, alphas, betas) {
   
   dat <- reshape2::melt(cbind(A_mus,B_mus))
-  posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
+  mu_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
     ggplot2::geom_density(alpha = 0.75) +
     ggplot2::xlab(NULL) +
     ggplot2::ylab('Density') +
-    ggplot2::ggtitle('Test and Control Posteriors') +
+    ggplot2::ggtitle('Test and Control Mu Posteriors') +
     ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
   
-  print(posteriors)
+  print(mu_posteriors)
+  
+  support <- seq(.01, max(qinvgamma(.995, alphas$A_alpha, betas$A_beta), qinvgamma(.995, alphas$B_alpha, betas$B_beta)), .01)
+  sigma_a <- dinvgamma(support, alphas$A_alpha, betas$A_beta)
+  sigma_b <- dinvgamma(support, alphas$B_alpha, betas$B_beta)
+
+  dat <- reshape2::melt(cbind(sigma_a,sigma_b))
+  dat <- cbind(dat, support)
+  
+  sigma_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=support, y=value, group = Var2, fill=Var2)) +
+    ggplot2::geom_ribbon(ggplot2::aes(ymin = 0, ymax = value), alpha = 0.75) +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('Density') +
+    ggplot2::ggtitle('Test and Control Sigma Posteriors') +
+    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
+  
+  print(sigma_posteriors)
 }
 
 print.bayesPropTest <- function(result) {

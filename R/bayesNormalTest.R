@@ -22,7 +22,9 @@ draw_mus_and_sigmas <- function(data, m0, k0, s_sq0, v0, n_samples = 1e5) {
   mu_samples <- rnorm(n_samples, mean_norm, var_norm)
   
   return(list(mu_samples = mu_samples,
-              sig_sq_samples = sig_sq_samples))
+              sig_sq_samples = sig_sq_samples,
+              alpha = alpha,
+              beta = beta))
   
 }
 
@@ -61,8 +63,19 @@ bayesNormalTest <- function(A_data,
                    A_mus = A_mus,
                    B_mus = B_mus,
                    A_sig_sqs = A_sig_sqs,
-                   B_sig_sqs = B_sig_sqs
-                 ))
+                   B_sig_sqs = B_sig_sqs,
+                   alphas = list(
+                     A_alpha = A$alpha,
+                     B_alpha = B$alpha
+                   ),
+                   betas = list(
+                     A_beta = A$beta,
+                     B_beta = B$beta
+                   )
+                 )
+                 
+                 
+  )
   
   class(result) <- c('bayesNormalTest','bayesTest')
   

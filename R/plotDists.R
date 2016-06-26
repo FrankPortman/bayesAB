@@ -75,7 +75,7 @@ plotInvGamma <- function(shape, scale, p = .95) {
 
 qinvgamma <- function(p, shape, scale) {
   
-  if(shape > 0 & beta > 0 & all(p > 0) & all(p < 1)) {
+  if(shape > 0 & scale > 0 & all(p > 0) & all(p < 1)) {
     if((1 - p) <= .Machine$double.eps) {
       out <- Inf
     }
