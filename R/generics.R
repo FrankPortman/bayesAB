@@ -19,11 +19,11 @@ plot.bayesTest <- function(result) {
     ## Plot the posteriors
     pos <- result$posteriors
     plotNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, pos$alphas, pos$betas)
-   
-    ## Plot the samples
-    plotNormalSamples(result$posteriors$A_mus, result$posteriors$B_mus)
     
-     
+    ## Plot the samples
+    plotNormalSamples(result$posteriors$A_mus, result$posteriors$B_mus, result$posteriors$A_sig_sqs, result$posteriors$B_sig_sqs)
+    
+    
   }
   
   
@@ -33,7 +33,7 @@ plot.bayesTest <- function(result) {
 
 
 plotSamples <- function(test_samples, control_samples, inputs, percent_lift) {
-
+  
   ratio <- inputs$clicks_control / inputs$views_control
   cutoff <- ratio * percent_lift / 100
   
@@ -58,12 +58,9 @@ plotSamples <- function(test_samples, control_samples, inputs, percent_lift) {
   
 }
 
-plotNormalSamples <- function(test_samples, control_samples, cutoff = 0) {
-  
-  # ratio <- inputs$clicks_control / inputs$views_control
-  # cutoff <- ratio * percent_lift / 100
-  
-  diff <- test_samples - control_samples
+plotNormalSamples <- function(test_mus, control_mus, test_vars, control_vars, cutoff = 0) {
+  #Mu:
+  diff <- test_mus - control_mus
   diff <- data.frame(diff = diff, cutoff = diff < cutoff)
   
   prop <- 1 - sum(diff$cutoff) / nrow(diff)
@@ -82,6 +79,25 @@ plotNormalSamples <- function(test_samples, control_samples, cutoff = 0) {
   
   print(p) 
   
+  #Variance:
+  diff <- test_vars - control_vars
+  diff <- data.frame(diff = diff, cutoff = diff < cutoff)
+  
+  prop <- 1 - sum(diff$cutoff) / nrow(diff)
+  prop <- round(prop * 100, digits = 1)
+  
+  p <- ggplot2::qplot(diff, data = diff, fill = cutoff, binwidth = diff(range(diff)) / 250) + 
+    ggplot2::geom_vline(xintercept = cutoff)
+  
+  m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
+  
+  p <- p + ggplot2::annotate('text', x = mean(diff$diff[diff$cutoff == F]), y = m / 3, label = paste(prop, '%', sep = "")) +
+    ggplot2::xlab('Test Variance Samples - Control Variance Samples') +
+    ggplot2::ylab('Samples of Variance Distribution') +
+    ggplot2::ggtitle('Histogram of Test - Control Variance Probability') +
+    ggplot2::theme(legend.position = "none")
+  
+  print(p) 
 }
 
 plotPosteriors <- function(control_alpha, control_beta, test_alpha, test_beta) {
@@ -120,7 +136,7 @@ plotNormalPosteriors <- function(A_mus, B_mus, A_sig_sqs, B_sig_sqs, alphas, bet
   support <- seq(.01, max(qinvgamma(.995, alphas$A_alpha, betas$A_beta), qinvgamma(.995, alphas$B_alpha, betas$B_beta)), .01)
   sigma_a <- dinvgamma(support, alphas$A_alpha, betas$A_beta)
   sigma_b <- dinvgamma(support, alphas$B_alpha, betas$B_beta)
-
+  
   dat <- reshape2::melt(cbind(sigma_a,sigma_b))
   dat <- cbind(dat, support)
   
