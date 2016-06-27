@@ -56,18 +56,20 @@ bayesLogNormalTest <- function(A_data,
                    A_sig_sqs = A_sig_sqs,
                    B_sig_sqs = B_sig_sqs,
                    
-                   A_means = A_means,
-                   B_means = B_means,
-                   
-                   A_meds = A_meds,
-                   B_meds = B_meds,
-                   
-                   A_modes = A_modes,
-                   B_modes = B_modes,
-                   
-                   A_vars = A_vars,
-                   B_vars = B_vars,
-                   
+                   statistics = list(
+                     
+                     A_means = A_means,
+                     B_means = B_means,
+                     
+                     A_meds = A_meds,
+                     B_meds = B_meds,
+                     
+                     A_modes = A_modes,
+                     B_modes = B_modes,
+                     
+                     A_vars = A_vars,
+                     B_vars = B_vars
+                   ),
                    
                    
                    alphas = list(

@@ -55,4 +55,13 @@ AB1Norm <- bayesNormalTest(A_data,
                       1)
                       
 plot(AB1Norm)
+
+
+A_data <- rlnorm(1000, meanlog = 1.5, sdlog = 1)
+B_data <- rlnorm(1000, meanlog = 1.7, sdlog = 1.3)
+
+AB2Norm <- bayesLogNormalTest(A_data, B_data, 1.6, 3, 1, 1)
+
+plot(AB2Norm)
+
 ```
