@@ -31,6 +31,12 @@ plot.bayesTest <- function(result) {
     
     plotLogNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, pos$statistics, pos$alphas, pos$betas)
     
+  } else if(is(result, 'bayesNegBinTest')) {
+    
+    ## Plot the posteriors
+    pos <- result$posteriors
+    
+    plotNegBinPosteriors(pos$A_mean, pos$B_mean, pos$A_prob, pos$B_prob, pos$A_r, pos$B_r, pos$A_var, pos$B_var)
   }
   
   
@@ -237,6 +243,50 @@ plotNormalPosteriors <- function(A_mus, B_mus, A_sig_sqs, B_sig_sqs, alphas, bet
   
   print(sigma_posteriors)
 }
+
+plotNegBinPosteriors <- function(A_mean, B_mean, A_prob, B_prob, A_r, B_r, A_var, B_var) {
+  
+  dat <- reshape2::melt(cbind(A_mean,B_mean))
+  mean_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
+    ggplot2::geom_density(alpha = 0.75) +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('Density') +
+    ggplot2::ggtitle('Test and Control Mean Posteriors') +
+    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
+  
+  print(mean_posteriors)
+  
+  dat <- reshape2::melt(cbind(A_prob,B_prob))
+  prob_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
+    ggplot2::geom_density(alpha = 0.75) +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('Density') +
+    ggplot2::ggtitle('Test and Control Prob Posteriors') +
+    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
+  
+  print(prob_posteriors)
+  
+  dat <- reshape2::melt(cbind(A_r,B_r))
+  r_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
+    ggplot2::geom_density(alpha = 0.75) +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('Density') +
+    ggplot2::ggtitle('Test and Control r Posteriors') +
+    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
+  
+  print(r_posteriors)
+  
+  dat <- reshape2::melt(cbind(A_var,B_var))
+  var_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
+    ggplot2::geom_density(alpha = 0.75) +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('Density') +
+    ggplot2::ggtitle('Test and Control Variance Posteriors') +
+    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
+  
+  print(var_posteriors)
+}
+
 
 print.bayesPropTest <- function(result) {
   
