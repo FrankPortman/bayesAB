@@ -1,4 +1,4 @@
-l### Gives P(A > B) by a certain lift
+### Gives P(A > B) by a certain lift
 ### Set priors for more informative predictions!
 
 getMinLift <- function(propTest, probability = .95, maxIter = 1000, threshold = .0001) {
@@ -61,6 +61,8 @@ getMinLift <- function(propTest, probability = .95, maxIter = 1000, threshold = 
   class(result) <- 'minLift'
   
   return(result)
+  
+  #quantile((AB1$test_samples - AB1$control_samples) / AB1$control_samples, .05)
   
   
 }

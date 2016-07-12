@@ -48,9 +48,9 @@ plot.bayesTest <- function(result) {
 plotSamples <- function(test_samples, control_samples, inputs, percent_lift) {
   
   ratio <- inputs$clicks_control / inputs$views_control
-  cutoff <- ratio * percent_lift / 100
+  cutoff <- percent_lift / 100
   
-  diff <- test_samples - control_samples
+  diff <- (test_samples - control_samples) / control_samples
   diff <- data.frame(diff = diff, cutoff = diff < cutoff)
   
   prop <- 1 - sum(diff$cutoff) / nrow(diff)
@@ -62,9 +62,9 @@ plotSamples <- function(test_samples, control_samples, inputs, percent_lift) {
   m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
   
   p <- p + ggplot2::annotate('text', x = mean(diff$diff[diff$cutoff == F]), y = m / 3, label = paste(prop, '%', sep = "")) +
-    ggplot2::xlab('Test Samples - Control Samples') +
+    ggplot2::xlab('(Test Samples - Control Samples) / Control Samples') +
     ggplot2::ylab('Samples of Beta Distribution') +
-    ggplot2::ggtitle('Histogram of Test - Control Probability') +
+    ggplot2::ggtitle('Histogram of (Test - Control / Control) Values') +
     ggplot2::theme(legend.position = "none")
   
   print(p) 
