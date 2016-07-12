@@ -1,4 +1,4 @@
-### Gives P(A > B) by a certain lift
+l### Gives P(A > B) by a certain lift
 ### Set priors for more informative predictions!
 
 getMinLift <- function(propTest, probability = .95, maxIter = 1000, threshold = .0001) {
