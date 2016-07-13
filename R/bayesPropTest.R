@@ -16,7 +16,8 @@ bayesPropTest <- function(clicks_test, views_test, clicks_control, views_control
                    clicks_test = clicks_test,
                    views_test = views_test,
                    clicks_control = clicks_control,
-                   views_control = views_control
+                   views_control = views_control,
+                   N_samp = N_samp
                  ),
                  
                  posteriors = list(
