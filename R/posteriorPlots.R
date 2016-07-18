@@ -76,7 +76,7 @@ plotNormalPosteriors <- function(A_mus, B_mus, A_sig_sqs, B_sig_sqs, alphas, bet
   dat <- reshape2::melt(cbind(A_sigma, B_sigma))
   dat <- cbind(dat, support)
   
-  posteriorPlotClosed(plotDat, "Sigma")
+  posteriorPlotClosed(dat, "Sigma")
   
 }
 
