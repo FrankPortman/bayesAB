@@ -51,7 +51,7 @@ plotBeta <- function(alpha, beta) {
 #' 
 #' @param shape shape parameter of the Inverse Gamma distribution.
 #' @param scale scale parameter of the Inverse Gamma distribution.
-#' @param p 
+#' @param p  control x-axis limits (default is set to view 95% of the area under the density curve)
 #' @return The PDF of InvGamma(shape, scale).
 #' @examples
 #' plotInvGamma(2, 4)

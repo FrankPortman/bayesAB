@@ -7,8 +7,12 @@ bayesLogNormalTest <- function(A_data,
                                percent_lift = 0,
                                n_samples = 1e5) {
   
-  if(!(any(A_data <= 0,
-           B_data <= 0))) {
+  if(!(
+    any(
+      A_data <= 0,
+      B_data <= 0
+      )
+    )) {
     stop("Data input is incorrect. The support of a Log Normal Distribution is (0, Inf).")
   }
   

@@ -14,24 +14,6 @@ notoriously hard to interpret for statisticians and non-statisticians
 alike. Bayesian methods are also immune to 'peeking' and are thus
 valid no matter when a test is stopped.
 
-### To Do
-
-#### V1
-
-- Documentation
-- Vignette for usage
-- Print generics for all tests
-- Hook up 'closed forms'
-
-#### V1.5
-
-- Tests
-
-#### V2
-
-- More refactoring
-- More distributions
-
 ## Installation
 
 ```{r}
