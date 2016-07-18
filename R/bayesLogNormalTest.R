@@ -4,21 +4,26 @@ bayesLogNormalTest <- function(A_data,
                                k0,
                                s_sq0,
                                v0,
+                               percent_lift = 0,
                                n_samples = 1e5) {
+  
+  if(!(any(A_data <= 0,
+           B_data <= 0))) {
+    stop("Data input is incorrect. The support of a Log Normal Distribution is (0, Inf).")
+  }
   
   A_data <- log(A_data)
   B_data <- log(B_data)
   
-  A <- draw_mus_and_sigmas(A_data, m0, k0, s_sq0, v0, n_samples)
-  B <- draw_mus_and_sigmas(B_data, m0, k0, s_sq0, v0, n_samples)
+  NormalResult <- bayesNormalTest(A_data, B_data, m0, k0, s_sq0, v0, percent_lift, n_samples)
   
   ## Means
-  A_mus <- A$mu_samples
-  B_mus <- B$mu_samples
+  A_mus <- NormalResult$posteriors$A_mus
+  B_mus <- NormalResult$posteriors$B_mus
   
   ## Sigmas
-  A_sig_sqs <- A$sig_sq_samples
-  B_sig_sqs <- B$sig_sq_samples
+  A_sig_sqs <- NormalResult$posteriors$A_sig_sqs
+  B_sig_sqs <- NormalResult$posteriors$B_sig_sqs
   
   ## Transform back to log normal for interpretation
   A_means <- exp(A_mus + A_sig_sqs / 2)
@@ -34,10 +39,10 @@ bayesLogNormalTest <- function(A_data,
   B_vars <- (exp(B_sig_sqs) - 1) * exp(2 * B_mus + B_sig_sqs)
   
   
-  result <- list(mean_prob = mean(A_means > B_means),
-                 med_prob = mean(A_meds > B_meds),
-                 mode_prob = mean(A_modes > B_modes),
-                 var_prob = mean(A_vars > B_vars),
+  result <- list(mean_prob = getProb(A_means, B_means, percent_lift),
+                 med_prob = getProb(A_meds, B_meds, percent_lift),
+                 mode_prob = getProb(A_modes, B_modes, percent_lift),
+                 var_prob = getProb(A_vars, B_vars, perecnt_lift),
                  
                  inputs = list(
                    A_data = A_data,
@@ -46,6 +51,7 @@ bayesLogNormalTest <- function(A_data,
                    k0 = k0,
                    s_sq0 = s_sq0,
                    v0 = v0,
+                   percent_lift = percent_lift,
                    n_samples = n_samples
                  ),
                  
@@ -69,8 +75,8 @@ bayesLogNormalTest <- function(A_data,
                      
                      A_vars = A_vars,
                      B_vars = B_vars
+                     
                    ),
-                   
                    
                    alphas = list(
                      A_alpha = A$alpha,
@@ -88,8 +94,5 @@ bayesLogNormalTest <- function(A_data,
   class(result) <- c('bayesLogNormalTest','bayesTest')
   
   return(result)
-  
-  
-  
   
 }

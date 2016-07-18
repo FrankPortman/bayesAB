@@ -2,7 +2,7 @@ plot.bayesTest <- function(result) {
   
   par(ask = TRUE)
   
-  if (is(result,'bayesPropTest')) {
+  if (is(result,'bayesBernoulliTest')) {
     
     ## Plot the prior
     plotBeta(result$alpha, result$beta)
@@ -12,7 +12,7 @@ plot.bayesTest <- function(result) {
     plotPosteriors(pos$control_alpha, pos$control_beta, pos$test_alpha, pos$test_beta)
     
     ## Plot the samples
-    plotSamples(result$test_samples, result$control_samples, result$inputs, result$percent_lift)
+    plotBernoulliSamples(result$test_samples, result$control_samples, result$inputs, result$percent_lift)
     
   } else if (is(result,'bayesNormalTest')) {
     
@@ -45,72 +45,19 @@ plot.bayesTest <- function(result) {
 }
 
 
-plotSamples <- function(test_samples, control_samples, inputs, percent_lift) {
+plotBernoulliSamples <- function(test_samples, control_samples, inputs, percent_lift) {
   
-  ratio <- inputs$clicks_control / inputs$views_control
-  cutoff <- percent_lift / 100
-  
-  diff <- (test_samples - control_samples) / control_samples
-  diff <- data.frame(diff = diff, cutoff = diff < cutoff)
-  
-  prop <- 1 - sum(diff$cutoff) / nrow(diff)
-  prop <- round(prop * 100, digits = 1)
-  
-  p <- ggplot2::qplot(diff, data = diff, fill = cutoff, binwidth = diff(range(diff)) / 250) + 
-    ggplot2::geom_vline(xintercept = cutoff)
-  
-  m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
-  
-  p <- p + ggplot2::annotate('text', x = mean(diff$diff[diff$cutoff == F]), y = m / 3, label = paste(prop, '%', sep = "")) +
-    ggplot2::xlab('(Test Samples - Control Samples) / Control Samples') +
-    ggplot2::ylab('Samples of Beta Distribution') +
-    ggplot2::ggtitle('Histogram of (Test - Control / Control) Values') +
-    ggplot2::theme(legend.position = "none")
-  
-  print(p) 
+  samplePlot(test_samples, control_samples, percent_lift, "B")
   
 }
 
-plotNormalSamples <- function(test_mus, control_mus, test_vars, control_vars, cutoff = 0) {
-  #Mu:
-  diff <- test_mus - control_mus
-  diff <- data.frame(diff = diff, cutoff = diff < cutoff)
+
+plotNormalSamples <- function(test_mus, control_mus, test_vars, control_vars, percent_lift) {
   
-  prop <- 1 - sum(diff$cutoff) / nrow(diff)
-  prop <- round(prop * 100, digits = 1)
+  samplePlot(test_mus, control_mus, percent_lift, "Mu")
   
-  p <- ggplot2::qplot(diff, data = diff, fill = cutoff, binwidth = diff(range(diff)) / 250) + 
-    ggplot2::geom_vline(xintercept = cutoff)
+  samplePlot(test_vars, control_vars, percent_lift, "Variance")
   
-  m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
-  
-  p <- p + ggplot2::annotate('text', x = mean(diff$diff[diff$cutoff == F]), y = m / 3, label = paste(prop, '%', sep = "")) +
-    ggplot2::xlab('Test Samples - Control Samples') +
-    ggplot2::ylab('Samples of Mu Distribution') +
-    ggplot2::ggtitle('Histogram of Test - Control Probability') +
-    ggplot2::theme(legend.position = "none")
-  
-  print(p) 
-  
-  #Variance:
-  diff <- test_vars - control_vars
-  diff <- data.frame(diff = diff, cutoff = diff < cutoff)
-  
-  prop <- 1 - sum(diff$cutoff) / nrow(diff)
-  prop <- round(prop * 100, digits = 1)
-  
-  p <- ggplot2::qplot(diff, data = diff, fill = cutoff, binwidth = diff(range(diff)) / 250) + 
-    ggplot2::geom_vline(xintercept = cutoff)
-  
-  m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
-  
-  p <- p + ggplot2::annotate('text', x = mean(diff$diff[diff$cutoff == F]), y = m / 3, label = paste(prop, '%', sep = "")) +
-    ggplot2::xlab('Test Variance Samples - Control Variance Samples') +
-    ggplot2::ylab('Samples of Variance Distribution') +
-    ggplot2::ggtitle('Histogram of Test - Control Variance Probability') +
-    ggplot2::theme(legend.position = "none")
-  
-  print(p) 
 }
 
 plotLogNormalSamples <- function(test_mus,
@@ -244,48 +191,48 @@ plotNormalPosteriors <- function(A_mus, B_mus, A_sig_sqs, B_sig_sqs, alphas, bet
   print(sigma_posteriors)
 }
 
-plotNegBinPosteriors <- function(A_mean, B_mean, A_prob, B_prob, A_r, B_r, A_var, B_var) {
-  
-  dat <- reshape2::melt(cbind(A_mean,B_mean))
-  mean_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
-    ggplot2::geom_density(alpha = 0.75) +
-    ggplot2::xlab(NULL) +
-    ggplot2::ylab('Density') +
-    ggplot2::ggtitle('Test and Control Mean Posteriors') +
-    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
-  
-  print(mean_posteriors)
-  
-  dat <- reshape2::melt(cbind(A_prob,B_prob))
-  prob_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
-    ggplot2::geom_density(alpha = 0.75) +
-    ggplot2::xlab(NULL) +
-    ggplot2::ylab('Density') +
-    ggplot2::ggtitle('Test and Control Prob Posteriors') +
-    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
-  
-  print(prob_posteriors)
-  
-  dat <- reshape2::melt(cbind(A_r,B_r))
-  r_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
-    ggplot2::geom_density(alpha = 0.75) +
-    ggplot2::xlab(NULL) +
-    ggplot2::ylab('Density') +
-    ggplot2::ggtitle('Test and Control r Posteriors') +
-    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
-  
-  print(r_posteriors)
-  
-  dat <- reshape2::melt(cbind(A_var,B_var))
-  var_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
-    ggplot2::geom_density(alpha = 0.75) +
-    ggplot2::xlab(NULL) +
-    ggplot2::ylab('Density') +
-    ggplot2::ggtitle('Test and Control Variance Posteriors') +
-    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
-  
-  print(var_posteriors)
-}
+# plotNegBinPosteriors <- function(A_mean, B_mean, A_prob, B_prob, A_r, B_r, A_var, B_var) {
+#   
+#   dat <- reshape2::melt(cbind(A_mean,B_mean))
+#   mean_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
+#     ggplot2::geom_density(alpha = 0.75) +
+#     ggplot2::xlab(NULL) +
+#     ggplot2::ylab('Density') +
+#     ggplot2::ggtitle('Test and Control Mean Posteriors') +
+#     ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
+#   
+#   print(mean_posteriors)
+#   
+#   dat <- reshape2::melt(cbind(A_prob,B_prob))
+#   prob_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
+#     ggplot2::geom_density(alpha = 0.75) +
+#     ggplot2::xlab(NULL) +
+#     ggplot2::ylab('Density') +
+#     ggplot2::ggtitle('Test and Control Prob Posteriors') +
+#     ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
+#   
+#   print(prob_posteriors)
+#   
+#   dat <- reshape2::melt(cbind(A_r,B_r))
+#   r_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
+#     ggplot2::geom_density(alpha = 0.75) +
+#     ggplot2::xlab(NULL) +
+#     ggplot2::ylab('Density') +
+#     ggplot2::ggtitle('Test and Control r Posteriors') +
+#     ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
+#   
+#   print(r_posteriors)
+#   
+#   dat <- reshape2::melt(cbind(A_var,B_var))
+#   var_posteriors <- ggplot2::ggplot(dat, ggplot2::aes(x=value, group = Var2, fill=Var2)) +
+#     ggplot2::geom_density(alpha = 0.75) +
+#     ggplot2::xlab(NULL) +
+#     ggplot2::ylab('Density') +
+#     ggplot2::ggtitle('Test and Control Variance Posteriors') +
+#     ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
+#   
+#   print(var_posteriors)
+# }
 
 
 print.bayesPropTest <- function(result) {

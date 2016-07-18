@@ -1,4 +1,9 @@
-draw_mus_and_sigmas <- function(data, m0, k0, s_sq0, v0, n_samples = 1e5) {
+draw_mus_and_sigmas <- function(data, 
+                                m0, 
+                                k0, 
+                                s_sq0, 
+                                v0, 
+                                n_samples = 1e5) {
   
   N <- length(data)
   the_mean <- mean(data)
@@ -34,6 +39,7 @@ bayesNormalTest <- function(A_data,
                             k0,
                             s_sq0,
                             v0,
+                            percent_lift = 0,
                             n_samples = 1e5) {
   
   
@@ -46,8 +52,8 @@ bayesNormalTest <- function(A_data,
   A_sig_sqs <- A$sig_sq_samples
   B_sig_sqs <- B$sig_sq_samples
   
-  result <- list(mu_prob = mean(A_mus > B_mus),
-                 sig_sq_prob = mean(A_sig_sqs > B_sig_sqs),
+  result <- list(mu_prob = getProb(A_mus, B_mus, percent_lift = percent_lift),
+                 sig_sq_prob = getProb(A_sig_sqs, B_sig_sqs, percent_lift = percent_lift),
                  
                  inputs = list(
                    A_data = A_data,
@@ -56,6 +62,7 @@ bayesNormalTest <- function(A_data,
                    k0 = k0,
                    s_sq0 = s_sq0,
                    v0 = v0,
+                   percent_lift = percent_lift,
                    n_samples = n_samples
                  ),
                  
