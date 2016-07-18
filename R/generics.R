@@ -9,7 +9,7 @@ plot.bayesTest <- function(result) {
     
     ## Plot the posteriors
     pos <- result$posteriors
-    plotPosteriors(pos$control_alpha, pos$control_beta, pos$test_alpha, pos$test_beta)
+    plotBernoulliPosteriors(pos$control_alpha, pos$control_beta, pos$test_alpha, pos$test_beta)
     
     ## Plot the samples
     plotBernoulliSamples(result$test_samples, result$control_samples, result$inputs, result$percent_lift)
@@ -41,37 +41,6 @@ plot.bayesTest <- function(result) {
   
   
   par(ask = FALSE)
-  
-}
-
-
-plotBernoulliSamples <- function(test_samples, control_samples, inputs, percent_lift) {
-  
-  samplePlot(test_samples, control_samples, percent_lift, "B")
-  
-}
-
-
-plotNormalSamples <- function(test_mus, control_mus, test_vars, control_vars, percent_lift) {
-  
-  samplePlot(test_mus, control_mus, percent_lift, "Mu")
-  
-  samplePlot(test_vars, control_vars, percent_lift, "Variance")
-  
-}
-
-plotLogNormalSamples <- function(test_mus,
-                                 control_mus,
-                                 test_vars,
-                                 control_vars,
-                                 other_statistics,
-                                 cutoff = 0) {
-  
-  
-  plotNormalSamples(test_mus, control_mus, test_vars, control_vars, cutoff)
-  
-  
-  
   
 }
 

@@ -1,9 +1,8 @@
 plotBernoulliSamples <- function(test_samples, 
                                  control_samples, 
-                                 inputs, 
                                  percent_lift) {
   
-  samplePlot(test_samples, control_samples, percent_lift, "B")
+  samplePlot(test_samples, control_samples, percent_lift, "Probability")
   
 }
 
