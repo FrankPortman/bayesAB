@@ -24,6 +24,7 @@ valid no matter when a test is stopped.
 - Hook up 'closed forms'
 - Programmatic usage for plots - specifying which you want or being able to extract those objects safely
 - Sample plots for LogNormal test
+- Credible Intervals
 
 #### V1.5
 
