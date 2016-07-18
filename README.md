@@ -22,6 +22,7 @@ valid no matter when a test is stopped.
 - Vignette for usage
 - Print generics for all tests
 - Hook up 'closed forms'
+- Programmatic usage for plots - specifying which you want or being able to extract those objects safely
 
 #### V1.5
 
