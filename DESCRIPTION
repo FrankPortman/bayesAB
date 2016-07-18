@@ -15,6 +15,7 @@ License: GPL (>= 2)
 Imports:
     Rcpp (>= 0.11.4),
     ggplot2,
-    reshape2
+    reshape2,
+    methods
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1

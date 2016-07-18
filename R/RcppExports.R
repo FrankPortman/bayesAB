@@ -9,7 +9,3 @@ alt_prop <- function(alpha_1, beta_1, alpha_2, beta_2) {
     .Call('bayesAB_alt_prop', PACKAGE = 'bayesAB', alpha_1, beta_1, alpha_2, beta_2)
 }
 
-rcpp_hello_world <- function() {
-    .Call('bayesAB_rcpp_hello_world', PACKAGE = 'bayesAB')
-}
-

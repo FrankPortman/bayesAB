@@ -1,3 +1,7 @@
 useDynLib(bayesAB)
 exportPattern("^[[:alpha:]]+")
 importFrom(Rcpp, evalCpp)
+importFrom("graphics", "par")
+importFrom("methods", "is")
+importFrom("stats", "dbeta", "dnorm", "qgamma", "quantile", "rbeta",
+           "rgamma", "rnorm")

@@ -73,10 +73,8 @@ getMinLift2 <- function(propTest, threshold = c(.9, .95), eval = F) {
   vals <- quantile((propTest$test_samples - propTest$control_samples) / propTest$control_samples, 1 - threshold)
   
   if(eval) {
-    res <- lapply(vals, function(x) bayesPropTest(propTest$inputs$clicks_test,
-                                                         propTest$inputs$views_test,
-                                                         propTest$inputs$clicks_control,
-                                                         propTest$inputs$views_control,
+    res <- lapply(vals, function(x) bayesBernoulliTest(propTest$inputs$A_data,
+                                                         propTest$inputs$B_data,
                                                          propTest$alpha,
                                                          propTest$beta,
                                                          x,

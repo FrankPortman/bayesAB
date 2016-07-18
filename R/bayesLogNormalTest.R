@@ -46,7 +46,7 @@ bayesLogNormalTest <- function(A_data,
   result <- list(mean_prob = getProb(A_means, B_means, percent_lift),
                  med_prob = getProb(A_meds, B_meds, percent_lift),
                  mode_prob = getProb(A_modes, B_modes, percent_lift),
-                 var_prob = getProb(A_vars, B_vars, perecnt_lift),
+                 var_prob = getProb(A_vars, B_vars, percent_lift),
                  
                  inputs = list(
                    A_data = A_data,
@@ -83,12 +83,12 @@ bayesLogNormalTest <- function(A_data,
                    ),
                    
                    alphas = list(
-                     A_alpha = A$alpha,
-                     B_alpha = B$alpha
+                     A_alpha = NormalResult$alphas$A_alpha,
+                     B_alpha = NormalResult$alphas$B_alpha
                    ),
                    betas = list(
-                     A_beta = A$beta,
-                     B_beta = B$beta
+                     A_beta = NormalResult$betas$A_beta,
+                     B_beta = NormalResult$betas$B_beta
                    )
                  )
                  
