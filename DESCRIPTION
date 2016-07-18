@@ -19,3 +19,4 @@ Imports:
     methods
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
+Encoding: UTF-8
