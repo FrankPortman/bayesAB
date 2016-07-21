@@ -55,8 +55,8 @@ B <- rbinom(250, size = 1, .2)
 
 AB1 <- bayesBernoulliTest(A,
                           B,
-                     alpha = 1,
-                     beta = 1)
+                     c("alpha" = 1,
+                     "beta" = 1))
 
 liftAB1 <- getMinLift(AB1)
 
@@ -71,10 +71,10 @@ B_data <- rnorm(1000, mean = 10.1, sd = 3)
 
 AB1Norm <- bayesNormalTest(A_data,
                       B_data,
-                      9,
-                      3,
-                      1,
-                      1)
+                      c("m0" = 9,
+                      "k0" = 3,
+                      "s_sq0" = 1,
+                      "v0" = 1))
                       
 plot(AB1Norm)
 

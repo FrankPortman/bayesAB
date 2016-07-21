@@ -73,3 +73,21 @@ print.minLift <- function(result) {
   
 }
 
+
+`+.bayesTest` <- function(e1, e2) {
+  
+  if(e1$inputs$n_samples != e2$inputs$n_samples) warning("n_samples not equal. Recycling elements for target distribution.")
+  
+  #add all of e1A to all of e2A
+  #add all of e1B to all of e2B
+  
+}
+
+`*.bayesTest` <- function(e1, e2) {
+  
+  if(e1$inputs$n_samples != e2$inputs$n_samples) warning("n_samples not equal. Recycling elements for target distribution.")
+  
+  #multiply all of e1A to all of e2A
+  #multiply all of e1B to all of e2B
+  
+} 
