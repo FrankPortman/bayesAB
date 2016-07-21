@@ -29,7 +29,7 @@ plotNormal <- function(mu, s_sq) {
 plotBeta <- function(alpha, beta) {
   
   support <- seq(0, 1, .001)
-  hseq <- dbeta(seq, alpha, beta)
+  hseq <- dbeta(support, alpha, beta)
   
   plotDist(support, hseq, "Beta", c('alpha' = alpha, 'beta' = beta))
   
@@ -49,7 +49,7 @@ plotInvGamma <- function(shape, scale, p = .95) {
   
   if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
   
-  support <- seq(0, qinvgamma(p, shape, scale), .01)
+  support <- seq(.01, qinvgamma(p, shape, scale), .01)
   hseq <- dinvgamma(support, shape, scale)
   
   plotDist(support, hseq, "InvGamma", c('shape' = shape, 'scale' = scale))
@@ -84,7 +84,7 @@ dinvgamma <- function(x, shape, scale) {
 
 }
 
-distPlot <- function(support, hseq, dist, params) {
+plotDist <- function(support, hseq, dist, params) {
   
   paramList <- sapply(1:length(params), function(x) paste(names(params)[x], params[x], sep = " = ", collapse = ""))
   paramList <- paste0(paramList, collapse = ", ")
