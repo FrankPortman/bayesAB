@@ -1,4 +1,4 @@
-draw_mus_and_sigmas <- function(data, 
+drawMusAndSigmas <- function(data, 
                                 m0, 
                                 k0, 
                                 s_sq0, 
@@ -35,6 +35,7 @@ draw_mus_and_sigmas <- function(data,
 
 bayesNormalTest <- function(A_data,
                             B_data,
+                            priors,
                             m0,
                             k0,
                             s_sq0,
@@ -42,15 +43,48 @@ bayesNormalTest <- function(A_data,
                             percent_lift = 0,
                             n_samples = 1e5) {
   
+  ###
+  ## Error Checking
+  ###
   
-  A <- draw_mus_and_sigmas(A_data, m0, k0, s_sq0, v0, n_samples)
-  B <- draw_mus_and_sigmas(B_data, m0, k0, s_sq0, v0, n_samples)
+  ## Check that we have 4 priors
+  if(length(priors) != 4) stop("Incorrect length of priors. Expecting an argument for m0, k0, s_sq0, and v0.")
+  
+  ## Check we have all priors
+  if(!all(names(priors) %in% c('m0', 'k0', 's_sq0', 'v0'))) 
+    stop("Arguments don't match requirement for m0, k0, s_sq0, and v0. Check names.")
+  
+  priors <- priors[c('m0', 'k0', 's_sq0', 'v0')]
+  priors <- as.numeric(priors)
+  
+  m0 <- priors[1]
+  k0 <- priors[2]
+  s_sq0 <- priors[3]
+  v0 <- priors[4]
+  
+  ## Check that priors are numeric
+  if(any(is.na(priors))) stop("One or more of the priors is not numeric.")
+  
+  if(k0 <= 0) stop('k0 is the "variance" prior on mu ~ N(m0, k0) and must be strictly positive.')
+  if(s_sq0 <= 0) stop('s_sq0 is the "alpha" prior on sig_sq ~ InvGamma(s_sq0, v0) and must be strictly positive.')
+  if(v0 <= 0) stop('v0 is the "beta" prior on sig_sq ~ InvGamma(s_sq0, v0) and must be strictly positive.')
+  
+  ###
+  ## Do the computation
+  ###
+  
+  A <- drawMusAndSigmas(A_data, m0, k0, s_sq0, v0, n_samples)
+  B <- drawMusAndSigmas(B_data, m0, k0, s_sq0, v0, n_samples)
   
   A_mus <- A$mu_samples
   B_mus <- B$mu_samples
   
   A_sig_sqs <- A$sig_sq_samples
   B_sig_sqs <- B$sig_sq_samples
+  
+  ###
+  ##  Output the result
+  ###
   
   result <- list(mu_prob = getProb(A_mus, B_mus, percent_lift = percent_lift),
                  sig_sq_prob = getProb(A_sig_sqs, B_sig_sqs, percent_lift = percent_lift),

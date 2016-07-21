@@ -1,12 +1,17 @@
 bayesBernoulliTest <- function(A_data,
                           B_data,
-                          alpha = 1, 
-                          beta = 1, 
+                          priors,
                           percent_lift = 0, 
                           N_samp = 1e6) {
   
+  ###
+  ## Error Checking
+  ###
+  
+  
+  ## Check that we only have click data
   if(!(
-    any(
+    all(
       A_data %in% c(0, 1),
       B_data %in% c(0, 1)
       )
@@ -14,6 +19,25 @@ bayesBernoulliTest <- function(A_data,
     stop("Data input is incorrect. Data can only contain 0's and 1's. See help docs for more info.")
   }
   
+  ## Check that priors are supplied
+  if(length(priors) != 2) stop("Incorrect length of priors. Expecting an argument for alpha and beta.")
+  
+  ## Check we have alpha and beta
+  if(!all(names(priors) %in% c('alpha', 'beta'))) stop("Arguments don't match requirement for alpha and beta. Check names.")
+  
+  priors <- priors[c('alpha', 'beta')]
+  priors <- as.numeric(priors)
+    
+  if(any(is.na(priors))) stop("alpha and/or beta are not numeric!")
+  if(!all(priors > 0)) stop("alpha and beta are parameters of the Beta Distribution and should be strictly > 0.")
+  
+  alpha <- priors[1]
+  beta <- priors[2]
+    
+  ###
+  ## Do the computation
+  ###
+    
   clicks_test <- sum(A_data)
   views_test <- length(A_data)
   
@@ -23,9 +47,11 @@ bayesBernoulliTest <- function(A_data,
   test_samples <- rbeta(N_samp, clicks_test + alpha, views_test - clicks_test + beta)
   control_samples <- rbeta(N_samp, clicks_control + alpha, views_control - clicks_control + beta)
   
-  prob <- getProb(test_samples, control_samples, percent_lift = percent_lift)
+  ###
+  ## Output the result
+  ###
   
-  result <- list(prob = prob,
+  result <- list(prob = getProb(test_samples, control_samples, percent_lift = percent_lift),
                  test_samples = test_samples,
                  control_samples = control_samples,
                  alpha = alpha,

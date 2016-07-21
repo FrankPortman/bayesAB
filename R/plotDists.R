@@ -13,12 +13,7 @@ plotNormal <- function(mu, s_sq) {
   support <- seq(mu - s_sq * 5, mu + s_sq * 5, .001)
   hseq <- dnorm(support, mu, s_sq)
   
-  p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
-    ggplot2::xlab(NULL) +
-    ggplot2::ylab('PDF') +
-    ggplot2::ggtitle(paste('Probability Density Function for Parameters: mu = ', mu, ', s_sq = ', s_sq, sep = ""))
-  
-  print(p)
+  plotDist(seq, hseq, "Normal", c('mu' = mu, 's_sq' = s_sq))
   
 }
 
@@ -33,17 +28,10 @@ plotNormal <- function(mu, s_sq) {
 
 plotBeta <- function(alpha, beta) {
   
-  seq <- seq(0, 1, .001)
+  support <- seq(0, 1, .001)
   hseq <- dbeta(seq, alpha, beta)
   
-  p <- ggplot2::qplot(x = seq, y = hseq, geom = "line") +
-    ggplot2::scale_x_continuous(breaks = seq(0, 1, .1)) +
-    ggplot2::xlab(NULL) + 
-    ggplot2::ylab('PDF') + 
-    ggplot2::ggtitle(paste('Probability Density Function for Parameters: alpha = ', alpha, ', beta = ', beta, sep = ''))
-  
-  
-  print(p)
+  plotDist(seq, hseq, "Beta", c('alpha' = alpha, 'beta' = beta))
   
 }
 
@@ -64,12 +52,7 @@ plotInvGamma <- function(shape, scale, p = .95) {
   support <- seq(0, qinvgamma(p, shape, scale), .01)
   hseq <- dinvgamma(support, shape, scale)
   
-  p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
-    ggplot2::xlab(NULL) +
-    ggplot2::ylab('PDF') +
-    ggplot2::ggtitle(paste('Probability Density Function for Parameters: shape = ', shape, ', scale = ', scale, sep = ""))
-  
-  print(p)
+  plotDist(seq, hseq, "InvGamma", c('shape' = shape, 'scale' = scale))
   
 }
 
@@ -99,4 +82,24 @@ dinvgamma <- function(x, shape, scale) {
 
     return(exp(log.density))
 
-  }
+}
+
+distPlot <- function(seq, hseq, dist, params) {
+  
+  paramList <- sapply(1:length(params), function(x) paste(names(params)[x], params[x], sep = " = ", collapse = ""))
+  paramList <- paste0(paramList, collapse = ", ")
+  
+  p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('PDF') +
+    ggplot2::ggtitle(paste(
+      dist,
+      'Probability Density Function for Parameters: ',
+      paramList,
+      collapse = "")) +
+    ggplot2::geom_ribbon(ymin = 0, ymax = hseq, size = 2, color = I("lightblue"), fill = "lightgreen", alpha = .25) +
+    ggplot2::theme_minimal()
+  
+  print(p)
+  
+}
