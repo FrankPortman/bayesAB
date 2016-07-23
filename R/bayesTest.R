@@ -1,3 +1,8 @@
+bayesAB.env <- new.env()
+bayesAB.env$functions <- list("bernoulli" = bayesBernoulliTest,
+                              "normal" = bayesNormalTest,
+                              "lognormal" = bayesLogNormalTest)
+
 bayesTest <- function(A_data,
                       B_data,
                       priors,
@@ -5,11 +10,7 @@ bayesTest <- function(A_data,
                       n_samples = 1e5,
                       distribution) {
   
-  if(distribution == 'bernoulli') bayesBernoulliTest(A_data, B_data, priors, percent_lift, n_samples)
-  else if(distribution == 'normal') bayesNormalTest(A_data, B_data, priors, percent_lift, n_samples)
-  else if(distribution == 'lognormal') bayesLogNormalTest(A_Data, B_data, priors, percent_lift, n_samples)
-  else stop("Did not specify a valid distribution.")
+  if(!distribution %in% names(bayesAB.env$functions)) stop("Did not specify a valid distribution.")
+  do.call(bayesAB.env$functions[distribution], list(A_data, B_data, priors, percent_lift, n_samples))
   
 }
-
-t <- bayesTest(1, 2, 3, 4, 5, "hi")
