@@ -57,6 +57,8 @@ AB1 <- bayesBernoulliTest(A,
                           B,
                      c("alpha" = 1,
                      "beta" = 1))
+                     
+AB1 <- bayesTest(A, B, c("alpha" = 1, "beta" = 1), distribution = "bernoulli")
 
 liftAB1 <- getMinLift(AB1)
 

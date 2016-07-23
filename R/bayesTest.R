@@ -11,6 +11,6 @@ bayesTest <- function(A_data,
                       distribution) {
   
   if(!distribution %in% names(bayesAB.env$functions)) stop("Did not specify a valid distribution.")
-  do.call(bayesAB.env$functions[distribution], list(A_data, B_data, priors, percent_lift, n_samples))
+  do.call(bayesAB.env$functions[[distribution]], list(A_data, B_data, priors, percent_lift, n_samples))
   
 }
