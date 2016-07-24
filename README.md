@@ -50,8 +50,8 @@ library(bayesAB)
 plotBeta(alpha = 1,
          beta = 1)
          
-A <- rbinom(250, size = 1, .3)
-B <- rbinom(250, size = 1, .2)
+A <- rbinom(25000, size = 1, .3)
+B <- rbinom(25000, size = 1, .2)
 
 AB1 <- bayesBernoulliTest(A,
                           B,

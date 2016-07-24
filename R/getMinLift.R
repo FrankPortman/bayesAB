@@ -88,4 +88,10 @@ getMinLift2 <- function(propTest, threshold = c(.9, .95), eval = F) {
   
 }
 
+getCredibleInterval <- function(propTest, interval_start = .5, interval_end = .95) {
+  
+  
+  
+}
+
 

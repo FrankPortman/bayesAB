@@ -44,6 +44,13 @@ plot.bayesTest <- function(result) {
   
 }
 
+print.bayesTest <- function(result) {
+  
+  #lapply through all params
+  
+  
+}
+
 
 print.bayesPropTest <- function(result) {
   
