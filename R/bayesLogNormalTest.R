@@ -4,7 +4,7 @@ bayesLogNormalTest <- function(A_data,
                                percent_lift = 0,
                                n_samples = 1e5) {
   
-  if(!(
+  if((
     any(
       A_data <= 0,
       B_data <= 0
@@ -16,7 +16,7 @@ bayesLogNormalTest <- function(A_data,
   A_data <- log(A_data)
   B_data <- log(B_data)
   
-  NormalResult <- bayesNormalTest(A_data, B_data, m0, k0, s_sq0, v0, percent_lift, n_samples)
+  NormalResult <- bayesNormalTest(A_data, B_data, priors, percent_lift, n_samples)
   
   ## Means
   A_mus <- NormalResult$posteriors$A_mus
@@ -48,12 +48,23 @@ bayesLogNormalTest <- function(A_data,
                  inputs = list(
                    A_data = A_data,
                    B_data = B_data,
-                   m0 = m0,
-                   k0 = k0,
-                   s_sq0 = s_sq0,
-                   v0 = v0,
+                   m0 = priors[1],
+                   k0 = priors[2],
+                   s_sq0 = priors[3],
+                   v0 = priors[4],
                    percent_lift = percent_lift,
                    n_samples = n_samples
+                 ),
+                 
+                 trans_inputs = list(
+                   alphas = list(
+                     A_alpha = NormalResult$trans_inputs$alphas$A_alpha,
+                     B_alpha = NormalResult$trans_inputs$alphas$B_alpha
+                   ),
+                   betas = list(
+                     A_beta = NormalResult$trans_inputs$betas$A_beta,
+                     B_beta = NormalResult$trans_inputs$betas$B_beta
+                   )
                  ),
                  
                  posteriors = list(
@@ -77,15 +88,6 @@ bayesLogNormalTest <- function(A_data,
                      A_vars = A_vars,
                      B_vars = B_vars
                      
-                   ),
-                   
-                   alphas = list(
-                     A_alpha = NormalResult$alphas$A_alpha,
-                     B_alpha = NormalResult$alphas$B_alpha
-                   ),
-                   betas = list(
-                     A_beta = NormalResult$betas$A_beta,
-                     B_beta = NormalResult$betas$B_beta
                    )
                  )
                  

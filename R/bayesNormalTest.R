@@ -96,11 +96,7 @@ bayesNormalTest <- function(A_data,
                    n_samples = n_samples
                  ),
                  
-                 posteriors = list(
-                   A_mus = A_mus,
-                   B_mus = B_mus,
-                   A_sig_sqs = A_sig_sqs,
-                   B_sig_sqs = B_sig_sqs,
+                 trans_inputs = list(
                    alphas = list(
                      A_alpha = A$alpha,
                      B_alpha = B$alpha
@@ -109,6 +105,13 @@ bayesNormalTest <- function(A_data,
                      A_beta = A$beta,
                      B_beta = B$beta
                    )
+                 ),
+                 
+                 posteriors = list(
+                   A_mus = A_mus,
+                   B_mus = B_mus,
+                   A_sig_sqs = A_sig_sqs,
+                   B_sig_sqs = B_sig_sqs
                  )
                  
                  

@@ -18,10 +18,12 @@ plot.bayesTest <- function(result) {
     
     ## Plot the posteriors
     pos <- result$posteriors
-    plotNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, pos$alphas, pos$betas)
+    plotNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, 
+                         result$trans_inputs$alphas, result$trans_inputs$betas)
     
     ## Plot the samples
-    plotNormalSamples(result$posteriors$A_mus, result$posteriors$B_mus, result$posteriors$A_sig_sqs, result$posteriors$B_sig_sqs, result$inputs$percent_lift)
+    plotNormalSamples(result$posteriors$A_mus, result$posteriors$B_mus, 
+                      result$posteriors$A_sig_sqs, result$posteriors$B_sig_sqs, result$inputs$percent_lift)
     
     
   } else if(is(result, 'bayesLogNormalTest')) {
@@ -29,7 +31,8 @@ plot.bayesTest <- function(result) {
     ## Plot the posteriors
     pos <- result$posteriors
     
-    plotLogNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, pos$statistics, pos$alphas, pos$betas, result$inputs$percent_lift)
+    plotLogNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, pos$statistics, 
+                            result$trans_inputs$alphas, result$trans_inputs$betas)
     
   } else if(is(result, 'bayesNegBinTest')) {
     
