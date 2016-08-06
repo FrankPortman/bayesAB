@@ -5,14 +5,14 @@ plot.bayesTest <- function(result) {
   if (is(result,'bayesBernoulliTest')) {
     
     ## Plot the prior
-    plotBeta(result$alpha, result$beta)
+    plotBeta(result$inputs$alpha, result$inputs$beta)
     
     ## Plot the posteriors
     pos <- result$posteriors
     plotBernoulliPosteriors(pos$control_alpha, pos$control_beta, pos$test_alpha, pos$test_beta)
     
     ## Plot the samples
-    plotBernoulliSamples(result$test_samples, result$control_samples, result$percent_lift)
+    plotBernoulliSamples(pos$test_samples, pos$control_samples, result$inputs$percent_lift)
     
   } else if (is(result,'bayesNormalTest')) {
     

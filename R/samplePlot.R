@@ -1,8 +1,9 @@
 samplePlot <- function(A, B, percent_lift, name) {
   
   diff <- (A - B) / B
-  diff <- data.frame(diff = diff, cutoff = diff < cutoff)
   cutoff <- percent_lift / 100
+  
+  diff <- data.frame(diff = diff, cutoff = diff < cutoff)
   
   prop <- 1 - sum(diff$cutoff) / nrow(diff)
   prop <- round(prop * 100, digits = 1)

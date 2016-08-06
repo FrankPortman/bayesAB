@@ -66,7 +66,9 @@ bayesBernoulliTest <- function(A_data,
                    control_alpha = clicks_control + alpha,
                    control_beta = views_control - clicks_control + beta,
                    test_alpha = clicks_test + alpha,
-                   test_beta = views_test - clicks_test + beta)
+                   test_beta = views_test - clicks_test + beta,
+                   test_samples = test_samples,
+                   control_samples = control_samples)
                  
   )
   
