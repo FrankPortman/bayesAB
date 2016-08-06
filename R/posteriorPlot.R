@@ -1,6 +1,6 @@
 posteriorPlotSamp <- function(plotDat, name) {
   
-  p <- ggplot2::ggplot(dat, ggplot2::aes(x = value, group = Var2, fill = Var2)) +
+  p <- ggplot2::ggplot(plotDat, ggplot2::aes(x = value, group = Var2, fill = Var2)) +
     ggplot2::geom_density(alpha = 0.75) +
     ggplot2::xlab(NULL) +
     ggplot2::ylab('Density') +
