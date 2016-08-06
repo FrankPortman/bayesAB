@@ -84,9 +84,12 @@ plot(AB1Norm)
 A_data <- rlnorm(1000, meanlog = 1.5, sdlog = 1)
 B_data <- rlnorm(1000, meanlog = 1.7, sdlog = 1.3)
 
-AB2Norm <- bayesLogNormalTest(A_data, B_data, 1.6, 3, 1, 1)
+AB1LogNorm <- bayesLogNormalTest(A_data, B_data, c("m0" = 9,
+                      "k0" = 3,
+                      "s_sq0" = 1,
+                      "v0" = 1))
 
-plot(AB2Norm)
+plot(AB1LogNorm)
 
 #Negative Binomial Example
 A_data <- rnbinom(1000, 3, 0.8)

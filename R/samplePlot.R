@@ -14,7 +14,8 @@ samplePlot <- function(A, B, percent_lift, name) {
   m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
   
   xpos <- mean(diff$diff[diff$cutoff == F])
-  if(is.nan(xpos)) xpos <- cutoff + 5
+  if(is.nan(xpos)) xpos <-  mean(diff$diff[diff$cutoff == T])
+  
   
   p <- p + ggplot2::annotate('text', x = xpos, y = m / 3, label = paste(prop, '%', sep = "")) +
     ggplot2::xlab('(Test - Control) / Control') +
