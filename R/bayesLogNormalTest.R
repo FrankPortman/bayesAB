@@ -8,8 +8,8 @@ bayesLogNormalTest <- function(A_data,
     any(
       A_data <= 0,
       B_data <= 0
-      )
-    )) {
+    )
+  )) {
     stop("Data input is incorrect. The support of a Log Normal Distribution is (0, Inf).")
   }
   
@@ -74,21 +74,18 @@ bayesLogNormalTest <- function(A_data,
                    A_sig_sqs = A_sig_sqs,
                    B_sig_sqs = B_sig_sqs,
                    
-                   statistics = list(
-                     
-                     A_means = A_means,
-                     B_means = B_means,
-                     
-                     A_meds = A_meds,
-                     B_meds = B_meds,
-                     
-                     A_modes = A_modes,
-                     B_modes = B_modes,
-                     
-                     A_vars = A_vars,
-                     B_vars = B_vars
-                     
-                   )
+                   A_means = A_means,
+                   B_means = B_means,
+                   
+                   A_meds = A_meds,
+                   B_meds = B_meds,
+                   
+                   A_modes = A_modes,
+                   B_modes = B_modes,
+                   
+                   A_vars = A_vars,
+                   B_vars = B_vars
+                   
                  )
                  
                  

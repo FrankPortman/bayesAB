@@ -8,7 +8,8 @@ getMinLift <- function(bayesTest, threshold = c(.9, .95), varName, eval = F) {
     vals <- quantile((bayesTest$posteriors$test_samples - bayesTest$posteriors$control_samples) / bayesTest$posteriors$control_samples, 1 - threshold)
     
     if(eval) {
-      
+      ##TO DO: change Bernoulli test so that priors are in bayesTest$inputs$priors so evalBernoulli
+      ##can be combined with evalNormal
       evalBernoulli <- function(single_threshold) {
         tmpBernoulli <- bayesBernoulliTest(bayesTest$inputs$A_data,
                                            bayesTest$inputs$B_data,
@@ -23,7 +24,7 @@ getMinLift <- function(bayesTest, threshold = c(.9, .95), varName, eval = F) {
       }
       
       vals <- sapply(threshold, evalBernoulli)
-      
+      varName <- "probs"
     }
     
   } else {
@@ -38,32 +39,31 @@ getMinLift <- function(bayesTest, threshold = c(.9, .95), varName, eval = F) {
     if (varNameTest %in% names(bayesTest$posteriors)) {
       test_samples <- bayesTest$posteriors[[paste0("A_",varName)]]
       control_samples <- bayesTest$posteriors[[paste0("B_",varName)]]
-    } else if (varNameTest %in% names(bayesTest$posteriors$statistics)) {
-      test_samples <- bayesTest$posteriors$statistics[[paste0("A_",varName)]]
-      control_samples <- bayesTest$posteriors$statistics[[paste0("B_",varName)]]
     } else {
-      stop(paste0("Cannot find variable name '", varNameTest, "' within posteriors or posteriors$statistics."))
+      stop(paste0("Cannot find variable name '", varNameTest, "' within posteriors."))
     }
     
     vals <- quantile((test_samples - control_samples) / control_samples, 1 - threshold)
     
     if(eval) {
       if (is(bayesTest,'bayesNormalTest')) {
-        
+        distribution = "normal"
+      } else if (is(bayesTest,'bayesLogNormalTest')) {
+        distribution = "lognormal"
+      } else{
+        stop("Could not find correct distribution for bayesTest")
+      }
+      
         evalNormal <- function(single_threshold) {
-          tmpNormal <- bayesNormalTest(bayesTest$inputs$A_data,
+          tmpNormal <- bayesTest(bayesTest$inputs$A_data,
                                        bayesTest$inputs$B_data,
                                        bayesTest$inputs$priors,
                                        1 - single_threshold,
-                                       n_samples = bayesTest$inputs$n_samples)
+                                       n_samples = bayesTest$inputs$n_samples,
+                                       distribution)
           
-          if (varNameTest %in% names(tmpNormal$posteriors)) {
             test_samples <- tmpNormal$posteriors[[paste0("A_",varName)]]
             control_samples <- tmpNormal$posteriors[[paste0("B_",varName)]]
-          } else if (varNameTest %in% names(tmpNormal$posteriors$statistics)) {
-            test_samples <- tmpNormal$posteriors$statistics[[paste0("A_",varName)]]
-            control_samples <- tmpNormal$posteriors$statistics[[paste0("B_",varName)]]
-          }
           
           quantile((test_samples - control_samples) / 
                      control_samples, 1 - single_threshold)
@@ -72,35 +72,18 @@ getMinLift <- function(bayesTest, threshold = c(.9, .95), varName, eval = F) {
         
         vals <- sapply(threshold, evalNormal)
         
-      } else if(is(bayesTest, 'bayesLogNormalTest')) {
-        
-        evalLogNormal <- function(single_threshold) {
-          tmpLogNormal <- bayesLogNormalTest(bayesTest$inputs$A_data,
-                                       bayesTest$inputs$B_data,
-                                       bayesTest$inputs$priors,
-                                       1 - single_threshold,
-                                       n_samples = bayesTest$inputs$n_samples)
-          
-          if (varNameTest %in% names(tmpLogNormal$posteriors)) {
-            test_samples <- tmpLogNormal$posteriors[[paste0("A_",varName)]]
-            control_samples <- tmpLogNormal$posteriors[[paste0("B_",varName)]]
-          } else if (varNameTest %in% names(tmpLogNormal$posteriors$statistics)) {
-            test_samples <- tmpLogNormal$posteriors$statistics[[paste0("A_",varName)]]
-            control_samples <- tmpLogNormal$posteriors$statistics[[paste0("B_",varName)]]
-          }
-          
-          quantile((test_samples - control_samples) / 
-                     control_samples, 1 - single_threshold)
-          
-        }
-        
-        vals <- sapply(threshold, evalLogNormal)
-
-      }
     }
   }
   
-  return(vals)
+  result <- list(test = deparse(substitute(bayesTest)),
+                 probability = threshold,
+                 minLift = as.numeric(vals),
+                 testVars = c(paste0("A_",varName), paste0("B_",varName)))
+  
+  class(result) <- 'minLift'
+
+  
+  return(result)
   
 }
 

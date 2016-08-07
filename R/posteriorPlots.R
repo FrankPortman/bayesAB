@@ -1,40 +1,36 @@
-plotLogNormalPosteriors <- function(A_mus,
-                                    B_mus, 
-                                    A_sig_sqs, 
-                                    B_sig_sqs, 
-                                    other_statistics, 
+plotLogNormalPosteriors <- function(pos, 
                                     alphas, 
                                     betas) {
   
   ## Plot Normal Posteriors first, since they are the same as the old method
-  plotNormalPosteriors(A_mus, B_mus, A_sig_sqs, B_sig_sqs, alphas, betas)
+  plotNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, alphas, betas)
   
   ## Don't plot samples, plot transformations
   
   ## Means
-  A_means <- other_statistics$A_means
-  B_means <- other_statistics$B_means
+  A_means <- pos$A_means
+  B_means <- pos$B_means
   dat <- reshape2::melt(cbind(A_means, B_means))
   
   posteriorPlotSamp(dat, "Mean")
   
   ## Medians
-  A_meds <- other_statistics$A_meds
-  B_meds <- other_statistics$B_meds
+  A_meds <- pos$A_meds
+  B_meds <- pos$B_meds
   dat <- reshape2::melt(cbind(A_meds, B_meds))
   
   posteriorPlotSamp(dat, "Median")
   
   ## Modes
-  A_modes <- other_statistics$A_modes
-  B_modes <- other_statistics$B_modes
+  A_modes <- pos$A_modes
+  B_modes <- pos$B_modes
   dat <- reshape2::melt(cbind(A_modes, B_modes))
   
   posteriorPlotSamp(dat, "Mode")
   
   ## Variance
-  A_vars <- other_statistics$A_vars
-  B_vars <- other_statistics$B_vars
+  A_vars <- pos$A_vars
+  B_vars <- pos$B_vars
   dat <- reshape2::melt(cbind(A_vars, B_vars))
 
   posteriorPlotSamp(dat, "Variance")

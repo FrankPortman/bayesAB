@@ -30,11 +30,9 @@ plot.bayesTest <- function(result) {
     ## Plot the posteriors
     pos <- result$posteriors
     
-    plotLogNormalPosteriors(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, pos$statistics, 
-                            result$trans_inputs$alphas, result$trans_inputs$betas)
+    plotLogNormalPosteriors(pos, result$trans_inputs$alphas, result$trans_inputs$betas)
     
-    plotLogNormalSamples(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, pos$statistics, 
-                            result$inputs$percent_lift)
+    plotLogNormalSamples(pos, result$inputs$percent_lift)
     
   } else if(is(result, 'bayesNegBinTest')) {
     
@@ -57,19 +55,19 @@ print.bayesTest <- function(result) {
 }
 
 
-print.bayesPropTest <- function(result) {
+print.bayesBernoulliTest <- function(result) {
   
   cat('Results of the Experiment: \n \n')
-  cat('Clicks in the Test: ', result$inputs$clicks_test, '\n', sep = "")
-  cat('Views in the Test: ', result$inputs$views_test, '\n', sep = "")
-  cat('Clicks in the Control: ', result$inputs$clicks_control, '\n', sep = "")
-  cat('Views in the Control: ', result$inputs$views_control, '\n', sep = "")
+  cat('Clicks in the Test: ', sum(result$inputs$A_data), '\n', sep = "")
+  cat('Views in the Test: ', length(result$inputs$A_data), '\n', sep = "")
+  cat('Clicks in the Control: ', sum(result$inputs$B_data), '\n', sep = "")
+  cat('Views in the Control: ', length(result$inputs$B_data), '\n', sep = "")
   cat('\n')
-  cat('using a Beta(', result$alpha, ',', result$beta, ') prior.\n')
+  cat('using a Beta(', result$inputs$alpha, ',', result$inputs$beta, ') prior.\n')
   
   cat('--------------------------------------------\n')
   
-  cat('P(Test > Control) by at least ', result$percent_lift, '% = ', result$prob, '\n', sep = "")
+  cat('P(Test > Control) by at least ', result$inputs$percent_lift, '% = ', result$prob, '\n', sep = "")
   
 }
 
@@ -79,10 +77,10 @@ print.minLift <- function(result) {
   
   cat('\n')
   cat('--------------------------------------------\n')
-  cat('Maximum Lift that returns a ', result$probability * 100, '% (+- ', result$threshold, ') result is ', result$minLift, '%.\n', sep = "")
-  cat('P(Test > Control) by at least ', result$minLift, '% = ', result$actualProb, '\n', sep = "")
+  cat(paste0('Maximum Lift that returns a ', paste(result$probability * 100, collapse = "%, ")))
+  cat(paste0('% result that ', gsub(".$","",result$testVars[1]), ' > ', gsub(".$","",result$testVars[2]), ' is '))
+  cat(paste(round(result$minLift * 100, 4), collapse = "%, "), '%.\n', sep = "")
   cat('Access directly with $minLift\n', sep = "")
-  
 }
 
 
