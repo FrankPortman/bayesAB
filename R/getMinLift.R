@@ -53,10 +53,7 @@ getMinLift <- function(bayesTest, threshold = c(.9, .95), varName, eval = F) {
         evalNormal <- function(single_threshold) {
           tmpNormal <- bayesNormalTest(bayesTest$inputs$A_data,
                                        bayesTest$inputs$B_data,
-                                       c("m0" = bayesTest$inputs$m0,
-                                         "k0" = bayesTest$inputs$k0,
-                                         "s_sq0" = bayesTest$inputs$s_sq0,
-                                         "v0" = bayesTest$inputs$v0),
+                                       bayesTest$inputs$priors,
                                        1 - single_threshold,
                                        n_samples = bayesTest$inputs$n_samples)
           
@@ -80,10 +77,7 @@ getMinLift <- function(bayesTest, threshold = c(.9, .95), varName, eval = F) {
         evalLogNormal <- function(single_threshold) {
           tmpLogNormal <- bayesLogNormalTest(bayesTest$inputs$A_data,
                                        bayesTest$inputs$B_data,
-                                       c("m0" = bayesTest$inputs$m0,
-                                         "k0" = bayesTest$inputs$k0,
-                                         "s_sq0" = bayesTest$inputs$s_sq0,
-                                         "v0" = bayesTest$inputs$v0),
+                                       bayesTest$inputs$priors,
                                        1 - single_threshold,
                                        n_samples = bayesTest$inputs$n_samples)
           

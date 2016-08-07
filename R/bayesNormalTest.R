@@ -50,7 +50,9 @@ bayesNormalTest <- function(A_data,
   if(!all(names(priors) %in% c('m0', 'k0', 's_sq0', 'v0'))) 
     stop("Arguments don't match requirement for m0, k0, s_sq0, and v0. Check names.")
   
+  
   priors <- priors[c('m0', 'k0', 's_sq0', 'v0')]
+  stored_priors <- priors
   priors <- as.numeric(priors)
   
   m0 <- priors[1]
@@ -88,10 +90,7 @@ bayesNormalTest <- function(A_data,
                  inputs = list(
                    A_data = A_data,
                    B_data = B_data,
-                   m0 = m0,
-                   k0 = k0,
-                   s_sq0 = s_sq0,
-                   v0 = v0,
+                   priors = stored_priors,
                    percent_lift = percent_lift,
                    n_samples = n_samples
                  ),

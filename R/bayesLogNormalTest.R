@@ -51,10 +51,7 @@ bayesLogNormalTest <- function(A_data,
                  inputs = list(
                    A_data = A_data,
                    B_data = B_data,
-                   m0 = NormalResult$inputs$m0,
-                   k0 = NormalResult$inputs$k0,
-                   s_sq0 = NormalResult$inputs$s_sq0,
-                   v0 = NormalResult$inputs$v0,
+                   priors = priors,
                    percent_lift = percent_lift,
                    n_samples = n_samples
                  ),
