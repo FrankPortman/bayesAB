@@ -39,6 +39,9 @@ bayesLogNormalTest <- function(A_data,
   A_vars <- (exp(A_sig_sqs) - 1) * exp(2 * A_mus + A_sig_sqs)
   B_vars <- (exp(B_sig_sqs) - 1) * exp(2 * B_mus + B_sig_sqs)
   
+  #transform data to original form before returning it:
+  A_data <- exp(A_data)
+  B_data <- exp(B_data)
   
   result <- list(mean_prob = getProb(A_means, B_means, percent_lift),
                  med_prob = getProb(A_meds, B_meds, percent_lift),
