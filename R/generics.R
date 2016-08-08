@@ -50,27 +50,47 @@ plot.bayesTest <- function(result) {
 
 print.bayesTest <- function(result) {
   
-  #lapply through all params
+  cat('--------------------------------------------\n')
+  cat('Using data with the following properties: \n')
+  print(cbind(A_data = summary(AB1Norm$inputs$A_data), B_data = summary(AB1Norm$inputs$B_data)))
   
+  cat('--------------------------------------------\n')
+  cat('Priors used for the calculation: \n')
+  print(result$inputs$priors)
   
-}
-
-
-print.bayesBernoulliTest <- function(result) {
-  
-  cat('Results of the Experiment: \n \n')
-  cat('Clicks in A: ', sum(result$inputs$A_data), '\n', sep = "")
-  cat('Views in A: ', length(result$inputs$A_data), '\n', sep = "")
-  cat('Clicks in B: ', sum(result$inputs$B_data), '\n', sep = "")
-  cat('Views in B: ', length(result$inputs$B_data), '\n', sep = "")
-  cat('\n')
-  cat('using a Beta(', as.numeric(result$inputs$priors['alpha']), ',', as.numeric(result$inputs$priors['beta']), ') prior.\n')
+  cat('--------------------------------------------\n')
+  cat('Summaries of the posteriors: \n')
+  print(sapply(result$posteriors, summary))
   
   cat('--------------------------------------------\n')
   
-  cat('P(A > B) by at least ', result$inputs$percent_lift, '% = ', result$prob, '\n', sep = "")
+  #Warning: assumes format for posteriors is A_param1, B_param1, A_param2, B_param2, etc.
+  probAgreatB <- sapply(1:(length(result$posteriors)/2), 
+               function(x) mean((result$posteriors[[2*x-1]] - result$posteriors[[2*x]]) / (result$posteriors[[2*x]]) > 0))
+  varNames <- names(result$posteriors[seq(2,length(result$posteriors),2)])
+  varNames <- sapply(varNames, function(x) substr(x, 3, nchar(x)))
+  names(probAgreatB) <- varNames
   
+  cat('P(A > B) for the following posteriors: \n')
+  print(probAgreatB)
 }
+
+
+# print.bayesBernoulliTest <- function(result) {
+# 
+#   cat('Results of the Experiment: \n \n')
+#   cat('Clicks in A: ', sum(result$inputs$A_data), '\n', sep = "")
+#   cat('Views in A: ', length(result$inputs$A_data), '\n', sep = "")
+#   cat('Clicks in B: ', sum(result$inputs$B_data), '\n', sep = "")
+#   cat('Views in B: ', length(result$inputs$B_data), '\n', sep = "")
+#   cat('\n')
+#   cat('using a Beta(', as.numeric(result$inputs$priors['alpha']), ',', as.numeric(result$inputs$priors['beta']), ') prior.\n')
+# 
+#   cat('--------------------------------------------\n')
+# 
+#   cat('P(A > B) by at least ', result$inputs$percent_lift, '% = ', result$prob, '\n', sep = "")
+# 
+# }
 
 print.minLift <- function(result) {
   

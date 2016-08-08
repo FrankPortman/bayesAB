@@ -63,10 +63,10 @@ bayesBernoulliTest <- function(A_data,
                  ),
                  
                  posteriors = list(
-                   B_alpha = clicks_control + alpha,
-                   B_beta = views_control - clicks_control + beta,
                    A_alpha = clicks_test + alpha,
+                   B_alpha = clicks_control + alpha,
                    A_beta = views_test - clicks_test + beta,
+                   B_beta = views_control - clicks_control + beta,
                    A_probs = test_samples,
                    B_probs = control_samples)
                  
