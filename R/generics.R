@@ -5,14 +5,15 @@ plot.bayesTest <- function(result) {
   if (is(result,'bayesBernoulliTest')) {
     
     ## Plot the prior
-    plotBeta(result$inputs$alpha, result$inputs$beta)
+    bernPriors <- result$inputs$priors
+    plotBeta(as.numeric(bernPriors['alpha']), as.numeric(bernPriors['beta']))
     
     ## Plot the posteriors
     pos <- result$posteriors
-    plotBernoulliPosteriors(pos$control_alpha, pos$control_beta, pos$test_alpha, pos$test_beta)
+    plotBernoulliPosteriors(pos$B_alpha, pos$B_beta, pos$A_alpha, pos$A_beta)
     
     ## Plot the samples
-    plotBernoulliSamples(pos$test_samples, pos$control_samples, result$inputs$percent_lift)
+    plotBernoulliSamples(pos$A_probs, pos$B_probs, result$inputs$percent_lift)
     
   } else if (is(result,'bayesNormalTest')) {
     
@@ -58,16 +59,16 @@ print.bayesTest <- function(result) {
 print.bayesBernoulliTest <- function(result) {
   
   cat('Results of the Experiment: \n \n')
-  cat('Clicks in the Test: ', sum(result$inputs$A_data), '\n', sep = "")
-  cat('Views in the Test: ', length(result$inputs$A_data), '\n', sep = "")
-  cat('Clicks in the Control: ', sum(result$inputs$B_data), '\n', sep = "")
-  cat('Views in the Control: ', length(result$inputs$B_data), '\n', sep = "")
+  cat('Clicks in A: ', sum(result$inputs$A_data), '\n', sep = "")
+  cat('Views in A: ', length(result$inputs$A_data), '\n', sep = "")
+  cat('Clicks in B: ', sum(result$inputs$B_data), '\n', sep = "")
+  cat('Views in B: ', length(result$inputs$B_data), '\n', sep = "")
   cat('\n')
-  cat('using a Beta(', result$inputs$alpha, ',', result$inputs$beta, ') prior.\n')
+  cat('using a Beta(', as.numeric(result$inputs$priors['alpha']), ',', as.numeric(result$inputs$priors['beta']), ') prior.\n')
   
   cat('--------------------------------------------\n')
   
-  cat('P(Test > Control) by at least ', result$inputs$percent_lift, '% = ', result$prob, '\n', sep = "")
+  cat('P(A > B) by at least ', result$inputs$percent_lift, '% = ', result$prob, '\n', sep = "")
   
 }
 

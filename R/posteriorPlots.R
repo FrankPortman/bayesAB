@@ -37,12 +37,12 @@ plotLogNormalPosteriors <- function(pos,
   
 }
 
-plotBernoulliPosteriors <- function(control_alpha, control_beta, test_alpha, test_beta) {
+plotBernoulliPosteriors <- function(B_alpha, B_beta, A_alpha, A_beta) {
   
   support <- seq(0, 1, .001)
   
-  A_prob <- dbeta(support, test_alpha, test_beta)
-  B_prob <- dbeta(support, control_alpha, control_beta)
+  A_prob <- dbeta(support, A_alpha, A_beta)
+  B_prob <- dbeta(support, B_alpha, B_beta)
   
   dat <- reshape2::melt(cbind(A_prob, B_prob))
   dat <- cbind(dat, support)

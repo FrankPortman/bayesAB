@@ -26,6 +26,7 @@ bayesBernoulliTest <- function(A_data,
   if(!all(names(priors) %in% c('alpha', 'beta'))) stop("Arguments don't match requirement for alpha and beta. Check names.")
   
   priors <- priors[c('alpha', 'beta')]
+  stored_priors <- priors
   priors <- as.numeric(priors)
     
   if(any(is.na(priors))) stop("alpha and/or beta are not numeric!")
@@ -56,19 +57,18 @@ bayesBernoulliTest <- function(A_data,
                  inputs = list(
                    A_data = A_data,
                    B_data = B_data,
-                   alpha = alpha,
-                   beta = beta,
+                   priors = stored_priors,
                    percent_lift = percent_lift,
-                   N_samp = N_samp
+                   n_samples = N_samp
                  ),
                  
                  posteriors = list(
-                   control_alpha = clicks_control + alpha,
-                   control_beta = views_control - clicks_control + beta,
-                   test_alpha = clicks_test + alpha,
-                   test_beta = views_test - clicks_test + beta,
-                   test_samples = test_samples,
-                   control_samples = control_samples)
+                   B_alpha = clicks_control + alpha,
+                   B_beta = views_control - clicks_control + beta,
+                   A_alpha = clicks_test + alpha,
+                   A_beta = views_test - clicks_test + beta,
+                   A_probs = test_samples,
+                   B_probs = control_samples)
                  
   )
   
