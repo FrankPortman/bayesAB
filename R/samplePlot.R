@@ -18,13 +18,20 @@ samplePlot <- function(A, B, percent_lift, name) {
   
   
   p <- p + ggplot2::annotate('text', x = xpos, y = m / 3, label = paste(prop, '%', sep = "")) +
-    ggplot2::xlab('(Test - Control) / Control') +
+    ggplot2::xlab('(A - B) / B') +
     ggplot2::ylab('Density') +
-    ggplot2::ggtitle(paste0('Histogram of (Test - Control) / Control Samples : ',
+    ggplot2::ggtitle(paste0('Histogram of (A - B) / B Samples : ',
                             name,
                             collapse = "")) +
     ggplot2::theme(legend.position = "none")
   
   print(p) 
   
+}
+
+plotSamples <- function(bayesAB) {
+  for(i in 1:length(bayesAB$posteriors)) {
+    obj <- bayesAB$posteriors[[i]]
+    samplePlot(obj[[1]], obj[[2]], bayesAB$inputs$percent_lift, names(obj))
+  }
 }

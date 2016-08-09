@@ -68,24 +68,12 @@ bayesLogNormalTest <- function(A_data,
                  ),
                  
                  posteriors = list(
-                   A_mus = A_mus,
-                   B_mus = B_mus,
-                   
-                   A_sig_sqs = A_sig_sqs,
-                   B_sig_sqs = B_sig_sqs,
-                   
-                   A_means = A_means,
-                   B_means = B_means,
-                   
-                   A_meds = A_meds,
-                   B_meds = B_meds,
-                   
-                   A_modes = A_modes,
-                   B_modes = B_modes,
-                   
-                   A_vars = A_vars,
-                   B_vars = B_vars
-                   
+                   Mu = list(A_mus = A_mus, B_mus = B_mus),
+                   Sig_Sq = list(A_sig_sqs = A_sig_sqs, B_sig_sqs = B_sig_sqs),
+                   Mean = list(A_means = A_means, B_means = B_means),
+                   Median = list(A_meds = A_meds, B_meds = B_meds),
+                   Mode = list(A_modes = A_modes, B_modes = B_modes),
+                   Var = list(A_vars = A_vars, B_vars = B_vars)
                  )
                  
                  

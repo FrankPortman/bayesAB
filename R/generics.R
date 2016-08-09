@@ -1,5 +1,6 @@
 plot.bayesTest <- function(result) {    
   
+  oldPar <- par()
   par(ask = TRUE)
   
   if (is(result,'bayesBernoulliTest')) {
@@ -13,7 +14,8 @@ plot.bayesTest <- function(result) {
     plotBernoulliPosteriors(pos$B_alpha, pos$B_beta, pos$A_alpha, pos$A_beta)
     
     ## Plot the samples
-    plotBernoulliSamples(pos$A_probs, pos$B_probs, result$inputs$percent_lift)
+    #plotBernoulliSamples(pos$A_probs, pos$B_probs, result$inputs$percent_lift)
+    plotSamples(result)
     
   } else if (is(result,'bayesNormalTest')) {
     
@@ -23,8 +25,8 @@ plot.bayesTest <- function(result) {
                          result$trans_inputs$alphas, result$trans_inputs$betas)
     
     ## Plot the samples
-    plotNormalSamples(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, result$inputs$percent_lift)
-    
+    plotSamples(result)
+    #plotNormalSamples(pos$A_mus, pos$B_mus, pos$A_sig_sqs, pos$B_sig_sqs, result$inputs$percent_lift)
     
   } else if(is(result, 'bayesLogNormalTest')) {
     
@@ -33,18 +35,20 @@ plot.bayesTest <- function(result) {
     
     plotLogNormalPosteriors(pos, result$trans_inputs$alphas, result$trans_inputs$betas)
     
-    plotLogNormalSamples(pos, result$inputs$percent_lift)
+    plotSamples(result)
+    #plotLogNormalSamples(pos, result$inputs$percent_lift)
     
-  } else if(is(result, 'bayesNegBinTest')) {
-    
-    ## Plot the posteriors
-    pos <- result$posteriors
-    
-    plotNegBinPosteriors(pos$A_mean, pos$B_mean, pos$A_prob, pos$B_prob, pos$A_r, pos$B_r, pos$A_var, pos$B_var)
   }
+    
+  # } else if(is(result, 'bayesNegBinTest')) {
+  #   
+  #   ## Plot the posteriors
+  #   pos <- result$posteriors
+  #   
+  #   plotNegBinPosteriors(pos$A_mean, pos$B_mean, pos$A_prob, pos$B_prob, pos$A_r, pos$B_r, pos$A_var, pos$B_var)
+  # }
   
-  
-  par(ask = FALSE)
+  par(oldPar)
   
 }
 
