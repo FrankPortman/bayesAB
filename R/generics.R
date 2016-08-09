@@ -1,36 +1,38 @@
-plot.bayesTest <- function(result) {    
+#' @export
+plot.bayesTest <- function(x, ...) {    
   
   oldPar <- par()
   par(ask = TRUE)
   
-  #plotPriors(result)
-  plostPosteriors(result)
-  plostSamples(result)
+  #plotPriors(x)
+  plostPosteriors(x)
+  plostSamples(x)
   
   par(oldPar)
   
 }
 
-print.bayesTest <- function(result) {
+#' @export
+print.bayesTest <- function(x, ...) {
   
   cat('--------------------------------------------\n')
   cat('Using data with the following properties: \n')
-  print(cbind(A_data = summary(result$inputs$A_data), B_data = summary(result$inputs$B_data)))
+  print(cbind(A_data = summary(x$inputs$A_data), B_data = summary(x$inputs$B_data)))
   
   cat('--------------------------------------------\n')
   cat('Priors used for the calculation: \n')
-  print(result$inputs$priors)
+  print(x$inputs$priors)
   
   cat('--------------------------------------------\n')
   cat('Summaries of the posteriors: \n')
-  print(sapply(result$posteriors, summary))
+  print(sapply(x$posteriors, summary))
   
   cat('--------------------------------------------\n')
   
   #Warning: assumes format for posteriors is A_param1, B_param1, A_param2, B_param2, etc.
-  probAgreatB <- sapply(1:(length(result$posteriors)/2), 
-               function(x) mean((result$posteriors[[2*x-1]] - result$posteriors[[2*x]]) / (result$posteriors[[2*x]]) > 0))
-  varNames <- names(result$posteriors[seq(2,length(result$posteriors),2)])
+  probAgreatB <- sapply(1:(length(x$posteriors)/2), 
+               function(x) mean((x$posteriors[[2*x-1]] - x$posteriors[[2*x]]) / (x$posteriors[[2*x]]) > 0))
+  varNames <- names(x$posteriors[seq(2,length(x$posteriors),2)])
   varNames <- sapply(varNames, function(x) substr(x, 3, nchar(x)))
   names(probAgreatB) <- varNames
   
@@ -39,35 +41,36 @@ print.bayesTest <- function(result) {
 }
 
 
-# print.bayesBernoulliTest <- function(result) {
+# print.bayesBernoulliTest <- function(x) {
 # 
-#   cat('Results of the Experiment: \n \n')
-#   cat('Clicks in A: ', sum(result$inputs$A_data), '\n', sep = "")
-#   cat('Views in A: ', length(result$inputs$A_data), '\n', sep = "")
-#   cat('Clicks in B: ', sum(result$inputs$B_data), '\n', sep = "")
-#   cat('Views in B: ', length(result$inputs$B_data), '\n', sep = "")
+#   cat('xs of the Experiment: \n \n')
+#   cat('Clicks in A: ', sum(x$inputs$A_data), '\n', sep = "")
+#   cat('Views in A: ', length(x$inputs$A_data), '\n', sep = "")
+#   cat('Clicks in B: ', sum(x$inputs$B_data), '\n', sep = "")
+#   cat('Views in B: ', length(x$inputs$B_data), '\n', sep = "")
 #   cat('\n')
-#   cat('using a Beta(', as.numeric(result$inputs$priors['alpha']), ',', as.numeric(result$inputs$priors['beta']), ') prior.\n')
+#   cat('using a Beta(', as.numeric(x$inputs$priors['alpha']), ',', as.numeric(x$inputs$priors['beta']), ') prior.\n')
 # 
 #   cat('--------------------------------------------\n')
 # 
-#   cat('P(A > B) by at least ', result$inputs$percent_lift, '% = ', result$prob, '\n', sep = "")
+#   cat('P(A > B) by at least ', x$inputs$percent_lift, '% = ', x$prob, '\n', sep = "")
 # 
 # }
 
-print.minLift <- function(result) {
+#' @export
+print.minLift <- function(x, ...) {
   
-  print(get(result$test))
+  print(get(x$test))
   
   cat('\n')
   cat('--------------------------------------------\n')
-  cat(paste0('Maximum Lift that returns a ', paste(result$probability * 100, collapse = "%, ")))
-  cat(paste0('% result that ', gsub(".$","",result$testVars[1]), ' > ', gsub(".$","",result$testVars[2]), ' is '))
-  cat(paste(round(result$minLift * 100, 4), collapse = "%, "), '%.\n', sep = "")
+  cat(paste0('Maximum Lift that returns a ', paste(x$probability * 100, collapse = "%, ")))
+  cat(paste0('% x that ', gsub(".$","",x$testVars[1]), ' > ', gsub(".$","",x$testVars[2]), ' is '))
+  cat(paste(round(x$minLift * 100, 4), collapse = "%, "), '%.\n', sep = "")
   cat('Access directly with $minLift\n', sep = "")
 }
 
-
+#' @export
 `+.bayesTest` <- function(e1, e2) {
   
   if(e1$inputs$n_samples != e2$inputs$n_samples) warning("n_samples not equal. Recycling elements for target distribution.")
@@ -77,6 +80,7 @@ print.minLift <- function(result) {
   
 }
 
+#' @export
 `*.bayesTest` <- function(e1, e2) {
   
   if(e1$inputs$n_samples != e2$inputs$n_samples) warning("n_samples not equal. Recycling elements for target distribution.")

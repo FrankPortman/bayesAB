@@ -35,6 +35,6 @@ posteriorPlotClosed <- function(plotDat, name) {
 plotPosteriors <- function(bayesAB) {
   for(i in 1:length(bayesAB$posteriors)) {
     obj <- bayesAB$posteriors[[i]]
-    posteriorPlotClosed(obj[[1]], obj[[2]], names(obj))
+    posteriorPlotSamp(obj[[1]], obj[[2]], names(obj))
   }
 }

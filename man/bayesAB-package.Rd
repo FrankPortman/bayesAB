@@ -3,36 +3,23 @@
 \alias{bayesAB}
 \docType{package}
 \title{
-What the package does (short line)
+Fast Bayesian Methods for A/B Testing in R
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+bayesAB provides a suite of functions for setting up, diagnosing, and interpreting A/B tests using fast Bayesian Methods. Functions include helpers for choosing and setting priors, graphical and numerical summaries of test results in a Bayesian framework, as well as functions to derive credible intervals of your observed lift.
 }
 \details{
 \tabular{ll}{
 Package: \tab bayesAB\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2015-01-30\cr
+Version: \tab 0.5\cr
+Date: \tab 2016-08-98\cr
 License: \tab GPL (>= 2)\cr
 }
-~~ An overview of how to use the package, including the most important functions ~~
+bayesTest
 }
 \author{
-Your Name
+Frank Portman - http://fportman.com
 
-Maintainer: Your Name <your@email.com>
-}
-\references{
-~~ Literature or other references for background information ~~
-}
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
-\keyword{ package }
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
-\examples{
-%% ~~ simple examples of the most important functions ~~
+Maintainer: Frank Portman <frank1214@gmail.com>
 }

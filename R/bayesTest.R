@@ -57,6 +57,8 @@ bayesAB.env$functions <- list("bernoulli" = bayesBernoulliTest,
 #' @examples
 #' plotNormal(1, 1)
 #' plotNormal(2, 5)
+#' @export 
+
 bayesTest <- function(A_data,
                       B_data,
                       priors,

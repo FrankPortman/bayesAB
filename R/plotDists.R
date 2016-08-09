@@ -6,7 +6,7 @@
 #' @examples
 #' plotNormal(1, 1)
 #' plotNormal(2, 5)
-
+#' @export
 
 plotNormal <- function(mu, s_sq) {
   
@@ -25,6 +25,7 @@ plotNormal <- function(mu, s_sq) {
 #' @examples
 #' plotBeta(1, 1)
 #' plotBeta(2, 5)
+#' @export
 
 plotBeta <- function(alpha, beta) {
   
@@ -44,6 +45,7 @@ plotBeta <- function(alpha, beta) {
 #' @examples
 #' plotInvGamma(2, 4)
 #' plotInvGamma(1, 17)
+#' @export
 
 plotInvGamma <- function(shape, scale, p = .95) {
   
