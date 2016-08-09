@@ -1,5 +1,7 @@
 # bayesAB
 
+[![Travis-CI Build Status](https://travis-ci.org/FrankPortman/bayesAB.svg?branch=master)](https://travis-ci.org/FrankPortman/bayesAB)
+
 ##AB Testing for Counts and Proportions data using Bayesian Methods
 
 bayesAB provides a suite of functions that allow the user to analyze
