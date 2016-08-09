@@ -39,14 +39,14 @@ bayesBernoulliTest <- function(A_data,
   ## Do the computation
   ###
     
-  clicks_test <- sum(A_data)
-  views_test <- length(A_data)
+  clicks_A <- sum(A_data)
+  views_A <- length(A_data)
   
-  clicks_control <- sum(B_data)
-  views_control <- length(B_data)
+  clicks_B <- sum(B_data)
+  views_B <- length(B_data)
   
-  test_samples <- rbeta(N_samp, clicks_test + alpha, views_test - clicks_test + beta)
-  control_samples <- rbeta(N_samp, clicks_control + alpha, views_control - clicks_control + beta)
+  A_probs <- rbeta(N_samp, clicks_A + alpha, views_A - clicks_A + beta)
+  B_probs <- rbeta(N_samp, clicks_B + alpha, views_B - clicks_B + beta)
   
   ###
   ## Output the result
@@ -62,13 +62,16 @@ bayesBernoulliTest <- function(A_data,
                    n_samples = N_samp
                  ),
                  
-                 posteriors = list(
+                 outTemp = list(
                    A_alpha = clicks_test + alpha,
                    B_alpha = clicks_control + alpha,
                    A_beta = views_test - clicks_test + beta,
-                   B_beta = views_control - clicks_control + beta,
-                   A_probs = test_samples,
-                   B_probs = control_samples)
+                   B_beta = views_control - clicks_control + beta
+                 ),
+                 
+                 posteriors = list(
+                   Probability = list(A_probs = A_probs, B_probs = B_probs)
+                  )
                  
   )
   
