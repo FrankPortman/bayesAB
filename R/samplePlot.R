@@ -29,9 +29,9 @@ samplePlot <- function(A, B, percent_lift, name) {
   
 }
 
-plotSamples <- function(bayesAB) {
+plotSamples <- function(bayesAB, percentLift) {
   for(i in 1:length(bayesAB$posteriors)) {
     obj <- bayesAB$posteriors[[i]]
-    samplePlot(obj[[1]], obj[[2]], bayesAB$inputs$percent_lift, names(obj))
+    samplePlot(obj[[1]], obj[[2]], percentLift, names(obj))
   }
 }

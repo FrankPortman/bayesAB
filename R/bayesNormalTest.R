@@ -36,7 +36,7 @@ drawMusAndSigmas <- function(data,
 bayesNormalTest <- function(A_data,
                             B_data,
                             priors,
-                            percent_lift = 0,
+                            #percent_lift = 0,
                             n_samples = 1e5) {
   
   ###
@@ -85,14 +85,13 @@ bayesNormalTest <- function(A_data,
   ###
   
   result <- list(
-    mu_prob = getProb(A_mus, B_mus, percent_lift = percent_lift),
-    sig_sq_prob = getProb(A_sig_sqs, B_sig_sqs, percent_lift = percent_lift),
+    #mu_prob = getProb(A_mus, B_mus, percent_lift = percent_lift),
+    #sig_sq_prob = getProb(A_sig_sqs, B_sig_sqs, percent_lift = percent_lift),
     
     inputs = list(
       A_data = A_data,
       B_data = B_data,
       priors = stored_priors,
-      percent_lift = percent_lift,
       n_samples = n_samples
     ),
     

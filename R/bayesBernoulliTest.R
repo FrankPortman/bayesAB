@@ -1,7 +1,7 @@
 bayesBernoulliTest <- function(A_data,
                           B_data,
                           priors,
-                          percent_lift = 0, 
+                          #percent_lift = 0, 
                           N_samp = 1e6) {
   
   ###
@@ -53,13 +53,12 @@ bayesBernoulliTest <- function(A_data,
   ###
   
   result <- list(
-    prob = getProb(test_samples, control_samples, percent_lift = percent_lift),
+    #prob = getProb(test_samples, control_samples, percent_lift = percent_lift),
     
     inputs = list(
       A_data = A_data,
       B_data = B_data,
       priors = stored_priors,
-      percent_lift = percent_lift,
       n_samples = N_samp
     ),
     

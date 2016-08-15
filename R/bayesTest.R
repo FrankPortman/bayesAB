@@ -62,7 +62,7 @@ bayesAB.env$functions <- list("bernoulli" = bayesBernoulliTest,
 bayesTest <- function(A_data,
                       B_data,
                       priors,
-                      percent_lift = 0,
+                      #percent_lift = 0,
                       n_samples = 1e5,
                       distribution) {
   

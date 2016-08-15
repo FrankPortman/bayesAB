@@ -1,17 +1,21 @@
+## Plot stays the same except percentLift now goes into the plots
 #' @export
-plot.bayesTest <- function(x, ...) {    
+plot.bayesTest <- function(x, percentLift = rep(0, length(x$posteriors))) {
+  
+  if(length(x$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
   
   oldPar <- par()
   par(ask = TRUE)
   
   #plotPriors(x)
   plostPosteriors(x)
-  plostSamples(x)
+  plostSamples(x, percentLift)
   
   par(oldPar)
   
 }
 
+## Print just prints about the test, summarize input data streams, and talk about priors, n_samp, etc
 #' @export
 print.bayesTest <- function(x, ...) {
   
@@ -38,6 +42,13 @@ print.bayesTest <- function(x, ...) {
   
   cat('P(A > B) for the following posteriors: \n')
   print(probAgreatB)
+}
+
+## does P(A>B) for percentLift across all params and whatever else
+summary.bayesTest <-function(x, percentLift = rep(0, length(x$posteriors))) {
+  
+  if(length(x$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
+  
 }
 
 

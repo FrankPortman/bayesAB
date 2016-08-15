@@ -1,7 +1,7 @@
 bayesLogNormalTest <- function(A_data,
                                B_data,
                                priors,
-                               percent_lift = 0,
+                               #percent_lift = 0,
                                n_samples = 1e5) {
   
   if((
@@ -44,16 +44,15 @@ bayesLogNormalTest <- function(A_data,
   B_data <- exp(B_data)
   
   result <- list(
-    mean_prob = getProb(A_means, B_means, percent_lift),
-    med_prob = getProb(A_meds, B_meds, percent_lift),
-    mode_prob = getProb(A_modes, B_modes, percent_lift),
-    var_prob = getProb(A_vars, B_vars, percent_lift),
+    #mean_prob = getProb(A_means, B_means, percent_lift),
+    #med_prob = getProb(A_meds, B_meds, percent_lift),
+    #mode_prob = getProb(A_modes, B_modes, percent_lift),
+    #var_prob = getProb(A_vars, B_vars, percent_lift),
     
     inputs = list(
       A_data = A_data,
       B_data = B_data,
       priors = priors,
-      percent_lift = percent_lift,
       n_samples = n_samples
     ),
     
