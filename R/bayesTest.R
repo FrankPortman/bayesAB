@@ -15,7 +15,6 @@ bayesAB.env$functions <- list("bernoulli" = bayesBernoulliTest,
 #'           \item     For 'normal' distribution \code{c("m0" = val1, "k0" = val2, "s_sq0" = val3, "v0" = val4)}
 #'           \item     For 'lognormal' distribution \code{list("m0" = val1, "k0" = val2, "s_sq0" = val3, "v0" = val4)}
 #'           }
-#' @param percent_lift Percent lift, probability that A > B by at least \code{percent_lift}, to test for.
 #' @param n_samples Number of posterior samples to draw. Should be large enough for the distribution to converge. 1e5 is a good rule of thumb.
 #' @param distribution Distribution of underlying A/B test data. Should be one of \code{c('bernoulli', 'normal', 'lognormal')}
 #' @return A \code{bayesTest} object of the appropriate distribution class.

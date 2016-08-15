@@ -4,8 +4,7 @@
 \alias{bayesTest}
 \title{Fit a Bayesian model to A/B test data.}
 \usage{
-bayesTest(A_data, B_data, priors, percent_lift = 0, n_samples = 1e+05,
-  distribution)
+bayesTest(A_data, B_data, priors, n_samples = 1e+05, distribution)
 }
 \arguments{
 \item{A_data}{Vector of collected samples from recipe A}
@@ -18,8 +17,6 @@ bayesTest(A_data, B_data, priors, percent_lift = 0, n_samples = 1e+05,
           \item     For 'normal' distribution \code{c("m0" = val1, "k0" = val2, "s_sq0" = val3, "v0" = val4)}
           \item     For 'lognormal' distribution \code{list("m0" = val1, "k0" = val2, "s_sq0" = val3, "v0" = val4)}
           }}
-
-\item{percent_lift}{Percent lift, probability that A > B by at least \code{percent_lift}, to test for.}
 
 \item{n_samples}{Number of posterior samples to draw. Should be large enough for the distribution to converge. 1e5 is a good rule of thumb.}
 
