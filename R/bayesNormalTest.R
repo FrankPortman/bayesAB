@@ -84,34 +84,35 @@ bayesNormalTest <- function(A_data,
   ##  Output the result
   ###
   
-  result <- list(mu_prob = getProb(A_mus, B_mus, percent_lift = percent_lift),
-                 sig_sq_prob = getProb(A_sig_sqs, B_sig_sqs, percent_lift = percent_lift),
-                 
-                 inputs = list(
-                   A_data = A_data,
-                   B_data = B_data,
-                   priors = stored_priors,
-                   percent_lift = percent_lift,
-                   n_samples = n_samples
-                 ),
-                 
-                 trans_inputs = list(
-                   alphas = list(
-                     A_alpha = A$alpha,
-                     B_alpha = B$alpha
-                   ),
-                   betas = list(
-                     A_beta = A$beta,
-                     B_beta = B$beta
-                   )
-                 ),
-                 
-                 posteriors = list(
-                   Mu = list(A_mus = A_mus, B_mus = B_mus),
-                   Sig_Sq = list(A_sig_sqs = A_sig_sqs, B_sig_sqs = B_sig_sqs)
-                 )
-                 
-                 
+  result <- list(
+    mu_prob = getProb(A_mus, B_mus, percent_lift = percent_lift),
+    sig_sq_prob = getProb(A_sig_sqs, B_sig_sqs, percent_lift = percent_lift),
+    
+    inputs = list(
+      A_data = A_data,
+      B_data = B_data,
+      priors = stored_priors,
+      percent_lift = percent_lift,
+      n_samples = n_samples
+    ),
+    
+    trans_inputs = list(
+      alphas = list(
+        A_alpha = A$alpha,
+        B_alpha = B$alpha
+      ),
+      betas = list(
+        A_beta = A$beta,
+        B_beta = B$beta
+      )
+    ),
+    
+    posteriors = list(
+      Mu = list(A_mus = A_mus, B_mus = B_mus),
+      Sig_Sq = list(A_sig_sqs = A_sig_sqs, B_sig_sqs = B_sig_sqs)
+    ),
+    
+    distribution = "normal"
   )
   
   class(result) <- c('bayesNormalTest','bayesTest')

@@ -52,27 +52,29 @@ bayesBernoulliTest <- function(A_data,
   ## Output the result
   ###
   
-  result <- list(prob = getProb(test_samples, control_samples, percent_lift = percent_lift),
-                 
-                 inputs = list(
-                   A_data = A_data,
-                   B_data = B_data,
-                   priors = stored_priors,
-                   percent_lift = percent_lift,
-                   n_samples = N_samp
-                 ),
-                 
-                 outTemp = list(
-                   A_alpha = clicks_test + alpha,
-                   B_alpha = clicks_control + alpha,
-                   A_beta = views_test - clicks_test + beta,
-                   B_beta = views_control - clicks_control + beta
-                 ),
-                 
-                 posteriors = list(
-                   Probability = list(A_probs = A_probs, B_probs = B_probs)
-                  )
-                 
+  result <- list(
+    prob = getProb(test_samples, control_samples, percent_lift = percent_lift),
+    
+    inputs = list(
+      A_data = A_data,
+      B_data = B_data,
+      priors = stored_priors,
+      percent_lift = percent_lift,
+      n_samples = N_samp
+    ),
+    
+    outTemp = list(
+      A_alpha = clicks_test + alpha,
+      B_alpha = clicks_control + alpha,
+      A_beta = views_test - clicks_test + beta,
+      B_beta = views_control - clicks_control + beta
+    ),
+    
+    posteriors = list(
+      Probability = list(A_probs = A_probs, B_probs = B_probs)
+    ),
+    
+    distribution = "bernoulli"
   )
   
   class(result) <- c('bayesBernoulliTest','bayesTest')

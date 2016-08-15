@@ -43,40 +43,41 @@ bayesLogNormalTest <- function(A_data,
   A_data <- exp(A_data)
   B_data <- exp(B_data)
   
-  result <- list(mean_prob = getProb(A_means, B_means, percent_lift),
-                 med_prob = getProb(A_meds, B_meds, percent_lift),
-                 mode_prob = getProb(A_modes, B_modes, percent_lift),
-                 var_prob = getProb(A_vars, B_vars, percent_lift),
-                 
-                 inputs = list(
-                   A_data = A_data,
-                   B_data = B_data,
-                   priors = priors,
-                   percent_lift = percent_lift,
-                   n_samples = n_samples
-                 ),
-                 
-                 trans_inputs = list(
-                   alphas = list(
-                     A_alpha = NormalResult$trans_inputs$alphas$A_alpha,
-                     B_alpha = NormalResult$trans_inputs$alphas$B_alpha
-                   ),
-                   betas = list(
-                     A_beta = NormalResult$trans_inputs$betas$A_beta,
-                     B_beta = NormalResult$trans_inputs$betas$B_beta
-                   )
-                 ),
-                 
-                 posteriors = list(
-                   Mu = list(A_mus = A_mus, B_mus = B_mus),
-                   Sig_Sq = list(A_sig_sqs = A_sig_sqs, B_sig_sqs = B_sig_sqs),
-                   Mean = list(A_means = A_means, B_means = B_means),
-                   Median = list(A_meds = A_meds, B_meds = B_meds),
-                   Mode = list(A_modes = A_modes, B_modes = B_modes),
-                   Var = list(A_vars = A_vars, B_vars = B_vars)
-                 )
-                 
-                 
+  result <- list(
+    mean_prob = getProb(A_means, B_means, percent_lift),
+    med_prob = getProb(A_meds, B_meds, percent_lift),
+    mode_prob = getProb(A_modes, B_modes, percent_lift),
+    var_prob = getProb(A_vars, B_vars, percent_lift),
+    
+    inputs = list(
+      A_data = A_data,
+      B_data = B_data,
+      priors = priors,
+      percent_lift = percent_lift,
+      n_samples = n_samples
+    ),
+    
+    trans_inputs = list(
+      alphas = list(
+        A_alpha = NormalResult$trans_inputs$alphas$A_alpha,
+        B_alpha = NormalResult$trans_inputs$alphas$B_alpha
+      ),
+      betas = list(
+        A_beta = NormalResult$trans_inputs$betas$A_beta,
+        B_beta = NormalResult$trans_inputs$betas$B_beta
+      )
+    ),
+    
+    posteriors = list(
+      Mu = list(A_mus = A_mus, B_mus = B_mus),
+      Sig_Sq = list(A_sig_sqs = A_sig_sqs, B_sig_sqs = B_sig_sqs),
+      Mean = list(A_means = A_means, B_means = B_means),
+      Median = list(A_meds = A_meds, B_meds = B_meds),
+      Mode = list(A_modes = A_modes, B_modes = B_modes),
+      Var = list(A_vars = A_vars, B_vars = B_vars)
+    ),
+    
+    distribution = "lognormal"
   )
   
   class(result) <- c('bayesLogNormalTest','bayesTest')

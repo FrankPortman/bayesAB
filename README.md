@@ -18,6 +18,8 @@ valid no matter when a test is stopped.
 
 ### To Do
 
+Idea: bayestest only calculates posteriors, print/summary/plot generics do 'percent lift' calculations. this simplifies minLift also
+
 #### V1
 
 - Documentation
