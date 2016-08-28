@@ -34,6 +34,6 @@ plotSamples <- function(bayesAB, percentLift) {
     p <- bayesAB$posteriors[i]
     n <- names(p)
     p <- unlist(p, recursive = FALSE, use.names = FALSE)
-    samplePlot(p[[1]], p[[2]], percentLift, n)
+    samplePlot(p[[1]], p[[2]], percentLift[i], n)
   }
 }
