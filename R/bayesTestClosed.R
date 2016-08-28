@@ -1,4 +1,4 @@
-bayesPropTestClosed <- function(clicks_test, views_test, clicks_control, views_control, percent_lift = 0) {
+bayesBernoulliTestClosed <- function(clicks_test, views_test, clicks_control, views_control, percent_lift = 0) {
   
   alpha_1 <- clicks_test + 1
   beta_1 <- views_test + 1
@@ -23,5 +23,11 @@ bayesPropTestClosed <- function(clicks_test, views_test, clicks_control, views_c
   class(result) <- 'bayesPropTestClosed'
   
   return(result)
+  
+}
+
+bayesPoissonTestClosed <- function() {
+  
+  alt_count(1, 2, 3, 4)
   
 }
