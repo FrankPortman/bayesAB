@@ -37,7 +37,7 @@ print.bayesTest <- function(x, ...) {
   
   cat('--------------------------------------------\n')
   cat('Calculated posteriors for the following parameters: \n')
-  print(names(x$posteriors))
+  cat(paste0(names(x$posteriors), collapse = ", "), '\n')
   
   cat('--------------------------------------------\n')
   cat('Monte Carlo samples generated per posterior: \n')
