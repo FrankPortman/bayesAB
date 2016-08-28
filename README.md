@@ -54,13 +54,14 @@ library(bayesAB)
 plotBeta(alpha = 1,
          beta = 1)
          
-A <- rbinom(25000, size = 1, .3)
-B <- rbinom(25000, size = 1, .2)
+A <- rbinom(250, size = 1, .3)
+B <- rbinom(250, size = 1, .2)
 
-AB1 <- bayesBernoulliTest(A,
-                          B,
+AB1 <- bayesTest(A,
+                 B,
                      c("alpha" = 1,
-                     "beta" = 1))
+                     "beta" = 1),
+                     distribution = 'bernoulli')
                      
 AB1 <- bayesTest(A, B, c("alpha" = 1, "beta" = 1), distribution = "bernoulli")
 
@@ -75,12 +76,13 @@ print(liftAB1)
 A_data <- rnorm(1000,mean = 10,sd = 1)
 B_data <- rnorm(1000, mean = 10.1, sd = 3)
 
-AB1Norm <- bayesNormalTest(A_data,
+AB1Norm <- bayesTest(A_data,
                       B_data,
                       c("m0" = 9,
                       "k0" = 3,
                       "s_sq0" = 1,
-                      "v0" = 1))
+                      "v0" = 1),
+                      distribution = 'normal')
                       
 plot(AB1Norm)
 

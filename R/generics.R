@@ -1,17 +1,23 @@
 ## Plot stays the same except percentLift now goes into the plots
 #' @export
-plot.bayesTest <- function(x, percentLift = rep(0, length(x$posteriors)), ...) {
+plot.bayesTest <- function(x, 
+                           percentLift = rep(0, length(x$posteriors)),
+                           priors = TRUE,
+                           posteriors = TRUE,
+                           samples = TRUE,
+                           ...) {
   
   if(length(x$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
+  if(!any(priors, posteriors, samples)) stop("Must specifiy at least one plot to make.")
   
-  oldPar <- par()
+  oldPar <- par()$ask
   par(ask = TRUE)
   
-  #plotPriors(x)
-  plostPosteriors(x)
-  plostSamples(x, percentLift)
+  if(priors) plotPriors(x)
+  if(posteriors) plotPosteriors(x)
+  if(samples) plotSamples(x, percentLift)
   
-  par(oldPar)
+  par(ask = oldPar)
   
 }
 
