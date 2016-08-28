@@ -1,4 +1,3 @@
-## Plot stays the same except percentLift now goes into the plots
 #' @export
 plot.bayesTest <- function(x, 
                            percentLift = rep(0, length(x$posteriors)),
@@ -21,9 +20,12 @@ plot.bayesTest <- function(x,
   
 }
 
-## Print just prints about the test, summarize input data streams, and talk about priors, n_samp, etc
 #' @export
 print.bayesTest <- function(x, ...) {
+  
+  cat('--------------------------------------------\n')
+  cat("Distribution used: ")
+  cat(x$distribution, '\n')
   
   cat('--------------------------------------------\n')
   cat('Using data with the following properties: \n')
@@ -34,64 +36,62 @@ print.bayesTest <- function(x, ...) {
   print(x$inputs$priors)
   
   cat('--------------------------------------------\n')
-  cat('Summaries of the posteriors: \n')
-  print(sapply(x$posteriors, summary))
+  cat('Calculated posteriors for the following parameters: \n')
+  print(names(x$posteriors))
   
   cat('--------------------------------------------\n')
+  cat('Monte Carlo samples generated per posterior: \n')
+  print(x$inputs$n_samples)
   
-  #Warning: assumes format for posteriors is A_param1, B_param1, A_param2, B_param2, etc.
-  probAgreatB <- sapply(1:(length(x$posteriors)/2), 
-               function(x) mean((x$posteriors[[2*x-1]] - x$posteriors[[2*x]]) / (x$posteriors[[2*x]]) > 0))
-  varNames <- names(x$posteriors[seq(2,length(x$posteriors),2)])
-  varNames <- sapply(varNames, function(x) substr(x, 3, nchar(x)))
-  names(probAgreatB) <- varNames
-  
-  cat('P(A > B) for the following posteriors: \n')
-  print(probAgreatB)
 }
 
-## does P(A>B) for percentLift across all params and whatever else
 #' @export
-summary.bayesTest <- function(object, percentLift = rep(0, length(object$posteriors)), ...) {
+summary.bayesTest <- function(object, 
+                              percentLift = rep(0, length(object$posteriors)),
+                              credInt = rep(.9, length(object$posteriors)),
+                              ...) {
   
   if(length(object$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
+  if(length(object$posteriors) != length(credInt)) stop("Must supply a 'credInt' for every parameter with a posterior distribution.")
+  
+  
+  probability <- Map(function(x, y) getProb(x[[1]], x[[2]], y), object$posteriors, percentLift)
+  interval <- Map(function(x, y) getCredInt(x[[1]], x[[2]], y), object$posteriors, credInt)
+
+  out <- list(probability = probability, 
+              interval = interval, 
+              percentLift = percentLift, 
+              credInt = credInt)
+
+  class(out) <- 'summaryBayesTest'
+  
+  return(out)
   
 }
 
-
-# print.bayesBernoulliTest <- function(x) {
-# 
-#   cat('xs of the Experiment: \n \n')
-#   cat('Clicks in A: ', sum(x$inputs$A_data), '\n', sep = "")
-#   cat('Views in A: ', length(x$inputs$A_data), '\n', sep = "")
-#   cat('Clicks in B: ', sum(x$inputs$B_data), '\n', sep = "")
-#   cat('Views in B: ', length(x$inputs$B_data), '\n', sep = "")
-#   cat('\n')
-#   cat('using a Beta(', as.numeric(x$inputs$priors['alpha']), ',', as.numeric(x$inputs$priors['beta']), ') prior.\n')
-# 
-#   cat('--------------------------------------------\n')
-# 
-#   cat('P(A > B) by at least ', x$inputs$percent_lift, '% = ', x$prob, '\n', sep = "")
-# 
-# }
-
 #' @export
-print.minLift <- function(x, ...) {
+print.summaryBayesTest <- function(x, ...) {
   
-  print(get(x$test))
+  cat('P(A > B) by (', paste0(x$percentLift, collapse = ", "), ')%: \n', sep = "")
+  print(x$probability)
   
-  cat('\n')
-  cat('--------------------------------------------\n')
-  cat(paste0('Maximum Lift that returns a ', paste(x$probability * 100, collapse = "%, ")))
-  cat(paste0('% x that ', gsub(".$","",x$testVars[1]), ' > ', gsub(".$","",x$testVars[2]), ' is '))
-  cat(paste(round(x$minLift * 100, 4), collapse = "%, "), '%.\n', sep = "")
-  cat('Access directly with $minLift\n', sep = "")
+  cat('--------------------------------------------\n\n')
+  
+  cat('Credible Interval on (A - B) / B for interval length(s) (', paste0(x$credInt, collapse = ", "), ') : \n', sep = "")
+  print(x$interval)
+
 }
 
 #' @export
 `+.bayesTest` <- function(e1, e2) {
   
+  if(is(e1) == 'bayesBernoulliTest' | is(e2) == 'bayesBernoulliTest') {
+    stop('Does not make sense to add `Bernoulli` samples to any other distribution.')
+  }
+  
   if(e1$inputs$n_samples != e2$inputs$n_samples) warning("n_samples not equal. Recycling elements for target distribution.")
+  
+  
   
   #add all of e1A to all of e2A
   #add all of e1B to all of e2B
