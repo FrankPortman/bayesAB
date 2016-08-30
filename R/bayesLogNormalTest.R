@@ -1,7 +1,6 @@
 bayesLogNormalTest <- function(A_data,
                                B_data,
                                priors,
-                               #percent_lift = 0,
                                n_samples = 1e5) {
   
   if((
@@ -16,7 +15,7 @@ bayesLogNormalTest <- function(A_data,
   A_data <- log(A_data)
   B_data <- log(B_data)
   
-  NormalResult <- bayesNormalTest(A_data, B_data, priors, percent_lift, n_samples)
+  NormalResult <- bayesNormalTest(A_data, B_data, priors, n_samples)
   
   ## Means
   A_mus <- NormalResult$posteriors$A_mus
