@@ -16,27 +16,20 @@ notoriously hard to interpret for statisticians and non-statisticians
 alike. Bayesian methods are also immune to 'peeking' and are thus
 valid no matter when a test is stopped.
 
-### To Do
+We also have unit tests so you know this shit is serious.
 
-Idea: bayestest only calculates posteriors, print/summary/plot generics do 'percent lift' calculations. this simplifies minLift also
+### To Do
 
 #### V1
 
 - Documentation
 - Vignette for usage
-- Print generics for all tests
 - Hook up 'closed forms'
 - Programmatic usage for plots - specifying which you want or being able to extract those objects safely
-- Sample plots for LogNormal test
-- Credible Intervals
-
-#### V1.5
-
 - Tests
 
 #### V2
 
-- More refactoring
 - More distributions
 
 ## Installation
@@ -96,13 +89,5 @@ AB1LogNorm <- bayesLogNormalTest(A_data, B_data, c("m0" = 9,
                       "v0" = 1))
 
 plot(AB1LogNorm)
-
-#Negative Binomial Example
-A_data <- rnbinom(1000, 3, 0.8)
-B_data <- rnbinom(1000, 3.5, 0.9)
-
-AB_NB <- bayesNegBinTest(A_data, B_data, .01, .01, .01, .01, 3, 1000)
-
-plot(AB_NB)
 
 ```
