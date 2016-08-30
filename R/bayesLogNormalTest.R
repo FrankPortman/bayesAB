@@ -74,7 +74,7 @@ bayesLogNormalTest <- function(A_data,
     distribution = "lognormal"
   )
   
-  class(result) <- c('bayesLogNormalTest','bayesTest')
+  class(result) <- c('bayesTest')
   
   return(result)
   

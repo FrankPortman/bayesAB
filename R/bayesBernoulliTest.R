@@ -19,7 +19,7 @@ bayesBernoulliTest <- function(A_data,
   }
   
   ## Check that priors are supplied
-  if(length(priors) != 2) stop("Incorrect length of priors. Expecting an argument for alpha and beta.")
+  if(length(priors) != 2) stop("Incorrect length of priors. Expecting an argument for alpha and beta ONLY.")
   
   ## Check we have alpha and beta
   if(!all(names(priors) %in% c('alpha', 'beta'))) stop("Arguments don't match requirement for alpha and beta. Check names.")
@@ -74,7 +74,7 @@ bayesBernoulliTest <- function(A_data,
     distribution = "bernoulli"
   )
   
-  class(result) <- c('bayesBernoulliTest','bayesTest')
+  class(result) <- c('bayesTest')
   
   return(result)
   
