@@ -3,5 +3,4 @@ cache: packages
 warnings_are_errors: false
 
 before_install:
-  - tlmgr install utf8
-  
+  - tlmgr install ucs
