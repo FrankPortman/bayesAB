@@ -1,8 +1,8 @@
 #' Plot the PDF of the Normal distribution.
 #' 
-#' @param mu μ parameter of the Normal distribution.
-#' @param s_sq σ² parameter of the Normal distribution.
-#' @return The PDF of Normal(μ, σ²).
+#' @param mu \eqn{\mu} parameter of the Normal distribution.
+#' @param s_sq \eqn{\sigma^2} parameter of the Normal distribution.
+#' @return The PDF of Normal(\eqn{\mu}, \eqn{\sigma^2}).
 #' @examples
 #' plotNormal(1, 1)
 #' plotNormal(2, 5)

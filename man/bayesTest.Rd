@@ -46,10 +46,10 @@ be specified at the time of invoking the function. Currently, there are three su
 \item Normal: If your datat is well modeled by the normal distribution, with parameters μ, σ² controlling mean and variance
 of the underlying distribution
    \itemize{\item Data \emph{can} be negative if it makes sense for your experiment
-            \item Uses a conjugate \code{Normal} distribution for the parameter \bold{μ} in the Normal Distribution
-            \item Uses a conjugate \code{Inverse Gamma} distribution for the parameter \bold{σ²} in the Normal Ditribution
-            \item \code{m0}, \code{k0}, \code{s_sq0}, and \code{v0} must be set for prior distributions over \bold{μ, σ²}
-            in accordance with the parameters of the conjugate prior distributions:
+            \item Uses a conjugate \code{Normal} distribution for the parameter \bold{\eqn{\mu}} in the Normal Distribution
+            \item Uses a conjugate \code{Inverse Gamma} distribution for the parameter \bold{\eqn{\sigma^{2}}} in the Normal Ditribution
+            \item \code{m0}, \code{k0}, \code{s_sq0}, and \code{v0} must be set for prior 
+            distributions over \bold{\eqn{\mu}, \eqn{\sigma^2}} in accordance with the parameters of the conjugate prior distributions:
             \itemize{\item \code{μ} ~ Normal(m0, k0) \item \code{σ²} ~ InvGamma(s_sq0, v0)}}
             
 \item LogNormal: If your data is well modeled by the log-normal distribution, with parameters μ, σ² as the \bold{parameters}

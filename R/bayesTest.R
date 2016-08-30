@@ -33,19 +33,19 @@ bayesAB.env$functions <- list("bernoulli" = bayesBernoulliTest,
 #'             \item \code{alpha} and \code{beta} must be set for a prior distribution over \bold{p}
 #'             \itemize{\item alpha = 1, beta = 1 can be used as a diffuse or uniform prior}}
 #'             
-#' \item Normal: If your datat is well modeled by the normal distribution, with parameters μ, σ² controlling mean and variance
+#' \item Normal: If your datat is well modeled by the normal distribution, with parameters \eqn{\mu}, \eqn{\sigma^2} controlling mean and variance
 #' of the underlying distribution
 #'    \itemize{\item Data \emph{can} be negative if it makes sense for your experiment
-#'             \item Uses a conjugate \code{Normal} distribution for the parameter \bold{μ} in the Normal Distribution
-#'             \item Uses a conjugate \code{Inverse Gamma} distribution for the parameter \bold{σ²} in the Normal Ditribution
-#'             \item \code{m0}, \code{k0}, \code{s_sq0}, and \code{v0} must be set for prior distributions over \bold{μ, σ²}
-#'             in accordance with the parameters of the conjugate prior distributions:
-#'             \itemize{\item \code{μ} ~ Normal(m0, k0) \item \code{σ²} ~ InvGamma(s_sq0, v0)}}
+#'             \item Uses a conjugate \code{Normal} distribution for the parameter \bold{\eqn{\mu}} in the Normal Distribution
+#'             \item Uses a conjugate \code{Inverse Gamma} distribution for the parameter \bold{\eqn{\sigma^2}} in the Normal Ditribution
+#'             \item \code{m0}, \code{k0}, \code{s_sq0}, and \code{v0} must be set for prior 
+#'             distributions over \bold{\eqn{\mu}, \eqn{\sigma^2}} in accordance with the parameters of the conjugate prior distributions:
+#'             \itemize{\item \code{\eqn{\mu}} ~ Normal(m0, k0) \item \code{\eqn{\sigma^2}} ~ InvGamma(s_sq0, v0)}}
 #'             
-#' \item LogNormal: If your data is well modeled by the log-normal distribution, with parameters μ, σ² as the \bold{parameters}
-#' of the corresponding log-normal distribution (log of data is ~ N(μ, σ²))
+#' \item LogNormal: If your data is well modeled by the log-normal distribution, with parameters \eqn{\mu}, \eqn{\sigma^2} as the \bold{parameters}
+#' of the corresponding log-normal distribution (log of data is ~ N(\eqn{\mu}, \eqn{\sigma^2}))
 #'    \itemize{\item Support for a log-normal distribution is stricly positive
-#'             \item The Bayesian model requires same conjugate priors on μ, σ² as for the Normal Distribution priors}
+#'             \item The Bayesian model requires same conjugate priors on \eqn{\mu}, \eqn{\sigma^2} as for the Normal Distribution priors}
 #' 
 #' }
 #' 
