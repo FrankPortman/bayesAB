@@ -7,12 +7,12 @@
 plotNormal(mu, s_sq)
 }
 \arguments{
-\item{mu}{μ parameter of the Normal distribution.}
+\item{mu}{\eqn{\mu} parameter of the Normal distribution.}
 
-\item{s_sq}{σ² parameter of the Normal distribution.}
+\item{s_sq}{\eqn{\sigma^2} parameter of the Normal distribution.}
 }
 \value{
-The PDF of Normal(μ, σ²).
+The PDF of Normal(\eqn{\mu}, \eqn{\sigma^2}).
 }
 \description{
 Plot the PDF of the Normal distribution.

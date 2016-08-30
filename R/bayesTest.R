@@ -40,7 +40,7 @@ bayesAB.env$functions <- list("bernoulli" = bayesBernoulliTest,
 #'             \item Uses a conjugate \code{Inverse Gamma} distribution for the parameter \bold{\eqn{\sigma^2}} in the Normal Ditribution
 #'             \item \code{m0}, \code{k0}, \code{s_sq0}, and \code{v0} must be set for prior 
 #'             distributions over \bold{\eqn{\mu}, \eqn{\sigma^2}} in accordance with the parameters of the conjugate prior distributions:
-#'             \itemize{\item \code{\eqn{\mu}} ~ Normal(m0, k0) \item \code{\eqn{\sigma^2}} ~ InvGamma(s_sq0, v0)}}
+#'             \itemize{\item \eqn{\mu} ~ Normal(m0, k0) \item \eqn{\sigma^2} ~ InvGamma(s_sq0, v0)}}
 #'             
 #' \item LogNormal: If your data is well modeled by the log-normal distribution, with parameters \eqn{\mu}, \eqn{\sigma^2} as the \bold{parameters}
 #' of the corresponding log-normal distribution (log of data is ~ N(\eqn{\mu}, \eqn{\sigma^2}))
