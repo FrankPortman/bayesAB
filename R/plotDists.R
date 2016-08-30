@@ -19,9 +19,9 @@ plotNormal <- function(mu, s_sq) {
 
 #' Plot the PDF of the Beta distribution.
 #' 
-#' @param alpha α parameter of the Beta distribution.
-#' @param beta β parameter of the Beta distribution.
-#' @return The PDF of Beta(α, β).
+#' @param alpha \eqn{\alpha} parameter of the Beta distribution.
+#' @param beta \eqn{\beta} parameter of the Beta distribution.
+#' @return The PDF of Beta(\eqn{\alpha}, \eqn{\beta}).
 #' @examples
 #' plotBeta(1, 1)
 #' plotBeta(2, 5)

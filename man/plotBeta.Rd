@@ -7,12 +7,12 @@
 plotBeta(alpha, beta)
 }
 \arguments{
-\item{alpha}{α parameter of the Beta distribution.}
+\item{alpha}{\eqn{\alpha} parameter of the Beta distribution.}
 
-\item{beta}{β parameter of the Beta distribution.}
+\item{beta}{\eqn{\beta} parameter of the Beta distribution.}
 }
 \value{
-The PDF of Beta(α, β).
+The PDF of Beta(\eqn{\alpha}, \eqn{\beta}).
 }
 \description{
 Plot the PDF of the Beta distribution.
