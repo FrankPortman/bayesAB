@@ -17,6 +17,28 @@ plotNormal <- function(mu, s_sq) {
   
 }
 
+#' Plot the PDF of the Gamma distribution.
+#' 
+#' @param shape shape (\eqn{\alpha}) parameter of the Gamma distribution.
+#' @param rate rate (\eqn{\beta}) parameter of the Gamma distribution.
+#' @return The PDF of Gamma(shape, rate).
+#' @details Note: We use the shape/rate parametrization of Gamma. See https://en.wikipedia.org/wiki/Gamma_distribution for details.
+#' @examples
+#' plotGamma(1, 1)
+#' plotGamma(2, 5)
+#' @export
+
+plotGamma <- function(shape, rate, p = .99) {
+  
+  if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
+  
+  support <- seq(.01, qgamma(p, shape = shape, rate = rate), .01)
+  hseq <- dgamma(support, shape = shape, rate = rate)
+  
+  plotDist(support, hseq, "Gamma", c('shape' = shape, 'rate' = rate))
+  
+}
+
 #' Plot the PDF of the Beta distribution.
 #' 
 #' @param alpha \eqn{\alpha} parameter of the Beta distribution.
@@ -47,7 +69,7 @@ plotBeta <- function(alpha, beta) {
 #' plotInvGamma(1, 17)
 #' @export
 
-plotInvGamma <- function(shape, scale, p = .95) {
+plotInvGamma <- function(shape, scale, p = .99) {
   
   if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
   

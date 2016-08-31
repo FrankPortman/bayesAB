@@ -1,8 +1,8 @@
 Package: bayesAB
 Type: Package
 Title: AB Testing for Counts and Proportions using Bayesian Methods
-Version: 1.0
-Date: 2015-01-30
+Version: 0.5
+Date: 2016-09-01
 Authors@R: "Frank Portman <frank1214@gmail.com> [aut, cre]"
 Description: bayesAB provides a suite of functions that allow the user to
     analyze AB test data in a similar light to common frequentist hypothesis tests
@@ -11,7 +11,7 @@ Description: bayesAB provides a suite of functions that allow the user to
     for counts and proportions. This has several implications, namely in terms of
     interpretability. Frequentist t-tests that rely on p-values are notoriously hard
     to interpret for statisticians and non-statisticians alike.
-License: GPL (>= 2)
+License: MIT
 Imports:
     Rcpp (>= 0.11.4),
     ggplot2,
