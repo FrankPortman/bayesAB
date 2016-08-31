@@ -11,7 +11,7 @@ A_data_bad_non_unique <- c(A_data, 2)
 test_that("Failures based on input types", {
   
   expect_error(bayesTest(A_data, B_data, priors = c('alpha' = 5, 'beta' = 3, "jumanji" = 6), distribution = 'bernoulli'),
-               "Incorrect length of priors. Expecting an argument for alpha and beta")
+               "Incorrect length of priors. Expecting an argument for alpha and beta ONLY.")
   
   expect_error(bayesTest(A_data_bad_string, B_data, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli'),
                "Data input is incorrect. Data can only contain 0's and 1's. See help docs for more info.")

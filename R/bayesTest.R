@@ -54,8 +54,11 @@ bayesAB.env$functions <- list("bernoulli" = bayesBernoulliTest,
 #' Adding and multiplying to chain together distributions.
 #' 
 #' @examples
-#' plotNormal(1, 1)
-#' plotNormal(2, 5)
+#' A_data <- rbinom(100, 1, .5)
+#' B_data <- rbinom(100, 1, .6)
+#' AB1 <- bayesTest(A_data, B_data, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
+#' print(AB1)
+#' summary(AB1)
 #' @export 
 
 bayesTest <- function(A_data,
