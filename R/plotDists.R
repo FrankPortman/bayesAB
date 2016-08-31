@@ -21,6 +21,7 @@ plotNormal <- function(mu, s_sq) {
 #' 
 #' @param shape shape (\eqn{\alpha}) parameter of the Gamma distribution.
 #' @param rate rate (\eqn{\beta}) parameter of the Gamma distribution.
+#' @param p  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Gamma(shape, rate).
 #' @details Note: We use the shape/rate parametrization of Gamma. See https://en.wikipedia.org/wiki/Gamma_distribution for details.
 #' @examples
@@ -62,7 +63,7 @@ plotBeta <- function(alpha, beta) {
 #' 
 #' @param shape shape parameter of the Inverse Gamma distribution.
 #' @param scale scale parameter of the Inverse Gamma distribution.
-#' @param p  control x-axis limits (default is set to view 95\% of the area under the density curve)
+#' @param p  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of InvGamma(shape, scale).
 #' @examples
 #' plotInvGamma(2, 4)

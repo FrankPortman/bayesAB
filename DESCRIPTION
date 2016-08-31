@@ -11,7 +11,7 @@ Description: bayesAB provides a suite of functions that allow the user to
     for counts and proportions. This has several implications, namely in terms of
     interpretability. Frequentist t-tests that rely on p-values are notoriously hard
     to interpret for statisticians and non-statisticians alike.
-License: MIT
+License: MIT + file LICENSE
 Imports:
     Rcpp (>= 0.11.4),
     ggplot2,
