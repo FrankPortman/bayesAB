@@ -26,7 +26,7 @@ bayesBernoulliTest <- function(A_data,
   
   priors <- priors[c('alpha', 'beta')]
   stored_priors <- priors
-  priors <- as.numeric(priors)
+  priors <- suppressWarnings(as.numeric(priors))
     
   if(any(is.na(priors))) stop("alpha and/or beta are not numeric!")
   if(!all(priors > 0)) stop("alpha and beta are parameters of the Beta Distribution and should be strictly > 0.")
