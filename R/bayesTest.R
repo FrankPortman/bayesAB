@@ -1,8 +1,3 @@
-bayesAB.env <- new.env()
-bayesAB.env$functions <- list("bernoulli" = bayesBernoulliTest,
-                              "normal" = bayesNormalTest,
-                              "lognormal" = bayesLogNormalTest)
-
 #' Fit a Bayesian model to A/B test data.
 #' 
 #' @description This function fits a Bayesian model to your A/B testing sample data. See \bold{Details} for more information on usage.
@@ -67,7 +62,11 @@ bayesTest <- function(A_data,
                       n_samples = 1e5,
                       distribution) {
   
-  if(!distribution %in% names(bayesAB.env$functions)) stop("Did not specify a valid distribution.")
-  do.call(bayesAB.env$functions[[distribution]], list(A_data, B_data, priors, n_samples))
+  funs <- list("bernoulli" = bayesBernoulliTest,
+               "normal" = bayesNormalTest,
+               "lognormal" = bayesLogNormalTest)
+  
+  if(!distribution %in% names(funs)) stop("Did not specify a valid distribution.")
+  do.call(funs[[distribution]], list(A_data, B_data, priors, n_samples))
   
 }
