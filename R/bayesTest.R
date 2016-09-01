@@ -66,7 +66,8 @@ bayesTest <- function(A_data,
                "normal" = bayesNormalTest,
                "lognormal" = bayesLogNormalTest,
                "poisson" = bayesPoissonTest,
-               "exponential" = bayesExponentialTest)
+               "exponential" = bayesExponentialTest,
+               "uniform" = bayesUniformTest)
   
   if(!distribution %in% names(funs)) stop("Did not specify a valid distribution.")
   do.call(funs[[distribution]], list(A_data, B_data, priors, n_samples))

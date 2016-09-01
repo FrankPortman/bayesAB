@@ -19,6 +19,28 @@ plotPoisson <- function(lambda, p = .99) {
   
 }
 
+#' Plot the PDF of the Pareto distribution.
+#' 
+#' @param xm xm parameter of the Pareto distribution.
+#' @param alpha alpha parameter of the Pareto distribution. 
+#' @param p  control x-axis limits (default is set to view 65\% of the area under the density curve. Be careful tweaking this for Pareto.)
+#' @return The PDF of Pareto(xm, alpha).
+#' @examples
+#' plotPareto(1, 1)
+#' plotPareto(5, 3)
+#' @export
+
+plotPareto <- function(xm, alpha, p = .65) {
+  
+  if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
+  
+  support <- seq((xm - 3), qpareto(p, xm, alpha), .01) 
+  hseq <- dpareto(support, xm, alpha)
+  
+  plotDist(support, hseq, "Pareto", c('xm' = xm, 'alpha' = alpha))
+  
+}
+
 #' Plot the PDF of the Normal distribution.
 #' 
 #' @param mu \eqn{\mu} parameter of the Normal distribution.
