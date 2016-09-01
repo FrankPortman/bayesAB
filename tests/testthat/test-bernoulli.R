@@ -33,6 +33,7 @@ test_that("Success", {
   
   expect_is(successfulTest, "bayesTest")
   
-  expect_output(str(successfulTest), "List of 4")
+  expect_output(str(successfulTest), "List of 4") # inputs
+  expect_output(str(successfulTest), "List of 3") # outer
   
 })

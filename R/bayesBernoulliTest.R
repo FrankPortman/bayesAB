@@ -60,13 +60,6 @@ bayesBernoulliTest <- function(A_data,
       n_samples = N_samp
     ),
     
-    outTemp = list(
-      A_alpha = clicks_A + alpha,
-      B_alpha = clicks_B + alpha,
-      A_beta = views_A - clicks_A + beta,
-      B_beta = views_B - clicks_B + beta
-    ),
-    
     posteriors = list(
       Probability = list(A_probs = A_probs, B_probs = B_probs)
     ),
