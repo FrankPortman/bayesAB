@@ -21,6 +21,8 @@ We also have unit tests so you know this shit is serious.
 
 ### To Do
 
+* add a model param --> posterior hyperparam mapper for each distribution. this will make the code more readable and less 'scripty'
+
 #### V1
 
 - Documentation

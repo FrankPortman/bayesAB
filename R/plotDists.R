@@ -1,3 +1,24 @@
+#' Plot the PDF of the Poisson distribution.
+#' 
+#' @param lambda \eqn{\lambda} parameter of the Poisson distribution.
+#' @param p  control x-axis limits (default is set to view 99\% of the area under the density curve)
+#' @return The PDF of Poisson(\eqn{\lambda}).
+#' @examples
+#' plotPoisson(1)
+#' plotPoisson(5)
+#' @export
+
+plotPoisson <- function(lambda, p = .99) {
+  
+  if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
+  
+  support <- 0:(qpois(p, lambda))
+  hseq <- dpois(support, lambda)
+  
+  plotDist(support, hseq, "Poisson", c('lambda' = lambda))
+  
+}
+
 #' Plot the PDF of the Normal distribution.
 #' 
 #' @param mu \eqn{\mu} parameter of the Normal distribution.
@@ -111,6 +132,12 @@ dinvgamma <- function(x, shape, scale) {
 
 plotDist <- function(support, hseq, dist, params) {
   
+  discretes <- c('Poisson')
+  
+  ribbon_or_bar <- ggplot2::geom_ribbon(ymin = 0, ymax = hseq, size = 2, color = I("lightblue"), fill = "lightgreen", alpha = .25)
+  
+  if(dist %in% discretes) ribbon_or_bar <- ggplot2::geom_bar(stat = "identity", color = I("lightblue"), fill = "lightgreen", alpha = .25, size = 2)
+    
   paramList <- sapply(1:length(params), function(x) paste(names(params)[x], params[x], sep = " = ", collapse = ""))
   paramList <- paste0(paramList, collapse = ", ")
   
@@ -122,7 +149,7 @@ plotDist <- function(support, hseq, dist, params) {
       'Probability Density Function for Parameters: ',
       paramList,
       collapse = "")) +
-    ggplot2::geom_ribbon(ymin = 0, ymax = hseq, size = 2, color = I("lightblue"), fill = "lightgreen", alpha = .25) +
+    ribbon_or_bar +
     ggplot2::theme_minimal()
   
   print(p)

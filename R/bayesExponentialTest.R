@@ -1,4 +1,4 @@
-bayesPoissonTest <- function(A_data,
+bayesExponentialTest <- function(A_data,
                           B_data,
                           priors,
                           N_samp = 1e6) {
@@ -36,8 +36,8 @@ bayesPoissonTest <- function(A_data,
   clicks_B <- sum(B_data)
   views_B <- length(B_data)
   
-  A_lambdas <- rgamma(N_samp, sum(A_data) + shape, length(A_data) + rate)
-  B_lambdas <- rgamma(N_samp, sum(B_data) + shape, length(B_data) + rate)
+  A_lambdas <- rgamma(N_samp, length(A_data) + shape, sum(A_data) + rate)
+  B_lambdas <- rgamma(N_samp, length(B_data) + shape, sum(B_data) + rate)
   
   ###
   ## Output the result
@@ -56,7 +56,7 @@ bayesPoissonTest <- function(A_data,
       Lambda = list(A_lambdas = A_lambdas, B_lambdas = B_lambdas)
     ),
     
-    distribution = "poisson"
+    distribution = "exponential"
   )
   
   class(result) <- c('bayesTest')
