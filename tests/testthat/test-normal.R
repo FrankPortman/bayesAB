@@ -1,5 +1,5 @@
 library(bayesAB)
-context('bayesBernoulliTest')
+context('bayesNormalTest')
 
 A_data <- rnorm(100)
 B_data <- rnorm(100)
@@ -39,5 +39,6 @@ test_that("Success", {
   expect_is(successfulTest, "bayesTest")
   
   expect_output(str(successfulTest), "List of 4")
+  expect_output(str(successfulTest), "List of 3")
   
 })

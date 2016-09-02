@@ -1,4 +1,4 @@
-plotPriors <- function(bayesAB) {
+plotPriors <- function(bayesAB, ...) {
   
   funs <- list("beta" = list(params = c('alpha', 'beta'), plotFun = plotBeta),
                "normal" = list(params = c('m0', 'k0'), plotFun = plotNormal),
@@ -12,7 +12,7 @@ plotPriors <- function(bayesAB) {
   labChecker <- function(...) all(c(...) %in% labs) 
   
   for(rel in funs) {
-    if(labChecker(rel$params)) do.call(rel$plotFun, as.list(unname(vals[rel$params])))
+    if(labChecker(rel$params)) do.call(rel$plotFun, as.list(unname(vals[rel$params])), ...)
   }
   
 }

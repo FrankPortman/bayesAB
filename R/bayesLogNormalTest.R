@@ -12,18 +12,20 @@ bayesLogNormalTest <- function(A_data,
     stop("Data input is incorrect. The support of a Log Normal Distribution is (0, Inf).")
   }
   
+  if(any(is.na(suppressWarnings(as.numeric(c(A_data, B_data)))))) stop("A_data and B_data are not ALL numeric.")
+  
   A_data <- log(A_data)
   B_data <- log(B_data)
   
   NormalResult <- bayesNormalTest(A_data, B_data, priors, n_samples)
   
   ## Means
-  A_mus <- NormalResult$posteriors$A_mus
-  B_mus <- NormalResult$posteriors$B_mus
+  A_mus <- NormalResult$posteriors$Mu$A_mus
+  B_mus <- NormalResult$posteriors$Mu$B_mus
   
   ## Sigmas
-  A_sig_sqs <- NormalResult$posteriors$A_sig_sqs
-  B_sig_sqs <- NormalResult$posteriors$B_sig_sqs
+  A_sig_sqs <- NormalResult$posteriors$Sig_Sq$A_sig_sqs
+  B_sig_sqs <- NormalResult$posteriors$Sig_Sq$B_sig_sqs
   
   ## Transform back to log normal for interpretation
   A_means <- exp(A_mus + A_sig_sqs / 2)
@@ -49,17 +51,6 @@ bayesLogNormalTest <- function(A_data,
       B_data = B_data,
       priors = priors,
       n_samples = n_samples
-    ),
-    
-    trans_inputs = list(
-      alphas = list(
-        A_alpha = NormalResult$trans_inputs$alphas$A_alpha,
-        B_alpha = NormalResult$trans_inputs$alphas$B_alpha
-      ),
-      betas = list(
-        A_beta = NormalResult$trans_inputs$betas$A_beta,
-        B_beta = NormalResult$trans_inputs$betas$B_beta
-      )
     ),
     
     posteriors = list(

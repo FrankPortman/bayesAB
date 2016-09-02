@@ -12,7 +12,7 @@ plot.bayesTest <- function(x,
   oldPar <- par()$ask
   par(ask = TRUE)
   
-  if(priors) plotPriors(x)
+  if(priors) plotPriors(x, ...) # for changing p, for some priorPlot params
   if(posteriors) plotPosteriors(x)
   if(samples) plotSamples(x, percentLift)
   
@@ -81,29 +81,3 @@ print.summaryBayesTest <- function(x, ...) {
   print(x$interval)
 
 }
-
-#' @export
-`+.bayesTest` <- function(e1, e2) {
-  
-  if(is(e1) == 'bayesBernoulliTest' | is(e2) == 'bayesBernoulliTest') {
-    stop('Does not make sense to add `Bernoulli` samples to any other distribution.')
-  }
-  
-  if(e1$inputs$n_samples != e2$inputs$n_samples) warning("n_samples not equal. Recycling elements for target distribution.")
-  
-  
-  
-  #add all of e1A to all of e2A
-  #add all of e1B to all of e2B
-  
-}
-
-#' @export
-`*.bayesTest` <- function(e1, e2) {
-  
-  if(e1$inputs$n_samples != e2$inputs$n_samples) warning("n_samples not equal. Recycling elements for target distribution.")
-  
-  #multiply all of e1A to all of e2A
-  #multiply all of e1B to all of e2B
-  
-} 
