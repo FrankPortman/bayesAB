@@ -7,7 +7,6 @@ bayesExponentialTest <- function(A_data,
   ## Error Checking
   ###
   
-  
   ## Check that we only have integer data
   
   ## Check that priors are supplied
@@ -17,7 +16,6 @@ bayesExponentialTest <- function(A_data,
   if(!all(names(priors) %in% c('shape', 'rate'))) stop("Arguments don't match requirement for shape and rate. Check names.")
   
   priors <- priors[c('shape', 'rate')]
-  stored_priors <- priors
   priors <- suppressWarnings(as.numeric(priors))
     
   if(any(is.na(priors))) stop("shape and/or rate are not numeric!")
@@ -27,14 +25,8 @@ bayesExponentialTest <- function(A_data,
   rate <- priors[2]
     
   ###
-  ## Do the computation
+  ## Sample from posterior
   ###
-    
-  clicks_A <- sum(A_data)
-  views_A <- length(A_data)
-  
-  clicks_B <- sum(B_data)
-  views_B <- length(B_data)
   
   A_lambdas <- rgamma(N_samp, length(A_data) + shape, sum(A_data) + rate)
   B_lambdas <- rgamma(N_samp, length(B_data) + shape, sum(B_data) + rate)
@@ -44,13 +36,7 @@ bayesExponentialTest <- function(A_data,
   ###
   
   result <- list(
-    
-    inputs = list(
-      A_data = A_data,
-      B_data = B_data,
-      priors = stored_priors,
-      n_samples = N_samp
-    ),
+    inputs = as.list(match.call()[-1]),
     
     posteriors = list(
       Lambda = list(A_lambdas = A_lambdas, B_lambdas = B_lambdas)

@@ -23,13 +23,13 @@ test_that("Failures based on inputs", {
 test_that("Success", {
   
   expect_silent(plot(x))
-  expect_silent(plot(x, rep(.5, 6)))
+  expect_silent(plot(x, rep(.5, 4)))
   
   expect_output(print(x), "Distribution used")
   
   expect_silent(summary(x))
-  expect_silent(summary(x, rep(.5, 6)))
-  expect_silent(summary(x, rep(.5, 6), rep(.5, 6)))
+  expect_silent(summary(x, rep(.5, 4)))
+  expect_silent(summary(x, rep(.5, 4), rep(.5, 4)))
   
   expect_output(print(summary(x)), 'P(A > B)', fixed = TRUE)
   

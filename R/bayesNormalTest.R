@@ -1,9 +1,9 @@
 drawMusAndSigmas <- function(data, 
-                                m0, 
-                                k0, 
-                                s_sq0, 
-                                v0, 
-                                n_samples = 1e5) {
+                             m0, 
+                             k0, 
+                             s_sq0, 
+                             v0, 
+                             n_samples = 1e5) {
   
   N <- length(data)
   the_mean <- mean(data)
@@ -26,10 +26,7 @@ drawMusAndSigmas <- function(data,
   var_norm <- sqrt(sig_sq_samples / kN)
   mu_samples <- rnorm(n_samples, mean_norm, var_norm)
   
-  return(list(mu_samples = mu_samples,
-              sig_sq_samples = sig_sq_samples,
-              alpha = alpha,
-              beta = beta))
+  return(list(mu_samples = mu_samples, sig_sq_samples = sig_sq_samples))
   
 }
 
@@ -52,9 +49,7 @@ bayesNormalTest <- function(A_data,
   if(!all(names(priors) %in% c('m0', 'k0', 's_sq0', 'v0'))) 
     stop("Arguments don't match requirement for m0, k0, s_sq0, and v0. Check names.")
   
-  
   priors <- priors[c('m0', 'k0', 's_sq0', 'v0')]
-  stored_priors <- priors
   priors <- as.numeric(priors)
   
   m0 <- priors[1]
@@ -87,13 +82,7 @@ bayesNormalTest <- function(A_data,
   ###
   
   result <- list(
-
-    inputs = list(
-      A_data = A_data,
-      B_data = B_data,
-      priors = stored_priors,
-      n_samples = n_samples
-    ),
+    inputs = as.list(match.call()[-1]),
     
     posteriors = list(
       Mu = list(A_mus = A_mus, B_mus = B_mus),

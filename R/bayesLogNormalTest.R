@@ -3,6 +3,10 @@ bayesLogNormalTest <- function(A_data,
                                priors,
                                n_samples = 1e5) {
   
+  ###
+  ## Error Checking
+  ###
+  
   if((
     any(
       A_data <= 0,
@@ -14,10 +18,11 @@ bayesLogNormalTest <- function(A_data,
   
   if(any(is.na(suppressWarnings(as.numeric(c(A_data, B_data)))))) stop("A_data and B_data are not ALL numeric.")
   
-  A_data <- log(A_data)
-  B_data <- log(B_data)
+  ###
+  ## Sample from posterior
+  ###
   
-  NormalResult <- bayesNormalTest(A_data, B_data, priors, n_samples)
+  NormalResult <- bayesNormalTest(log(A_data), log(B_data), priors, n_samples)
   
   ## Means
   A_mus <- NormalResult$posteriors$Mu$A_mus
@@ -31,34 +36,20 @@ bayesLogNormalTest <- function(A_data,
   A_means <- exp(A_mus + A_sig_sqs / 2)
   B_means <- exp(B_mus + B_sig_sqs / 2)
   
-  A_meds <- exp(A_mus)
-  B_meds <- exp(B_mus)
-  
-  A_modes <- exp(A_mus - A_sig_sqs)
-  B_modes <- exp(B_mus - B_sig_sqs)
-  
   A_vars <- (exp(A_sig_sqs) - 1) * exp(2 * A_mus + A_sig_sqs)
   B_vars <- (exp(B_sig_sqs) - 1) * exp(2 * B_mus + B_sig_sqs)
   
-  #transform data to original form before returning it:
-  A_data <- exp(A_data)
-  B_data <- exp(B_data)
+  ###
+  ## Output the result
+  ###
   
   result <- list(
-
-    inputs = list(
-      A_data = A_data,
-      B_data = B_data,
-      priors = priors,
-      n_samples = n_samples
-    ),
+    inputs = as.list(match.call()[-1]),
     
     posteriors = list(
       Mu = list(A_mus = A_mus, B_mus = B_mus),
       Sig_Sq = list(A_sig_sqs = A_sig_sqs, B_sig_sqs = B_sig_sqs),
       Mean = list(A_means = A_means, B_means = B_means),
-      Median = list(A_meds = A_meds, B_meds = B_meds),
-      Mode = list(A_modes = A_modes, B_modes = B_modes),
       Var = list(A_vars = A_vars, B_vars = B_vars)
     ),
     

@@ -7,7 +7,6 @@ bayesBernoulliTest <- function(A_data,
   ## Error Checking
   ###
   
-  
   ## Check that we only have click data
   if(!(
     all(
@@ -25,7 +24,6 @@ bayesBernoulliTest <- function(A_data,
   if(!all(names(priors) %in% c('alpha', 'beta'))) stop("Arguments don't match requirement for alpha and beta. Check names.")
   
   priors <- priors[c('alpha', 'beta')]
-  stored_priors <- priors
   priors <- suppressWarnings(as.numeric(priors))
     
   if(any(is.na(priors))) stop("alpha and/or beta are not numeric!")
@@ -35,30 +33,18 @@ bayesBernoulliTest <- function(A_data,
   beta <- priors[2]
     
   ###
-  ## Do the computation
+  ## Sample from posterior
   ###
-    
-  clicks_A <- sum(A_data)
-  views_A <- length(A_data)
   
-  clicks_B <- sum(B_data)
-  views_B <- length(B_data)
-  
-  A_probs <- rbeta(N_samp, clicks_A + alpha, views_A - clicks_A + beta)
-  B_probs <- rbeta(N_samp, clicks_B + alpha, views_B - clicks_B + beta)
+  A_probs <- rbeta(N_samp, sum(A_data) + alpha, length(A_data) - sum(A_data) + beta)
+  B_probs <- rbeta(N_samp, sum(B_data) + alpha, length(B_data) - sum(B_data) + beta)
   
   ###
   ## Output the result
   ###
   
   result <- list(
-    
-    inputs = list(
-      A_data = A_data,
-      B_data = B_data,
-      priors = stored_priors,
-      n_samples = N_samp
-    ),
+    inputs = as.list(match.call()[-1]),
     
     posteriors = list(
       Probability = list(A_probs = A_probs, B_probs = B_probs)
