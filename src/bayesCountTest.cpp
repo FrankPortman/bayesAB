@@ -15,7 +15,7 @@ double lbeta(double a, double b) {
 }
 
 // [[Rcpp::export]]
-double alt_count(double alpha_1, double beta_1, double alpha_2, double beta_2) {
+double bayesPoissonTestClosed_(double alpha_1, double beta_1, double alpha_2, double beta_2) {
   
   double total = 0;
   

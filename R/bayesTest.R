@@ -60,16 +60,26 @@ bayesTest <- function(A_data,
                       B_data,
                       priors,
                       n_samples = 1e5,
-                      distribution) {
+                      distribution = c('bernoulli', 'normal', 'lognormal', 
+                                       'poisson', 'exponential', 'uniform',
+                                       'bernoulliC', 'poissonC')) {
   
   funs <- list("bernoulli" = bayesBernoulliTest,
                "normal" = bayesNormalTest,
                "lognormal" = bayesLogNormalTest,
                "poisson" = bayesPoissonTest,
                "exponential" = bayesExponentialTest,
-               "uniform" = bayesUniformTest)
+               "uniform" = bayesUniformTest,
+               "bernoulliC" = bayesBernoulliTestClosed,
+               "poissonC" = bayesPoissonTestClosed)
+  
+  distribution <- match.arg(distribution)
   
   if(!distribution %in% names(funs)) stop("Did not specify a valid distribution.")
-  do.call(funs[[distribution]], list(A_data, B_data, priors, n_samples))
+  
+  fcall <- list(A_data, B_data, priors)
+  if(!grepl("C", distribution)) fcall <- c(fcall, n_samples)
+  
+  do.call(funs[[distribution]], fcall)
   
 }

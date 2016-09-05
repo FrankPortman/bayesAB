@@ -1,33 +1,121 @@
-bayesBernoulliTestClosed <- function(clicks_test, views_test, clicks_control, views_control, percent_lift = 0) {
+bayesBernoulliTestClosed <- function(A_data,
+                                     B_data,
+                                     priors) {
   
-  alpha_1 <- clicks_test + 1
-  beta_1 <- views_test + 1
+  ###
+  ## Error Checking
+  ###
   
-  alpha_2 <- round(clicks_control * (1 + percent_lift / 100))
-  alpha_2 <- alpha_2 + 1
-  beta_2 <- views_control + 1
+  ## Check that we only have click data
+  if(!(
+    all(
+      A_data %in% c(0, 1),
+      B_data %in% c(0, 1)
+    )
+  )) {
+    stop("Data input is incorrect. Data can only contain 0's and 1's. See help docs for more info.")
+  }
   
-  prob <- alt_prop(alpha_1, beta_1, alpha_2, beta_2)
+  ## Check that priors are supplied
+  if(length(priors) != 2) stop("Incorrect length of priors. Expecting an argument for alpha and beta ONLY.")
+  
+  ## Check we have alpha and beta
+  if(!all(names(priors) %in% c('alpha', 'beta'))) stop("Arguments don't match requirement for alpha and beta. Check names.")
+  
+  priors <- priors[c('alpha', 'beta')]
+  priors <- suppressWarnings(as.numeric(priors))
+  
+  if(any(is.na(priors))) stop("alpha and/or beta are not numeric!")
+  if(!all(priors > 0)) stop("alpha and beta are parameters of the Beta Distribution and should be strictly > 0.")
+  
+  alpha <- priors[1]
+  beta <- priors[2]
+  
+  ###
+  ## Do the computation
+  ###
+  
+  prob <- bayesBernoulliTestClosed_(sum(A_data) + alpha, 
+                                    length(A_data) - sum(A_data) + beta,
+                                    sum(B_data) + alpha,
+                                    length(B_data) - sum(B_data) + beta)
+  
+  ###
+  ## Output the result
+  ###
+  
+  result <- list(
+    inputs <- as.list(match.call()[-1]),
     
-  result <- list(prob = prob,
-                 percent_lift = percent_lift,
-                 inputs = list(
-                   clicks_test = clicks_test,
-                   views_test = views_test,
-                   clicks_control = clicks_control,
-                   views_control = views_control
-                 )
-                 
+    prob <- prob,
+    
+    distribution <- 'bernoulliC'
   )
   
-  class(result) <- 'bayesPropTestClosed'
+  class(result) <- 'bayesTestClosed'
   
   return(result)
   
 }
 
-bayesPoissonTestClosed <- function() {
+bayesPoissonTestClosed <- function(A_data,
+                                   B_data,
+                                   priors) {
   
-  alt_count(1, 2, 3, 4)
+  ###
+  ## Error Checking
+  ###
+  
+  ## Check that we only have integer data
+  if((
+    any(
+      A_data < 0,
+      B_data < 0,
+      as.integer(A_data) != A_data,
+      as.integer(B_data) != B_data
+    )
+  )) {
+    stop("Data input is incorrect. The support of a Poisson distribution is Z*.")
+  }
+  
+  ## Check that priors are supplied
+  if(length(priors) != 2) stop("Incorrect length of priors. Expecting an argument for shape and rate ONLY.")
+  
+  ## Check we have alpha and beta
+  if(!all(names(priors) %in% c('shape', 'rate'))) stop("Arguments don't match requirement for shape and rate. Check names.")
+  
+  priors <- priors[c('shape', 'rate')]
+  priors <- suppressWarnings(as.numeric(priors))
+  
+  if(any(is.na(priors))) stop("shape and/or rate are not numeric!")
+  if(!all(priors > 0)) stop("shape and rate are parameters of the Gamma Distribution and should be strictly > 0.")
+  
+  shape <- priors[1]
+  rate <- priors[2]
+  
+  ###
+  ## Do the computation
+  ###
+  
+  prob <- bayesPoissonTestClosed_(sum(A_data) + shape,
+                                  length(A_data) + rate,
+                                  sum(B_data) + shape,
+                                  length(B_data) + rate)
+  
+  ###
+  ## Output the result
+  ###
+  
+  result <- list(
+    inputs <- as.list(match.call()[-1]),
+    
+    prob <- prob,
+    
+    distribution <- 'poissonC'
+  )
+  
+  class(result) <- 'bayesTestClosed'
+  
+  return(result)
   
 }

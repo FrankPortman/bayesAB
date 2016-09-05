@@ -15,7 +15,7 @@ double lbeta2(double a, double b) {
 }
 
 // [[Rcpp::export]]
-double alt_prop(double alpha_1, double beta_1, double alpha_2, double beta_2) {
+double bayesBernoulliTestClosed_(double alpha_1, double beta_1, double alpha_2, double beta_2) {
   
   double total = 0;
   

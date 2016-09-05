@@ -7,7 +7,15 @@ bayesUniformTest <- function(A_data,
   ## Error Checking
   ###
   
-  ## Check that we only have integer data
+  ## Check that we only have positive data
+  if((
+    any(
+      A_data <= 0,
+      B_data <= 0
+    )
+  )) {
+    stop("Data input is incorrect. The support of a Uniform distribution in bayesAB is (0, Inf).")
+  }
   
   ## Check that priors are supplied
   if(length(priors) != 2) stop("Incorrect length of priors. Expecting an argument for shape and rate ONLY.")
@@ -16,7 +24,6 @@ bayesUniformTest <- function(A_data,
   if(!all(names(priors) %in% c('xm', 'alpha'))) stop("Arguments don't match requirement for xm and alpha. Check names.")
   
   priors <- priors[c('xm', 'alpha')]
-  stored_priors <- priors
   priors <- suppressWarnings(as.numeric(priors))
   
   if(any(is.na(priors))) stop("xm and/or alpha are not numeric!")

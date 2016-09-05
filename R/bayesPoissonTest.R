@@ -8,6 +8,16 @@ bayesPoissonTest <- function(A_data,
   ###
   
   ## Check that we only have integer data
+  if((
+    any(
+      A_data < 0,
+      B_data < 0,
+      as.integer(A_data) != A_data,
+      as.integer(B_data) != B_data
+    )
+  )) {
+    stop("Data input is incorrect. The support of a Poisson distribution is Z*.")
+  }
   
   ## Check that priors are supplied
   if(length(priors) != 2) stop("Incorrect length of priors. Expecting an argument for shape and rate ONLY.")

@@ -4,7 +4,9 @@
 \alias{bayesTest}
 \title{Fit a Bayesian model to A/B test data.}
 \usage{
-bayesTest(A_data, B_data, priors, n_samples = 1e+05, distribution)
+bayesTest(A_data, B_data, priors, n_samples = 1e+05,
+  distribution = c("bernoulli", "normal", "lognormal", "poisson",
+  "exponential", "uniform", "bernoulliC", "poissonC"))
 }
 \arguments{
 \item{A_data}{Vector of collected samples from recipe A}

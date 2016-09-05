@@ -81,3 +81,9 @@ print.summaryBayesTest <- function(x, ...) {
   print(x$interval)
 
 }
+
+#' @export
+print.bayesTestClosed <- function(x, ...) {
+  
+  
+}
