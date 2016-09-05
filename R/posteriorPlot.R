@@ -1,5 +1,8 @@
 posteriorPlotSamp <- function(A, B, name) {
   
+  ## CRAN hack
+  value <- Var2 <- NULL
+  
   plotDat <- reshape2::melt(cbind(A,B))
   
   p <- ggplot2::ggplot(plotDat, ggplot2::aes(x = value, group = Var2, fill = Var2)) +
