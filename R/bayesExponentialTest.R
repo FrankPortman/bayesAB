@@ -1,7 +1,7 @@
 bayesExponentialTest <- function(A_data,
                                  B_data,
                                  priors,
-                                 N_samp = 1e6) {
+                                 n_samples = 1e6) {
   
   ###
   ## Error Checking
@@ -36,8 +36,8 @@ bayesExponentialTest <- function(A_data,
   ## Sample from posterior
   ###
   
-  A_lambdas <- rgamma(N_samp, length(A_data) + shape, sum(A_data) + rate)
-  B_lambdas <- rgamma(N_samp, length(B_data) + shape, sum(B_data) + rate)
+  A_lambdas <- rgamma(n_samples, length(A_data) + shape, sum(A_data) + rate)
+  B_lambdas <- rgamma(n_samples, length(B_data) + shape, sum(B_data) + rate)
   
   ###
   ## Output the result

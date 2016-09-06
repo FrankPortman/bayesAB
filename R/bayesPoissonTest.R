@@ -1,7 +1,7 @@
 bayesPoissonTest <- function(A_data,
                              B_data,
                              priors,
-                             N_samp = 1e6) {
+                             n_samples = 1e6) {
   
   ###
   ## Error Checking
@@ -38,8 +38,8 @@ bayesPoissonTest <- function(A_data,
   ## Sample from posterior
   ###
   
-  A_lambdas <- rgamma(N_samp, sum(A_data) + shape, length(A_data) + rate)
-  B_lambdas <- rgamma(N_samp, sum(B_data) + shape, length(B_data) + rate)
+  A_lambdas <- rgamma(n_samples, sum(A_data) + shape, length(A_data) + rate)
+  B_lambdas <- rgamma(n_samples, sum(B_data) + shape, length(B_data) + rate)
   
   ###
   ## Output the result

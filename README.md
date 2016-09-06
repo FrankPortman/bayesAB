@@ -80,6 +80,10 @@ AB1Norm <- bayesTest(A_data,
                       
 plot(AB1Norm)
 
+## combine
+n <- combine(AB1, AB1Norm, f = `*`, params = c('Probability', 'Mu'), newName = 'Parameter')
+
+
 #Log Normal Example
 A_data <- rlnorm(1000, meanlog = 1.5, sdlog = 1)
 B_data <- rlnorm(1000, meanlog = 1.7, sdlog = 1.3)

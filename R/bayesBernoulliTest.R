@@ -1,7 +1,7 @@
 bayesBernoulliTest <- function(A_data,
                           B_data,
                           priors,
-                          N_samp = 1e6) {
+                          n_samples = 1e6) {
   
   ###
   ## Error Checking
@@ -36,8 +36,8 @@ bayesBernoulliTest <- function(A_data,
   ## Sample from posterior
   ###
   
-  A_probs <- rbeta(N_samp, sum(A_data) + alpha, length(A_data) - sum(A_data) + beta)
-  B_probs <- rbeta(N_samp, sum(B_data) + alpha, length(B_data) - sum(B_data) + beta)
+  A_probs <- rbeta(n_samples, sum(A_data) + alpha, length(A_data) - sum(A_data) + beta)
+  B_probs <- rbeta(n_samples, sum(B_data) + alpha, length(B_data) - sum(B_data) + beta)
   
   ###
   ## Output the result

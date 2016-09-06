@@ -1,7 +1,7 @@
 bayesUniformTest <- function(A_data,
                              B_data,
                              priors,
-                             N_samp = 1e6) {
+                             n_samples = 1e6) {
   
   ###
   ## Error Checking
@@ -36,8 +36,8 @@ bayesUniformTest <- function(A_data,
   ## Sample from posterior
   ###
   
-  A_thetas <- rpareto(N_samp, max(A_data, xm), length(A_data) + alpha)
-  B_thetas <- rpareto(N_samp, max(B_data, xm), length(B_data) + alpha)
+  A_thetas <- rpareto(n_samples, max(A_data, xm), length(A_data) + alpha)
+  B_thetas <- rpareto(n_samples, max(B_data, xm), length(B_data) + alpha)
   
   ###
   ## Output the result
