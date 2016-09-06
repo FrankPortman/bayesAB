@@ -29,7 +29,7 @@ print.bayesTest <- function(x, ...) {
   
   cat('--------------------------------------------\n')
   cat('Using data with the following properties: \n')
-  print(cbind(A_data = summary(x$inputs$A_data), B_data = summary(x$inputs$B_data)))
+  print(cbind(A_data = sapply(x$inputs$A_data, summary), B_data = sapply(x$inputs$B_data, summary)))
   
   cat('--------------------------------------------\n')
   cat('Priors used for the calculation: \n')

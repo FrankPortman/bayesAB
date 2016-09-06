@@ -64,6 +64,7 @@ bayesTest <- function(A_data,
                                        'poisson', 'exponential', 'uniform',
                                        'bernoulliC', 'poissonC')) {
   
+  # Current naming convention is capital 'C' for non MC integration methods
   funs <- list("bernoulli" = bayesBernoulliTest,
                "normal" = bayesNormalTest,
                "lognormal" = bayesLogNormalTest,
@@ -78,7 +79,7 @@ bayesTest <- function(A_data,
   if(!distribution %in% names(funs)) stop("Did not specify a valid distribution.")
   
   fcall <- list(A_data, B_data, priors)
-  if(!grepl("C", distribution)) fcall <- c(fcall, n_samples)
+  if(!grepl("C", distribution)) fcall <- c(fcall, n_samples) # add samples in if its not closed form; cleaner to keep it out of closed form func
   
   do.call(funs[[distribution]], fcall)
   

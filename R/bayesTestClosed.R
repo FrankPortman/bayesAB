@@ -45,11 +45,11 @@ bayesBernoulliTestClosed <- function(A_data,
   ###
   
   result <- list(
-    inputs <- as.list(match.call()[-1]),
+    inputs = as.list(match.call()[-1]),
     
-    prob <- prob,
+    posteriors = list(Probability = prob),
     
-    distribution <- 'bernoulliC'
+    distribution = 'bernoulliC'
   )
   
   class(result) <- 'bayesTestClosed'
@@ -107,11 +107,11 @@ bayesPoissonTestClosed <- function(A_data,
   ###
   
   result <- list(
-    inputs <- as.list(match.call()[-1]),
+    inputs = as.list(match.call()[-1]),
     
-    prob <- prob,
+    posteriors = list(Lambda = prob),
     
-    distribution <- 'poissonC'
+    distribution = 'poissonC'
   )
   
   class(result) <- 'bayesTestClosed'
