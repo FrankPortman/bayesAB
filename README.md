@@ -3,7 +3,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/FrankPortman/bayesAB.svg?branch=master)](https://travis-ci.org/FrankPortman/bayesAB) [![codecov](https://codecov.io/gh/FrankPortman/bayesAB/branch/master/graph/badge.svg)](https://codecov.io/gh/FrankPortman/bayesAB)
 
 
-##AB Testing for Counts and Proportions data using Bayesian Methods
+## Fast Bayesian Methods for A/B Testing in R
 
 bayesAB provides a suite of functions that allow the user to analyze
 AB test data in a similar light to common frequentist hypothesis tests
@@ -40,7 +40,7 @@ install.packages("devtools")
 devtools::install_github("frankportman/bayesAB")
 ```
 
-## Useage
+## Usage
 
 ```{r}
 library(bayesAB)
