@@ -14,10 +14,10 @@ combine <- function(bT1, bT2, f = `+`, params, newName = 'Parameter') {
   
   result <- list()
   
-  result$inputs <- list(A_data = list(bT1$inputs$A_data, bT2$inputs$A_data),
-                         B_data = list(bT1$inputs$B_data, bT2$inputs$B_data),
+  result$inputs <- list(A_data = listConcat(listOr(bT1$inputs$A_data), listOr(bT2$inputs$A_data)),
+                         B_data = listConcat(listOr(bT1$inputs$B_data), listOr(bT2$inputs$B_data)),
                          priors = 'Combined distributions have no priors. Inspect each element separately for details.',
-                         n_samples = c(bT1$inputs$n_samples, bT2$inputs$n_samples))
+                         n_samples = max(bT1$inputs$n_samples, bT2$inputs$n_samples))
   
   result$posteriors[[newName]] <- list(A = f(A1, A2), B = f(B1, B2))
   
