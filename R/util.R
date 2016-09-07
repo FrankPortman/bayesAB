@@ -18,7 +18,7 @@ listConcat <- function(l1, l2) {
   out <- vector(mode = "list", length = length(l1) + length(l2))
   
   for(i in 1:length(l1)) out[[i]] <- l1[[i]]
-  for(i in (length(l1) + 1):(length(l2) + length(l1))) out[[i]] <- l2[[i - length(l1)]]
+  for(i in 1:length(l2)) out[[i + length(l1)]] <- l2[[i]]
   
   out
   
