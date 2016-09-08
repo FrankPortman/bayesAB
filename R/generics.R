@@ -101,6 +101,6 @@ summary.bayesTestClosed <- function(object, ...) {
 
 #' @export
 print.summaryBayesTestClosed <- function(x, ...) {
-  cat('P(A > B):')
+  cat('P(A > B):\n')
   print(x$probability)
 }
