@@ -30,8 +30,9 @@ print.bayesTest <- function(x, ...) {
   cat('--------------------------------------------\n')
   cat('Using data with the following properties: \n')
   
-  summ_outA <- if(length(x$inputs$A_data) == 1) sapply(list(x$inputs$A_data), summary) else sapply(x$inputs$A_data, summary)
-  summ_outB <- if(length(x$inputs$B_data) == 1) sapply(list(x$inputs$B_data), summary) else sapply(x$inputs$B_data, summary)
+  ## make this list output by default, so there are no special cases...
+  summ_outA <- if(!is.list(x$inputs$A_data)) sapply(list(x$inputs$A_data), summary) else sapply(x$inputs$A_data, summary)
+  summ_outB <- if(!is.list(x$inputs$B_data)) sapply(list(x$inputs$B_data), summary) else sapply(x$inputs$B_data, summary)
   print(cbind(A_data = summ_outA, B_data = summ_outB))
   
   cat('--------------------------------------------\n')
@@ -86,7 +87,20 @@ print.summaryBayesTest <- function(x, ...) {
 }
 
 #' @export
-print.bayesTestClosed <- function(x, ...) {
-  
-  
+print.bayesTestClosed <- print.bayesTest
+
+#' @export
+plot.bayesTestClosed <- plot.bayesTest
+
+#' @export
+summary.bayesTestClosed <- function(object, ...) {
+  out <- list(probability = object$posteriors[1])
+  class(out) <- 'summaryBayesTestClosed'
+  return(out)
+}
+
+#' @export
+print.summaryBayesTestClosed <- function(x, ...) {
+  cat('P(A > B):')
+  print(x$probability)
 }

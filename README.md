@@ -95,4 +95,15 @@ AB1LogNorm <- bayesLogNormalTest(A_data, B_data, c("m0" = 9,
 
 plot(AB1LogNorm)
 
+## combining
+
+finalRevenue <- AB1 %>%
+  combine(AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'E(AdClick)') %>%
+  combine(AB3, f = `*`, params = c('E(AdClick)', 'Lambda'), newName = 'E(NumAdClicks)') %>%
+  combine(AB4, f = `+`, params = c('E(NumAdClicks)', 'Mu'), newNAme = 'TotalRevenue')
+
+print(finalRevenue)
+summary(finalRevenue)
+plot(finalRevenue)
+
 ```

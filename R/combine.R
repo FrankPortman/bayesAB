@@ -7,6 +7,8 @@ combine <- function(bT1, bT2, f = `+`, params, newName = 'Parameter') {
     stop("You have specified a `param` name that doesn't exist in the posterior of the first test and/or the second test.")
   }
   
+  if(any(grepl("C", c(bT1$distribution, bT2$distribution)))) stop("Can't combine a 'closed' bayesTest.")
+  
   if(bT1$inputs$n_samples != bT1$inputs$n_samples) warning("n_samples not equal. Make sure `f` handles recycling appropriately.")
   
   A1 <- bT1$posteriors[[params[1]]][[1]]; A2 <- bT2$posteriors[[params[2]]][[1]]
