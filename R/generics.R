@@ -14,7 +14,7 @@ plot.bayesTest <- function(x,
   
   if(priors) plotPriors(x, ...) # for changing p, for some priorPlot params
   if(posteriors) plotPosteriors(x)
-  if(samples) plotSamples(x, percentLift)
+  if(samples) plotSamples(x, percentLift = percentLift)
   
   par(ask = oldPar)
   
