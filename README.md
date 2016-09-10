@@ -21,7 +21,7 @@ The general bayesAB workflow is as follows:
 - Decide how you wanta to parametrize your data (Poisson for counts of email submissions, Bernoulli for CTR on an ad, etc.)
 - Use our helper functions to decide on priors for your data (`?bayesTest`)
 - Fit a `bayesTest` object
-..- Optional: Use `combine` to munge together several `bayesTest` objects together for an arbitrary / non-analytical target distribution
+  - Optional: Use `combine` to munge together several `bayesTest` objects together for an arbitrary / non-analytical target distribution
 - `print`, `plot`, and `summary` to interpret your results
 
 We also have unit tests so you know this shit is serious.
