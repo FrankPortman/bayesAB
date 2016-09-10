@@ -3,7 +3,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/FrankPortman/bayesAB.svg?branch=master)](https://travis-ci.org/FrankPortman/bayesAB) [![codecov](https://codecov.io/gh/FrankPortman/bayesAB/branch/master/graph/badge.svg)](https://codecov.io/gh/FrankPortman/bayesAB)
 
 
-## Fast Bayesian Methods for A/B Testing in R
+## Fast Bayesian Methods for A/B Testing
 
 bayesAB provides a suite of functions that allow the user to analyze A/B test
 data in a Bayesian framework. bayesAB is intended to be a drop-in replacement for
@@ -35,58 +35,35 @@ devtools::install_github("frankportman/bayesAB")
 
 ## Usage
 
+For a more in-depth look please check the vignettes: `browseVignettes(package = "bayesAB")`.
+
 ```{r}
 library(bayesAB)
 
-plotBeta(alpha = 1,
-         beta = 1)
-         
-A <- rbinom(250, size = 1, .3)
-B <- rbinom(250, size = 1, .2)
+A_binom<- rbinom(100, 1, .5)
+B_binom <- rbinom(100, 1, .6)
 
-AB1 <- bayesTest(A,
-                 B,
-                     c("alpha" = 1,
-                     "beta" = 1),
-                     distribution = 'bernoulli')
-                     
-AB1 <- bayesTest(A, B, c("alpha" = 1, "beta" = 1), distribution = "bernoulli")
+A_norm <- rnorm(100, 6, 1.5)
+B_norm <- rnorm(100, 5, 2.5)
 
-liftAB1 <- getMinLift(AB1)
+# Fit bernoulli and normal tests
+AB1 <- bayesTest(A_binom, B_binom, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
+AB2 <- bayesTest(A_norm, B_norm, priors = c('m0' = 5, 'k0' = 1, 's_sq0' = 3, 'v0' = 1), distribution = 'normal')
 
-plot(AB1)
- 
 print(AB1)
+summary(AB1)
+plot(AB1)
 
-print(liftAB1)
+print(AB2)
+summary(AB2)
+plot(AB2)
 
-A_data <- rnorm(1000,mean = 10,sd = 1)
-B_data <- rnorm(1000, mean = 10.1, sd = 3)
+# Create a new variable that is the probability multiiplied by the normally distributed variable (expected value of something)
+AB3 <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')
 
-AB1Norm <- bayesTest(A_data,
-                      B_data,
-                      c("m0" = 9,
-                      "k0" = 3,
-                      "s_sq0" = 1,
-                      "v0" = 1),
-                      distribution = 'normal')
-                      
-plot(AB1Norm)
-
-## combine
-n <- combine(AB1, AB1Norm, f = `*`, params = c('Probability', 'Mu'), newName = 'Parameter')
-
-
-#Log Normal Example
-A_data <- rlnorm(1000, meanlog = 1.5, sdlog = 1)
-B_data <- rlnorm(1000, meanlog = 1.7, sdlog = 1.3)
-
-AB1LogNorm <- bayesLogNormalTest(A_data, B_data, c("m0" = 9,
-                      "k0" = 3,
-                      "s_sq0" = 1,
-                      "v0" = 1))
-
-plot(AB1LogNorm)
+print(AB3)
+summary(AB3)
+plot(AB3)
 
 ## combining
 

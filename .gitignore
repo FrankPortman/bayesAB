@@ -6,3 +6,4 @@ src/*.so
 src/*.dll
 *~
 tests/testthat/*.pdf
+inst/doc

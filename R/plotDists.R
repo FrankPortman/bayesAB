@@ -2,6 +2,7 @@
 #' 
 #' @param mu \eqn{\mu} parameter of the Log Normal distribution.
 #' @param sigma \eqn{\sigma} parameter of the Log Normal distribution.
+#' @param p  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Log Normal(\eqn{\mu}, \eqn{\sigma^2}).
 #' @examples
 #' plotLogNormal(1, 1)
@@ -15,7 +16,7 @@ plotLogNormal <- function(mu, sigma, p = .99) {
   support <- seq(.01, qlnorm(p, meanlog = mu, sdlog = sigma, .01))
   hseq <- dlnorm(support, meanlog = mu, sdlog = sigma)
   
-  plotDist(support, hseq, "Log Normal", c('mu' = mu, 's_sq' = s_sq))
+  plotDist(support, hseq, "Log Normal", c('mu' = mu, 'sigma' = sigma))
   
 }
 

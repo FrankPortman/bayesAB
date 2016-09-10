@@ -25,3 +25,5 @@ listConcat <- function(l1, l2) {
 }
 
 listOr <- function(e) if(is.list(e)) e else list(e)
+
+isClosed <- function(distribution) grepl("C", distribution)
