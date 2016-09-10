@@ -1,3 +1,24 @@
+#' Plot the PDF of the Log Normal distribution.
+#' 
+#' @param mu \eqn{\mu} parameter of the Log Normal distribution.
+#' @param sigma \eqn{\sigma} parameter of the Log Normal distribution.
+#' @return The PDF of Log Normal(\eqn{\mu}, \eqn{\sigma^2}).
+#' @examples
+#' plotLogNormal(1, 1)
+#' plotLogNormal(2, 5)
+#' @export
+
+plotLogNormal <- function(mu, sigma, p = .99) {
+  
+  if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
+  
+  support <- seq(.01, qlnorm(p, meanlog = mu, sdlog = sigma, .01))
+  hseq <- dlnorm(support, meanlog = mu, sdlog = sigma)
+  
+  plotDist(support, hseq, "Log Normal", c('mu' = mu, 's_sq' = s_sq))
+  
+}
+
 #' Plot the PDF of the Poisson distribution.
 #' 
 #' @param lambda \eqn{\lambda} parameter of the Poisson distribution.

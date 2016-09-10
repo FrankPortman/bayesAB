@@ -5,33 +5,26 @@
 
 ## Fast Bayesian Methods for A/B Testing in R
 
-bayesAB provides a suite of functions that allow the user to analyze
-AB test data in a similar light to common frequentist hypothesis tests
-(t-test, proportion test, etc.).
+bayesAB provides a suite of functions that allow the user to analyze A/B test
+data in a Bayesian framework. bayesAB is intended to be a drop-in replacement for
+common frequentist hypothesis test such as the t-test and chi-sq test.
 
-bayesAB contains functions for choosing an informative prior and will
-allow you to directly state the probability P(A > B) for counts and
-proportions. This has several implications, namely in terms of
-interpretability. Frequentist t-tests that rely on p-values are
-notoriously hard to interpret for statisticians and non-statisticians
-alike. Bayesian methods are also immune to 'peeking' and are thus
-valid no matter when a test is stopped.
+Bayesian methods provide several benefits over frequentist methods in the context of
+A/B tests - namely in interpretability. Instead of p-values you get direct
+probabilities on whether A is better than B (and by how much). Instead of point estimates
+your posterior distributions are parametrized random variables which can be summarized
+any number of ways. Bayesian tests are also immune to 'peeking' and are thus valid whenever 
+a test is stopped.
+
+The general bayesAB workflow is as follows:
+
+- Decide how you wanta to parametrize your data (Poisson for counts of email submissions, Bernoulli for CTR on an ad, etc.)
+- Use our helper functions to decide on priors for your data (`?bayesTest`)
+- Fit a `bayesTest` object
+..- Optional: Use `combine` to munge together several `bayesTest` objects together for an arbitrary / non-analytical target distribution
+- `print`, `plot`, and `summary` to interpret your results
 
 We also have unit tests so you know this shit is serious.
-
-### To Do
-
-#### V1
-
-- Documentation
-- Vignette for usage
-- Hook up 'closed forms'
-- Programmatic usage for plots - specifying which you want or being able to extract those objects safely
-- Tests
-
-#### V2
-
-- More distributions
 
 ## Installation
 
