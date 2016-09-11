@@ -13,6 +13,9 @@ test_that("Failures based on input types", {
   expect_error(bayesTest(A_data, B_data, priors = c('alpha' = 5, 'beta' = 3, "jumanji" = 6), distribution = 'bernoulli'),
                "Incorrect length of priors. Expecting an argument for alpha and beta ONLY.")
   
+  expect_error(bayesTest(c(A_data, -3), B_data, priors = c('alpha' = 5, 'beta' = 3), distribution = 'bernoulli'),
+               "Data input is incorrect. Data can only contain 0's and 1's. See help docs for more info.", fixed = TRUE)
+  
   expect_error(bayesTest(A_data, B_data, priors = c('alpha' = 1, 'fergalicious' = 1), distribution = 'bernoulli'),
                "Arguments don't match requirement for alpha and beta. Check names.")
   

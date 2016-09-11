@@ -18,7 +18,7 @@ bayesUniformTest <- function(A_data,
   }
   
   ## Check that priors are supplied
-  if(length(priors) != 2) stop("Incorrect length of priors. Expecting an argument for shape and rate ONLY.")
+  if(length(priors) != 2) stop("Incorrect length of priors. Expecting an argument for xm and alpha ONLY.")
   
   ## Check we have alpha and beta
   if(!all(names(priors) %in% c('xm', 'alpha'))) stop("Arguments don't match requirement for xm and alpha. Check names.")

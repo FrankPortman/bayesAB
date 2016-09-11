@@ -1,5 +1,5 @@
 library(bayesAB)
-context('bayesNormalTest')
+context('bayesExponentialTest')
 
 A_data <- rexp(100)
 B_data <- rexp(100)
