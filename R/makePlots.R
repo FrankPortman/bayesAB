@@ -13,7 +13,7 @@ plotPriors <- function(bayesAB, ...) {
   labChecker <- function(...) all(c(...) %in% labs) 
   
   for(rel in funs) {
-    if(labChecker(rel$params)) do.call(rel$plotFun, as.list(unname(vals[rel$params]), ...))
+    if(labChecker(rel$params)) do.call(rel$plotFun, as.list(c(unname(vals[rel$params]), ...)))
   }
   
 }

@@ -4,12 +4,12 @@
 \alias{plotPoisson}
 \title{Plot the PDF of the Poisson distribution.}
 \usage{
-plotPoisson(lambda, p = 0.99)
+plotPoisson(lambda, area = 0.99)
 }
 \arguments{
 \item{lambda}{\eqn{\lambda} parameter of the Poisson distribution.}
 
-\item{p}{control x-axis limits (default is set to view 99\% of the area under the density curve)}
+\item{area}{control x-axis limits (default is set to view 99\% of the area under the density curve)}
 }
 \value{
 The PDF of Poisson(\eqn{\lambda}).

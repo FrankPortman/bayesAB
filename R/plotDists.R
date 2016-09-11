@@ -2,18 +2,17 @@
 #' 
 #' @param mu \eqn{\mu} parameter of the Log Normal distribution.
 #' @param sigma \eqn{\sigma} parameter of the Log Normal distribution.
-#' @param p  control x-axis limits (default is set to view 99\% of the area under the density curve)
+#' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Log Normal(\eqn{\mu}, \eqn{\sigma^2}).
 #' @examples
 #' plotLogNormal(1, 1)
 #' plotLogNormal(2, 5)
 #' @export
-
-plotLogNormal <- function(mu, sigma, p = .99) {
+plotLogNormal <- function(mu, sigma, area = .99) {
   
-  if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
+  if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
   
-  support <- seq(.01, qlnorm(p, meanlog = mu, sdlog = sigma, .01))
+  support <- seq(.01, qlnorm(area, meanlog = mu, sdlog = sigma, .01))
   hseq <- dlnorm(support, meanlog = mu, sdlog = sigma)
   
   plotDist(support, hseq, "Log Normal", c('mu' = mu, 'sigma' = sigma))
@@ -23,18 +22,17 @@ plotLogNormal <- function(mu, sigma, p = .99) {
 #' Plot the PDF of the Poisson distribution.
 #' 
 #' @param lambda \eqn{\lambda} parameter of the Poisson distribution.
-#' @param p  control x-axis limits (default is set to view 99\% of the area under the density curve)
+#' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Poisson(\eqn{\lambda}).
 #' @examples
 #' plotPoisson(1)
 #' plotPoisson(5)
 #' @export
-
-plotPoisson <- function(lambda, p = .99) {
+plotPoisson <- function(lambda, area = .99) {
   
-  if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
+  if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
   
-  support <- 0:(qpois(p, lambda))
+  support <- 0:(qpois(area, lambda))
   hseq <- dpois(support, lambda)
   
   plotDist(support, hseq, "Poisson", c('lambda' = lambda))
@@ -45,18 +43,17 @@ plotPoisson <- function(lambda, p = .99) {
 #' 
 #' @param xm xm parameter of the Pareto distribution.
 #' @param alpha alpha parameter of the Pareto distribution. 
-#' @param p  control x-axis limits (default is set to view 65\% of the area under the density curve. Be careful tweaking this for Pareto.)
+#' @param area  control x-axis limits (default is set to view 65\% of the area under the density curve. Be careful tweaking this for Pareto.)
 #' @return The PDF of Pareto(xm, alpha).
 #' @examples
 #' plotPareto(1, 1)
 #' plotPareto(5, 3)
 #' @export
-
-plotPareto <- function(xm, alpha, p = .65) {
+plotPareto <- function(xm, alpha, area = .65) {
   
-  if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
+  if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
   
-  support <- seq((xm - 3), qpareto(p, xm, alpha), .01) 
+  support <- seq((xm - 3), qpareto(area, xm, alpha), .01) 
   hseq <- dpareto(support, xm, alpha)
   
   plotDist(support, hseq, "Pareto", c('xm' = xm, 'alpha' = alpha))
@@ -72,7 +69,6 @@ plotPareto <- function(xm, alpha, p = .65) {
 #' plotNormal(1, 1)
 #' plotNormal(2, 5)
 #' @export
-
 plotNormal <- function(mu, s_sq) {
   
   support <- seq(mu - s_sq * 5, mu + s_sq * 5, .001)
@@ -86,19 +82,18 @@ plotNormal <- function(mu, s_sq) {
 #' 
 #' @param shape shape (\eqn{\alpha}) parameter of the Gamma distribution.
 #' @param rate rate (\eqn{\beta}) parameter of the Gamma distribution.
-#' @param p  control x-axis limits (default is set to view 99\% of the area under the density curve)
+#' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Gamma(shape, rate).
 #' @details Note: We use the shape/rate parametrization of Gamma. See https://en.wikipedia.org/wiki/Gamma_distribution for details.
 #' @examples
 #' plotGamma(1, 1)
 #' plotGamma(2, 5)
 #' @export
-
-plotGamma <- function(shape, rate, p = .99) {
+plotGamma <- function(shape, rate, area = .99) {
   
-  if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
+  if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
   
-  support <- seq(.01, qgamma(p, shape = shape, rate = rate), .01)
+  support <- seq(.01, qgamma(area, shape = shape, rate = rate), .01)
   hseq <- dgamma(support, shape = shape, rate = rate)
   
   plotDist(support, hseq, "Gamma", c('shape' = shape, 'rate' = rate))
@@ -114,7 +109,6 @@ plotGamma <- function(shape, rate, p = .99) {
 #' plotBeta(1, 1)
 #' plotBeta(2, 5)
 #' @export
-
 plotBeta <- function(alpha, beta) {
   
   support <- seq(0, 1, .001)
@@ -128,32 +122,31 @@ plotBeta <- function(alpha, beta) {
 #' 
 #' @param shape shape parameter of the Inverse Gamma distribution.
 #' @param scale scale parameter of the Inverse Gamma distribution.
-#' @param p  control x-axis limits (default is set to view 99\% of the area under the density curve)
+#' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of InvGamma(shape, scale).
 #' @examples
 #' plotInvGamma(2, 4)
 #' plotInvGamma(1, 17)
 #' @export
-
-plotInvGamma <- function(shape, scale, p = .99) {
+plotInvGamma <- function(shape, scale, area = .99) {
   
-  if(p <= 0 | p >= 1) stop('p must be in (0, 1)')
+  if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
   
-  support <- seq(.01, qinvgamma(p, shape, scale), .01)
+  support <- seq(.01, qinvgamma(area, shape, scale), .01)
   hseq <- dinvgamma(support, shape, scale)
   
   plotDist(support, hseq, "InvGamma", c('shape' = shape, 'scale' = scale))
   
 }
 
-qinvgamma <- function(p, shape, scale) {
+qinvgamma <- function(area, shape, scale) {
   
-  if(shape > 0 & scale > 0 & all(p > 0) & all(p < 1)) {
-    if((1 - p) <= .Machine$double.eps) {
+  if(shape > 0 & scale > 0 & all(area > 0) & all(area < 1)) {
+    if((1 - area) <= .Machine$double.eps) {
       out <- Inf
     }
     else {
-      out <- 1 / qgamma(1 - p, shape, scale)
+      out <- 1 / qgamma(1 - area, shape, scale)
     }
   }
   else stop('qinvgamma: invalid parameters\n')

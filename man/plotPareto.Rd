@@ -4,14 +4,14 @@
 \alias{plotPareto}
 \title{Plot the PDF of the Pareto distribution.}
 \usage{
-plotPareto(xm, alpha, p = 0.65)
+plotPareto(xm, alpha, area = 0.65)
 }
 \arguments{
 \item{xm}{xm parameter of the Pareto distribution.}
 
 \item{alpha}{alpha parameter of the Pareto distribution.}
 
-\item{p}{control x-axis limits (default is set to view 65\% of the area under the density curve. Be careful tweaking this for Pareto.)}
+\item{area}{control x-axis limits (default is set to view 65\% of the area under the density curve. Be careful tweaking this for Pareto.)}
 }
 \value{
 The PDF of Pareto(xm, alpha).

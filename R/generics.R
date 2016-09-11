@@ -1,3 +1,25 @@
+#' Plot bayesTest objects
+#' 
+#' @description Plot method for objects of class "bayesTest".
+#' 
+#' @param x an object of class "bayesTest"
+#' @param percentLift a vector of length(x$posteriors). Each entry corresponds to the percent lift ((A - B) / B) to plot for for
+#'        the respective posterior in x. Note this is on a 'point' scale. percentLift = 5 implies you want to test for a 5\% lift.
+#' @param priors logical indiciating whether prior plots should be generated.
+#' @param posteriors logical indicating whether posterior plots should be generated.
+#' @param samples logical indicating whether sample plots should be generated.
+#' @param ... graphics parameters to be passed to the plotting routines. (For example \code{p}, in prior plots)
+#' 
+#' @examples
+#' A_pois <- rpois(100, 5)
+#' B_pois <- rpois(100, 4.7)
+#' 
+#' AB1 <- bayesTest(A_pois, B_pois, priors = c('shape' = 25, 'rate' = 5), distribution = 'poisson')
+#' 
+#' plot(AB1)
+#' plot(AB1, area = .95)
+#' plot(AB1, percentLift = 5)
+#'
 #' @export
 plot.bayesTest <- function(x, 
                            percentLift = rep(0, length(x$posteriors)),
@@ -49,6 +71,17 @@ print.bayesTest <- function(x, ...) {
   
 }
 
+#' Summarize bayesTest objects
+#' 
+#' @description Summary method for objects of class "bayesTest".
+#' 
+#' @param object an object of class "bayesTest"
+#' @param percentLift a vector of length(x$posteriors). Each entry corresponds to the percent lift ((A - B) / B) to summarize for for
+#'        the respective posterior in x. Note this is on a 'point' scale. percentLift = 5 implies you want to test for a 5\% lift.
+#' @param credInt a vector of length(x$posteriors). Each entry corresponds to the width of credible interval of (A - B) / B to calculate for
+#'        the respective posterior in x. Also on a 'point' scale.
+#' @param ... additional arguments affecting the summary produced.
+#'
 #' @export
 summary.bayesTest <- function(object, 
                               percentLift = rep(0, length(object$posteriors)),
@@ -57,6 +90,7 @@ summary.bayesTest <- function(object,
   
   if(length(object$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
   if(length(object$posteriors) != length(credInt)) stop("Must supply a 'credInt' for every parameter with a posterior distribution.")
+  if(any(credInt <= 0) | any(credInt >= 1)) stop("Credible interval width ust be in (0, 1).")
   
   
   probability <- Map(function(x, y) getProb(x[[1]], x[[2]], y), object$posteriors, percentLift)

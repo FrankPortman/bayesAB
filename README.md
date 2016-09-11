@@ -40,6 +40,14 @@ For a more in-depth look please check the vignettes: `browseVignettes(package = 
 ```{r}
 library(bayesAB)
 
+# Choose bernoulli test priors
+plotBeta(1, 1)
+plotBeta(2, 3)
+
+# Choose normal test priors
+plotNormal(6, 3)
+plotInvGamma(12, 4)
+
 A_binom<- rbinom(100, 1, .5)
 B_binom <- rbinom(100, 1, .6)
 
