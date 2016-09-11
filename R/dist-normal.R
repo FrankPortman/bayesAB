@@ -39,9 +39,6 @@ bayesNormalTest <- function(A_data,
   ## Error Checking
   ###
   
-  ## Check that all A/B data are numeric
-  if(any(is.na(suppressWarnings(as.numeric(c(A_data, B_data)))))) stop("A_data and B_data are not ALL numeric.")
-  
   ## Check that we have 4 priors
   if(length(priors) != 4) stop("Incorrect length of priors. Expecting an argument for m0, k0, s_sq0, and v0 ONLY.")
   

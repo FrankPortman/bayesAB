@@ -81,6 +81,15 @@ print.bayesTest <- function(x, ...) {
 #' @param credInt a vector of length(x$posteriors). Each entry corresponds to the width of credible interval of (A - B) / B to calculate for
 #'        the respective posterior in x. Also on a 'point' scale.
 #' @param ... additional arguments affecting the summary produced.
+#' 
+#' @examples
+#' A_pois <- rpois(100, 5)
+#' B_pois <- rpois(100, 4.7)
+#'
+#' AB1 <- bayesTest(A_pois, B_pois, priors = c('shape' = 25, 'rate' = 5), distribution = 'poisson')
+#' 
+#' summary(AB1)
+#' summary(AB1, percentLift = 10, credInt = .95)
 #'
 #' @export
 summary.bayesTest <- function(object, 

@@ -12,7 +12,7 @@
 #' @return a \code{bayesTest} object with the newly combined posterior samples
 #' 
 #' @examples 
-#' A_binom<- rbinom(100, 1, .5)
+#' A_binom <- rbinom(100, 1, .5)
 #' B_binom <- rbinom(100, 1, .6)
 #' 
 #' A_norm <- rnorm(100, 6, 1.5)

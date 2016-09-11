@@ -25,7 +25,7 @@ Combine two (or any number, in succesion) \code{bayesTest} objects into a new ar
              The resulting object is of the same class.
 }
 \examples{
-A_binom<- rbinom(100, 1, .5)
+A_binom <- rbinom(100, 1, .5)
 B_binom <- rbinom(100, 1, .6)
 
 A_norm <- rnorm(100, 6, 1.5)

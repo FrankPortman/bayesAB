@@ -124,6 +124,7 @@ bayesTest <- function(A_data,
   distribution <- match.arg(distribution)
   
   if(!distribution %in% names(funs)) stop("Did not specify a valid distribution.")
+  if(any(is.na(suppressWarnings(as.numeric(c(A_data, B_data)))))) stop("A_data and B_data are not ALL numeric.")
   
   fcall <- list(A_data, B_data, priors)
   if(!isClosed(distribution)) fcall <- c(fcall, n_samples) # add samples in if its not closed form; cleaner to keep it out of closed form func
