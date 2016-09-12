@@ -1,5 +1,5 @@
 ## Resubmission
-This is a resubmission. In this version I have fixed the MIT LICENSE file issue.
+This is a resubmission. In this version I have fixed the Description of the package to be in line with CRAN's standard.
 
 ## Old submission
 This is my first submission of bayesAB to CRAN.
