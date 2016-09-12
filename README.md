@@ -3,7 +3,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/FrankPortman/bayesAB.svg?branch=master)](https://travis-ci.org/FrankPortman/bayesAB) [![codecov](https://codecov.io/gh/FrankPortman/bayesAB/branch/master/graph/badge.svg)](https://codecov.io/gh/FrankPortman/bayesAB)
 
 
-## Fast Bayesian Methods for A/B Testing
+## Fast Bayesian Methods for AB Testing
 
 bayesAB provides a suite of functions that allow the user to analyze A/B test
 data in a Bayesian framework. bayesAB is intended to be a drop-in replacement for
