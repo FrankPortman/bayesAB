@@ -5,7 +5,7 @@ Version: 0.6.0
 Date: 2016-09-11
 Authors@R: person("Frank", "Portman", email = "frank1214@gmail.com", role = c("aut", "cre"))
 Description: A suite of functions that allow the user to analyze A/B test
-    data in a Bayesian framework. bayesAB is intended to be a drop-in replacement for
+    data in a Bayesian framework. Intended to be a drop-in replacement for
     common frequentist hypothesis test such as the t-test and chi-sq test.
 License: MIT + file LICENSE
 Imports:
