@@ -1,6 +1,6 @@
 # bayesAB
 
-[![Travis-CI Build Status](https://travis-ci.org/FrankPortman/bayesAB.svg?branch=master)](https://travis-ci.org/FrankPortman/bayesAB) [![codecov](https://codecov.io/gh/FrankPortman/bayesAB/branch/master/graph/badge.svg)](https://codecov.io/gh/FrankPortman/bayesAB)
+[![Travis-CI Build Status](https://travis-ci.org/FrankPortman/bayesAB.svg?branch=master)](https://travis-ci.org/FrankPortman/bayesAB) [![codecov](https://codecov.io/gh/FrankPortman/bayesAB/branch/master/graph/badge.svg)](https://codecov.io/gh/FrankPortman/bayesAB) [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/bayesAB)](http://cran.r-project.org/package=bayesAB)
 
 
 ## Fast Bayesian Methods for AB Testing
@@ -28,6 +28,12 @@ We also have unit tests so you know this shit is serious.
 
 ## Installation
 
+Get the latest stable release from CRAN:
+```{r}
+install.packages("bayesAB")
+```
+
+Or the dev version straight from Github:
 ```{r}
 install.packages("devtools")
 devtools::install_github("frankportman/bayesAB", build_vignettes = TRUE)
