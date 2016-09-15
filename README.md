@@ -41,7 +41,7 @@ devtools::install_github("frankportman/bayesAB", build_vignettes = TRUE)
 
 ## Usage
 
-For a more in-depth look please check the vignettes: `browseVignettes(package = "bayesAB")`.
+For a more in-depth look please check the package vignettes with `browseVignettes(package = "bayesAB")` or the pre-knit HTML version on CRAN [here](https://cran.r-project.org/web/packages/bayesAB/vignettes/introduction.html).
 
 ```{r}
 library(bayesAB)
