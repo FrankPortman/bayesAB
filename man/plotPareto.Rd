@@ -19,8 +19,12 @@ The PDF of Pareto(xm, alpha).
 \description{
 Plot the PDF of the Pareto distribution.
 }
+\note{
+The output can be treated like any \code{ggplot2} object and modified accordingly.
+}
 \examples{
 plotPareto(1, 1)
 plotPareto(5, 3)
+\dontrun{plotPareto(5, 3) + ggtitle('I hate the default title!')}
 }
 

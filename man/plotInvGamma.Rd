@@ -19,8 +19,12 @@ The PDF of InvGamma(shape, scale).
 \description{
 Plot the PDF of the Inverse Gamma distribution.
 }
+\note{
+The output can be treated like any \code{ggplot2} object and modified accordingly.
+}
 \examples{
 plotInvGamma(2, 4)
 plotInvGamma(1, 17)
+\dontrun{plotInvGamma(1, 17) + ggtitle('I hate the default title!')}
 }
 

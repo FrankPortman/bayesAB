@@ -4,9 +4,11 @@
 #' @param sigma \eqn{\sigma} parameter of the Log Normal distribution.
 #' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Log Normal(\eqn{\mu}, \eqn{\sigma^2}).
+#' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @examples
 #' plotLogNormal(1, 1)
 #' plotLogNormal(2, 5)
+#' \dontrun{plotLogNormal(2, 5) + ggtitle('I hate the default title!')}
 #' @export
 plotLogNormal <- function(mu, sigma, area = .99) {
   
@@ -24,9 +26,11 @@ plotLogNormal <- function(mu, sigma, area = .99) {
 #' @param lambda \eqn{\lambda} parameter of the Poisson distribution.
 #' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Poisson(\eqn{\lambda}).
+#' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @examples
 #' plotPoisson(1)
 #' plotPoisson(5)
+#' \dontrun{plotPoisson(5) + ggtitle('I hate the default title!')}
 #' @export
 plotPoisson <- function(lambda, area = .99) {
   
@@ -45,9 +49,11 @@ plotPoisson <- function(lambda, area = .99) {
 #' @param alpha alpha parameter of the Pareto distribution. 
 #' @param area  control x-axis limits (default is set to view 65\% of the area under the density curve. Be careful tweaking this for Pareto.)
 #' @return The PDF of Pareto(xm, alpha).
+#' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @examples
 #' plotPareto(1, 1)
 #' plotPareto(5, 3)
+#' \dontrun{plotPareto(5, 3) + ggtitle('I hate the default title!')}
 #' @export
 plotPareto <- function(xm, alpha, area = .65) {
   
@@ -65,9 +71,11 @@ plotPareto <- function(xm, alpha, area = .65) {
 #' @param mu \eqn{\mu} parameter of the Normal distribution.
 #' @param s_sq \eqn{\sigma^2} parameter of the Normal distribution.
 #' @return The PDF of Normal(\eqn{\mu}, \eqn{\sigma^2}).
+#' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @examples
 #' plotNormal(1, 1)
 #' plotNormal(2, 5)
+#' \dontrun{plotNormal(2, 5) + ggtitle('I hate the default title!')}
 #' @export
 plotNormal <- function(mu, s_sq) {
   
@@ -84,10 +92,12 @@ plotNormal <- function(mu, s_sq) {
 #' @param rate rate (\eqn{\beta}) parameter of the Gamma distribution.
 #' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Gamma(shape, rate).
+#' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @details Note: We use the shape/rate parametrization of Gamma. See https://en.wikipedia.org/wiki/Gamma_distribution for details.
 #' @examples
 #' plotGamma(1, 1)
 #' plotGamma(2, 5)
+#' \dontrun{plotGamma(2, 5) + ggtitle('I hate the default title!')}
 #' @export
 plotGamma <- function(shape, rate, area = .99) {
   
@@ -105,9 +115,11 @@ plotGamma <- function(shape, rate, area = .99) {
 #' @param alpha \eqn{\alpha} parameter of the Beta distribution.
 #' @param beta \eqn{\beta} parameter of the Beta distribution.
 #' @return The PDF of Beta(\eqn{\alpha}, \eqn{\beta}).
+#' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @examples
 #' plotBeta(1, 1)
 #' plotBeta(2, 5)
+#' \dontrun{plotBeta(2, 5) + ggtitle('I hate the default title!')}
 #' @export
 plotBeta <- function(alpha, beta) {
   
@@ -124,9 +136,11 @@ plotBeta <- function(alpha, beta) {
 #' @param scale scale parameter of the Inverse Gamma distribution.
 #' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of InvGamma(shape, scale).
+#' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @examples
 #' plotInvGamma(2, 4)
 #' plotInvGamma(1, 17)
+#' \dontrun{plotInvGamma(1, 17) + ggtitle('I hate the default title!')}
 #' @export
 plotInvGamma <- function(shape, scale, area = .99) {
   

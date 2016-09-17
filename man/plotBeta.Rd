@@ -17,8 +17,12 @@ The PDF of Beta(\eqn{\alpha}, \eqn{\beta}).
 \description{
 Plot the PDF of the Beta distribution.
 }
+\note{
+The output can be treated like any \code{ggplot2} object and modified accordingly.
+}
 \examples{
 plotBeta(1, 1)
 plotBeta(2, 5)
+\dontrun{plotBeta(2, 5) + ggtitle('I hate the default title!')}
 }
 

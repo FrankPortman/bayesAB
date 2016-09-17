@@ -26,7 +26,8 @@ Plot method for objects of class "bayesTest".
 }
 \note{
 You can either directly plot a bayesTest object (in which case it will plot interactively), or you can save the plot
-object to a variable and extract what you need separately.
+object to a variable and extract what you need separately. If extracted, you can treat it like any \code{ggplot2} object and
+modify it accordingly.
 }
 \examples{
 A_pois <- rpois(100, 5)
@@ -42,6 +43,7 @@ p <- plot(AB1)
 
 p
 p$posteriors$Lambda
+\dontrun{p$posteriors$Lambda + ggtitle('yolo') # modify ggplot2 object directly}
 
 }
 

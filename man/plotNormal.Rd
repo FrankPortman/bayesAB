@@ -17,8 +17,12 @@ The PDF of Normal(\eqn{\mu}, \eqn{\sigma^2}).
 \description{
 Plot the PDF of the Normal distribution.
 }
+\note{
+The output can be treated like any \code{ggplot2} object and modified accordingly.
+}
 \examples{
 plotNormal(1, 1)
 plotNormal(2, 5)
+\dontrun{plotNormal(2, 5) + ggtitle('I hate the default title!')}
 }
 

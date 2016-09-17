@@ -22,8 +22,12 @@ Plot the PDF of the Gamma distribution.
 \details{
 Note: We use the shape/rate parametrization of Gamma. See https://en.wikipedia.org/wiki/Gamma_distribution for details.
 }
+\note{
+The output can be treated like any \code{ggplot2} object and modified accordingly.
+}
 \examples{
 plotGamma(1, 1)
 plotGamma(2, 5)
+\dontrun{plotGamma(2, 5) + ggtitle('I hate the default title!')}
 }
 

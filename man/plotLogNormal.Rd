@@ -19,8 +19,12 @@ The PDF of Log Normal(\eqn{\mu}, \eqn{\sigma^2}).
 \description{
 Plot the PDF of the Log Normal distribution.
 }
+\note{
+The output can be treated like any \code{ggplot2} object and modified accordingly.
+}
 \examples{
 plotLogNormal(1, 1)
 plotLogNormal(2, 5)
+\dontrun{plotLogNormal(2, 5) + ggtitle('I hate the default title!')}
 }
 
