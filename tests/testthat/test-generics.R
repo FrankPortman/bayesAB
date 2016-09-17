@@ -31,6 +31,9 @@ test_that("Success", {
   expect_silent(plot(x))
   expect_silent(plot(x, rep(.5, 4)))
   
+  expect_silent(print(plot(x)))
+  expect_silent(print(plot(x, rep(.5, 4))))
+  
   expect_output(print(x), "Distribution used")
   
   expect_silent(summary(x))
