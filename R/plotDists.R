@@ -189,6 +189,6 @@ plotDist <- function(support, hseq, dist, params) {
     ribbon_or_bar +
     ggplot2::theme_minimal()
   
-  print(p)
+  p
   
 }

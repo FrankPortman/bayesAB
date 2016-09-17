@@ -19,13 +19,13 @@ test_that("Failures based on inputs", {
 
 test_that("Success", {
   
-  expect_equal(plotPoisson(1)$plot$labels$y, 'PDF')
-  expect_equal(plotPareto(1, 1)$plot$labels$y, 'PDF')
-  expect_equal(plotNormal(1, 1)$plot$labels$y, 'PDF')
-  expect_equal(plotGamma(1, 1)$plot$labels$y, 'PDF')
-  expect_equal(plotBeta(1, 1)$plot$labels$y, 'PDF')
-  expect_equal(plotInvGamma(1, 1)$plot$labels$y, 'PDF')
-  expect_equal(plotLogNormal(1, 1)$plot$labels$y, 'PDF')
+  expect_equal(plotPoisson(1)$labels$y, 'PDF')
+  expect_equal(plotPareto(1, 1)$labels$y, 'PDF')
+  expect_equal(plotNormal(1, 1)$labels$y, 'PDF')
+  expect_equal(plotGamma(1, 1)$labels$y, 'PDF')
+  expect_equal(plotBeta(1, 1)$labels$y, 'PDF')
+  expect_equal(plotInvGamma(1, 1)$labels$y, 'PDF')
+  expect_equal(plotLogNormal(1, 1)$labels$y, 'PDF')
   expect_equal(qinvgamma(1 - (.Machine$double.eps) / 2, 2, 2), Inf)
     
 })

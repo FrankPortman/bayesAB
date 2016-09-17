@@ -10,6 +10,9 @@
 #' @param samples logical indicating whether sample plots should be generated.
 #' @param ... graphics parameters to be passed to the plotting routines. (For example \code{p}, in prior plots)
 #' 
+#' @note You can either directly plot a bayesTest object (in which case it will plot interactively), or you can save the plot
+#' object to a variable and extract what you need separately.
+#' 
 #' @examples
 #' A_pois <- rpois(100, 5)
 #' B_pois <- rpois(100, 4.7)
@@ -19,6 +22,11 @@
 #' plot(AB1)
 #' plot(AB1, area = .95)
 #' plot(AB1, percentLift = 5)
+#' 
+#' p <- plot(AB1)
+#' 
+#' p
+#' p$posteriors$Lambda
 #'
 #' @export
 plot.bayesTest <- function(x, 
@@ -31,12 +39,29 @@ plot.bayesTest <- function(x,
   if(length(x$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
   if(!any(priors, posteriors, samples)) stop("Must specifiy at least one plot to make.")
   
+  pri <- post <- samp <- NULL
+  
+  if(priors) pri <- plotPriors(x, ...)
+  if(posteriors) post <- plotPosteriors(x)
+  if(samples) samp <- plotSamples(x, percentLift = percentLift)
+  
+  out <- list(priors = pri,
+              posteriors = post,
+              samples = samp)
+  
+  class(out) <- "plotBayesTest"
+  
+  return(out)
+  
+}
+
+#' @export
+print.plotBayesTest <- function(x, ...) {
+  
   oldPar <- par()$ask
   par(ask = TRUE)
   
-  if(priors) plotPriors(x, ...) # for changing p, for some priorPlot params
-  if(posteriors) plotPosteriors(x)
-  if(samples) plotSamples(x, percentLift = percentLift)
+  unlist(x, recursive = FALSE)
   
   par(ask = oldPar)
   

@@ -10,11 +10,20 @@ plotPriors <- function(bayesAB, ...) {
   vals <- bayesAB$inputs$priors
   labs <- names(vals)
   
-  labChecker <- function(...) all(c(...) %in% labs) 
+  labChecker <- function(...) all(c(...) %in% labs)
   
-  for(rel in funs) {
-    if(labChecker(rel$params)) do.call(rel$plotFun, as.list(c(unname(vals[rel$params]), ...)))
+  out <- list()
+  
+  for(i in seq_along(funs)) {
+    rel <- funs[[i]]
+    if(labChecker(rel$params)) {
+      pri <- list(do.call(rel$plotFun, as.list(c(unname(vals[rel$params]), ...))))
+      names(pri) <- names(funs[i])
+      out <- c(out, pri)
+    }
   }
+  
+  out
   
 }
 
@@ -46,7 +55,7 @@ samplePlot <- function(A, B, name, percentLift) {
                             collapse = "")) +
     ggplot2::theme(legend.position = "none")
   
-  print(p) 
+  p 
   
 }
 
@@ -68,19 +77,21 @@ posteriorPlot <- function(A, B, name) {
                             collapse = "")) +
     ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
   
-  print(p)
+  p
   
 }
 
 # Constructor function for plotSamples and plotPosteriors
 plotConstructor <- function(fun, ...) {
   function(bayesAB, ...) {
-    for(i in seq_along(bayesAB$posteriors)) {
-      p <- bayesAB$posteriors[i]
-      n <- names(p)
-      p <- unlist(p, recursive = FALSE, use.names = FALSE)
-      fun(A = p[[1]], B = p[[2]], name = n, ...)
-    }
+    lapply(
+      bayesAB$posteriors, function(x) {
+        p <- x
+        n <- names(p)
+        p <- unlist(p, recursive = FALSE, use.names = FALSE)
+        fun(A = p[[1]], B = p[[2]], name = n, ...)
+      }
+    )
   }
 }
 

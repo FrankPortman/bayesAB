@@ -24,6 +24,10 @@ the respective posterior in x. Note this is on a 'point' scale. percentLift = 5 
 \description{
 Plot method for objects of class "bayesTest".
 }
+\note{
+You can either directly plot a bayesTest object (in which case it will plot interactively), or you can save the plot
+object to a variable and extract what you need separately.
+}
 \examples{
 A_pois <- rpois(100, 5)
 B_pois <- rpois(100, 4.7)
@@ -33,6 +37,11 @@ AB1 <- bayesTest(A_pois, B_pois, priors = c('shape' = 25, 'rate' = 5), distribut
 plot(AB1)
 plot(AB1, area = .95)
 plot(AB1, percentLift = 5)
+
+p <- plot(AB1)
+
+p
+p$posteriors$Lambda
 
 }
 
