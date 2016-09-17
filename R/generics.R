@@ -38,6 +38,7 @@ plot.bayesTest <- function(x,
   
   if(length(x$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
   if(!any(priors, posteriors, samples)) stop("Must specifiy at least one plot to make.")
+  if(isClosed(x$distribution)) stop("Can't plot 'closed form' bayesTest.")
   
   pri <- post <- samp <- NULL
   
@@ -61,7 +62,9 @@ print.plotBayesTest <- function(x, ...) {
   oldPar <- par()$ask
   par(ask = TRUE)
   
-  unlist(x, recursive = FALSE)
+  plots <- unlist(x, recursive = FALSE)
+  
+  for(p in plots) print(p)
   
   par(ask = oldPar)
   
@@ -156,9 +159,6 @@ print.summaryBayesTest <- function(x, ...) {
 
 #' @export
 print.bayesTestClosed <- print.bayesTest
-
-#' @export
-plot.bayesTestClosed <- plot.bayesTest
 
 #' @export
 summary.bayesTestClosed <- function(object, ...) {

@@ -84,14 +84,17 @@ posteriorPlot <- function(A, B, name) {
 # Constructor function for plotSamples and plotPosteriors
 plotConstructor <- function(fun, ...) {
   function(bayesAB, ...) {
-    lapply(
-      bayesAB$posteriors, function(x) {
-        p <- x
-        n <- names(p)
-        p <- unlist(p, recursive = FALSE, use.names = FALSE)
-        fun(A = p[[1]], B = p[[2]], name = n, ...)
-      }
-    )
+    out <- list()
+    for(i in seq_along(bayesAB$posteriors)) {
+      p <- bayesAB$posteriors[i]
+      n <- names(p)
+      p <- unlist(p, recursive = FALSE, use.names = FALSE)
+      pl <- fun(A = p[[1]], B = p[[2]], name = n, ...)
+      pl <- list(pl)
+      names(pl) <- n
+      out <- c(out, pl)
+    }
+    return(out)
   }
 }
 
