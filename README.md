@@ -9,7 +9,7 @@ bayesAB provides a suite of functions that allow the user to analyze A/B test
 data in a Bayesian framework. bayesAB is intended to be a drop-in replacement for
 common frequentist hypothesis test such as the t-test and chi-sq test.
 
-Bayesian Methods provide several benefits over frequentist methods in the context of
+Bayesian methods provide several benefits over frequentist methods in the context of
 A/B tests - namely in interpretability. Instead of p-values you get direct
 probabilities on whether A is better than B (and by how much). Instead of point estimates
 your posterior distributions are parametrized random variables which can be summarized
