@@ -9,7 +9,7 @@
 #' @param params a character vector of length 2, corresponding to names of the posterior parameters you want to combine
 #' @param newName a string indicating the name of the new 'posterior' in the resulting object
 #' 
-#' @return a \code{bayesTest} object with the newly combined posterior samples
+#' @return a \code{bayesTest} object with the newly combined posterior samples.
 #' 
 #' @examples 
 #' A_binom <- rbinom(100, 1, .5)

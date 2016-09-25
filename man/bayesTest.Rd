@@ -94,7 +94,7 @@ rate of decay.
 For 'closed form' tests, you do not get a distribution over the posterior, but simply P(A > B) for the parameter in question.
 }
 \examples{
-A_binom<- rbinom(100, 1, .5)
+A_binom <- rbinom(100, 1, .5)
 B_binom <- rbinom(100, 1, .6)
 
 A_norm <- rnorm(100, 6, 1.5)

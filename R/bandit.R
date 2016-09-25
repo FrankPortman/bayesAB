@@ -1,26 +1,45 @@
-banditize <- function(bT, param, eps) {
+#' Create a multi-armed bandit object.
+#' 
+#' @description Fit a multi-armed bandit object based on a bayesTest which can serve recommendations and adapt
+#' to new data.
+#' 
+#' @param bT a bayesTest object
+#' @param param which model parameter (posterior) to evaluate 
+#' @param higher_is_better  is a higher value of `param` equivalent to a better choice?
+#' @return A bayesBandit object.
+#' 
+#' @details \code{banditize} is an 'object-oriented' implementation of multi-armed bandits in \code{bayesAB}. It is useful in 
+#' conjunction with a Shiny app or Plumber deployment. The object itself is mutable and can adapt/learn from new data without having to
+#' re-assign the variable. 
+#' 
+#' @examples
+#' A_binom <- rbinom(100, 1, .5)
+#' B_binom <- rbinom(100, 1, .6)
+#' 
+#' AB1 <- bayesTest(A_binom, B_binom, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
+#' 
+#' binomialBandit <- banditize(AB1)
+#' binomialBandit$serveRecipe
+#' binomialBandit$setResults(c('A' = 1, 'A' = 0, 'B' = 0, 'B' = 0))
+#' 
+#' @export
+banditize <- function(bT, param, higher_is_better = TRUE) {
   
-  if(eps >= 1 | eps <= 0) stop("eps must be in (0, 1)")
-  
+  ## Only 2 recipes for now
   choices <- c('A', 'B')
   
+  ## switch for higher_is_better
+  compareFun <- ifelse(higher_is_better, which.max, which.min)
+  
   test <- bT
-  prob_A_beats_B <- summary(test)$probability[[param]]
-  
-  current_winner <- 'A'
-  if(prob_A_beats_B <= .5) current_winner <- 'B'
-  
-  setCurrentWinner <- function() {
-    prob_A_beats_B <- summary(test)$probability[[param]]
-    
-    current_winner <<- 'A'
-    if(prob_A_beats_B <= .5) current_winner <<- 'B'
-  }
   
   serveRecipe <- function() {
-    rand <- runif(1, 0, 1)
-    if(rand <= eps) return(setdiff(choices, current_winner))
-    return(current_winner)
+    ## exploit iid samples from posterior
+    idx <- sample(test$inputs$n_samples, 1)
+    A_sample <- test$posteriors[[param]]$A_probs[idx]
+    B_sample <- test$posteriors[[param]]$B_probs[idx]
+    
+    return(choices[compareFun(c(A_sample, B_sample))])
   }
   
   setResults <- function(results) {
@@ -35,16 +54,19 @@ banditize <- function(bT, param, eps) {
                        test$inputs$n_samples,
                        test$distribution)
     
-    setCurrentWinner()
+    return(0)
   }
   
   getBayesTest <- function() {
     return(test)
   }
   
-  list("serveRecipe" = serveRecipe,
-       "setResults" = setResults,
-       "getBayesTest" = getBayesTest)
+  out <- list("serveRecipe" = serveRecipe,
+              "setResults" = setResults,
+              "getBayesTest" = getBayesTest)
+  
+  class(out) <- 'bayesBandit'
+  
+  return(out)
   
 }
-

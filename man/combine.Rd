@@ -18,7 +18,7 @@ combine(bT1, bT2, f = `+`, params, newName = "Parameter")
 \item{newName}{a string indicating the name of the new 'posterior' in the resulting object}
 }
 \value{
-a \code{bayesTest} object with the newly combined posterior samples
+a \code{bayesTest} object with the newly combined posterior samples.
 }
 \description{
 Combine two (or any number, in succesion) \code{bayesTest} objects into a new arbitrary posterior distribution.

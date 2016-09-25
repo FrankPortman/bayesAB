@@ -8,3 +8,4 @@ src/*.dll
 tests/testthat/*.pdf
 inst/doc
 vignettes/*.html
+todo
