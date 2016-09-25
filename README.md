@@ -54,7 +54,7 @@ plotBeta(2, 3)
 plotNormal(6, 3)
 plotInvGamma(12, 4)
 
-A_binom<- rbinom(100, 1, .5)
+A_binom <- rbinom(100, 1, .5)
 B_binom <- rbinom(100, 1, .6)
 
 A_norm <- rnorm(100, 6, 1.5)
@@ -63,6 +63,7 @@ B_norm <- rnorm(100, 5, 2.5)
 # Fit bernoulli and normal tests
 AB1 <- bayesTest(A_binom, B_binom, 
                  priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
+                 
 AB2 <- bayesTest(A_norm, B_norm, 
                  priors = c('m0' = 5, 'k0' = 1, 's_sq0' = 3, 'v0' = 1), distribution = 'normal')
 
