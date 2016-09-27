@@ -174,3 +174,8 @@ print.summaryBayesTestClosed <- function(x, ...) {
   cat('P(A > B):\n')
   print(x$probability)
 }
+
+#' @export
+print.bayesBandit <- function(x, ...) {
+  x$getUpdates()
+}

@@ -23,7 +23,16 @@ to new data.
 \details{
 \code{banditize} is an 'object-oriented' implementation of multi-armed bandits in \code{bayesAB}. It is useful in 
 conjunction with a Shiny app or Plumber deployment. The object itself is mutable and can adapt/learn from new data without having to
-re-assign the variable.
+re-assign the variable. 
+
+Comes with 5 methods:
+
+\itemize{
+ \item \code{serveRecipe()}: serves a recipe to show your user based on samples from both posteriors.
+ \item \code{setResults(results)}: set results for one or more recipes for one or more instances of feedback. Used to update bandit.
+ \item \code{getBayesTest()}: returns most updated \code{bayesTest} object.
+ \item \code{getOriginalTest()}: returns original \code{bayesTest} object without any updates.
+ \item \code{getUpdates()}: returns a summarized version of all updates this bandit has processed.}
 }
 \examples{
 A_binom <- rbinom(100, 1, .5)

@@ -12,6 +12,8 @@ test_that("Success", {
   
   expect_true(bandit$serveRecipe() %in% c('A', 'B'))
   expect_silent(bandit$getBayesTest())
+  expect_silent(bandit$getOriginalTest())
   expect_equal(bandit$setResults(c('A' = 1)), 0)
+  expect_output(print(bandit), "updates")
   
 })
