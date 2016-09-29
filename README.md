@@ -24,7 +24,7 @@ The general bayesAB workflow is as follows:
   - Optional: Use `combine` to munge together several `bayesTest` objects together for an arbitrary / non-analytical target distribution
 - `print`, `plot`, and `summary` to interpret your results
 
-Optionally, use `banditize` to turn a pre-calculated (or empty) `bayesTest` into a multi-armed bandit that can serve recipe recommendations and adapt as new data comes in.
+Optionally, use `banditize` and/or `deployBanti` to turn a pre-calculated (or empty) `bayesTest` into a multi-armed bandit that can serve recipe recommendations and adapt as new data comes in.
 
 Note, while bayesAB was designed to exploit data related to A/B/etc tests, you can use the package to conduct Bayesian analysis on virtually any vector of data, as long as it can be parametrized by the available functions.
 

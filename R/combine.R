@@ -8,7 +8,6 @@
 #' @param f a binary function (f(x, y)) used to combine posteriors from bT1 to bT2
 #' @param params a character vector of length 2, corresponding to names of the posterior parameters you want to combine
 #' @param newName a string indicating the name of the new 'posterior' in the resulting object
-#' 
 #' @return a \code{bayesTest} object with the newly combined posterior samples.
 #' 
 #' @examples 

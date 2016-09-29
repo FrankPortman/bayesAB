@@ -1,4 +1,4 @@
-#' Create a multi-armed bandit object.
+#' Create a multi-armed Bayesian bandit object.
 #' 
 #' @description Fit a multi-armed bandit object based on a bayesTest which can serve recommendations and adapt
 #' to new data.
@@ -29,18 +29,19 @@
 #' 
 #' binomialBandit <- banditize(AB1)
 #' binomialBandit$serveRecipe
-#' binomialBandit$setResults(c('A' = 1, 'A' = 0, 'B' = 0, 'B' = 0))
+#' binomialBandit$setResults(list('A' = c(1, 0, 1, 0, 0), 'B' = c(0, 0, 0, 0, 1)))
 #' 
 #' @export
 banditize <- function(bT, param, higher_is_better = TRUE) {
+  
+  ## Re-assign bT to be able to report the OG one later
+  test <- bT
   
   ## Only 2 recipes for now
   choices <- c('A', 'B')
   
   ## switch for higher_is_better
   compareFun <- ifelse(higher_is_better, which.max, which.min)
-  
-  test <- bT
   
   ## Initialize counters and updates tracking
   updates <- 0
@@ -57,19 +58,18 @@ banditize <- function(bT, param, higher_is_better = TRUE) {
   }
   
   setResults <- function(results) {
-    if(!(all(names(results) %in% choices))) stop("`results` vector must only contain names 'A' and 'B'")
+    if(!(all(names(results) %in% choices))) stop("`results` list must only contain names 'A' and 'B'")
+    if(is.null(results$A) & is.null(results$B)) stop("A and B can't both be NULL.")
     
-    As <- unname(results[names(results) == 'A'])
-    Bs <- unname(results[names(results) == 'B'])
-    
-    A_ctr <- A_ctr + length(As)
-    B_ctr <- B_ctr + length(Bs)
-    
-    test <<- bayesTest(c(test$inputs$A_data, As),
-                       c(test$inputs$B_data, Bs),
+    test <<- bayesTest(c(test$inputs$A_data, results$A),
+                       c(test$inputs$B_data, results$B),
                        test$inputs$priors,
                        test$inputs$n_samples,
                        test$distribution)
+    
+    updates <<- updates + 1
+    A_ctr <<- A_ctr + length(results$A)
+    B_ctr <<- B_ctr + length(results$B)
     
     return(0)
   }
@@ -100,5 +100,58 @@ banditize <- function(bT, param, higher_is_better = TRUE) {
   class(out) <- 'bayesBandit'
   
   return(out)
+  
+}
+
+#' Deploy a bayesBandit object as a JSON API.
+#' 
+#' @description Turn your bayesBandit object into an API and serve/update requests through HTTP.
+#' 
+#' @param bandit a bayesBandit object
+#' @param port port to deploy on
+#' @return An active \code{http} process on some port.
+#' 
+#' @details \code{deployBandit} turns a Bayesian bandit into a JSON API that accepts curl requests. Two of the five methods of 
+#' bayesBandit classes are exposed: \code{serveRecipe} and \code{setResults}. Assuming the API is deployed on \code{localhost} this is an
+#' example of how it would be hit:
+#' 
+#' \deqn{curl http://localhost:8000/serveRecipe}
+#' 
+#' \deqn{curl --data '{"A":[1, 0, 1, 1], "B":[0, 0, 0, 1]}' http://localhost:8000/setResults}
+#' 
+#' @examples 
+#' A_binom <- rbinom(100, 1, .5)
+#' B_binom <- rbinom(100, 1, .6)
+#' 
+#' AB1 <- bayesTest(A_binom, B_binom, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
+#' 
+#' binomialBandit <- banditize(AB1)
+#' \dontrun{deployBandit(binomialBandit)}
+#' 
+#' @export
+deployBandit <- function(bandit, port = 8000) {
+  # Create a new router
+  router <- plumber::plumber$new()
+  
+  serve <- expression(
+    function(){
+      bandit$serveRecipe()
+    }
+  )
+  
+  set <- expression(
+    function(A = NULL, B = NULL){
+      results <- list("A" = A, "B" = B)
+      bandit$setResults(results)
+    }
+  )
+  
+  router$addEndpoint(verbs = "GET", path = "/serveRecipe",
+                     expr = serve)
+  
+  router$addEndpoint(verbs = "POST", path = "/setResults",
+                     expr = set)
+  
+  router$run(port = port)
   
 }

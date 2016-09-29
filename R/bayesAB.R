@@ -18,6 +18,12 @@
 #'    \item  Fit a \code{bayesTest} object
 #'        \itemize{ \item Optional: Use \code{combine} to munge together several \code{bayesTest} objects together for an arbitrary / non-analytical target distribution}
 #'    \item  \code{print}, \code{plot}, and \code{summary} to interpret your results}
+#'    
+#' Optionally, use \code{banditize} and/or \code{deployBandit} to turn a pre-calculated (or empty) bayesTest into a multi-armed bandit that can serve 
+#' recipe recommendations and adapt as new data comes in.
+#' 
+#' Note, while bayesAB was designed to exploit data related to A/B/etc tests, you can use the package to conduct Bayesian analysis on 
+#' virtually any vector of data, as long as it can be parametrized by the available functions.
 #' 
 #' To learn more about bayesAB, start with the vignettes:
 #' \code{browseVignettes(package = "bayesAB")}
@@ -27,6 +33,7 @@
 #' @importFrom graphics par
 #' @importFrom methods is
 #' @importFrom stats dbeta dnorm qgamma quantile rbeta rgamma rnorm dgamma dpois qpois runif dlnorm qlnorm
+#' @importFrom utils tail
 #' @useDynLib bayesAB
 #' @importFrom Rcpp evalCpp
 NULL

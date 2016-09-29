@@ -2,7 +2,7 @@
 % Please edit documentation in R/bandit.R
 \name{banditize}
 \alias{banditize}
-\title{Create a multi-armed bandit object.}
+\title{Create a multi-armed Bayesian bandit object.}
 \usage{
 banditize(bT, param, higher_is_better = TRUE)
 }
@@ -42,7 +42,7 @@ AB1 <- bayesTest(A_binom, B_binom, priors = c('alpha' = 1, 'beta' = 1), distribu
 
 binomialBandit <- banditize(AB1)
 binomialBandit$serveRecipe
-binomialBandit$setResults(c('A' = 1, 'A' = 0, 'B' = 0, 'B' = 0))
+binomialBandit$setResults(list('A' = c(1, 0, 1, 0, 0), 'B' = c(0, 0, 0, 0, 1)))
 
 }
 
