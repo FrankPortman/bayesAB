@@ -24,4 +24,4 @@ respectively.
 - `print`, `plot`, `summary` generics
 - Easy plotting of distributions for quick visual inspection
 - `combine` tests as needed
-- 100\% code coverage
+- 100% code coverage
