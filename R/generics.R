@@ -131,15 +131,22 @@ summary.bayesTest <- function(object,
   if(length(object$posteriors) != length(credInt)) stop("Must supply a 'credInt' for every parameter with a posterior distribution.")
   if(any(credInt <= 0) | any(credInt >= 1)) stop("Credible interval width ust be in (0, 1).")
   
+  lifts <- lapply(object$posteriors, function(x) getLift(x[[1]], x[[2]]))
   
-  probability <- Map(function(x, y) getProb(x[[1]], x[[2]], y), object$posteriors, percentLift)
-  interval <- Map(function(x, y) getCredInt(x[[1]], x[[2]], y), object$posteriors, credInt)
-
-  out <- list(probability = probability, 
+  probability <- Map(function(x, y) getProb(x, y), lifts, percentLift)
+  interval <- Map(function(x, y) getCredInt(x, y), lifts, credInt)
+  posteriorSummary <- lapply(object$posteriors, function(x) {
+    lapply(x, function(y) {
+      quantile(y)
+    })
+  })
+  
+  out <- list(posteriorSummary = posteriorSummary,
+              probability = probability, 
               interval = interval, 
               percentLift = percentLift, 
               credInt = credInt)
-
+  
   class(out) <- 'summaryBayesTest'
   
   return(out)
@@ -149,14 +156,19 @@ summary.bayesTest <- function(object,
 #' @export
 print.summaryBayesTest <- function(x, ...) {
   
-  cat('P(A > B) by (', paste0(x$percentLift, collapse = ", "), ')%: \n', sep = "")
+  cat('Quantiles of posteriors for A and B:\n\n')
+  print(x$posteriorSummary)
+  
+  cat('--------------------------------------------\n\n')
+  
+  cat('P(A > B) by (', paste0(x$percentLift, collapse = ", "), ')%: \n\n', sep = "")
   print(x$probability)
   
   cat('--------------------------------------------\n\n')
   
-  cat('Credible Interval on (A - B) / B for interval length(s) (', paste0(x$credInt, collapse = ", "), ') : \n', sep = "")
+  cat('Credible Interval on (A - B) / B for interval length(s) (', paste0(x$credInt, collapse = ", "), ') : \n\n', sep = "")
   print(x$interval)
-
+  
 }
 
 #' @export

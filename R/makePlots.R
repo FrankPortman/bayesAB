@@ -30,7 +30,7 @@ plotPriors <- function(bayesAB, ...) {
 # Plot samples based on lift, name of var, and data
 samplePlot <- function(A, B, name, percentLift) {
   
-  diff <- (A - B) / B
+  diff <- getLift(A, B)
   cutoff <- percentLift / 100
   
   diff <- data.frame(diff = diff, cutoff = diff < cutoff)
