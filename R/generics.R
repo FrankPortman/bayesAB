@@ -111,6 +111,11 @@ print.bayesTest <- function(x, ...) {
 #' @param credInt a vector of length(x$posteriors). Each entry corresponds to the width of credible interval of (A - B) / B to calculate for
 #'        the respective posterior in x. Also on a 'point' scale.
 #' @param ... additional arguments affecting the summary produced.
+#' @return A \code{summaryBayesTest} object which contains summaries of the Posterior distributions, direct probablities that A > B (by
+#' \code{percentLift}), credible intervals on (A - B) / B, and the Posterior Expected Loss on all estimated parameters.
+#' 
+#' @note The Posterior Expected Loss (https://en.wikipedia.org/wiki/Bayes_estimator) is a good indicator of when to end a Bayesian
+#' AB test. If the PEL is lower than the absolute delta of the minimum effect you wish to detect, the test can be reasonably be stopped.
 #' 
 #' @examples
 #' A_pois <- rpois(100, 5)
@@ -141,9 +146,13 @@ summary.bayesTest <- function(object,
     })
   })
   
+  ## Get posterior expected loss
+  posteriorExpectedLoss <- lapply(object$posteriors, function(x) getPostError(x[[1]], x[[2]]))
+  
   out <- list(posteriorSummary = posteriorSummary,
               probability = probability, 
-              interval = interval, 
+              interval = interval,
+              posteriorExpectedLoss = posteriorExpectedLoss,
               percentLift = percentLift, 
               credInt = credInt)
   
@@ -168,6 +177,11 @@ print.summaryBayesTest <- function(x, ...) {
   
   cat('Credible Interval on (A - B) / B for interval length(s) (', paste0(x$credInt, collapse = ", "), ') : \n\n', sep = "")
   print(x$interval)
+  
+  cat('--------------------------------------------\n\n')
+  
+  cat('Posterior Expected Loss for choosing B over A:\n\n')
+  print(x$posteriorExpectedLoss)
   
 }
 

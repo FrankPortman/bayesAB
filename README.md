@@ -23,6 +23,7 @@ The general bayesAB workflow is as follows:
 - Fit a `bayesTest` object
   - Optional: Use `combine` to munge together several `bayesTest` objects together for an arbitrary / non-analytical target distribution
 - `print`, `plot`, and `summary` to interpret your results
+  - Determine whether to stop your test early given the Posterior Expected Loss in `summary` output
 
 Optionally, use `banditize` and/or `deployBandit` to turn a pre-calculated (or empty) `bayesTest` into a multi-armed bandit that can serve recipe recommendations and adapt as new data comes in.
 

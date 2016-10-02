@@ -19,8 +19,16 @@ the respective posterior in x. Also on a 'point' scale.}
 
 \item{...}{additional arguments affecting the summary produced.}
 }
+\value{
+A \code{summaryBayesTest} object which contains summaries of the Posterior distributions, direct probablities that A > B (by
+\code{percentLift}), credible intervals on (A - B) / B, and the Posterior Expected Loss on all estimated parameters.
+}
 \description{
 Summary method for objects of class "bayesTest".
+}
+\note{
+The Posterior Expected Loss (https://en.wikipedia.org/wiki/Bayes_estimator) is a good indicator of when to end a Bayesian
+AB test. If the PEL is lower than the absolute delta of the minimum effect you wish to detect, the test can be reasonably be stopped.
 }
 \examples{
 A_pois <- rpois(100, 5)

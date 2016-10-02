@@ -11,6 +11,11 @@ getLift <- function(A_samples, B_samples) {
   (A_samples - B_samples) / B_samples
 }
 
+getPostError <- function(A_samples, B_samples) {
+  #expected loss from switching from B to A
+  mean(B_samples > A_samples) * mean(B_samples[B_samples > A_samples])
+}
+
 dpareto <- function(x, xm, alpha) ifelse(x > xm , alpha * xm ** alpha / (x ** (alpha + 1)), 0)
 ppareto <- function(q, xm, alpha) ifelse(q > xm , 1 - (xm / q) ** alpha, 0 )
 qpareto <- function(p, xm, alpha) ifelse(p < 0 | p > 1, NaN, xm * (1 - p) ** (-1 / alpha))

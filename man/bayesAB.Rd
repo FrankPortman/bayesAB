@@ -24,7 +24,8 @@ The general bayesAB workflow is as follows:
    \item  Use our helper functions to decide on priors for your data (\code{?bayesTest})
    \item  Fit a \code{bayesTest} object
        \itemize{ \item Optional: Use \code{combine} to munge together several \code{bayesTest} objects together for an arbitrary / non-analytical target distribution}
-   \item  \code{print}, \code{plot}, and \code{summary} to interpret your results}
+   \item  \code{print}, \code{plot}, and \code{summary} to interpret your results
+       \itemize{ \item Determine whether to stop your test early given the Posterior Expected Loss in \code{summary} output}}
    
 Optionally, use \code{banditize} and/or \code{deployBandit} to turn a pre-calculated (or empty) bayesTest into a multi-armed bandit that can serve 
 recipe recommendations and adapt as new data comes in.
