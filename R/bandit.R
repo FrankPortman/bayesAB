@@ -130,6 +130,11 @@ banditize <- function(bT, param, higher_is_better = TRUE) {
 #' 
 #' @export
 deployBandit <- function(bandit, port = 8000) {
+  
+  if(packageVersion("plumber") < 0.3) {
+    stop("You must have the development version of `plumber` to use `deployBandit`. See `installPlumber()`.")
+  }
+  
   # Create a new router
   router <- plumber::plumber$new()
   
@@ -154,4 +159,19 @@ deployBandit <- function(bandit, port = 8000) {
   
   router$run(port = port)
   
+}
+
+#' Install the dev version of \code{plumber}.
+#' 
+#' @description Install the development version of \code{plumber} from Github in order for \code{deployBandit} to work.
+#' 
+#' @note This is to be deprecated once \code{plumber} >= 0.3 is on CRAN.
+#' 
+#' @examples 
+#' \dontrun{installPlumber()}
+#' 
+#' @export
+installPlumber <- function() {
+  devtools::install_github("trestletech/plumber")
+  requireNamespace("plumber")
 }
