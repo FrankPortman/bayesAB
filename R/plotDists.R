@@ -201,7 +201,7 @@ plotDist <- function(support, hseq, dist, params) {
       paramList,
       collapse = "")) +
     ribbon_or_bar +
-    ggplot2::theme_minimal()
+    theme_bayesAB()
   
   p
   

@@ -41,8 +41,14 @@ samplePlot <- function(A, B, name, percentLift) {
   p <- ggplot2::qplot(diff, data = diff, fill = cutoff, binwidth = diff(range(diff)) / 250) + 
     ggplot2::geom_vline(xintercept = cutoff)
   
-  m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
-  
+  ## ugly ggplot2 update fix
+  ## deprecate in > 2.2 CRAN release
+  if (packageVersion("ggplot2") >= "2.1.0.9001") {
+    m <- max(ggplot2::ggplot_build(p)$layout$panel_ranges[[1]]$y.range)
+  } else {
+    m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
+  }
+
   xpos <- mean(diff$diff[diff$cutoff == F])
   if(is.nan(xpos)) xpos <-  mean(diff$diff[diff$cutoff == T])
   
@@ -89,7 +95,7 @@ plotConstructor <- function(fun, ...) {
       p <- bayesAB$posteriors[i]
       n <- names(p)
       p <- unlist(p, recursive = FALSE, use.names = FALSE)
-      pl <- fun(A = p[[1]], B = p[[2]], name = n, ...)
+      pl <- fun(A = p[[1]], B = p[[2]], name = n, ...) + theme_bayesAB()
       pl <- list(pl)
       names(pl) <- n
       out <- c(out, pl)
