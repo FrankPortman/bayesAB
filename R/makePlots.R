@@ -43,11 +43,9 @@ samplePlot <- function(A, B, name, percentLift) {
   
   ## ugly ggplot2 update fix
   ## deprecate in > 2.2 CRAN release
-  if (packageVersion("ggplot2") >= "2.1.0.9001") {
-    m <- max(ggplot2::ggplot_build(p)$layout$panel_ranges[[1]]$y.range)
-  } else {
-    m <- max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range)
-  }
+  m <- ifelse(packageVersion("ggplot2") >= "2.1.0.9001",
+              max(ggplot2::ggplot_build(p)$layout$panel_ranges[[1]]$y.range),
+              max(ggplot2::ggplot_build(p)$panel$ranges[[1]]$y.range))
 
   xpos <- mean(diff$diff[diff$cutoff == F])
   if(is.nan(xpos)) xpos <-  mean(diff$diff[diff$cutoff == T])
