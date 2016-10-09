@@ -44,7 +44,7 @@ devtools::install_github("frankportman/bayesAB", build_vignettes = TRUE)
 
 ## Usage
 
-For a more in-depth look please check the package vignettes with `browseVignettes(package = "bayesAB")` or the pre-knit HTML version on CRAN [here](https://cran.r-project.org/web/packages/bayesAB/vignettes/introduction.html).
+For a more in-depth look please check the package vignettes with `browseVignettes(package = "bayesAB")` or the pre-knit HTML version on CRAN [here](https://cran.r-project.org/web/packages/bayesAB/vignettes/introduction.html). Brief example below. Run the following code for a quick overview of bayesAB:
 
 ```{r}
 library(bayesAB)
@@ -64,11 +64,15 @@ A_norm <- rnorm(100, 6, 1.5)
 B_norm <- rnorm(100, 5, 2.5)
 
 # Fit bernoulli and normal tests
-AB1 <- bayesTest(A_binom, B_binom, 
-                 priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
+AB1 <- bayesTest(A_binom, 
+                 B_binom, 
+                 priors = c('alpha' = 1, 'beta' = 1), 
+                 distribution = 'bernoulli')
                  
-AB2 <- bayesTest(A_norm, B_norm, 
-                 priors = c('m0' = 5, 'k0' = 1, 's_sq0' = 3, 'v0' = 1), distribution = 'normal')
+AB2 <- bayesTest(A_norm, 
+                 B_norm, 
+                 priors = c('m0' = 5, 'k0' = 1, 's_sq0' = 3, 'v0' = 1), 
+                 distribution = 'normal')
 
 print(AB1)
 summary(AB1)
