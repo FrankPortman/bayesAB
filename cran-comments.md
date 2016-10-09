@@ -1,8 +1,4 @@
-## Resubmission
-This is a resubmission. In this version I have fixed the Description of the package to be in line with CRAN's standard.
-
-## Old submission
-This is my first submission of bayesAB to CRAN.
+This is a new release of bayesAB. This version is mostly focused on feature additions and back-end refactoring for efficiency. No breaking or major changes.
 
 ## Test environments
 - local OS X install, R 3.3.1
