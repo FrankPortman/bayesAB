@@ -1,3 +1,7 @@
+### Resubmission
+This is a resubmission. I have fixed the canonical URL issues in README.md.
+
+### Old Submission
 This is a new release of bayesAB. This version is mostly focused on feature additions and back-end refactoring for efficiency. No breaking or major changes.
 
 ## Test environments
