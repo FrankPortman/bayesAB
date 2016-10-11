@@ -44,6 +44,11 @@ devtools::install_github("frankportman/bayesAB", build_vignettes = TRUE)
 
 ## Usage
 
+Some useful links from my blog with `bayesAB` examples (and pictures!!):
+
+- [bayesAB: A New R Package for Bayesian AB Testing](http://fportman.com/blog/bayesab-a-new-r-package-for-bayesian-ab-testing/)
+- [bayesAB 0.7.0 + a Primer on Priors](http://fportman.com/blog/bayesab-0-dot-7-0-plus-a-primer-on-priors/)
+
 For a more in-depth look please check the package vignettes with `browseVignettes(package = "bayesAB")` or the pre-knit HTML version on CRAN [here](https://CRAN.R-project.org/package=bayesAB/vignettes/introduction.html). Brief example below. Run the following code for a quick overview of bayesAB:
 
 ```{r}
