@@ -205,3 +205,60 @@ print.summaryBayesTestClosed <- function(x, ...) {
 print.bayesBandit <- function(x, ...) {
   x$getUpdates()
 }
+
+#' @export
+c.bayesTest <- function(..., errorCheck = TRUE) {
+  
+  tests <- list(...)
+  
+  ## Check for mismatches in inputs
+  if(errorCheck) {
+    loop <- head(names(tests[[1]]$inputs), -1)
+    
+    extracts <- lapply(1:length(loop), function(x) lapply(1:length(tests), function(y) tests[[y]]$inputs[[loop[x]]]))
+    extracts <- sapply(extracts, function(x) length(unique(x)))
+    
+    mismatches <- loop[which(extracts != 1)]
+    
+    if(length(mismatches) >= 1) {
+      errMsg <- paste0("Unable to concatenate. Mismatches in (", 
+                       paste0(mismatches, collapse = ", "),
+                       "). All inputs must be the same (except n_samples).", 
+                       collapse = "")
+      
+      stop(errMsg)
+    }
+  }
+  
+  result <- list()
+  
+  result$inputs <- tests[[1]]$inputs
+  
+  ## Loop through posteriors, concatenating A to A and B to B
+  As <- concatHelper(tests, 1)
+  Bs <- concatHelper(tests, 2)
+  n <- length(As)
+  
+  posts <- lapply(1:n, function(x) unlist(list(As[x], Bs[x]), recursive = FALSE))
+  names(posts) <- names(tests[[1]]$posteriors)
+  
+  result$posteriors <- posts
+  
+  result$distribution <- tests[[1]]$distribution
+  
+  class(result) <- 'bayesTest'
+  
+  return(result)
+  
+}
+
+concatHelper <- function(tests, recipe) {
+  posts <- names(tests[[1]]$posteriors)
+  tmp <- lapply(1:length(posts), function(x) lapply(1:length(tests), function(y) tests[[y]]$posteriors[[x]]))
+  
+  tmp <- lapply(1:length(tmp), function(x) c(sapply(1:length(tests), function(y) tmp[[x]][[y]][recipe])))
+  tmp <- lapply(tmp, function(x) unlist(x, use.names = FALSE))
+  names(tmp) <- sapply(tests[[1]]$posteriors, function(x) names(x[recipe]), USE.NAMES = FALSE)
+  
+  tmp
+}
