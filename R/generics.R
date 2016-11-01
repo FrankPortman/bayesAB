@@ -233,6 +233,7 @@ c.bayesTest <- function(..., errorCheck = TRUE) {
   result <- list()
   
   result$inputs <- tests[[1]]$inputs
+  result$inputs$n_samples <- sum(sapply(tests, function(x) x$inputs$n_samples))
   
   ## Loop through posteriors, concatenating A to A and B to B
   As <- concatHelper(tests, 1)
