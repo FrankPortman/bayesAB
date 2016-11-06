@@ -50,5 +50,6 @@ test_that("Success", {
   expect_output(print(summary(AB3)), 'P(A > B)', fixed = TRUE)
   
   expect_is(c(x, x), "bayesTest")
+  expect_identical(c(x, x), x + x)
   
 })
