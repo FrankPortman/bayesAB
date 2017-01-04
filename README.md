@@ -19,7 +19,7 @@ a test is stopped.
 The general bayesAB workflow is as follows:
 
 - Decide how you want to parametrize your data (Poisson for counts of email submissions, Bernoulli for CTR on an ad, etc.)
-- Use our helper functions to decide on priors for your data (`?bayesTest`)
+- Use our helper functions to decide on priors for your data (`?bayesTest`, `?plotDistributions`)
 - Fit a `bayesTest` object
   - Optional: Use `combine` to munge together several `bayesTest` objects together for an arbitrary / non-analytical target distribution
 - `print`, `plot`, and `summary` to interpret your results

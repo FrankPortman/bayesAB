@@ -21,13 +21,13 @@ a test is stopped.
 The general bayesAB workflow is as follows:
 \itemize{
    \item  Decide how you wanta to parametrize your data (Poisson for counts of email submissions, Bernoulli for CTR on an ad, etc.)
-   \item  Use our helper functions to decide on priors for your data (\code{?bayesTest})
-   \item  Fit a \code{bayesTest} object
-       \itemize{ \item Optional: Use \code{combine} to munge together several \code{bayesTest} objects together for an arbitrary / non-analytical target distribution}
-   \item  \code{print}, \code{plot}, and \code{summary} to interpret your results
+   \item  Use our helper functions to decide on priors for your data (\link{bayesTest}, \link{plotDistributions})
+   \item  Fit a \link{bayesTest} object
+       \itemize{ \item Optional: Use \link{combine} to munge together several \link{bayesTest} objects together for an arbitrary / non-analytical target distribution}
+   \item  \code{print}, \link{plot.bayesTest}, and \link{summary.bayesTest} to interpret your results
        \itemize{ \item Determine whether to stop your test early given the Posterior Expected Loss in \code{summary} output}}
    
-Optionally, use \code{banditize} and/or \code{deployBandit} to turn a pre-calculated (or empty) bayesTest into a multi-armed bandit that can serve 
+Optionally, use \link{banditize} and/or \link{deployBandit} to turn a pre-calculated (or empty) bayesTest into a multi-armed bandit that can serve 
 recipe recommendations and adapt as new data comes in.
 
 Note, while bayesAB was designed to exploit data related to A/B/etc tests, you can use the package to conduct Bayesian analysis on 
