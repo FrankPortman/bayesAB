@@ -204,12 +204,7 @@ dinvgamma <- function(x, shape, scale) {
 
     alpha <- shape
     beta <- scale
-    log.density <- alpha * 
-      log(beta) - 
-      lgamma(alpha) - 
-      (alpha + 1) * 
-      log(x) - 
-      (beta / x)
+    log.density <- alpha * log(beta) - lgamma(alpha) - (alpha + 1) * log(x) - (beta / x)
 
     return(exp(log.density))
 
