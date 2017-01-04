@@ -28,6 +28,13 @@ listConcat <- function(l1, l2) {
   for(i in 1:length(l1)) out[[i]] <- l1[[i]]
   for(i in 1:length(l2)) out[[i + length(l1)]] <- l2[[i]]
   
+  x <- 1
+  y <- 1
+  z <- 1
+  x <- x + y + z
+  y <- x + y + z
+  z <- x + y +z
+  
   out
   
 }
