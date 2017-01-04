@@ -15,6 +15,8 @@
 #'           \item     For 'bernoulliC' distribution: same prior definitions as 'bernoulli'
 #'           \item     For 'poissonC' distribution: same prior definitions as 'poisson'
 #'           }
+#'           
+#'           See \link{plotDistributions} or the \emph{Note} section of this help document for more info.
 #' @param n_samples Number of posterior samples to draw. Should be large enough for the distribution to converge. 1e5 is a good rule of thumb. 
 #' Not used for closed form tests.
 #' @param distribution Distribution of underlying A/B test data.
@@ -73,7 +75,18 @@
 #' \item PoissonC: Closed form(computational) calculation of the 'poisson' bayesTest. Same priors are required.
 #' }
 #' 
-#' @note For 'closed form' tests, you do not get a distribution over the posterior, but simply P(A > B) for the parameter in question.
+#' @note For 'closed form' tests, you do not get a distribution over the posterior, but simply P(A > B) for the parameter in question. 
+#' 
+#' Choosing priors correctly is very important. Please see http://fportman.com/blog/bayesab-0-dot-7-0-plus-a-primer-on-priors/ for a detailed example of choosing priors
+#' within bayesAB. Here are some ways to leverage objective/diffuse (assigning equal probability to all values) priors:
+#' 
+#' \itemize{\item \code{Beta}(1, 1)
+#'          \item \code{Gamma}(eps, eps) ~ \code{Gamma}(.00005, .00005) will be effectively diffuse
+#'          \item \code{InvGamma}(eps, eps) ~ \code{InvGamma}(.00005, .00005) will be effectively diffuse
+#'          \item \code{Pareto}(eps, eps) ~ \code{Pareto}(.005, .005) will be effectively diffuse}
+#'          
+#' Keep in mind that the Prior Plots for bayesTest's run with diffuse priors may not plot correctly as they will not be truncated as they
+#' approach infinity. See \link{plot.bayesTest} for how to turn off the Prior Plots.
 #' 
 #' @examples
 #' A_binom <- rbinom(100, 1, .5)
