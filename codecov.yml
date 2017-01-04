@@ -2,3 +2,4 @@ codecov:
 
   ignore:
     - R/bandit.R
+    - R/zzz.R
