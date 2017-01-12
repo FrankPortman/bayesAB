@@ -11,9 +11,11 @@ getLift <- function(A_samples, B_samples) {
   (A_samples - B_samples) / B_samples
 }
 
+coalesce <- function(n) ifelse(is.na(n) | is.nan(n), 0, n)
+
 getPostError <- function(A_samples, B_samples) {
   #expected loss from switching from B to A
-  mean(B_samples > A_samples) * mean(B_samples[B_samples > A_samples])
+  coalesce(mean(B_samples > A_samples) * mean(B_samples[B_samples > A_samples]))
 }
 
 dpareto <- function(x, xm, alpha) ifelse(x > xm , alpha * xm ** alpha / (x ** (alpha + 1)), 0)
