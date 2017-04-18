@@ -1,4 +1,4 @@
-#bayesAB v 0.7.0
+# bayesAB v 0.7.0
 
 ## Major Additions
 
