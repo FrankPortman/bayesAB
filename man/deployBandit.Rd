@@ -36,4 +36,3 @@ binomialBandit <- banditize(AB1)
 \dontrun{deployBandit(binomialBandit)}
 
 }
-

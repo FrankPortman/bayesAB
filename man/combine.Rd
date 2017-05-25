@@ -41,4 +41,3 @@ print(AB3)
 summary(AB3)
 plot(AB3)
 }
-

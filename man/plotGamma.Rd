@@ -30,4 +30,3 @@ plotGamma(1, 1)
 plotGamma(2, 5)
 \dontrun{plotGamma(2, 5) + ggtitle('I hate the default title!')}
 }
-

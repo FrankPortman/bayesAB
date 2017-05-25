@@ -36,4 +36,3 @@ virtually any vector of data, as long as it can be parametrized by the available
 To learn more about bayesAB, start with the vignettes:
 \code{browseVignettes(package = "bayesAB")}
 }
-

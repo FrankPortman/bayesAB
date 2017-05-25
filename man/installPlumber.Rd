@@ -16,4 +16,3 @@ This is to be deprecated once \code{plumber} >= 0.3 is on CRAN.
 \dontrun{installPlumber()}
 
 }
-

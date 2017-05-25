@@ -25,4 +25,3 @@ plotNormal(1, 1)
 plotNormal(2, 5)
 \dontrun{plotNormal(2, 5) + ggtitle('I hate the default title!')}
 }
-

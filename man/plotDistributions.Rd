@@ -29,4 +29,3 @@ within bayesAB. Here are some ways to leverage objective/diffuse (assigning equa
 Keep in mind that the Prior Plots for bayesTest's run with diffuse priors may not plot correctly as they will not be truncated as they
 approach infinity. See \link{plot.bayesTest} for how to turn off the Prior Plots.
 }
-

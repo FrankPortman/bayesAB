@@ -25,4 +25,3 @@ plotPoisson(1)
 plotPoisson(5)
 \dontrun{plotPoisson(5) + ggtitle('I hate the default title!')}
 }
-
