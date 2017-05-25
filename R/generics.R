@@ -48,9 +48,11 @@ plot.bayesTest <- function(x,
   if(posteriors) post <- plotPosteriors(x)
   if(samples) samp <- plotSamples(x, percentLift = percentLift)
   
-  out <- list(priors = pri,
-              posteriors = post,
-              samples = samp)
+  out <- list(
+    priors = pri,
+    posteriors = post,
+    samples = samp
+  )
   
   class(out) <- "plotBayesTest"
   
@@ -136,25 +138,22 @@ summary.bayesTest <- function(object,
   if(length(object$posteriors) != length(credInt)) stop("Must supply a 'credInt' for every parameter with a posterior distribution.")
   if(any(credInt <= 0) | any(credInt >= 1)) stop("Credible interval width ust be in (0, 1).")
   
-  lifts <- lapply(object$posteriors, function(x) getLift(x[[1]], x[[2]]))
+  lifts <- lapply(object$posteriors, function(x) do.call(getLift, unname(x)))
+  posteriorExpectedLoss <- lapply(object$posteriors, function(x) do.call(getPostError, unname(x)))
   
   probability <- Map(function(x, y) getProb(x, y), lifts, percentLift)
   interval <- Map(function(x, y) getCredInt(x, y), lifts, credInt)
-  posteriorSummary <- lapply(object$posteriors, function(x) {
-    lapply(x, function(y) {
-      quantile(y)
-    })
-  })
   
-  ## Get posterior expected loss
-  posteriorExpectedLoss <- lapply(object$posteriors, function(x) getPostError(x[[1]], x[[2]]))
-  
-  out <- list(posteriorSummary = posteriorSummary,
-              probability = probability, 
-              interval = interval,
-              posteriorExpectedLoss = posteriorExpectedLoss,
-              percentLift = percentLift, 
-              credInt = credInt)
+  posteriorSummary <- lapply(object$posteriors, function(x) lapply(x, function(y) quantile(y)))
+
+  out <- list(
+    posteriorSummary = posteriorSummary,
+    probability = probability, 
+    interval = interval,
+    posteriorExpectedLoss = posteriorExpectedLoss,
+    percentLift = percentLift, 
+    credInt = credInt
+  )
   
   class(out) <- 'summaryBayesTest'
   
