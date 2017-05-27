@@ -114,7 +114,7 @@ Monte Carlo samples generated per posterior:
 [1] 1e+05
 ```
 
-```{r}
+```r
 summary(AB1)
 
 ```
