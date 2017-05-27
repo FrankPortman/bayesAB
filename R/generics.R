@@ -206,9 +206,6 @@ print.bayesBandit <- function(x, ...) {
 }
 
 #' @export
-`+.bayesTest` <- function(e1, e2) c(e1, e2)
-
-#' @export
 c.bayesTest <- function(..., errorCheck = TRUE) {
   
   tests <- list(...)
