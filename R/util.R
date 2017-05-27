@@ -37,10 +37,3 @@ listConcat <- function(l1, l2) {
 listOr <- function(e) if(is.list(e)) e else list(e)
 
 isClosed <- function(distribution) grepl("C", distribution)
-
-theme_bayesAB <- function() {
-  ggplot2::theme_minimal() +
-    ggplot2::theme(axis.text.x = ggplot2::element_text(face = "bold", size = 12),
-                   axis.text.y = ggplot2::element_text(face = "bold", size = 12),
-                   title = ggplot2::element_text(size = 12))
-}
