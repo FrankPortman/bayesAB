@@ -35,12 +35,12 @@ B_binom <- rbinom(100, 1, .6)
 A_norm <- rnorm(100, 6, 1.5)
 B_norm <- rnorm(100, 5, 2.5)
 
-AB1 <- bayesTest(A_binom, B_binom, 
+AB1 <- bayesTest(A_binom, B_binom,
                  priors = c('alpha' = 1, 'beta' = 1), 
                  distribution = 'bernoulli')
-                 
-AB2 <- bayesTest(A_norm, B_norm, 
-                priors = c('m0' = 5, 'k0' = 1, 's_sq0' = 3, 'v0' = 1), 
+
+AB2 <- bayesTest(A_norm, B_norm,
+                priors = c('m0' = 5, 'k0' = 1, 's_sq0' = 3, 'v0' = 1),
                 distribution = 'normal')
 
 AB3 <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')

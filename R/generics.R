@@ -1,7 +1,7 @@
 #' Plot bayesTest objects
-#' 
+#'
 #' @description Plot method for objects of class "bayesTest".
-#' 
+#'
 #' @param x an object of class "bayesTest"
 #' @param percentLift a vector of length(x$posteriors). Each entry corresponds to the percent lift ((A - B) / B) to plot for for
 #'        the respective posterior in x. Note this is on a 'point' scale. percentLift = 5 implies you want to test for a 5\% lift.
@@ -9,104 +9,104 @@
 #' @param posteriors logical indicating whether posterior plots should be generated.
 #' @param samples logical indicating whether sample plots should be generated.
 #' @param ... graphics parameters to be passed to the plotting routines. (For example \code{p}, in prior plots)
-#' 
+#'
 #' @note You can either directly plot a bayesTest object (in which case it will plot interactively), or you can save the plot
 #' object to a variable and extract what you need separately. If extracted, you can treat it like any \code{ggplot2} object and
 #' modify it accordingly.
-#' 
+#'
 #' @examples
 #' A_pois <- rpois(100, 5)
 #' B_pois <- rpois(100, 4.7)
-#' 
+#'
 #' AB1 <- bayesTest(A_pois, B_pois, priors = c('shape' = 25, 'rate' = 5), distribution = 'poisson')
-#' 
+#'
 #' plot(AB1)
 #' plot(AB1, area = .95)
 #' plot(AB1, percentLift = 5)
 #' 
 #' p <- plot(AB1)
-#' 
+#'
 #' p
 #' p$posteriors$Lambda
 #' \dontrun{p$posteriors$Lambda + ggtitle('yolo') # modify ggplot2 object directly}
 #'
 #' @export
-plot.bayesTest <- function(x, 
+plot.bayesTest <- function(x,
                            percentLift = rep(0, length(x$posteriors)),
                            priors = TRUE,
                            posteriors = TRUE,
                            samples = TRUE,
                            ...) {
-  
+
   if(length(x$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
   if(!any(priors, posteriors, samples)) stop("Must specifiy at least one plot to make.")
   if(isClosed(x$distribution)) stop("Can't plot 'closed form' bayesTest.")
-  
+
   pri <- post <- samp <- NULL
-  
+
   if(priors) pri <- plotPriors(x, ...)
   if(posteriors) post <- plotPosteriors(x)
   if(samples) samp <- plotSamples(x, percentLift = percentLift)
-  
+
   out <- list(
     priors = pri,
     posteriors = post,
     samples = samp
   )
-  
+
   class(out) <- "plotBayesTest"
-  
+
   return(out)
-  
+
 }
 
 #' @export
 print.plotBayesTest <- function(x, ...) {
-  
+
   oldPar <- par()$ask
   par(ask = TRUE)
-  
+
   plots <- unlist(x, recursive = FALSE)
-  
+
   for(p in plots) print(p)
-  
+
   par(ask = oldPar)
-  
+
 }
 
 #' @export
 print.bayesTest <- function(x, ...) {
-  
+
   cat('--------------------------------------------\n')
   cat("Distribution used: ")
   cat(x$distribution, '\n')
-  
+
   cat('--------------------------------------------\n')
   cat('Using data with the following properties: \n')
-  
+
   ## make this list output by default, so there are no special cases...
   summ_outA <- if(!is.list(x$inputs$A_data)) sapply(list(x$inputs$A_data), summary) else sapply(x$inputs$A_data, summary)
   summ_outB <- if(!is.list(x$inputs$B_data)) sapply(list(x$inputs$B_data), summary) else sapply(x$inputs$B_data, summary)
   print(cbind(A_data = summ_outA, B_data = summ_outB))
-  
+
   cat('--------------------------------------------\n')
   cat('Priors used for the calculation: \n')
   print(x$inputs$priors)
-  
+
   cat('--------------------------------------------\n')
   cat('Calculated posteriors for the following parameters: \n')
   cat(paste0(names(x$posteriors), collapse = ", "), '\n')
-  
+
   cat('--------------------------------------------\n')
   cat('Monte Carlo samples generated per posterior: \n')
   print(x$inputs$n_samples)
-  
+
 }
 
 #' Summarize bayesTest objects
-#' 
+#'
 #' @description Summary method for objects of class "bayesTest".
-#' 
+#'
 #' @param object an object of class "bayesTest"
 #' @param percentLift a vector of length(x$posteriors). Each entry corresponds to the percent lift ((A - B) / B) to summarize for for
 #'        the respective posterior in x. Note this is on a 'point' scale. percentLift = 5 implies you want to test for a 5\% lift.
@@ -115,73 +115,73 @@ print.bayesTest <- function(x, ...) {
 #' @param ... additional arguments affecting the summary produced.
 #' @return A \code{summaryBayesTest} object which contains summaries of the Posterior distributions, direct probablities that A > B (by
 #' \code{percentLift}), credible intervals on (A - B) / B, and the Posterior Expected Loss on all estimated parameters.
-#' 
+#'
 #' @note The Posterior Expected Loss (https://en.wikipedia.org/wiki/Bayes_estimator) is a good indicator of when to end a Bayesian
 #' AB test. If the PEL is lower than the absolute delta of the minimum effect you wish to detect, the test can be reasonably be stopped.
-#' 
+#'
 #' @examples
 #' A_pois <- rpois(100, 5)
 #' B_pois <- rpois(100, 4.7)
 #'
 #' AB1 <- bayesTest(A_pois, B_pois, priors = c('shape' = 25, 'rate' = 5), distribution = 'poisson')
-#' 
+#'
 #' summary(AB1)
 #' summary(AB1, percentLift = 10, credInt = .95)
 #'
 #' @export
-summary.bayesTest <- function(object, 
+summary.bayesTest <- function(object,
                               percentLift = rep(0, length(object$posteriors)),
                               credInt = rep(.9, length(object$posteriors)),
                               ...) {
-  
+
   if(length(object$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
   if(length(object$posteriors) != length(credInt)) stop("Must supply a 'credInt' for every parameter with a posterior distribution.")
   if(any(credInt <= 0) | any(credInt >= 1)) stop("Credible interval width ust be in (0, 1).")
-  
+
   lifts <- lapply(object$posteriors, function(x) do.call(getLift, unname(x)))
   posteriorExpectedLoss <- lapply(object$posteriors, function(x) do.call(getPostError, unname(x)))
-  
+
   probability <- Map(function(x, y) getProb(x, y), lifts, percentLift)
   interval <- Map(function(x, y) getCredInt(x, y), lifts, credInt)
-  
+
   posteriorSummary <- lapply(object$posteriors, function(x) lapply(x, function(y) quantile(y)))
 
   out <- list(
     posteriorSummary = posteriorSummary,
-    probability = probability, 
+    probability = probability,
     interval = interval,
     posteriorExpectedLoss = posteriorExpectedLoss,
-    percentLift = percentLift, 
+    percentLift = percentLift,
     credInt = credInt
   )
-  
+
   class(out) <- 'summaryBayesTest'
-  
+
   return(out)
-  
+
 }
 
 #' @export
 print.summaryBayesTest <- function(x, ...) {
-  
+
   cat('Quantiles of posteriors for A and B:\n\n')
   print(x$posteriorSummary)
-  
+
   cat('--------------------------------------------\n\n')
-  
+
   cat('P(A > B) by (', paste0(x$percentLift, collapse = ", "), ')%: \n\n', sep = "")
   print(x$probability)
-  
+
   cat('--------------------------------------------\n\n')
-  
+
   cat('Credible Interval on (A - B) / B for interval length(s) (', paste0(x$credInt, collapse = ", "), ') : \n\n', sep = "")
   print(x$interval)
-  
+
   cat('--------------------------------------------\n\n')
-  
+
   cat('Posterior Expected Loss for choosing B over A:\n\n')
   print(x$posteriorExpectedLoss)
-  
+
 }
 
 #' @export
@@ -207,58 +207,58 @@ print.bayesBandit <- function(x, ...) {
 
 #' @export
 c.bayesTest <- function(..., errorCheck = TRUE) {
-  
+
   tests <- list(...)
-  
+
   ## Check for mismatches in inputs
   if(errorCheck) {
     loop <- head(names(tests[[1]]$inputs), -1)
-    
+
     extracts <- lapply(1:length(loop), function(x) lapply(1:length(tests), function(y) tests[[y]]$inputs[[loop[x]]]))
     extracts <- sapply(extracts, function(x) length(unique(x)))
-    
+
     mismatches <- loop[which(extracts != 1)]
-    
+
     if(length(mismatches) >= 1) {
-      errMsg <- paste0("Unable to concatenate. Mismatches in (", 
+      errMsg <- paste0("Unable to concatenate. Mismatches in (",
                        paste0(mismatches, collapse = ", "),
-                       "). All inputs must be the same (except n_samples).", 
+                       "). All inputs must be the same (except n_samples).",
                        collapse = "")
-      
+
       stop(errMsg)
     }
   }
-  
+
   result <- list()
-  
+
   result$inputs <- tests[[1]]$inputs
   result$inputs$n_samples <- sum(sapply(tests, function(x) x$inputs$n_samples))
-  
+
   ## Loop through posteriors, concatenating A to A and B to B
   As <- concatHelper(tests, 1)
   Bs <- concatHelper(tests, 2)
   n <- length(As)
-  
+
   posts <- lapply(1:n, function(x) unlist(list(As[x], Bs[x]), recursive = FALSE))
   names(posts) <- names(tests[[1]]$posteriors)
-  
+
   result$posteriors <- posts
-  
+
   result$distribution <- tests[[1]]$distribution
-  
+
   class(result) <- 'bayesTest'
-  
+
   return(result)
-  
+
 }
 
 concatHelper <- function(tests, recipe) {
   posts <- names(tests[[1]]$posteriors)
   tmp <- lapply(1:length(posts), function(x) lapply(1:length(tests), function(y) tests[[y]]$posteriors[[x]]))
-  
+
   tmp <- lapply(1:length(tmp), function(x) c(sapply(1:length(tests), function(y) tmp[[x]][[y]][recipe])))
   tmp <- lapply(tmp, function(x) unlist(x, use.names = FALSE))
   names(tmp) <- sapply(tests[[1]]$posteriors, function(x) names(x[recipe]), USE.NAMES = FALSE)
-  
+
   tmp
 }

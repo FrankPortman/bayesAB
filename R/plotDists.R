@@ -1,10 +1,10 @@
 #' Plot distributions to explore data and/or choose priors.
-#' 
+#'
 #' @docType data
 #' @name plotDistributions
-#' 
+#'
 #' @description These are helper functions to help explore data and/or choose priors. Click further for more details.
-#' 
+#'
 #' \itemize{
 #' \item \link{plotBeta}
 #' \item \link{plotGamma}
@@ -14,21 +14,21 @@
 #' \item \link{plotPareto}
 #' \item \link{plotPoisson}
 #' }
-#' 
+#'
 #' @note Choosing priors correctly is very important. Please see http://fportman.com/blog/bayesab-0-dot-7-0-plus-a-primer-on-priors/ for a detailed example of choosing priors
 #' within bayesAB. Here are some ways to leverage objective/diffuse (assigning equal probability to all values) priors:
-#' 
+#'
 #' \itemize{\item \code{Beta}(1, 1)
 #'          \item \code{Gamma}(eps, eps) ~ \code{Gamma}(.00005, .00005) will be effectively diffuse
 #'          \item \code{InvGamma}(eps, eps) ~ \code{InvGamma}(.00005, .00005) will be effectively diffuse
 #'          \item \code{Pareto}(eps, eps) ~ \code{Pareto}(.005, .005) will be effectively diffuse}
-#'          
+#'
 #' Keep in mind that the Prior Plots for bayesTest's run with diffuse priors may not plot correctly as they will not be truncated as they
 #' approach infinity. See \link{plot.bayesTest} for how to turn off the Prior Plots.
 NULL
 
 #' Plot the PDF of the Log Normal distribution.
-#' 
+#'
 #' @param mu \eqn{\mu} parameter of the Log Normal distribution.
 #' @param sigma \eqn{\sigma} parameter of the Log Normal distribution.
 #' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
@@ -40,18 +40,18 @@ NULL
 #' \dontrun{plotLogNormal(2, 5) + ggtitle('I hate the default title!')}
 #' @export
 plotLogNormal <- function(mu, sigma, area = .99) {
-  
+
   if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
-  
+
   support <- seq(.01, qlnorm(area, meanlog = mu, sdlog = sigma, .01))
   hseq <- dlnorm(support, meanlog = mu, sdlog = sigma)
-  
+
   plotDist(support, hseq, "Log Normal", c('mu' = mu, 'sigma' = sigma))
-  
+
 }
 
 #' Plot the PDF of the Poisson distribution.
-#' 
+#'
 #' @param lambda \eqn{\lambda} parameter of the Poisson distribution.
 #' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Poisson(\eqn{\lambda}).
@@ -62,20 +62,20 @@ plotLogNormal <- function(mu, sigma, area = .99) {
 #' \dontrun{plotPoisson(5) + ggtitle('I hate the default title!')}
 #' @export
 plotPoisson <- function(lambda, area = .99) {
-  
+
   if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
-  
+
   support <- 0:(qpois(area, lambda))
   hseq <- dpois(support, lambda)
-  
+
   plotDist(support, hseq, "Poisson", c('lambda' = lambda))
-  
+
 }
 
 #' Plot the PDF of the Pareto distribution.
-#' 
+#'
 #' @param xm xm parameter of the Pareto distribution.
-#' @param alpha alpha parameter of the Pareto distribution. 
+#' @param alpha alpha parameter of the Pareto distribution.
 #' @param area  control x-axis limits (default is set to view 65\% of the area under the density curve. Be careful tweaking this for Pareto.)
 #' @return The PDF of Pareto(xm, alpha).
 #' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
@@ -85,18 +85,18 @@ plotPoisson <- function(lambda, area = .99) {
 #' \dontrun{plotPareto(5, 3) + ggtitle('I hate the default title!')}
 #' @export
 plotPareto <- function(xm, alpha, area = .65) {
-  
+
   if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
-  
-  support <- seq((xm - 3), qpareto(area, xm, alpha), .01) 
+
+  support <- seq((xm - 3), qpareto(area, xm, alpha), .01)
   hseq <- dpareto(support, xm, alpha)
-  
+
   plotDist(support, hseq, "Pareto", c('xm' = xm, 'alpha' = alpha))
-  
+
 }
 
 #' Plot the PDF of the Normal distribution.
-#' 
+#'
 #' @param mu \eqn{\mu} parameter of the Normal distribution.
 #' @param s_sq \eqn{\sigma^2} parameter of the Normal distribution.
 #' @return The PDF of Normal(\eqn{\mu}, \eqn{\sigma^2}).
@@ -107,16 +107,16 @@ plotPareto <- function(xm, alpha, area = .65) {
 #' \dontrun{plotNormal(2, 5) + ggtitle('I hate the default title!')}
 #' @export
 plotNormal <- function(mu, s_sq) {
-  
+
   support <- seq(mu - s_sq * 5, mu + s_sq * 5, .001)
   hseq <- dnorm(support, mu, s_sq)
-  
+
   plotDist(support, hseq, "Normal", c('mu' = mu, 's_sq' = s_sq))
-  
+
 }
 
 #' Plot the PDF of the Gamma distribution.
-#' 
+#'
 #' @param shape shape (\eqn{\alpha}) parameter of the Gamma distribution.
 #' @param rate rate (\eqn{\beta}) parameter of the Gamma distribution.
 #' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
@@ -129,18 +129,18 @@ plotNormal <- function(mu, s_sq) {
 #' \dontrun{plotGamma(2, 5) + ggtitle('I hate the default title!')}
 #' @export
 plotGamma <- function(shape, rate, area = .99) {
-  
+
   if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
-  
+
   support <- seq(.01, qgamma(area, shape = shape, rate = rate), .01)
   hseq <- dgamma(support, shape = shape, rate = rate)
-  
+
   plotDist(support, hseq, "Gamma", c('shape' = shape, 'rate' = rate))
-  
+
 }
 
 #' Plot the PDF of the Beta distribution.
-#' 
+#'
 #' @param alpha \eqn{\alpha} parameter of the Beta distribution.
 #' @param beta \eqn{\beta} parameter of the Beta distribution.
 #' @return The PDF of Beta(\eqn{\alpha}, \eqn{\beta}).
@@ -151,16 +151,16 @@ plotGamma <- function(shape, rate, area = .99) {
 #' \dontrun{plotBeta(2, 5) + ggtitle('I hate the default title!')}
 #' @export
 plotBeta <- function(alpha, beta) {
-  
+
   support <- seq(0, 1, .001)
   hseq <- dbeta(support, alpha, beta)
-  
+
   plotDist(support, hseq, "Beta", c('alpha' = alpha, 'beta' = beta))
-  
+
 }
 
 #' Plot the PDF of the Inverse Gamma distribution.
-#' 
+#'
 #' @param shape shape parameter of the Inverse Gamma distribution.
 #' @param scale scale parameter of the Inverse Gamma distribution.
 #' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
@@ -172,18 +172,18 @@ plotBeta <- function(alpha, beta) {
 #' \dontrun{plotInvGamma(1, 17) + ggtitle('I hate the default title!')}
 #' @export
 plotInvGamma <- function(shape, scale, area = .99) {
-  
+
   if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
-  
+
   support <- seq(.01, qinvgamma(area, shape, scale), .01)
   hseq <- dinvgamma(support, shape, scale)
-  
+
   plotDist(support, hseq, "InvGamma", c('shape' = shape, 'scale' = scale))
-  
+
 }
 
 qinvgamma <- function(area, shape, scale) {
-  
+
   if(shape > 0 & scale > 0 & all(area > 0) & all(area < 1)) {
     if((1 - area) <= .Machine$double.eps) {
       out <- Inf
@@ -211,16 +211,16 @@ dinvgamma <- function(x, shape, scale) {
 }
 
 plotDist <- function(support, hseq, dist, params) {
-  
+
   discretes <- c('Poisson')
-  
+
   ribbon_or_bar <- ggplot2::geom_ribbon(ymin = 0, ymax = hseq, size = 2, color = I("lightblue"), fill = "lightgreen", alpha = .25)
-  
+
   if(dist %in% discretes) ribbon_or_bar <- ggplot2::geom_bar(stat = "identity", color = I("lightblue"), fill = "lightgreen", alpha = .25, size = 2)
-    
+
   paramList <- sapply(1:length(params), function(x) paste(names(params)[x], params[x], sep = " = ", collapse = ""))
   paramList <- paste0(paramList, collapse = ", ")
-  
+
   p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
     ggplot2::xlab(NULL) +
     ggplot2::ylab('PDF') +
@@ -231,7 +231,7 @@ plotDist <- function(support, hseq, dist, params) {
       collapse = "")) +
     ribbon_or_bar +
     theme_bayesAB()
-  
+
   p
-  
+
 }

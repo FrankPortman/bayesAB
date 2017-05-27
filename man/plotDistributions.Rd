@@ -25,7 +25,7 @@ within bayesAB. Here are some ways to leverage objective/diffuse (assigning equa
          \item \code{Gamma}(eps, eps) ~ \code{Gamma}(.00005, .00005) will be effectively diffuse
          \item \code{InvGamma}(eps, eps) ~ \code{InvGamma}(.00005, .00005) will be effectively diffuse
          \item \code{Pareto}(eps, eps) ~ \code{Pareto}(.005, .005) will be effectively diffuse}
-         
+
 Keep in mind that the Prior Plots for bayesTest's run with diffuse priors may not plot correctly as they will not be truncated as they
 approach infinity. See \link{plot.bayesTest} for how to turn off the Prior Plots.
 }

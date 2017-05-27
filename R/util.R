@@ -24,14 +24,14 @@ qpareto <- function(p, xm, alpha) ifelse(p < 0 | p > 1, NaN, xm * (1 - p) ** (-1
 rpareto <- function(n, xm, alpha) qpareto(runif(n), xm, alpha)
 
 listConcat <- function(l1, l2) {
-  
+
   out <- vector(mode = "list", length = length(l1) + length(l2))
-  
+
   for(i in 1:length(l1)) out[[i]] <- l1[[i]]
   for(i in 1:length(l2)) out[[i + length(l1)]] <- l2[[i]]
-  
+
   out
-  
+
 }
 
 listOr <- function(e) if(is.list(e)) e else list(e)
@@ -39,8 +39,8 @@ listOr <- function(e) if(is.list(e)) e else list(e)
 isClosed <- function(distribution) grepl("C", distribution)
 
 theme_bayesAB <- function() {
-  ggplot2::theme_minimal() + 
-    ggplot2::theme(axis.text.x = ggplot2::element_text(face = "bold", size = 12), 
-                   axis.text.y = ggplot2::element_text(face = "bold", size = 12), 
+  ggplot2::theme_minimal() +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(face = "bold", size = 12),
+                   axis.text.y = ggplot2::element_text(face = "bold", size = 12),
                    title = ggplot2::element_text(size = 12))
 }

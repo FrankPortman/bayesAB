@@ -35,7 +35,7 @@ bayesBernoulliTest <- function(A_data,
   ###
   ## Sample from posterior
   ###
-  
+
   map <- function(data) rbeta(n_samples, sum(data) + alpha, length(data) - sum(data) + beta)
 
   ###
