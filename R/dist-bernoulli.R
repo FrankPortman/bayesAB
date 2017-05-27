@@ -35,9 +35,8 @@ bayesBernoulliTest <- function(A_data,
   ###
   ## Sample from posterior
   ###
-
-  A_probs <- rbeta(n_samples, sum(A_data) + alpha, length(A_data) - sum(A_data) + beta)
-  B_probs <- rbeta(n_samples, sum(B_data) + alpha, length(B_data) - sum(B_data) + beta)
+  
+  map <- function(data) rbeta(n_samples, sum(data) + alpha, length(data) - sum(data) + beta)
 
   ###
   ## Output the result
@@ -47,7 +46,7 @@ bayesBernoulliTest <- function(A_data,
     inputs = as.list(match.call()[-1]),
 
     posteriors = list(
-      Probability = list(A_probs = A_probs, B_probs = B_probs)
+      Probability = list(A = map(A_data), B = map(B_data))
     ),
 
     distribution = "bernoulli"

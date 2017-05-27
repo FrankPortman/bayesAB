@@ -82,8 +82,8 @@ bayesNormalTest <- function(A_data,
     inputs = as.list(match.call()[-1]),
 
     posteriors = list(
-      Mu = list(A_mus = A_mus, B_mus = B_mus),
-      Sig_Sq = list(A_sig_sqs = A_sig_sqs, B_sig_sqs = B_sig_sqs)
+      Mu = list(A = A_mus, B = B_mus),
+      Sig_Sq = list(A = A_sig_sqs, B = B_sig_sqs)
     ),
 
     distribution = "normal"

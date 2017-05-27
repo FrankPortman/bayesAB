@@ -51,8 +51,8 @@ banditize <- function(bT, param, higher_is_better = TRUE) {
   serveRecipe <- function() {
     ## exploit iid samples from posterior
     idx <- sample(test$inputs$n_samples, 1)
-    A_sample <- test$posteriors[[param]]$A_probs[idx]
-    B_sample <- test$posteriors[[param]]$B_probs[idx]
+    A_sample <- test$posteriors[[param]]$A[idx]
+    B_sample <- test$posteriors[[param]]$B[idx]
     
     return(choices[compareFun(c(A_sample, B_sample))])
   }

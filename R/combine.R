@@ -60,8 +60,8 @@ combine <- function(bT1, bT2, f = `+`, params, newName = 'Parameter') {
   
   if(bT1$inputs$n_samples != bT2$inputs$n_samples) warning("n_samples not equal. Make sure `f` handles recycling appropriately.")
   
-  A1 <- bT1$posteriors[[params[1]]][[1]]; A2 <- bT2$posteriors[[params[2]]][[1]]
-  B1 <- bT1$posteriors[[params[1]]][[2]]; B2 <- bT2$posteriors[[params[2]]][[2]]
+  A1 <- bT1$posteriors[[params[1]]]$A; A2 <- bT2$posteriors[[params[2]]]$A
+  B1 <- bT1$posteriors[[params[1]]]$B; B2 <- bT2$posteriors[[params[2]]]$B
   
   result <- list()
   
