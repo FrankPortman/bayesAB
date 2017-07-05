@@ -67,7 +67,7 @@ plotInvGamma(12, 4)
 
 ```
 
-![image](https://user-images.githubusercontent.com/2442871/27848176-0afbdaa0-60f8-11e7-8ecc-81418b4402f8.png)
+![image](https://user-images.githubusercontent.com/2442871/27848279-cfe19166-60f8-11e7-92dd-58462e9a67e8.png)
 
 ``` r
 A_binom <- rbinom(100, 1, .5)
@@ -83,7 +83,7 @@ plot(AB1)
 
 ```
 
-![image](https://user-images.githubusercontent.com/2442871/27848190-27a43a8a-60f8-11e7-8aba-778ab473f017.png) ![image](https://user-images.githubusercontent.com/2442871/27848194-317a2eac-60f8-11e7-8b9d-aad12a598ef9.png) ![image](https://user-images.githubusercontent.com/2442871/27848203-3858cdb4-60f8-11e7-893d-0a9a3cdd45ce.png)
+![image](https://user-images.githubusercontent.com/2442871/27848286-dfbbac3e-60f8-11e7-8d18-bac057aad6b1.png) ![image](https://user-images.githubusercontent.com/2442871/27848293-ede96ea4-60f8-11e7-930e-ba07ded67ae1.png) ![image](https://user-images.githubusercontent.com/2442871/27848297-f5d18624-60f8-11e7-8d87-71edfc3a5616.png)
 
 ``` r
 print(AB1)
