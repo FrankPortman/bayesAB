@@ -9,3 +9,4 @@ tests/testthat/*.pdf
 inst/doc
 vignettes/*.html
 todo
+R/flow.R

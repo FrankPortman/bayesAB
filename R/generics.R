@@ -21,9 +21,8 @@
 #' AB1 <- bayesTest(A_pois, B_pois, priors = c('shape' = 25, 'rate' = 5), distribution = 'poisson')
 #'
 #' plot(AB1)
-#' plot(AB1, area = .95)
 #' plot(AB1, percentLift = 5)
-#' 
+#'
 #' p <- plot(AB1)
 #'
 #' p
@@ -44,7 +43,7 @@ plot.bayesTest <- function(x,
 
   pri <- post <- samp <- NULL
 
-  if(priors) pri <- plotPriors(x, ...)
+  if(priors) pri <- plotPriors(x)
   if(posteriors) post <- plotPosteriors(x)
   if(samples) samp <- plotSamples(x, percentLift = percentLift)
 
