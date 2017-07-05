@@ -1,5 +1,5 @@
 # Plot priors based on matching of prior params in bayesAB test object
-plotPriors <- function(bayesAB, ...) {
+plotPriors <- function(bayesAB) {
 
   funs <- list(
     "beta" = list(params = c('alpha', 'beta'), plotFun = plotBeta),
@@ -19,7 +19,7 @@ plotPriors <- function(bayesAB, ...) {
   for(i in seq_along(funs)) {
     rel <- funs[[i]]
     if(labChecker(rel$params)) {
-      pri <- list(do.call(rel$plotFun, as.list(c(unname(vals[rel$params]), ...))))
+      pri <- list(do.call(rel$plotFun, as.list(c(unname(vals[rel$params])))))
       names(pri) <- names(funs[i])
       out <- c(out, pri)
     }

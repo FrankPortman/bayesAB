@@ -4,14 +4,12 @@
 \alias{plotInvGamma}
 \title{Plot the PDF of the Inverse Gamma distribution.}
 \usage{
-plotInvGamma(shape, scale, area = 0.99)
+plotInvGamma(shape, scale)
 }
 \arguments{
 \item{shape}{shape parameter of the Inverse Gamma distribution.}
 
 \item{scale}{scale parameter of the Inverse Gamma distribution.}
-
-\item{area}{control x-axis limits (default is set to view 99\% of the area under the density curve)}
 }
 \value{
 The PDF of InvGamma(shape, scale).

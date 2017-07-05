@@ -25,13 +25,110 @@
 #'
 #' Keep in mind that the Prior Plots for bayesTest's run with diffuse priors may not plot correctly as they will not be truncated as they
 #' approach infinity. See \link{plot.bayesTest} for how to turn off the Prior Plots.
+#'
+#' plot{...} functions are generated programmatically so their \code{body} will not
+#' be clear unless you inspect that environment directly
+#'
+#' @examples
+#' body(plotLogNormal)
+#' environment(plotLogNormal)$funCall
 NULL
+
+dpareto <- function(x, xm, alpha) ifelse(x > xm , alpha * xm ** alpha / (x ** (alpha + 1)), 0)
+ppareto <- function(q, xm, alpha) ifelse(q > xm , 1 - (xm / q) ** alpha, 0 )
+qpareto <- function(p, xm, alpha) ifelse(p < 0 | p > 1, NaN, xm * (1 - p) ** (-1 / alpha))
+rpareto <- function(n, xm, alpha) qpareto(runif(n), xm, alpha)
+
+qinvgamma_ <- function(area, shape, scale) {
+  if((1 - area) <= .Machine$double.eps) {
+    return(Inf)
+  }
+  if(area <= .Machine$double.eps) {
+    return(0)
+  }
+  return(1 / qgamma(1 - area, shape, scale))
+}
+qinvgamma <- Vectorize(qinvgamma_, vectorize.args = 'area')
+
+dinvgamma_ <- function(x, shape, scale) {
+    if (shape <= 0 | scale <= 0) {
+      stop("Shape or scale parameter negative in dinvgamma().\n")
+    }
+    if(x == 0) return(0)
+    alpha <- shape
+    beta <- scale
+    log.density <- alpha * log(beta) - lgamma(alpha) - (alpha + 1) * log(x) - (beta / x)
+    return(exp(log.density))
+}
+dinvgamma <- Vectorize(dinvgamma_, vectorize.args = 'x')
+
+plotDist_ <- function(support, hseq, dist, params) {
+
+  discretes <- c('Poisson')
+
+  ribbon_or_bar <- ggplot2::geom_ribbon(ymin = 0,
+                                        ymax = hseq,
+                                        size = 2,
+                                        color = I("lightblue"),
+                                        fill = "lightgreen",
+                                        alpha = .25)
+
+  if(dist %in% discretes) ribbon_or_bar <- ggplot2::geom_bar(stat = "identity",
+                                                             color = I("lightblue"),
+                                                             fill = "lightgreen",
+                                                             alpha = .25,
+                                                             size = 2)
+
+  paramList <- sapply(1:length(params), function(x) paste(names(params)[x], params[x], sep = " = ", collapse = ""))
+  paramList <- paste0(paramList, collapse = ", ")
+
+  p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
+    ggplot2::xlab(NULL) +
+    ggplot2::ylab('PDF') +
+    ggplot2::ggtitle(paste0(
+      dist,
+      ' Probability Density Function for Parameters: ',
+      paramList)) +
+    ribbon_or_bar +
+    theme_bayesAB()
+
+  p
+
+}
+
+alist2 <- function(args) {
+  res <- replicate(length(args), substitute())
+  names(res) <- args
+  res
+}
+
+plotDist <- function(dist, name, args) {
+  makeDistFunc <- function(t) eval(parse(text = paste0(t, dist)))
+  qDist <- makeDistFunc('q')
+  dDist <- makeDistFunc('d')
+
+  args <- sapply(args, as.name, USE.NAMES = FALSE)
+  funCall <- list(list(c(0, 0.01, .99, 1)), args)
+  funCall <- unlist(funCall, recursive = FALSE)
+
+  out <- function() {
+    support <- do.call(qDist, funCall)
+    support <- range(support[is.finite(support)])
+    support <- seq(min(support), max(support), diff(support) / 1000)
+    funCall[[1]] <- support
+    hseq <- do.call(dDist, funCall)
+
+    plotDist_(support, hseq, name, match.call()[-1])
+  }
+
+  formals(out) <- alist2(args)
+  out
+}
 
 #' Plot the PDF of the Log Normal distribution.
 #'
 #' @param mu \eqn{\mu} parameter of the Log Normal distribution.
 #' @param sigma \eqn{\sigma} parameter of the Log Normal distribution.
-#' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Log Normal(\eqn{\mu}, \eqn{\sigma^2}).
 #' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @examples
@@ -39,21 +136,11 @@ NULL
 #' plotLogNormal(2, 5)
 #' \dontrun{plotLogNormal(2, 5) + ggtitle('I hate the default title!')}
 #' @export
-plotLogNormal <- function(mu, sigma, area = .99) {
-
-  if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
-
-  support <- seq(.01, qlnorm(area, meanlog = mu, sdlog = sigma, .01))
-  hseq <- dlnorm(support, meanlog = mu, sdlog = sigma)
-
-  plotDist(support, hseq, "Log Normal", c('mu' = mu, 'sigma' = sigma))
-
-}
+plotLogNormal <- plotDist('lnorm', 'Log Normal', c('mu', 'sigma'))
 
 #' Plot the PDF of the Poisson distribution.
 #'
 #' @param lambda \eqn{\lambda} parameter of the Poisson distribution.
-#' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Poisson(\eqn{\lambda}).
 #' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @examples
@@ -61,22 +148,12 @@ plotLogNormal <- function(mu, sigma, area = .99) {
 #' plotPoisson(5)
 #' \dontrun{plotPoisson(5) + ggtitle('I hate the default title!')}
 #' @export
-plotPoisson <- function(lambda, area = .99) {
-
-  if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
-
-  support <- 0:(qpois(area, lambda))
-  hseq <- dpois(support, lambda)
-
-  plotDist(support, hseq, "Poisson", c('lambda' = lambda))
-
-}
+plotPoisson <- plotDist('pois', 'Poisson', c('lambda'))
 
 #' Plot the PDF of the Pareto distribution.
 #'
 #' @param xm xm parameter of the Pareto distribution.
 #' @param alpha alpha parameter of the Pareto distribution.
-#' @param area  control x-axis limits (default is set to view 65\% of the area under the density curve. Be careful tweaking this for Pareto.)
 #' @return The PDF of Pareto(xm, alpha).
 #' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @examples
@@ -84,21 +161,12 @@ plotPoisson <- function(lambda, area = .99) {
 #' plotPareto(5, 3)
 #' \dontrun{plotPareto(5, 3) + ggtitle('I hate the default title!')}
 #' @export
-plotPareto <- function(xm, alpha, area = .65) {
-
-  if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
-
-  support <- seq((xm - 3), qpareto(area, xm, alpha), .01)
-  hseq <- dpareto(support, xm, alpha)
-
-  plotDist(support, hseq, "Pareto", c('xm' = xm, 'alpha' = alpha))
-
-}
+plotPareto <- plotDist('pareto', 'Pareto', c('xm', 'alpha'))
 
 #' Plot the PDF of the Normal distribution.
 #'
 #' @param mu \eqn{\mu} parameter of the Normal distribution.
-#' @param s_sq \eqn{\sigma^2} parameter of the Normal distribution.
+#' @param sd \eqn{\sigma} parameter of the Normal distribution.
 #' @return The PDF of Normal(\eqn{\mu}, \eqn{\sigma^2}).
 #' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @examples
@@ -106,20 +174,12 @@ plotPareto <- function(xm, alpha, area = .65) {
 #' plotNormal(2, 5)
 #' \dontrun{plotNormal(2, 5) + ggtitle('I hate the default title!')}
 #' @export
-plotNormal <- function(mu, s_sq) {
-
-  support <- seq(mu - s_sq * 5, mu + s_sq * 5, .001)
-  hseq <- dnorm(support, mu, s_sq)
-
-  plotDist(support, hseq, "Normal", c('mu' = mu, 's_sq' = s_sq))
-
-}
+plotNormal <- plotDist('norm', 'Normal', c('mu', 'sd'))
 
 #' Plot the PDF of the Gamma distribution.
 #'
 #' @param shape shape (\eqn{\alpha}) parameter of the Gamma distribution.
 #' @param rate rate (\eqn{\beta}) parameter of the Gamma distribution.
-#' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of Gamma(shape, rate).
 #' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @details Note: We use the shape/rate parametrization of Gamma. See https://en.wikipedia.org/wiki/Gamma_distribution for details.
@@ -128,16 +188,7 @@ plotNormal <- function(mu, s_sq) {
 #' plotGamma(2, 5)
 #' \dontrun{plotGamma(2, 5) + ggtitle('I hate the default title!')}
 #' @export
-plotGamma <- function(shape, rate, area = .99) {
-
-  if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
-
-  support <- seq(.01, qgamma(area, shape = shape, rate = rate), .01)
-  hseq <- dgamma(support, shape = shape, rate = rate)
-
-  plotDist(support, hseq, "Gamma", c('shape' = shape, 'rate' = rate))
-
-}
+plotGamma <- plotDist('gamma', 'Gamma', c('shape', 'rate'))
 
 #' Plot the PDF of the Beta distribution.
 #'
@@ -150,20 +201,12 @@ plotGamma <- function(shape, rate, area = .99) {
 #' plotBeta(2, 5)
 #' \dontrun{plotBeta(2, 5) + ggtitle('I hate the default title!')}
 #' @export
-plotBeta <- function(alpha, beta) {
-
-  support <- seq(0, 1, .001)
-  hseq <- dbeta(support, alpha, beta)
-
-  plotDist(support, hseq, "Beta", c('alpha' = alpha, 'beta' = beta))
-
-}
+plotBeta <- plotDist('beta', 'Beta', c('alpha', 'beta'))
 
 #' Plot the PDF of the Inverse Gamma distribution.
 #'
 #' @param shape shape parameter of the Inverse Gamma distribution.
 #' @param scale scale parameter of the Inverse Gamma distribution.
-#' @param area  control x-axis limits (default is set to view 99\% of the area under the density curve)
 #' @return The PDF of InvGamma(shape, scale).
 #' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
 #' @examples
@@ -171,67 +214,4 @@ plotBeta <- function(alpha, beta) {
 #' plotInvGamma(1, 17)
 #' \dontrun{plotInvGamma(1, 17) + ggtitle('I hate the default title!')}
 #' @export
-plotInvGamma <- function(shape, scale, area = .99) {
-
-  if(area <= 0 | area >= 1) stop('area must be in (0, 1)')
-
-  support <- seq(.01, qinvgamma(area, shape, scale), .01)
-  hseq <- dinvgamma(support, shape, scale)
-
-  plotDist(support, hseq, "InvGamma", c('shape' = shape, 'scale' = scale))
-
-}
-
-qinvgamma <- function(area, shape, scale) {
-
-  if(shape > 0 & scale > 0 & all(area > 0) & all(area < 1)) {
-    if((1 - area) <= .Machine$double.eps) {
-      out <- Inf
-    }
-    else {
-      out <- 1 / qgamma(1 - area, shape, scale)
-    }
-  }
-  else stop('qinvgamma: invalid parameters\n')
-  return(out)
-}
-
-dinvgamma <- function(x, shape, scale) {
-
-    if (shape <= 0 | scale <= 0) {
-      stop("Shape or scale parameter negative in dinvgamma().\n")
-    }
-
-    alpha <- shape
-    beta <- scale
-    log.density <- alpha * log(beta) - lgamma(alpha) - (alpha + 1) * log(x) - (beta / x)
-
-    return(exp(log.density))
-
-}
-
-plotDist <- function(support, hseq, dist, params) {
-
-  discretes <- c('Poisson')
-
-  ribbon_or_bar <- ggplot2::geom_ribbon(ymin = 0, ymax = hseq, size = 2, color = I("lightblue"), fill = "lightgreen", alpha = .25)
-
-  if(dist %in% discretes) ribbon_or_bar <- ggplot2::geom_bar(stat = "identity", color = I("lightblue"), fill = "lightgreen", alpha = .25, size = 2)
-
-  paramList <- sapply(1:length(params), function(x) paste(names(params)[x], params[x], sep = " = ", collapse = ""))
-  paramList <- paste0(paramList, collapse = ", ")
-
-  p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
-    ggplot2::xlab(NULL) +
-    ggplot2::ylab('PDF') +
-    ggplot2::ggtitle(paste(
-      dist,
-      'Probability Density Function for Parameters: ',
-      paramList,
-      collapse = "")) +
-    ribbon_or_bar +
-    theme_bayesAB()
-
-  p
-
-}
+plotInvGamma <- plotDist('invgamma', 'Inverse Gamma', c('shape', 'scale'))

@@ -4,12 +4,12 @@
 \alias{plotNormal}
 \title{Plot the PDF of the Normal distribution.}
 \usage{
-plotNormal(mu, s_sq)
+plotNormal(mu, sd)
 }
 \arguments{
 \item{mu}{\eqn{\mu} parameter of the Normal distribution.}
 
-\item{s_sq}{\eqn{\sigma^2} parameter of the Normal distribution.}
+\item{sd}{\eqn{\sigma} parameter of the Normal distribution.}
 }
 \value{
 The PDF of Normal(\eqn{\mu}, \eqn{\sigma^2}).

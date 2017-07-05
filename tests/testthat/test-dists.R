@@ -3,16 +3,6 @@ context('dists')
 
 test_that("Failures based on inputs", {
   
-  expect_error(plotPoisson(1, 5), 'area must be in (0, 1)', fixed = TRUE)
-  
-  expect_error(plotPareto(1, 1, 5), 'area must be in (0, 1)', fixed = TRUE)
-  
-  expect_error(plotGamma(1, 1, 5), 'area must be in (0, 1)', fixed = TRUE)
-  
-  expect_error(plotInvGamma(1, 1, 5), 'area must be in (0, 1)', fixed = TRUE)
-  
-  expect_error(plotLogNormal(1, 1, 5), 'area must be in (0, 1)', fixed = TRUE)
-  
   expect_error(dinvgamma(5, -1, 5), "Shape or scale parameter negative")
 
 })
