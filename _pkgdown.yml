@@ -1,0 +1,41 @@
+reference:
+  - title: "Running a Bayesian AB Test"
+    desc: >
+      Construct a Bayesian AB Test object from some data
+      and priors.
+    contents:
+      - bayesTest
+  - title: "Plotting Distributions"
+    desc: >
+      Functions for plotting distributions. Useful for
+      experimenting with data and choosing priors for your
+      bayesTest objects.
+    contents:
+      - plotBeta
+      - plotGamma
+      - plotInvGamma
+      - plotLogNormal
+      - plotNormal
+      - plotPareto
+      - plotPoisson
+  - title: "Generics"
+    desc: >
+      Generic functions that can help you examine a trained
+      bayesTest object.
+    contents:
+      - plot.bayesTest
+      - summary.bayesTest
+  - title: "Helpers"
+    desc: >
+      Helper functions for further exploring a trained
+      bayesTest object.
+    contents:
+      - grab
+      - combine
+  - title: "Deploying"
+    desc: >
+      Functions to construct and deploy a Bayesian Bandit
+      from a bayesTest object.
+    contents:
+      - banditize
+      - deployBandit

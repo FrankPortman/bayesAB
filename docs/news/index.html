@@ -100,6 +100,51 @@
     </div>
 
     <div class="contents">
+    <div id="bayesab-0-7-0" class="section level1">
+<h1 class="hasAnchor">
+<a href="#bayesab-0-7-0" class="anchor"></a>bayesAB 0.7.0</h1>
+<div id="major-additions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-additions" class="anchor"></a>Major Additions</h2>
+<ul>
+<li>added <code>banditize</code> and <code>deployBandit</code> to turn your <code>bayesTest</code> object into a Bayesian multi*armed bandit and deploy as a JSON API respectively.</li>
+<li>Added programmatic capabilities on top of existing interactive uses for <code>plot</code> generic function</li>
+<li>You can now assign <code>plot(bayesTestObj)</code> to a variable and not have it automatically plot.</li>
+<li>Added quantile summary of calculated posteriors to the output of <code>summary.bayesTest</code>
+</li>
+<li>Added Posterior Expected Loss to output of <code>summary.bayesTest</code>
+</li>
+<li>This is useful to know when to stop your Bayesian AB Test</li>
+<li>Supports the risk of choosing ‘B’ over ‘A’ (ordering is important) and makes more sense if A &gt; B currently in the test</li>
+</ul>
+</div>
+<div id="minor-tweaksfixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-tweaksfixes" class="anchor"></a>Minor Tweaks/Fixes</h2>
+<ul>
+<li>outputs from <code>plot</code> generics are now explicitly <code>ggplot</code> objects and can be modified as such</li>
+<li>You can input your own titles/axis labels/etc if the defaults don’t fit your use case</li>
+</ul>
+</div>
+</div>
+    <div id="bayesab-0-6-0" class="section level1">
+<h1 class="hasAnchor">
+<a href="#bayesab-0-6-0" class="anchor"></a>bayesAB 0.6.0</h1>
+<div id="major-additions-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-additions-1" class="anchor"></a>Major Additions</h2>
+<ul>
+<li>First major CRAN release</li>
+<li>6 (+ 2) distributions</li>
+<li>
+<code>print</code>, <code>plot</code>, <code>summary</code> generics</li>
+<li>Easy plotting of distributions for quick visual inspection</li>
+<li>
+<code>combine</code> tests as needed</li>
+<li>100% code coverage</li>
+</ul>
+</div>
+</div>
     </div>
   </div>
 
@@ -107,6 +152,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#bayesab-0-7-0">0.7.0</a></li>
+        <li><a href="#bayesab-0-6-0">0.6.0</a></li>
       </ul>
     </div>
   </div>

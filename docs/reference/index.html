@@ -112,64 +112,30 @@
       <tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
+            <h2 id="section-running-a-bayesian-ab-test" class="hasAnchor"><a href="#section-running-a-bayesian-ab-test" class="anchor"></a>Running a Bayesian AB Test</h2>
+            <p class="section-desc"><p>Construct a Bayesian AB Test object from some data and priors.</p></p>
           </th>
         </tr>
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="banditize.html">banditize</a></code> </p>
-          </td>
-          <td><p>Create a multi-armed Bayesian bandit object.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p></p>
-          </td>
-          <td><p>bayesAB: Fast Bayesian Methods for A/B Testing</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
             <p><code><a href="bayesTest.html">bayesTest</a></code> </p>
           </td>
           <td><p>Fit a Bayesian model to A/B test data.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="combine.html">combine</a></code> </p>
-          </td>
-          <td><p>Combine two <code>bayesAB</code> objects given a binary function.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="deployBandit.html">deployBandit</a></code> </p>
-          </td>
-          <td><p>Deploy a bayesBandit object as a JSON API.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="grab.html">grab</a></code> </p>
-          </td>
-          <td><p>Grab the supplied posterior from a bayesTest object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot.bayesTest.html">plot</a></code> </p>
-          </td>
-          <td><p>Plot bayesTest objects</p></td>
-        </tr><tr>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-plotting-distributions" class="hasAnchor"><a href="#section-plotting-distributions" class="anchor"></a>Plotting Distributions</h2>
+            <p class="section-desc"><p>Functions for plotting distributions. Useful for experimenting with data and choosing priors for your bayesTest objects.</p></p>
+          </th>
+        </tr>
+        <tr>
           <!--  -->
           <td>
             <p><code><a href="plotBeta.html">plotBeta</a></code> </p>
           </td>
           <td><p>Plot the PDF of the Beta distribution.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p></p>
-          </td>
-          <td><p>Plot distributions to explore data and/or choose priors.</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -206,12 +172,66 @@
             <p><code><a href="plotPoisson.html">plotPoisson</a></code> </p>
           </td>
           <td><p>Plot the PDF of the Poisson distribution.</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-generics" class="hasAnchor"><a href="#section-generics" class="anchor"></a>Generics</h2>
+            <p class="section-desc"><p>Generic functions that can help you examine a trained bayesTest object.</p></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="plot.bayesTest.html">plot</a></code> </p>
+          </td>
+          <td><p>Plot bayesTest objects</p></td>
         </tr><tr>
           <!--  -->
           <td>
             <p><code><a href="summary.bayesTest.html">summary</a></code> </p>
           </td>
           <td><p>Summarize bayesTest objects</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-helpers" class="hasAnchor"><a href="#section-helpers" class="anchor"></a>Helpers</h2>
+            <p class="section-desc"><p>Helper functions for further exploring a trained bayesTest object.</p></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="grab.html">grab</a></code> </p>
+          </td>
+          <td><p>Grab the supplied posterior from a bayesTest object</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="combine.html">combine</a></code> </p>
+          </td>
+          <td><p>Combine two <code>bayesAB</code> objects given a binary function.</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-deploying" class="hasAnchor"><a href="#section-deploying" class="anchor"></a>Deploying</h2>
+            <p class="section-desc"><p>Functions to construct and deploy a Bayesian Bandit from a bayesTest object.</p></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="banditize.html">banditize</a></code> </p>
+          </td>
+          <td><p>Create a multi-armed Bayesian bandit object.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="deployBandit.html">deployBandit</a></code> </p>
+          </td>
+          <td><p>Deploy a bayesBandit object as a JSON API.</p></td>
         </tr>
       </tbody>
       </table>
@@ -221,7 +241,11 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-running-a-bayesian-ab-test">Running a Bayesian AB Test</a></li>
+      <li><a href="#section-plotting-distributions">Plotting Distributions</a></li>
+      <li><a href="#section-generics">Generics</a></li>
+      <li><a href="#section-helpers">Helpers</a></li>
+      <li><a href="#section-deploying">Deploying</a></li>
     </ul>
   </div>
 </div>
