@@ -59,7 +59,7 @@ plotBeta(2, 3)
 
 ```
 
-![image](https://user-images.githubusercontent.com/2442871/27848161-f56ae33e-60f7-11e7-9100-4b38d30345f2.png)
+![image](https://user-images.githubusercontent.com/2442871/27848261-b3fcb34a-60f8-11e7-99f5-224b802d91d5.png)
 
 ``` r
 # Choose normal test priors
