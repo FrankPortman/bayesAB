@@ -51,8 +51,8 @@ banditize <- function(bT, param, higher_is_better = TRUE) {
   serveRecipe <- function() {
     ## exploit iid samples from posterior
     idx <- sample(test$inputs$n_samples, 1)
-    A_sample <- test$posteriors[[param]]$A_probs[idx]
-    B_sample <- test$posteriors[[param]]$B_probs[idx]
+    A_sample <- test$posteriors[[param]]$A[idx]
+    B_sample <- test$posteriors[[param]]$B[idx]
     
     return(choices[compareFun(c(A_sample, B_sample))])
   }
@@ -91,11 +91,13 @@ banditize <- function(bT, param, higher_is_better = TRUE) {
     summarizeUpdates(tail(test$inputs$B_data, B_ctr), "B")
   }
   
-  out <- list("serveRecipe" = serveRecipe,
-              "setResults" = setResults,
-              "getBayesTest" = getBayesTest,
-              "getOriginalTest" = getOriginalTest,
-              "getUpdates" = getUpdates)
+  out <- list(
+    "serveRecipe" = serveRecipe,
+    "setResults" = setResults,
+    "getBayesTest" = getBayesTest,
+    "getOriginalTest" = getOriginalTest,
+    "getUpdates" = getUpdates
+  )
   
   class(out) <- 'bayesBandit'
   
@@ -131,10 +133,6 @@ banditize <- function(bT, param, higher_is_better = TRUE) {
 #' @export
 deployBandit <- function(bandit, port = 8000) {
   
-  if(packageVersion("plumber") < 0.3) {
-    stop("You must have the development version of `plumber` to use `deployBandit`. See `installPlumber()`.")
-  }
-  
   # Create a new router
   router <- plumber::plumber$new()
   
@@ -159,19 +157,4 @@ deployBandit <- function(bandit, port = 8000) {
   
   router$run(port = port)
   
-}
-
-#' Install the dev version of \code{plumber}.
-#' 
-#' @description Install the development version of \code{plumber} from Github in order for \code{deployBandit} to work.
-#' 
-#' @note This is to be deprecated once \code{plumber} >= 0.3 is on CRAN.
-#' 
-#' @examples 
-#' \dontrun{installPlumber()}
-#' 
-#' @export
-installPlumber <- function() {
-  devtools::install_github("trestletech/plumber")
-  requireNamespace("plumber")
 }

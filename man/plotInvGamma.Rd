@@ -27,4 +27,3 @@ plotInvGamma(2, 4)
 plotInvGamma(1, 17)
 \dontrun{plotInvGamma(1, 17) + ggtitle('I hate the default title!')}
 }
-

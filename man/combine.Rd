@@ -13,7 +13,8 @@ combine(bT1, bT2, f = `+`, params, newName = "Parameter")
 
 \item{f}{a binary function (f(x, y)) used to combine posteriors from bT1 to bT2}
 
-\item{params}{a character vector of length 2, corresponding to names of the posterior parameters you want to combine}
+\item{params}{a character vector of length 2, corresponding to names of the posterior parameters you want to combine;
+defaults to first posterior parameter if not supplied}
 
 \item{newName}{a string indicating the name of the new 'posterior' in the resulting object}
 }
@@ -24,6 +25,9 @@ a \code{bayesTest} object with the newly combined posterior samples.
 Combine two (or any number, in succesion) \code{bayesTest} objects into a new arbitrary posterior distribution.
              The resulting object is of the same class.
 }
+\note{
+The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`\`*`).
+}
 \examples{
 A_binom <- rbinom(100, 1, .5)
 B_binom <- rbinom(100, 1, .6)
@@ -31,14 +35,22 @@ B_binom <- rbinom(100, 1, .6)
 A_norm <- rnorm(100, 6, 1.5)
 B_norm <- rnorm(100, 5, 2.5)
 
-AB1 <- bayesTest(A_binom, B_binom, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
-AB2 <- bayesTest(A_norm, B_norm, 
-                priors = c('m0' = 5, 'k0' = 1, 's_sq0' = 3, 'v0' = 1), distribution = 'normal')
+AB1 <- bayesTest(A_binom, B_binom,
+                 priors = c('alpha' = 1, 'beta' = 1), 
+                 distribution = 'bernoulli')
+
+AB2 <- bayesTest(A_norm, B_norm,
+                priors = c('m0' = 5, 'k0' = 1, 's_sq0' = 3, 'v0' = 1),
+                distribution = 'normal')
 
 AB3 <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')
+# Equivalent to
+AB3 <- AB1 * grab(AB2, 'Mu')
 
 print(AB3)
 summary(AB3)
 plot(AB3)
 }
-
+\seealso{
+\code{\link{grab}}
+}

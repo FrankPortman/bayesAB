@@ -40,4 +40,3 @@ summary(AB1)
 summary(AB1, percentLift = 10, credInt = .95)
 
 }
-

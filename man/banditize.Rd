@@ -45,4 +45,3 @@ binomialBandit$serveRecipe
 binomialBandit$setResults(list('A' = c(1, 0, 1, 0, 0), 'B' = c(0, 0, 0, 0, 1)))
 
 }
-
