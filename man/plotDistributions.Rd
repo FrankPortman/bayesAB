@@ -34,5 +34,5 @@ be clear unless you inspect that environment directly
 }
 \examples{
 body(plotLogNormal)
-environment(plotLogNormal)$funCall
+environment(plotLogNormal)$qDist
 }
