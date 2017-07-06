@@ -31,7 +31,7 @@
 #'
 #' @examples
 #' body(plotLogNormal)
-#' environment(plotLogNormal)$funCall
+#' environment(plotLogNormal)$qDist
 NULL
 
 dpareto <- function(x, xm, alpha) ifelse(x > xm , alpha * xm ** alpha / (x ** (alpha + 1)), 0)
@@ -106,17 +106,18 @@ plotDist <- function(dist, name, args) {
   makeDistFunc <- function(t) eval(parse(text = paste0(t, dist)))
   qDist <- makeDistFunc('q')
   dDist <- makeDistFunc('d')
-
-  args <- sapply(args, as.name, USE.NAMES = FALSE)
-  funCall <- list(list(c(0, 0.01, .99, 1)), args)
-  funCall <- unlist(funCall, recursive = FALSE)
+  
+  distArgs <- sapply(args, as.name, USE.NAMES = FALSE)
 
   out <- function() {
-    support <- do.call(qDist, funCall)
+    genericArgs <- list(c(0, 0.01, 0.99, 1))
+    support <- do.call(qDist, c(genericArgs, distArgs))
+    
     support <- range(support[is.finite(support)])
     support <- seq(min(support), max(support), diff(support) / 1000)
-    funCall[[1]] <- support
-    hseq <- do.call(dDist, funCall)
+    
+    supportArgs <- list(support)
+    hseq <- do.call(dDist, c(supportArgs, distArgs))
 
     plotDist_(support, hseq, name, match.call()[-1])
   }
