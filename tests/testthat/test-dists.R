@@ -1,10 +1,21 @@
 library(bayesAB)
 context('dists')
 
+dummyDist <- plotDist('norm', 'Normal', c('mu', 'sd'))
+dummyDist2 <- plotDist('norm', 'Normal', c('mu', 'sd'))
+
 test_that("Failures based on inputs", {
   
   expect_error(dinvgamma(5, -1, 5), "Shape or scale parameter negative")
 
+})
+
+test_that("Closure madness", {
+  
+  expect_equal(dummyDist, dummyDist2)
+  expect_identical(environment(dummyDist)$funCall, environment(dummyDist2)$funCall)
+  expect_equal(environment(dummyDist)$name, 'Normal')
+  expect_equal(formals(dummyDist), as.pairlist(alist(mu =, sd =)))
 })
 
 test_that("Success", {
@@ -17,5 +28,7 @@ test_that("Success", {
   expect_equal(plotInvGamma(1, 1)$labels$y, 'PDF')
   expect_equal(plotLogNormal(1, 1)$labels$y, 'PDF')
   expect_equal(qinvgamma(1 - (.Machine$double.eps) / 2, 2, 2), Inf)
+  expect_equal(dpareto(c(0, 1, 2), 1, 1), c(0, 0, .25))
+  expect_equal(dpareto(c(5, 15), 20, 3), c(0, 0))
     
 })
