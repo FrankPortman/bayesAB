@@ -79,7 +79,7 @@ plotDist_ <- function(support, hseq, dist, params) {
                                                              alpha = .25,
                                                              size = 2)
 
-  paramList <- sapply(1:length(params), function(x) paste(names(params)[x], params[x], sep = " = ", collapse = ""))
+  paramList <- sapply(names(params), function(p) paste(p, params[p], sep = " = ", collapse = ""), USE.NAMES = FALSE)
   paramList <- paste0(paramList, collapse = ", ")
 
   p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
