@@ -26,12 +26,8 @@
 #' Keep in mind that the Prior Plots for bayesTest's run with diffuse priors may not plot correctly as they will not be truncated as they
 #' approach infinity. See \link{plot.bayesTest} for how to turn off the Prior Plots.
 #'
-#' plot{...} functions are generated programmatically so their \code{body} will not
-#' be clear unless you inspect that environment directly
-#'
-#' @examples
-#' body(plotLogNormal)
-#' environment(plotLogNormal)$qDist
+#' plot{...} functions are generated programmatically so the function calls in
+#' their \code{body} will be substituted directly
 NULL
 
 dpareto <- function(x, xm, alpha) ifelse(x > xm , alpha * xm ** alpha / (x ** (alpha + 1)), 0)
@@ -106,21 +102,23 @@ plotDist <- function(dist, name, args) {
   makeDistFunc <- function(t) eval(parse(text = paste0(t, dist)))
   qDist <- makeDistFunc('q')
   dDist <- makeDistFunc('d')
-  
+
   distArgs <- sapply(args, as.name, USE.NAMES = FALSE)
 
-  out <- function() {
-    genericArgs <- list(c(0, 0.01, 0.99, 1))
-    support <- do.call(qDist, c(genericArgs, distArgs))
-    
+  out <- function() {}
+
+  body(out) <- substitute({
+    supportArgs <- list(c(0, 0.01, 0.99, 1))
+    support <- do.call(qDist, c(supportArgs, distArgs))
+
     support <- range(support[is.finite(support)])
     support <- seq(min(support), max(support), diff(support) / 1000)
-    
-    supportArgs <- list(support)
-    hseq <- do.call(dDist, c(supportArgs, distArgs))
+
+    rangeArgs <- list(support)
+    hseq <- do.call(dDist, c(rangeArgs, distArgs))
 
     plotDist_(support, hseq, name, match.call()[-1])
-  }
+  })
 
   formals(out) <- alist2(args)
   out
