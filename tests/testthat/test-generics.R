@@ -36,6 +36,7 @@ test_that("Success", {
   
   expect_silent(plot(x))
   expect_silent(plot(x, rep(.5, 4)))
+  expect_equal(length(plot(x, posteriors = FALSE, samples = FALSE)$priors), 2)
   
   expect_silent(print(plot(x)))
   expect_silent(print(plot(x, rep(.5, 4))))
