@@ -4,7 +4,7 @@
 #' to new data.
 #' 
 #' @param bT a bayesTest object
-#' @param param which model parameter (posterior) to evaluate 
+#' @param param which model parameter (posterior) to evaluate; defaults to first param
 #' @param higher_is_better  is a higher value of `param` equivalent to a better choice?
 #' @return A bayesBandit object.
 #' 
@@ -33,6 +33,7 @@
 #' 
 #' @export
 banditize <- function(bT, param, higher_is_better = TRUE) {
+  if(missing(param)) param <- names(bT$posteriors)[1]
   
   ## Re-assign bT to be able to report the OG one later
   test <- bT

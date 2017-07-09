@@ -1,14 +1,6 @@
 # Plot priors based on matching of prior params in bayesAB test object
 plotPriors <- function(bayesAB) {
 
-  # funs <- list(
-  #   "beta"     = list(params = c( 'alpha', 'beta' ), plotFun = plotBeta),
-  #   "normal"   = list(params = c( 'm0'   , 'k0'   ), plotFun = plotNormal),
-  #   "invgamma" = list(params = c( 's_sq0', 'v0'   ), plotFun = plotInvGamma),
-  #   "gamma"    = list(params = c( 'shape', 'rate' ), plotFun = plotGamma),
-  #   "pareto"   = list(params = c( 'xm'   , 'alpha'), plotFun = plotPareto)
-  # )
-  
   funs <- list(
     "beta"     = plotBeta,
     "normal"   = plotNormal,
