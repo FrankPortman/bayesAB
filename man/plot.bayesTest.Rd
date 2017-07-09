@@ -36,7 +36,6 @@ B_pois <- rpois(100, 4.7)
 AB1 <- bayesTest(A_pois, B_pois, priors = c('shape' = 25, 'rate' = 5), distribution = 'poisson')
 
 plot(AB1)
-plot(AB1, area = .95)
 plot(AB1, percentLift = 5)
 
 p <- plot(AB1)

@@ -4,14 +4,12 @@
 \alias{plotGamma}
 \title{Plot the PDF of the Gamma distribution.}
 \usage{
-plotGamma(shape, rate, area = 0.99)
+plotGamma(shape, rate)
 }
 \arguments{
 \item{shape}{shape (\eqn{\alpha}) parameter of the Gamma distribution.}
 
 \item{rate}{rate (\eqn{\beta}) parameter of the Gamma distribution.}
-
-\item{area}{control x-axis limits (default is set to view 99\% of the area under the density curve)}
 }
 \value{
 The PDF of Gamma(shape, rate).
