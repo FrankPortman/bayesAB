@@ -1,12 +1,20 @@
 # Plot priors based on matching of prior params in bayesAB test object
 plotPriors <- function(bayesAB) {
 
+  # funs <- list(
+  #   "beta"     = list(params = c( 'alpha', 'beta' ), plotFun = plotBeta),
+  #   "normal"   = list(params = c( 'm0'   , 'k0'   ), plotFun = plotNormal),
+  #   "invgamma" = list(params = c( 's_sq0', 'v0'   ), plotFun = plotInvGamma),
+  #   "gamma"    = list(params = c( 'shape', 'rate' ), plotFun = plotGamma),
+  #   "pareto"   = list(params = c( 'xm'   , 'alpha'), plotFun = plotPareto)
+  # )
+  
   funs <- list(
-    "beta" = list(params = c('alpha', 'beta'), plotFun = plotBeta),
-    "normal" = list(params = c('m0', 'k0'), plotFun = plotNormal),
-    "invgamma" = list(params = c('s_sq0', 'v0'), plotFun = plotInvGamma),
-    "gamma" = list(params = c('shape', 'rate'), plotFun = plotGamma),
-    "pareto" = list(params = c('xm', 'alpha'), plotFun = plotPareto)
+    "beta"     = plotBeta,
+    "normal"   = plotNormal,
+    "invgamma" = plotInvGamma,
+    "gamma"    = plotGamma,
+    "pareto"   = plotPareto
   )
 
   vals <- bayesAB$inputs$priors
@@ -16,11 +24,13 @@ plotPriors <- function(bayesAB) {
 
   out <- list()
 
-  for(i in seq_along(funs)) {
-    rel <- funs[[i]]
-    if(labChecker(rel$params)) {
-      pri <- list(do.call(rel$plotFun, as.list(c(unname(vals[rel$params])))))
-      names(pri) <- names(funs[i])
+  for(name in names(funs)) {
+    fun <- funs[[name]]
+    inputs <- names(formals(fun))
+    if(labChecker(inputs)) {
+      pri <- do.call(fun, as.list(vals[inputs]))
+      pri <- list(pri)
+      names(pri) <- name
       out <- c(out, pri)
     }
   }
@@ -48,13 +58,10 @@ samplePlot <- function(A, B, name, percentLift) {
   xpos <- mean(diff$diff[diff$cutoff == F])
   if(is.nan(xpos)) xpos <-  mean(diff$diff[diff$cutoff == T])
 
-
   p <- p + ggplot2::annotate('text', x = xpos, y = m / 3, label = paste(prop, '%', sep = ""), size = 6) +
     ggplot2::xlab('(A - B) / B') +
     ggplot2::ylab('Density') +
-    ggplot2::ggtitle(paste0('Histogram of (A - B) / B Samples : ',
-                            name,
-                            collapse = "")) +
+    ggplot2::ggtitle(paste0('Histogram of (A - B) / B Samples : ', name)) +
     ggplot2::guides(fill = FALSE)
 
   p
@@ -73,10 +80,7 @@ posteriorPlot <- function(A, B, name) {
     ggplot2::geom_density(alpha = 0.75) +
     ggplot2::xlab(NULL) +
     ggplot2::ylab('Density') +
-    ggplot2::ggtitle(paste0('A and B, ',
-                            name,
-                            ' Posteriors',
-                            collapse = "")) +
+    ggplot2::ggtitle(paste0('A and B, ', name, ' Posteriors')) +
     ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))
 
   p
@@ -87,13 +91,11 @@ posteriorPlot <- function(A, B, name) {
 plotConstructor <- function(fun, ...) {
   function(bayesAB, ...) {
     out <- list()
-    for(i in seq_along(bayesAB$posteriors)) {
-      p <- bayesAB$posteriors[i]
-      n <- names(p)
-      p <- unlist(p, recursive = FALSE, use.names = FALSE)
-      pl <- fun(A = p[[1]], B = p[[2]], name = n, ...) + theme_bayesAB()
+    for(name in names(bayesAB$posteriors)) {
+      p <- bayesAB$posteriors[[name]]
+      pl <- fun(A = p$A, B = p$B, name = name, ...) + theme_bayesAB()
       pl <- list(pl)
-      names(pl) <- n
+      names(pl) <- name
       out <- c(out, pl)
     }
     return(out)

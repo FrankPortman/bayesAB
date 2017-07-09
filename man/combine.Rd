@@ -26,7 +26,7 @@ Combine two (or any number, in succesion) \code{bayesTest} objects into a new ar
              The resulting object is of the same class.
 }
 \note{
-The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`\`*`).
+The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`) and combine(f = `*`).
 }
 \examples{
 A_binom <- rbinom(100, 1, .5)
@@ -36,7 +36,7 @@ A_norm <- rnorm(100, 6, 1.5)
 B_norm <- rnorm(100, 5, 2.5)
 
 AB1 <- bayesTest(A_binom, B_binom,
-                 priors = c('alpha' = 1, 'beta' = 1), 
+                 priors = c('alpha' = 1, 'beta' = 1),
                  distribution = 'bernoulli')
 
 AB2 <- bayesTest(A_norm, B_norm,

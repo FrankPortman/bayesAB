@@ -11,7 +11,7 @@
 #' @param newName a string indicating the name of the new 'posterior' in the resulting object
 #' @return a \code{bayesTest} object with the newly combined posterior samples.
 #'
-#' @note The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`\`*`).
+#' @note The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`) and combine(f = `*`).
 #'
 #' @seealso \code{\link{grab}}
 #'

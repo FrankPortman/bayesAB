@@ -89,7 +89,7 @@ rate of decay.
             \item \code{xm} and \code{alpha} must be set for prior distribution over \eqn{\theta}}
 
 \item BernoulliC: Closed form (computational) calculation of the 'bernoulli' bayesTest. Same priors are required.
-\item PoissonC: Closed form(computational) calculation of the 'poisson' bayesTest. Same priors are required.
+\item PoissonC: Closed form (computational) calculation of the 'poisson' bayesTest. Same priors are required.
 }
 }
 \note{
