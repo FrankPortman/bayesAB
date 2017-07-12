@@ -28,7 +28,7 @@
 #' AB1 <- bayesTest(A_binom, B_binom, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
 #' 
 #' binomialBandit <- banditize(AB1)
-#' binomialBandit$serveRecipe
+#' binomialBandit$serveRecipe()
 #' binomialBandit$setResults(list('A' = c(1, 0, 1, 0, 0), 'B' = c(0, 0, 0, 0, 1)))
 #' 
 #' @export

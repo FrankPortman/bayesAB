@@ -4,10 +4,6 @@ bayesUniformTest <- function(A_data,
                              xm,
                              alpha) {
 
-  ###
-  ## Error Checking
-  ###
-
   ## Check that we only have positive data
   if((
     any(
@@ -20,28 +16,9 @@ bayesUniformTest <- function(A_data,
 
   if(!all(c(xm, alpha) > 0)) stop("xm and alpha are parameters of the Pareto Distribution and should be strictly > 0.")
 
-  ###
-  ## Sample from posterior
-  ###
-
   map <- function(data) rpareto(n_samples, max(data, xm), length(data) + alpha)
 
-  ###
-  ## Output the result
-  ###
-
-  result <- list(
-    inputs = as.list(match.call()[-1]),
-
-    posteriors = list(
-      Theta = list(A = map(A_data), B = map(B_data))
-    ),
-
-    distribution = "uniform"
+  list(
+    Theta = list(A = map(A_data), B = map(B_data))
   )
-
-  class(result) <- c('bayesTest')
-
-  return(result)
-
 }

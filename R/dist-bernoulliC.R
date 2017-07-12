@@ -3,10 +3,6 @@ bayesBernoulliTestClosed <- function(A_data,
                                      alpha,
                                      beta) {
 
-  ###
-  ## Error Checking
-  ###
-
   ## Check that we only have click data
   if(!(
     all(
@@ -19,29 +15,10 @@ bayesBernoulliTestClosed <- function(A_data,
 
   if(!all(c(alpha, beta) > 0)) stop("alpha and beta are parameters of the Beta Distribution and should be strictly > 0.")
 
-  ###
-  ## Do the computation
-  ###
-
   prob <- bayesBernoulliTestClosed_(sum(A_data) + alpha,
                                     length(A_data) - sum(A_data) + beta,
                                     sum(B_data) + alpha,
                                     length(B_data) - sum(B_data) + beta)
 
-  ###
-  ## Output the result
-  ###
-
-  result <- list(
-    inputs = as.list(match.call()[-1]),
-
-    posteriors = list(Probability = prob),
-
-    distribution = 'bernoulliC'
-  )
-
-  class(result) <- 'bayesTestClosed'
-
-  return(result)
-
+  list(Probability = prob)
 }

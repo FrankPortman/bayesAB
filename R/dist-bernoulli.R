@@ -4,10 +4,6 @@ bayesBernoulliTest <- function(A_data,
                                alpha,
                                beta) {
 
-  ###
-  ## Error Checking
-  ###
-
   ## Check that we only have click data
   if(!(
     all(
@@ -20,28 +16,9 @@ bayesBernoulliTest <- function(A_data,
 
   if(!all(c(alpha, beta) > 0)) stop("alpha and beta are parameters of the Beta Distribution and should be strictly > 0.")
 
-  ###
-  ## Sample from posterior
-  ###
-
   map <- function(data) rbeta(n_samples, sum(data) + alpha, length(data) - sum(data) + beta)
 
-  ###
-  ## Output the result
-  ###
-
-  result <- list(
-    inputs = as.list(match.call()[-1]),
-
-    posteriors = list(
-      Probability = list(A = map(A_data), B = map(B_data))
-    ),
-
-    distribution = "bernoulli"
+  list(
+    Probability = list(A = map(A_data), B = map(B_data))
   )
-
-  class(result) <- c('bayesTest')
-
-  return(result)
-
 }

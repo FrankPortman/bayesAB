@@ -4,10 +4,6 @@ bayesExponentialTest <- function(A_data,
                                  shape,
                                  rate) {
 
-  ###
-  ## Error Checking
-  ###
-
   ## Check that we only have positive data
   if((
     any(
@@ -20,28 +16,9 @@ bayesExponentialTest <- function(A_data,
 
   if(!all(c(shape, rate) > 0)) stop("shape and rate are parameters of the Gamma Distribution and should be strictly > 0.")
 
-  ###
-  ## Sample from posterior
-  ###
-
   map <- function(data) rgamma(n_samples, length(data) + shape, sum(data) + rate)
 
-  ###
-  ## Output the result
-  ###
-
-  result <- list(
-    inputs = as.list(match.call()[-1]),
-
-    posteriors = list(
+  list(
       Lambda = list(A = map(A_data), B = map(B_data))
-    ),
-
-    distribution = "exponential"
   )
-
-  class(result) <- c('bayesTest')
-
-  return(result)
-
 }

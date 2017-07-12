@@ -6,10 +6,6 @@ bayesLogNormalTest <- function(A_data,
                                s_sq0,
                                v0) {
 
-  ###
-  ## Error Checking
-  ###
-
   if((
     any(
       A_data <= 0,
@@ -18,10 +14,6 @@ bayesLogNormalTest <- function(A_data,
   )) {
     stop("Data input is incorrect. The support of a Log Normal Distribution is (0, Inf).")
   }
-
-  ###
-  ## Sample from posterior
-  ###
 
   NormalResult <- bayesNormalTest(log(A_data),
                                   log(B_data),
@@ -46,25 +38,10 @@ bayesLogNormalTest <- function(A_data,
   A_vars <- (exp(A_sig_sqs) - 1) * exp(2 * A_mus + A_sig_sqs)
   B_vars <- (exp(B_sig_sqs) - 1) * exp(2 * B_mus + B_sig_sqs)
 
-  ###
-  ## Output the result
-  ###
-
-  result <- list(
-    inputs = as.list(match.call()[-1]),
-
-    posteriors = list(
-      Mu = list(A = A_mus, B = B_mus),
-      Sig_Sq = list(A = A_sig_sqs, B = B_sig_sqs),
-      Mean = list(A = A_means, B = B_means),
-      Var = list(A = A_vars, B = B_vars)
-    ),
-
-    distribution = "lognormal"
+  list(
+    Mu = list(A = A_mus, B = B_mus),
+    Sig_Sq = list(A = A_sig_sqs, B = B_sig_sqs),
+    Mean = list(A = A_means, B = B_means),
+    Var = list(A = A_vars, B = B_vars)
   )
-
-  class(result) <- c('bayesTest')
-
-  return(result)
-
 }

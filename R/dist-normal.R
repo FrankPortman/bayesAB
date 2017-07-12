@@ -42,10 +42,6 @@ bayesNormalTest <- function(A_data,
   if(s_sq0 <= 0) stop("s_sq0 is the 'alpha' prior on sig_sq ~ InvGamma(s_sq0, v0) and must be strictly positive.")
   if(v0 <= 0) stop("v0 is the 'beta' prior on sig_sq ~ InvGamma(s_sq0, v0) and must be strictly positive.")
 
-  ###
-  ## Do the computation
-  ###
-
   A <- drawMusAndSigmas(A_data, m0, k0, s_sq0, v0, n_samples)
   B <- drawMusAndSigmas(B_data, m0, k0, s_sq0, v0, n_samples)
 
@@ -55,23 +51,8 @@ bayesNormalTest <- function(A_data,
   A_sig_sqs <- A$sig_sq_samples
   B_sig_sqs <- B$sig_sq_samples
 
-  ###
-  ##  Output the result
-  ###
-
-  result <- list(
-    inputs = as.list(match.call()[-1]),
-
-    posteriors = list(
-      Mu = list(A = A_mus, B = B_mus),
-      Sig_Sq = list(A = A_sig_sqs, B = B_sig_sqs)
-    ),
-
-    distribution = "normal"
+  list(
+    Mu = list(A = A_mus, B = B_mus),
+    Sig_Sq = list(A = A_sig_sqs, B = B_sig_sqs)
   )
-
-  class(result) <- c('bayesTest')
-
-  return(result)
-
 }

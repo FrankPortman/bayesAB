@@ -3,10 +3,6 @@ bayesPoissonTestClosed <- function(A_data,
                                    shape,
                                    rate) {
 
-  ###
-  ## Error Checking
-  ###
-
   ## Check that we only have integer data
   if((
     any(
@@ -21,29 +17,10 @@ bayesPoissonTestClosed <- function(A_data,
 
   if(!all(c(shape, rate) > 0)) stop("shape and rate are parameters of the Gamma Distribution and should be strictly > 0.")
 
-  ###
-  ## Do the computation
-  ###
-
   prob <- bayesPoissonTestClosed_(sum(A_data) + shape,
                                   length(A_data) + rate,
                                   sum(B_data) + shape,
                                   length(B_data) + rate)
 
-  ###
-  ## Output the result
-  ###
-
-  result <- list(
-    inputs = as.list(match.call()[-1]),
-
-    posteriors = list(Lambda = prob),
-
-    distribution = 'poissonC'
-  )
-
-  class(result) <- 'bayesTestClosed'
-
-  return(result)
-
+  list(Lambda = prob)
 }
