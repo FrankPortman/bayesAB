@@ -11,7 +11,7 @@
 #' @param newName a string indicating the name of the new 'posterior' in the resulting object
 #' @return a \code{bayesTest} object with the newly combined posterior samples.
 #'
-#' @note The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`\`*`).
+#' @note The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`) and combine(f = `*`).
 #'
 #' @seealso \code{\link{grab}}
 #'
@@ -23,7 +23,7 @@
 #' B_norm <- rnorm(100, 5, 2.5)
 #'
 #' AB1 <- bayesTest(A_binom, B_binom,
-#'                  priors = c('alpha' = 1, 'beta' = 1), 
+#'                  priors = c('alpha' = 1, 'beta' = 1),
 #'                  distribution = 'bernoulli')
 #'
 #' AB2 <- bayesTest(A_norm, B_norm,
@@ -66,8 +66,8 @@ combine <- function(bT1, bT2, f = `+`, params, newName = 'Parameter') {
   result <- list()
 
   result$inputs <- list(
-    A_data = listConcat(listOr(bT1$inputs$A_data), listOr(bT2$inputs$A_data)),
-    B_data = listConcat(listOr(bT1$inputs$B_data), listOr(bT2$inputs$B_data)),
+    A_data = c(listOr(bT1$inputs$A_data), listOr(bT2$inputs$A_data)),
+    B_data = c(listOr(bT1$inputs$B_data), listOr(bT2$inputs$B_data)),
     priors = 'Combined distributions have no priors. Inspect each element separately for details.',
     n_samples = max(bT1$inputs$n_samples, bT2$inputs$n_samples)
   )

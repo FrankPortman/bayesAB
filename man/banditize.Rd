@@ -9,7 +9,7 @@ banditize(bT, param, higher_is_better = TRUE)
 \arguments{
 \item{bT}{a bayesTest object}
 
-\item{param}{which model parameter (posterior) to evaluate}
+\item{param}{which model parameter (posterior) to evaluate; defaults to first param}
 
 \item{higher_is_better}{is a higher value of `param` equivalent to a better choice?}
 }
