@@ -32,30 +32,11 @@ drawMusAndSigmas <- function(data,
 
 bayesNormalTest <- function(A_data,
                             B_data,
-                            priors,
-                            n_samples) {
-
-  ###
-  ## Error Checking
-  ###
-
-  ## Check that we have 4 priors
-  if(length(priors) != 4) stop("Incorrect length of priors. Expecting an argument for m0, k0, s_sq0, and v0 ONLY.")
-
-  ## Check we have all priors
-  if(!all(names(priors) %in% c('m0', 'k0', 's_sq0', 'v0')))
-    stop("Arguments don't match requirement for m0, k0, s_sq0, and v0. Check names.")
-
-  priors <- priors[c('m0', 'k0', 's_sq0', 'v0')]
-  priors <- as.numeric(priors)
-
-  m0 <- priors[1]
-  k0 <- priors[2]
-  s_sq0 <- priors[3]
-  v0 <- priors[4]
-
-  ## Check that priors are numeric
-  if(any(is.na(priors))) stop("One or more of the priors is not numeric.")
+                            n_samples,
+                            m0,
+                            k0,
+                            s_sq0,
+                            v0) {
 
   if(k0 <= 0) stop("k0 is the 'variance' prior on mu ~ N(m0, k0) and must be strictly positive.")
   if(s_sq0 <= 0) stop("s_sq0 is the 'alpha' prior on sig_sq ~ InvGamma(s_sq0, v0) and must be strictly positive.")

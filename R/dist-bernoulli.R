@@ -1,7 +1,8 @@
 bayesBernoulliTest <- function(A_data,
                                B_data,
-                               priors,
-                               n_samples) {
+                               n_samples,
+                               alpha,
+                               beta) {
 
   ###
   ## Error Checking
@@ -17,20 +18,7 @@ bayesBernoulliTest <- function(A_data,
     stop("Data input is incorrect. Data can only contain 0's and 1's. See help docs for more info.")
   }
 
-  ## Check that priors are supplied
-  if(length(priors) != 2) stop("Incorrect length of priors. Expecting an argument for alpha and beta ONLY.")
-
-  ## Check we have alpha and beta
-  if(!all(names(priors) %in% c('alpha', 'beta'))) stop("Arguments don't match requirement for alpha and beta. Check names.")
-
-  priors <- priors[c('alpha', 'beta')]
-  priors <- suppressWarnings(as.numeric(priors))
-
-  if(any(is.na(priors))) stop("alpha and/or beta are not numeric!")
-  if(!all(priors > 0)) stop("alpha and beta are parameters of the Beta Distribution and should be strictly > 0.")
-
-  alpha <- priors[1]
-  beta <- priors[2]
+  if(!all(c(alpha, beta) > 0)) stop("alpha and beta are parameters of the Beta Distribution and should be strictly > 0.")
 
   ###
   ## Sample from posterior

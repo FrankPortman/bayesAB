@@ -145,6 +145,7 @@ bayesTest <- function(A_data,
   if(! is.numeric(c(A_data, B_data))) stop("A_data and/or B_data are not ALL numeric.")
   if(any(is.na(c(A_data, B_data))))   stop("A_data and/or B_data have NULLs/NAs.")
   if(! is.numeric(priors))            stop("One or more priors aren't numeric.")
+
   if(length(priorArgs) != length(priors)) {
     stop("Incorrect number of priors for supplied distribution.")
   }
@@ -153,7 +154,7 @@ bayesTest <- function(A_data,
   }
 
   fcall <- list(A_data, B_data, priors)
-  if(!isClosed(distribution)) fcall <- c(fcall, n_samples) # add samples in if its not closed form; cleaner to keep it out of closed form func
+  if(!isClosed(distribution)) fcall <- c(fcall, n_samples)
 
   do.call(Fun, fcall)
 

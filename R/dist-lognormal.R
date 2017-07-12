@@ -1,7 +1,10 @@
 bayesLogNormalTest <- function(A_data,
                                B_data,
-                               priors,
-                               n_samples) {
+                               n_samples,
+                               m0,
+                               k0,
+                               s_sq0,
+                               v0) {
 
   ###
   ## Error Checking
@@ -16,13 +19,17 @@ bayesLogNormalTest <- function(A_data,
     stop("Data input is incorrect. The support of a Log Normal Distribution is (0, Inf).")
   }
 
-  if(any(is.na(suppressWarnings(as.numeric(c(A_data, B_data)))))) stop("A_data and B_data are not ALL numeric.")
-
   ###
   ## Sample from posterior
   ###
 
-  NormalResult <- bayesNormalTest(log(A_data), log(B_data), priors, n_samples)
+  NormalResult <- bayesNormalTest(log(A_data),
+                                  log(B_data),
+                                  n_samples,
+                                  m0,
+                                  k0,
+                                  s_sq0,
+                                  v0)
 
   ## Means
   A_mus <- NormalResult$posteriors$Mu$A
