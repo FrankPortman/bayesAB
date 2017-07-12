@@ -18,7 +18,7 @@ An active \code{http} process on some port.
 Turn your bayesBandit object into an API and serve/update requests through HTTP.
 }
 \details{
-\code{deployBandit} turns a Bayesian bandit into a JSON API that accepts curl requests. Two of the five methods of 
+\code{deployBandit} turns a Bayesian bandit into a JSON API that accepts curl requests. Two of the five methods of
 bayesBandit classes are exposed: \code{serveRecipe} and \code{setResults}. Assuming the API is deployed on \code{localhost} this is an
 example of how it would be hit:
 
