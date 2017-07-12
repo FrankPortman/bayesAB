@@ -1,7 +1,7 @@
 bayesExponentialTest <- function(A_data,
                                  B_data,
                                  priors,
-                                 n_samples = 1e6) {
+                                 n_samples) {
 
   ###
   ## Error Checking

@@ -1,7 +1,8 @@
 bayesUniformTest <- function(A_data,
                              B_data,
-                             priors,
-                             n_samples) {
+                             n_samples,
+                             xm,
+                             alpha) {
 
   ###
   ## Error Checking
