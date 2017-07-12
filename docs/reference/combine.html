@@ -68,6 +68,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/extra/priors.html">Priors and Bayesian AB Testing</a>
+    </li>
+    <li>
       <a href="../articles/introduction.html">Introduction to bayesAB</a>
     </li>
   </ul>
@@ -137,7 +140,7 @@ defaults to first posterior parameter if not supplied</p></td>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`\`*`).</p>
+    <p>The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`) and combine(f = `*`).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -156,7 +159,7 @@ defaults to first posterior parameter if not supplied</p></td>
                  <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>'bernoulli'</span>)
 
 <span class='no'>AB2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bayesTest.html'>bayesTest</a></span>(<span class='no'>A_norm</span>, <span class='no'>B_norm</span>,
-                <span class='kw'>priors</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'m0'</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='st'>'k0'</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='st'>'s_sq0'</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='st'>'v0'</span> <span class='kw'>=</span> <span class='fl'>1</span>),
+                <span class='kw'>priors</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'mu'</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='st'>'sd'</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='st'>'shape'</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='st'>'scale'</span> <span class='kw'>=</span> <span class='fl'>1</span>),
                 <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>'normal'</span>)
 
 <span class='no'>AB3</span> <span class='kw'>&lt;-</span> <span class='fu'>combine</span>(<span class='no'>AB1</span>, <span class='no'>AB2</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='no'>`*`</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'Probability'</span>, <span class='st'>'Mu'</span>), <span class='kw'>newName</span> <span class='kw'>=</span> <span class='st'>'Expectation'</span>)
@@ -168,12 +171,12 @@ defaults to first posterior parameter if not supplied</p></td>
 #&gt; --------------------------------------------
 #&gt; Using data with the following properties: 
 #&gt;         [,1]      [,2] [,3]       [,4]
-#&gt; Min.    0.00  2.597827  0.0  0.9836912
-#&gt; 1st Qu. 0.00  4.721517  0.0  3.5809339
-#&gt; Median  0.00  5.622155  0.5  5.2171180
-#&gt; Mean    0.47  5.784824  0.5  5.3467639
-#&gt; 3rd Qu. 1.00  6.572430  1.0  6.7522066
-#&gt; Max.    1.00 10.137434  1.0 11.7132592
+#&gt; Min.    0.00  1.508071 0.00 -0.8795427
+#&gt; 1st Qu. 0.00  5.038533 0.00  3.2100311
+#&gt; Median  1.00  5.699675 1.00  4.8077116
+#&gt; Mean    0.51  5.838030 0.64  4.9034026
+#&gt; 3rd Qu. 1.00  6.783418 1.00  6.8653487
+#&gt; Max.    1.00 10.545004 1.00 11.2829802
 #&gt; --------------------------------------------
 #&gt; Priors used for the calculation: 
 #&gt; [1] "Combined distributions have no priors. Inspect each element separately for details."
@@ -187,11 +190,11 @@ defaults to first posterior parameter if not supplied</p></td>
 #&gt; $Parameter
 #&gt; $Parameter$A
 #&gt;       0%      25%      50%      75%     100% 
-#&gt; 1.531243 2.515534 2.713936 2.914978 3.938936 
+#&gt; 1.774403 2.771176 2.972613 3.175637 4.342434 
 #&gt; 
 #&gt; $Parameter$B
 #&gt;       0%      25%      50%      75%     100% 
-#&gt; 1.565778 2.476515 2.668945 2.864556 3.962269 
+#&gt; 1.942678 2.930831 3.121420 3.313665 4.310753 
 #&gt; 
 #&gt; 
 #&gt; --------------------------------------------
@@ -199,7 +202,7 @@ defaults to first posterior parameter if not supplied</p></td>
 #&gt; P(A &gt; B) by (0)%: 
 #&gt; 
 #&gt; $Parameter
-#&gt; [1] 0.54258
+#&gt; [1] 0.35724
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
@@ -207,15 +210,15 @@ defaults to first posterior parameter if not supplied</p></td>
 #&gt; 
 #&gt; $Parameter
 #&gt;         5%        95% 
-#&gt; -0.2111356  0.3065499 
+#&gt; -0.2410728  0.1884294 
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
 #&gt; Posterior Expected Loss for choosing B over A:
 #&gt; 
 #&gt; $Parameter
-#&gt; [1] 1.30212
-#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB3</span>)</div><div class='img'><img src='combine-11.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='combine-12.png' alt='' width='700' height='432.632880098887' /></div></pre>
+#&gt; [1] 2.080866
+#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB3</span>)</div><div class='img'><img src='combine-1.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='combine-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -68,6 +68,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/extra/priors.html">Priors and Bayesian AB Testing</a>
+    </li>
+    <li>
       <a href="../articles/introduction.html">Introduction to bayesAB</a>
     </li>
   </ul>
@@ -121,8 +124,8 @@
       <th>priors</th>
       <td><p>Named vector or named list providing priors as required by the specified distribution:</p><ul>
 <li><p>For 'bernoulli' distribution <code>list("alpha" = val1, "beta" = val2)</code></p></li>
-<li><p>For 'normal' distribution <code>c("m0" = val1, "k0" = val2, "s_sq0" = val3, "v0" = val4)</code></p></li>
-<li><p>For 'lognormal' distribution <code>list("m0" = val1, "k0" = val2, "s_sq0" = val3, "v0" = val4)</code></p></li>
+<li><p>For 'normal' distribution <code>c("mu" = val1, "sd" = val2, "shape" = val3, "scale" = val4)</code></p></li>
+<li><p>For 'lognormal' distribution <code>c("mu" = val1, "sd" = val2, "shape" = val3, "scale" = val4)</code></p></li>
 <li><p>For 'poisson' distribution <code>c("shape" = val1, "rate" = val2)</code></p></li>
 <li><p>For 'exponential' distribution <code>list("shape" = val1, "rate" = val2)</code></p></li>
 <li><p>For 'uniform' distribution <code>c("xm" = val1, "alpha" = val2)</code></p></li>
@@ -164,9 +167,9 @@ be specified at the time of invoking the function. Currently, there are <em>eigh
 of the underlying distribution</p><ul>
 <li><p>Uses a conjugate <code>Normal</code> distribution for the parameter <b>\(\mu\)</b> in the Normal Distribution</p></li>
 <li><p>Uses a conjugate <code>Inverse Gamma</code> distribution for the parameter <b>\(\sigma^2\)</b> in the Normal Ditribution</p></li>
-<li><p><code>m0</code>, <code>k0</code>, <code>s_sq0</code>, and <code>v0</code> must be set for prior
+<li><p><code>mu</code>, <code>sd</code>, <code>shape</code>, and <code>scale</code> must be set for prior
             distributions over <b>\(\mu\), \(\sigma^2\)</b> in accordance with the parameters of the conjugate prior distributions:</p><ul>
-<li><p>\(\sigma^2\) ~ InvGamma(s_sq0, v0)</p></li>
+<li><p>\(\sigma^2\) ~ InvGamma(shape, scale)</p></li>
 </ul></li>
 </ul></li>
 <li><p>LogNormal: If your data is well modeled by the log-normal distribution, with parameters \(\mu\), \(\sigma^2\) as the <b>parameters</b>
@@ -192,7 +195,7 @@ rate of decay.</p><ul>
 <li><p><code>xm</code> and <code>alpha</code> must be set for prior distribution over \(\theta\)</p></li>
 </ul></li>
 <li><p>BernoulliC: Closed form (computational) calculation of the 'bernoulli' bayesTest. Same priors are required.</p></li>
-<li><p>PoissonC: Closed form(computational) calculation of the 'poisson' bayesTest. Same priors are required.</p></li>
+<li><p>PoissonC: Closed form (computational) calculation of the 'poisson' bayesTest. Same priors are required.</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
@@ -217,19 +220,19 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 
 <span class='no'>AB1</span> <span class='kw'>&lt;-</span> <span class='fu'>bayesTest</span>(<span class='no'>A_binom</span>, <span class='no'>B_binom</span>, <span class='kw'>priors</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'alpha'</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='st'>'beta'</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>'bernoulli'</span>)
 <span class='no'>AB2</span> <span class='kw'>&lt;-</span> <span class='fu'>bayesTest</span>(<span class='no'>A_norm</span>, <span class='no'>B_norm</span>,
-                <span class='kw'>priors</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'m0'</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='st'>'k0'</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='st'>'s_sq0'</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='st'>'v0'</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>'normal'</span>)
+                <span class='kw'>priors</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'mu'</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='st'>'sd'</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='st'>'shape'</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='st'>'scale'</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>'normal'</span>)
 
 <span class='fu'>print</span>(<span class='no'>AB1</span>)</div><div class='output co'>#&gt; --------------------------------------------
 #&gt; Distribution used: bernoulli 
 #&gt; --------------------------------------------
 #&gt; Using data with the following properties: 
 #&gt;         [,1] [,2]
-#&gt; Min.    0.00 0.00
-#&gt; 1st Qu. 0.00 0.00
-#&gt; Median  1.00 1.00
-#&gt; Mean    0.51 0.59
-#&gt; 3rd Qu. 1.00 1.00
-#&gt; Max.    1.00 1.00
+#&gt; Min.    0.00  0.0
+#&gt; 1st Qu. 0.00  0.0
+#&gt; Median  0.00  1.0
+#&gt; Mean    0.41  0.6
+#&gt; 3rd Qu. 1.00  1.0
+#&gt; Max.    1.00  1.0
 #&gt; --------------------------------------------
 #&gt; Priors used for the calculation: 
 #&gt; alpha  beta 
@@ -244,11 +247,11 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; $Probability
 #&gt; $Probability$A
 #&gt;        0%       25%       50%       75%      100% 
-#&gt; 0.3050392 0.4765097 0.5101361 0.5433512 0.7058943 
+#&gt; 0.2303915 0.3787600 0.4113576 0.4443736 0.6189084 
 #&gt; 
 #&gt; $Probability$B
 #&gt;        0%       25%       50%       75%      100% 
-#&gt; 0.3840085 0.5558781 0.5891831 0.6215967 0.7651442 
+#&gt; 0.3865806 0.5652217 0.5984563 0.6313930 0.7917407 
 #&gt; 
 #&gt; 
 #&gt; --------------------------------------------
@@ -256,7 +259,7 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; P(A &gt; B) by (0)%: 
 #&gt; 
 #&gt; $Probability
-#&gt; [1] 0.12878
+#&gt; [1] 0.00404
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
@@ -264,29 +267,29 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; 
 #&gt; $Probability
 #&gt;         5%        95% 
-#&gt; -0.3013046  0.0671958 
+#&gt; -0.4602176 -0.1331493 
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
 #&gt; Posterior Expected Loss for choosing B over A:
 #&gt; 
 #&gt; $Probability
-#&gt; [1] 0.5199316
-#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB1</span>)</div><div class='img'><img src='bayesTest-56.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-57.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-58.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; [1] 0.5958145
+#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB1</span>)</div><div class='img'><img src='bayesTest-1.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-2.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='fu'>print</span>(<span class='no'>AB2</span>)</div><div class='output co'>#&gt; --------------------------------------------
 #&gt; Distribution used: normal 
 #&gt; --------------------------------------------
 #&gt; Using data with the following properties: 
 #&gt;              [,1]      [,2]
-#&gt; Min.     1.176745 -1.072131
-#&gt; 1st Qu.  4.861744  2.796277
-#&gt; Median   5.812363  4.705898
-#&gt; Mean     5.810652  4.706623
-#&gt; 3rd Qu.  6.918239  6.359395
-#&gt; Max.    10.239511 10.184893
+#&gt; Min.     3.132821 -3.377552
+#&gt; 1st Qu.  4.895238  3.250953
+#&gt; Median   5.898531  4.924260
+#&gt; Mean     6.049633  4.912154
+#&gt; 3rd Qu.  6.936479  6.734556
+#&gt; Max.    10.323493 11.265252
 #&gt; --------------------------------------------
 #&gt; Priors used for the calculation: 
-#&gt;    m0    k0 s_sq0    v0 
+#&gt;    mu    sd shape scale 
 #&gt;     5     1     3     1 
 #&gt; --------------------------------------------
 #&gt; Calculated posteriors for the following parameters: 
@@ -298,21 +301,21 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; $Mu
 #&gt; $Mu$A
 #&gt;       0%      25%      50%      75%     100% 
-#&gt; 4.998743 5.689009 5.802058 5.916462 6.615976 
+#&gt; 5.304554 5.934320 6.038757 6.144285 6.824947 
 #&gt; 
 #&gt; $Mu$B
 #&gt;       0%      25%      50%      75%     100% 
-#&gt; 3.596088 4.547540 4.710942 4.871905 5.846083 
+#&gt; 3.730582 4.733996 4.914652 5.093047 6.224130 
 #&gt; 
 #&gt; 
 #&gt; $Sig_Sq
 #&gt; $Sig_Sq$A
 #&gt;       0%      25%      50%      75%     100% 
-#&gt; 1.672477 2.616543 2.871773 3.164202 5.425464 
+#&gt; 1.422219 2.225100 2.442036 2.690556 4.613635 
 #&gt; 
 #&gt; $Sig_Sq$B
 #&gt;        0%       25%       50%       75%      100% 
-#&gt;  2.966742  5.406580  5.937927  6.535707 13.298321 
+#&gt;  3.622401  6.601244  7.250098  7.979879 16.237290 
 #&gt; 
 #&gt; 
 #&gt; --------------------------------------------
@@ -320,10 +323,10 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; P(A &gt; B) by (0, 0)%: 
 #&gt; 
 #&gt; $Mu
-#&gt; [1] 0.99987
+#&gt; [1] 0.99982
 #&gt; 
 #&gt; $Sig_Sq
-#&gt; [1] 0.00015
+#&gt; [1] 0
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
@@ -331,22 +334,22 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; 
 #&gt; $Mu
 #&gt;        5%       95% 
-#&gt; 0.1201052 0.3622311 
+#&gt; 0.1156807 0.3626830 
 #&gt; 
 #&gt; $Sig_Sq
 #&gt;         5%        95% 
-#&gt; -0.6512746 -0.3297925 
+#&gt; -0.7569793 -0.5318249 
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
 #&gt; Posterior Expected Loss for choosing B over A:
 #&gt; 
 #&gt; $Mu
-#&gt; [1] 0.000716632
+#&gt; [1] 0.001052211
 #&gt; 
 #&gt; $Sig_Sq
-#&gt; [1] 6.01607
-#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB2</span>)</div><div class='img'><img src='bayesTest-59.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-60.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-61.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-62.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-63.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-64.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; [1] 7.346345
+#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB2</span>)</div><div class='img'><img src='bayesTest-4.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-5.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-6.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-7.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-8.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-9.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Create a new variable that is the probability multiiplied</span>
 <span class='co'># by the normally distributed variable (expected value of something)</span>
 <span class='no'>AB3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='combine.html'>combine</a></span>(<span class='no'>AB1</span>, <span class='no'>AB2</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='no'>`*`</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'Probability'</span>, <span class='st'>'Mu'</span>), <span class='kw'>newName</span> <span class='kw'>=</span> <span class='st'>'Expectation'</span>)
@@ -356,12 +359,12 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; --------------------------------------------
 #&gt; Using data with the following properties: 
 #&gt;         [,1]      [,2] [,3]      [,4]
-#&gt; Min.    0.00  1.176745 0.00 -1.072131
-#&gt; 1st Qu. 0.00  4.861744 0.00  2.796277
-#&gt; Median  1.00  5.812363 1.00  4.705898
-#&gt; Mean    0.51  5.810652 0.59  4.706623
-#&gt; 3rd Qu. 1.00  6.918239 1.00  6.359395
-#&gt; Max.    1.00 10.239511 1.00 10.184893
+#&gt; Min.    0.00  3.132821  0.0 -3.377552
+#&gt; 1st Qu. 0.00  4.895238  0.0  3.250953
+#&gt; Median  0.00  5.898531  1.0  4.924260
+#&gt; Mean    0.41  6.049633  0.6  4.912154
+#&gt; 3rd Qu. 1.00  6.936479  1.0  6.734556
+#&gt; Max.    1.00 10.323493  1.0 11.265252
 #&gt; --------------------------------------------
 #&gt; Priors used for the calculation: 
 #&gt; [1] "Combined distributions have no priors. Inspect each element separately for details."
@@ -375,11 +378,11 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; $Expectation
 #&gt; $Expectation$A
 #&gt;       0%      25%      50%      75%     100% 
-#&gt; 1.746339 2.756446 2.957344 3.159671 4.204289 
+#&gt; 1.346369 2.282080 2.483382 2.687785 3.830991 
 #&gt; 
 #&gt; $Expectation$B
 #&gt;       0%      25%      50%      75%     100% 
-#&gt; 1.605282 2.587845 2.767999 2.951716 4.037346 
+#&gt; 1.810214 2.738913 2.933729 3.130949 4.538891 
 #&gt; 
 #&gt; 
 #&gt; --------------------------------------------
@@ -387,7 +390,7 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; P(A &gt; B) by (0)%: 
 #&gt; 
 #&gt; $Expectation
-#&gt; [1] 0.67811
+#&gt; [1] 0.139
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
@@ -395,15 +398,15 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; 
 #&gt; $Expectation
 #&gt;         5%        95% 
-#&gt; -0.1563736  0.3461694 
+#&gt; -0.3487829  0.0895488 
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
 #&gt; Posterior Expected Loss for choosing B over A:
 #&gt; 
 #&gt; $Expectation
-#&gt; [1] 0.9577309
-#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB3</span>)</div><div class='img'><img src='bayesTest-65.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-66.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; [1] 2.571535
+#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB3</span>)</div><div class='img'><img src='bayesTest-10.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-11.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

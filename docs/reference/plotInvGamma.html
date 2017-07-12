@@ -68,6 +68,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/extra/priors.html">Priors and Bayesian AB Testing</a>
+    </li>
+    <li>
       <a href="../articles/introduction.html">Introduction to bayesAB</a>
     </li>
   </ul>
@@ -102,7 +105,7 @@
     <p>Plot the PDF of the Inverse Gamma distribution.</p>
     
 
-    <pre class="usage"><span class='fu'>plotInvGamma</span>(<span class='no'>shape</span>, <span class='no'>scale</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='fl'>0.99</span>)</pre>
+    <pre class="usage"><span class='fu'>plotInvGamma</span>(<span class='no'>shape</span>, <span class='no'>scale</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -114,10 +117,6 @@
     <tr>
       <th>scale</th>
       <td><p>scale parameter of the Inverse Gamma distribution.</p></td>
-    </tr>
-    <tr>
-      <th>area</th>
-      <td><p>control x-axis limits (default is set to view 99% of the area under the density curve)</p></td>
     </tr>
     </table>
     
@@ -131,7 +130,7 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plotInvGamma</span>(<span class='fl'>2</span>, <span class='fl'>4</span>)</div><div class='img'><img src='plotInvGamma-11.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotInvGamma</span>(<span class='fl'>1</span>, <span class='fl'>17</span>)</div><div class='img'><img src='plotInvGamma-12.png' alt='' width='700' height='432.632880098887' /></div><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='fu'>plotInvGamma</span>(<span class='fl'>2</span>, <span class='fl'>4</span>)</div><div class='img'><img src='plotInvGamma-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotInvGamma</span>(<span class='fl'>1</span>, <span class='fl'>17</span>)</div><div class='img'><img src='plotInvGamma-2.png' alt='' width='700' height='432.632880098887' /></div><span class='co'># NOT RUN {</span>
 <span class='fu'>plotInvGamma</span>(<span class='fl'>1</span>, <span class='fl'>17</span>) + <span class='fu'>ggtitle</span>(<span class='st'>'I hate the default title!'</span>)
 <span class='co'># }</span></pre>
   </div>

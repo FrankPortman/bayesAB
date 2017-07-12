@@ -45,6 +45,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/extra/priors.html">Priors and Bayesian AB Testing</a>
+    </li>
+    <li>
       <a href="articles/introduction.html">Introduction to bayesAB</a>
     </li>
   </ul>
@@ -115,10 +118,10 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 
 <span class="co"># Choose bernoulli test priors</span>
 <span class="kw"><a href="reference/plotBeta.html">plotBeta</a></span>(<span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div>
-<p><img src="https://cloud.githubusercontent.com/assets/2442871/21627768/f7081684-d1ce-11e6-825f-b4a7b43cd40b.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/2442871/27848261-b3fcb34a-60f8-11e7-99f5-224b802d91d5.png" alt="image"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Choose normal test priors</span>
 <span class="kw"><a href="reference/plotInvGamma.html">plotInvGamma</a></span>(<span class="dv">12</span>, <span class="dv">4</span>)</code></pre></div>
-<p><img src="https://cloud.githubusercontent.com/assets/2442871/21627773/02271ccc-d1cf-11e6-9d35-4b4896112cb3.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/2442871/27848279-cfe19166-60f8-11e7-92dd-58462e9a67e8.png" alt="image"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, .<span class="dv">5</span>)
 B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, .<span class="dv">55</span>)
 
@@ -129,63 +132,64 @@ AB1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/bayesTest.
                  <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)
 
 <span class="kw">plot</span>(AB1)</code></pre></div>
-<p><img src="https://cloud.githubusercontent.com/assets/2442871/21627830/8f3c4ed4-d1cf-11e6-853f-d02d79077c91.png" alt="image"><img src="https://cloud.githubusercontent.com/assets/2442871/21627834/94cf94d2-d1cf-11e6-844b-7f3c1684e2f0.png" alt="image"><img src="https://cloud.githubusercontent.com/assets/2442871/21627838/9a8a1a0a-d1cf-11e6-8542-d901f47adc89.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/2442871/27848286-dfbbac3e-60f8-11e7-8d18-bac057aad6b1.png" alt="image"><img src="https://user-images.githubusercontent.com/2442871/27848293-ede96ea4-60f8-11e7-930e-ba07ded67ae1.png" alt="image"><img src="https://user-images.githubusercontent.com/2442871/27848297-f5d18624-60f8-11e7-8d87-71edfc3a5616.png" alt="image"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(AB1)</code></pre></div>
 <pre><code>--------------------------------------------
-Distribution used: bernoulli
+Distribution used: bernoulli 
 --------------------------------------------
-Using data with the following properties:
+Using data with the following properties: 
         [,1] [,2]
 Min.    0.00 0.00
 1st Qu. 0.00 0.00
-Median  1.00 1.00
-Mean    0.55 0.56
+Median  1.00 0.00
+Mean    0.55 0.44
 3rd Qu. 1.00 1.00
 Max.    1.00 1.00
 --------------------------------------------
-Priors used for the calculation:
-alpha  beta
-    1     1
+Priors used for the calculation: 
+alpha  beta 
+    1     1 
 --------------------------------------------
-Calculated posteriors for the following parameters:
-Probability
+Calculated posteriors for the following parameters: 
+Probability 
 --------------------------------------------
-Monte Carlo samples generated per posterior:
-[1] 1e+05</code></pre>
+Monte Carlo samples generated per posterior: 
+[1] 1e+05
+</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(AB1)</code></pre></div>
 <pre><code>Quantiles of posteriors for A and B:
 
 $Probability
-$Probability$A_probs
-       0%       25%       50%       75%      100%
-0.3201523 0.5157494 0.5493068 0.5827143 0.7538153
+$Probability$A
+       0%       25%       50%       75%      100% 
+0.3330638 0.5159872 0.5496165 0.5824940 0.7507997 
 
-$Probability$B_probs
-       0%       25%       50%       75%      100%
-0.3539916 0.5262891 0.5595286 0.5928125 0.7506643
+$Probability$B
+       0%       25%       50%       75%      100% 
+0.2138149 0.4079403 0.4407221 0.4742673 0.6369742 
 
-
---------------------------------------------
-
-P(A &gt; B) by (0)%:
-
-$Probability
-[1] 0.44251
 
 --------------------------------------------
 
-Credible Interval on (A - B) / B for interval length(s) (0.9) :
+P(A &gt; B) by (0)%: 
 
 $Probability
-        5%        95%
--0.2036608  0.2108876
+[1] 0.93912
+
+--------------------------------------------
+
+Credible Interval on (A - B) / B for interval length(s) (0.9) : 
+
+$Probability
+         5%         95% 
+-0.01379425  0.58463290 
 
 --------------------------------------------
 
 Posterior Expected Loss for choosing B over A:
 
 $Probability
-[1] 0.3254871
+[1] 0.03105786
 </code></pre>
 </div>
 </div>

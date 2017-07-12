@@ -68,6 +68,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/extra/priors.html">Priors and Bayesian AB Testing</a>
+    </li>
+    <li>
       <a href="../articles/introduction.html">Introduction to bayesAB</a>
     </li>
   </ul>
@@ -114,7 +117,7 @@ to new data.</p>
     </tr>
     <tr>
       <th>param</th>
-      <td><p>which model parameter (posterior) to evaluate</p></td>
+      <td><p>which model parameter (posterior) to evaluate; defaults to first param</p></td>
     </tr>
     <tr>
       <th>higher_is_better</th>
@@ -128,7 +131,7 @@ to new data.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>banditize</code> is an 'object-oriented' implementation of multi-armed bandits in <code>bayesAB</code>. It is useful in 
+    <p><code>banditize</code> is an 'object-oriented' implementation of multi-armed bandits in <code>bayesAB</code>. It is useful in
 conjunction with a Shiny app or Plumber deployment. The object itself is mutable and can adapt/learn from new data without having to
 re-assign the variable.</p>
 <p>Comes with 5 methods:</p><ul>
@@ -147,15 +150,7 @@ re-assign the variable.</p>
 <span class='no'>AB1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bayesTest.html'>bayesTest</a></span>(<span class='no'>A_binom</span>, <span class='no'>B_binom</span>, <span class='kw'>priors</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'alpha'</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='st'>'beta'</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>'bernoulli'</span>)
 
 <span class='no'>binomialBandit</span> <span class='kw'>&lt;-</span> <span class='fu'>banditize</span>(<span class='no'>AB1</span>)
-<span class='no'>binomialBandit</span>$<span class='no'>serveRecipe</span></div><div class='output co'>#&gt; function() {
-#&gt;     ## exploit iid samples from posterior
-#&gt;     idx &lt;- sample(test$inputs$n_samples, 1)
-#&gt;     A_sample &lt;- test$posteriors[[param]]$A[idx]
-#&gt;     B_sample &lt;- test$posteriors[[param]]$B[idx]
-#&gt;     
-#&gt;     return(choices[compareFun(c(A_sample, B_sample))])
-#&gt;   }
-#&gt; &lt;environment: 0x108aa3a60&gt;</div><div class='input'><span class='no'>binomialBandit</span>$<span class='fu'>setResults</span>(<span class='fu'>list</span>(<span class='st'>'A'</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0</span>), <span class='st'>'B'</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>)))</div><div class='output co'>#&gt; [1] 0</div><div class='input'>
+<span class='no'>binomialBandit</span>$<span class='fu'>serveRecipe</span>()</div><div class='output co'>#&gt; [1] "A"</div><div class='input'><span class='no'>binomialBandit</span>$<span class='fu'>setResults</span>(<span class='fu'>list</span>(<span class='st'>'A'</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0</span>), <span class='st'>'B'</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>)))</div><div class='output co'>#&gt; [1] 0</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

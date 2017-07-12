@@ -68,6 +68,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/extra/priors.html">Priors and Bayesian AB Testing</a>
+    </li>
+    <li>
       <a href="../articles/introduction.html">Introduction to bayesAB</a>
     </li>
   </ul>
@@ -123,7 +126,7 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>deployBandit</code> turns a Bayesian bandit into a JSON API that accepts curl requests. Two of the five methods of 
+    <p><code>deployBandit</code> turns a Bayesian bandit into a JSON API that accepts curl requests. Two of the five methods of
 bayesBandit classes are exposed: <code>serveRecipe</code> and <code>setResults</code>. Assuming the API is deployed on <code>localhost</code> this is an
 example of how it would be hit:
     $$curl http://localhost:8000/serveRecipe$$

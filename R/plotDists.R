@@ -69,11 +69,17 @@ plotDist_ <- function(support, hseq, dist, params) {
                                         fill = "lightgreen",
                                         alpha = .25)
 
-  if(dist %in% discretes) ribbon_or_bar <- ggplot2::geom_bar(stat = "identity",
-                                                             color = I("lightblue"),
-                                                             fill = "lightgreen",
-                                                             alpha = .25,
-                                                             size = 2)
+  if(dist %in% discretes) {
+    ribbon_or_bar <- ggplot2::geom_bar(stat = "identity",
+                                       color = I("lightblue"),
+                                       fill = "lightgreen",
+                                       alpha = .25,
+                                       size = 2)
+    notEmpty <- hseq != 0
+    support <- support[notEmpty]
+    hseq <- hseq[notEmpty]
+  }
+    
 
   paramList <- sapply(names(params), function(p) paste(p, params[p], sep = " = ", collapse = ""), USE.NAMES = FALSE)
   paramList <- paste0(paramList, collapse = ", ")
@@ -113,9 +119,11 @@ plotDist <- function(dist, name, args) {
 
     support <- range(support[is.finite(support)])
     support <- seq(min(support), max(support), diff(support) / 1000)
+    support <- c(support, round(support)) # Include integers for discrete
+    support <- unique(support)
 
     rangeArgs <- list(support)
-    hseq <- do.call(dDist, c(rangeArgs, distArgs))
+    hseq <- suppressWarnings(do.call(dDist, c(rangeArgs, distArgs)))
 
     plotDist_(support, hseq, name, match.call()[-1])
   })

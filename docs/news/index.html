@@ -68,6 +68,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/extra/priors.html">Priors and Bayesian AB Testing</a>
+    </li>
+    <li>
       <a href="../articles/introduction.html">Introduction to bayesAB</a>
     </li>
   </ul>
@@ -108,22 +111,21 @@
 <a href="#major-additions" class="anchor"></a>Major Additions</h2>
 <ul>
 <li>added <code>banditize</code> and <code>deployBandit</code> to turn your <code>bayesTest</code> object into a Bayesian multi*armed bandit and deploy as a JSON API respectively.</li>
-<li>Added programmatic capabilities on top of existing interactive uses for <code>plot</code> generic function</li>
-<li>You can now assign <code>plot(bayesTestObj)</code> to a variable and not have it automatically plot.</li>
+<li><p>Added programmatic capabilities on top of existing interactive uses for <code>plot</code> generic function</p></li>
+<li><p>You can now assign <code>plot(bayesTestObj)</code> to a variable and not have it automatically plot.</p></li>
 <li>Added quantile summary of calculated posteriors to the output of <code>summary.bayesTest</code>
 </li>
-<li>Added Posterior Expected Loss to output of <code>summary.bayesTest</code>
-</li>
+<li><p>Added Posterior Expected Loss to output of <code>summary.bayesTest</code></p></li>
 <li>This is useful to know when to stop your Bayesian AB Test</li>
-<li>Supports the risk of choosing ‘B’ over ‘A’ (ordering is important) and makes more sense if A &gt; B currently in the test</li>
+<li><p>Supports the risk of choosing ‘B’ over ‘A’ (ordering is important) and makes more sense if A &gt; B currently in the test</p></li>
 </ul>
 </div>
 <div id="minor-tweaksfixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-tweaksfixes" class="anchor"></a>Minor Tweaks/Fixes</h2>
 <ul>
-<li>outputs from <code>plot</code> generics are now explicitly <code>ggplot</code> objects and can be modified as such</li>
-<li>You can input your own titles/axis labels/etc if the defaults don’t fit your use case</li>
+<li><p>outputs from <code>plot</code> generics are now explicitly <code>ggplot</code> objects and can be modified as such</p></li>
+<li><p>You can input your own titles/axis labels/etc if the defaults don’t fit your use case</p></li>
 </ul>
 </div>
 </div>
