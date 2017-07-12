@@ -153,8 +153,9 @@ bayesTest <- function(A_data,
     stop("Misnamed priors provided for supplied distribution.")
   }
 
-  fcall <- list(A_data, B_data, priors)
+  fcall <- list(A_data, B_data)
   if(!isClosed(distribution)) fcall <- c(fcall, n_samples)
+  fcall <- c(fcall, as.list(priors))
 
   do.call(Fun, fcall)
 
