@@ -40,7 +40,6 @@ plot(AB1, percentLift = 5)
 
 p <- plot(AB1)
 
-p
 p$posteriors$Lambda
 \dontrun{p$posteriors$Lambda + ggtitle('yolo') # modify ggplot2 object directly}
 

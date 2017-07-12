@@ -1,10 +1,10 @@
 bayesLogNormalTest <- function(A_data,
                                B_data,
                                n_samples,
-                               m0,
-                               k0,
-                               s_sq0,
-                               v0) {
+                               mu,
+                               sd,
+                               shape,
+                               scale) {
 
   if((
     any(
@@ -18,10 +18,10 @@ bayesLogNormalTest <- function(A_data,
   NormalResult <- bayesNormalTest(log(A_data),
                                   log(B_data),
                                   n_samples,
-                                  m0,
-                                  k0,
-                                  s_sq0,
-                                  v0)
+                                  mu,
+                                  sd,
+                                  shape,
+                                  scale)
 
   ## Means
   A_mus <- NormalResult$Mu$A

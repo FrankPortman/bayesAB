@@ -4,7 +4,7 @@ context('generics')
 A_data <- rlnorm(100)
 B_data <- rlnorm(100)
 
-priors <- c('m0' = 5, 'k0' = 3, 's_sq0' = 3, 'v0' = 2)
+priors <- c('mu' = 5, 'sd' = 3, 'shape' = 3, 'scale' = 2)
 
 x <- bayesTest(A_data, B_data, priors = priors, distribution = 'lognormal')
 

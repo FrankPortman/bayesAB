@@ -33,17 +33,17 @@ drawMusAndSigmas <- function(data,
 bayesNormalTest <- function(A_data,
                             B_data,
                             n_samples,
-                            m0,
-                            k0,
-                            s_sq0,
-                            v0) {
+                            mu,
+                            sd,
+                            shape,
+                            scale) {
 
-  if(k0 <= 0) stop("k0 is the 'variance' prior on mu ~ N(m0, k0) and must be strictly positive.")
-  if(s_sq0 <= 0) stop("s_sq0 is the 'alpha' prior on sig_sq ~ InvGamma(s_sq0, v0) and must be strictly positive.")
-  if(v0 <= 0) stop("v0 is the 'beta' prior on sig_sq ~ InvGamma(s_sq0, v0) and must be strictly positive.")
+  if(sd <= 0) stop("sd is the 'sd' prior on Mu ~ N(mu, sd^2) and must be strictly positive.")
+  if(shape <= 0) stop("shape is the 'shape' prior on sig_sq ~ InvGamma(shape, scale) and must be strictly positive.")
+  if(scale <= 0) stop("scale is the 'scale' prior on sig_sq ~ InvGamma(shape, scale) and must be strictly positive.")
 
-  A <- drawMusAndSigmas(A_data, m0, k0, s_sq0, v0, n_samples)
-  B <- drawMusAndSigmas(B_data, m0, k0, s_sq0, v0, n_samples)
+  A <- drawMusAndSigmas(A_data, mu, sd, shape, scale, n_samples)
+  B <- drawMusAndSigmas(B_data, mu, sd, shape, scale, n_samples)
 
   A_mus <- A$mu_samples
   B_mus <- B$mu_samples

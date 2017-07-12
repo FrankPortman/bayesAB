@@ -7,8 +7,8 @@
 #' @param priors Named vector or named list providing priors as required by the specified distribution:
 #' \itemize{
 #'           \item     For 'bernoulli' distribution \code{list("alpha" = val1, "beta" = val2)}
-#'           \item     For 'normal' distribution \code{c("m0" = val1, "k0" = val2, "s_sq0" = val3, "v0" = val4)}
-#'           \item     For 'lognormal' distribution \code{list("m0" = val1, "k0" = val2, "s_sq0" = val3, "v0" = val4)}
+#'           \item     For 'normal' distribution \code{c("mu" = val1, "sd" = val2, "shape" = val3, "scale" = val4)}
+#'           \item     For 'lognormal' distribution \code{c("mu" = val1, "sd" = val2, "shape" = val3, "scale" = val4)}
 #'           \item     For 'poisson' distribution \code{c("shape" = val1, "rate" = val2)}
 #'           \item     For 'exponential' distribution \code{list("shape" = val1, "rate" = val2)}
 #'           \item     For 'uniform' distribution \code{c("xm" = val1, "alpha" = val2)}
@@ -41,9 +41,9 @@
 #'    \itemize{\item Data \emph{can} be negative if it makes sense for your experiment
 #'             \item Uses a conjugate \code{Normal} distribution for the parameter \bold{\eqn{\mu}} in the Normal Distribution
 #'             \item Uses a conjugate \code{Inverse Gamma} distribution for the parameter \bold{\eqn{\sigma^2}} in the Normal Ditribution
-#'             \item \code{m0}, \code{k0}, \code{s_sq0}, and \code{v0} must be set for prior
+#'             \item \code{mu}, \code{sd}, \code{shape}, and \code{scale} must be set for prior
 #'             distributions over \bold{\eqn{\mu}, \eqn{\sigma^2}} in accordance with the parameters of the conjugate prior distributions:
-#'             \itemize{\item \eqn{\mu} ~ Normal(m0, k0) \item \eqn{\sigma^2} ~ InvGamma(s_sq0, v0)}}
+#'             \itemize{\item \eqn{\mu} ~ Normal(mu, sd^2) \item \eqn{\sigma^2} ~ InvGamma(shape, scale)}}
 #'
 #' \item LogNormal: If your data is well modeled by the log-normal distribution, with parameters \eqn{\mu}, \eqn{\sigma^2} as the \bold{parameters}
 #' of the corresponding log-normal distribution (log of data is ~ N(\eqn{\mu}, \eqn{\sigma^2}))
@@ -97,7 +97,7 @@
 #'
 #' AB1 <- bayesTest(A_binom, B_binom, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
 #' AB2 <- bayesTest(A_norm, B_norm,
-#'                 priors = c('m0' = 5, 'k0' = 1, 's_sq0' = 3, 'v0' = 1), distribution = 'normal')
+#'                 priors = c('mu' = 5, 'sd' = 1, 'shape' = 3, 'scale' = 1), distribution = 'normal')
 #'
 #' print(AB1)
 #' summary(AB1)

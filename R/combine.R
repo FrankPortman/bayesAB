@@ -27,7 +27,7 @@
 #'                  distribution = 'bernoulli')
 #'
 #' AB2 <- bayesTest(A_norm, B_norm,
-#'                 priors = c('m0' = 5, 'k0' = 1, 's_sq0' = 3, 'v0' = 1),
+#'                 priors = c('mu' = 5, 'sd' = 1, 'shape' = 3, 'scale' = 1),
 #'                 distribution = 'normal')
 #'
 #' AB3 <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')
