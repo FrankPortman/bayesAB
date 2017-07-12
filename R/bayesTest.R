@@ -160,7 +160,13 @@ bayesTest <- function(A_data,
   posteriors <- do.call(Fun, fcall)
 
   result <- list(
-    inputs = as.list(match.call()[-1]),
+    inputs = list(
+      A_data = A_data,
+      B_data = B_data,
+      priors = priors,
+      n_samples = n_samples,
+      distribution = distribution
+    ),
     posteriors = posteriors
   )
   class(result) <- ifelse(isClosed(distribution), 'bayesTestClosed', 'bayesTest')

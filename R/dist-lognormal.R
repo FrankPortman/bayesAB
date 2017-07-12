@@ -24,12 +24,12 @@ bayesLogNormalTest <- function(A_data,
                                   v0)
 
   ## Means
-  A_mus <- NormalResult$posteriors$Mu$A
-  B_mus <- NormalResult$posteriors$Mu$B
+  A_mus <- NormalResult$Mu$A
+  B_mus <- NormalResult$Mu$B
 
   ## Sigmas
-  A_sig_sqs <- NormalResult$posteriors$Sig_Sq$A
-  B_sig_sqs <- NormalResult$posteriors$Sig_Sq$B
+  A_sig_sqs <- NormalResult$Sig_Sq$A
+  B_sig_sqs <- NormalResult$Sig_Sq$B
 
   ## Transform back to log normal for interpretation
   A_means <- exp(A_mus + A_sig_sqs / 2)
