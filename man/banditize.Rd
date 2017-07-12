@@ -21,9 +21,9 @@ Fit a multi-armed bandit object based on a bayesTest which can serve recommendat
 to new data.
 }
 \details{
-\code{banditize} is an 'object-oriented' implementation of multi-armed bandits in \code{bayesAB}. It is useful in 
+\code{banditize} is an 'object-oriented' implementation of multi-armed bandits in \code{bayesAB}. It is useful in
 conjunction with a Shiny app or Plumber deployment. The object itself is mutable and can adapt/learn from new data without having to
-re-assign the variable. 
+re-assign the variable.
 
 Comes with 5 methods:
 
@@ -41,7 +41,7 @@ B_binom <- rbinom(100, 1, .6)
 AB1 <- bayesTest(A_binom, B_binom, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
 
 binomialBandit <- banditize(AB1)
-binomialBandit$serveRecipe
+binomialBandit$serveRecipe()
 binomialBandit$setResults(list('A' = c(1, 0, 1, 0, 0), 'B' = c(0, 0, 0, 0, 1)))
 
 }

@@ -22,3 +22,7 @@ getPostError <- function(A_samples, B_samples) {
 listOr <- function(e) if(is.list(e)) e else list(e)
 
 isClosed <- function(distribution) grepl("C", distribution)
+
+removeGenericArgs <- function(vec) {
+  vec[!vec %in% c('A_data', 'B_data', 'n_samples')]
+}

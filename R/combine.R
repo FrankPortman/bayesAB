@@ -47,8 +47,8 @@ combine <- function(bT1, bT2, f = `+`, params, newName = 'Parameter') {
 
   if(
     any(
-      isClosed(bT1$distribution),
-      isClosed(bT2$distribution)
+      isClosed(bT1$inputs$distribution),
+      isClosed(bT2$inputs$distribution)
     )
   ) stop("Can't combine a 'closed' bayesTest.")
 
@@ -69,12 +69,11 @@ combine <- function(bT1, bT2, f = `+`, params, newName = 'Parameter') {
     A_data = c(listOr(bT1$inputs$A_data), listOr(bT2$inputs$A_data)),
     B_data = c(listOr(bT1$inputs$B_data), listOr(bT2$inputs$B_data)),
     priors = 'Combined distributions have no priors. Inspect each element separately for details.',
-    n_samples = max(bT1$inputs$n_samples, bT2$inputs$n_samples)
+    n_samples = max(bT1$inputs$n_samples, bT2$inputs$n_samples),
+    distribution = 'combined'
   )
 
   result$posteriors[[newName]] <- list(A = f(A1, A2), B = f(B1, B2))
-
-  result$distribution <- 'combined'
 
   class(result) <- c('bayesTest')
 
@@ -104,8 +103,7 @@ grab <- function(bT, posterior) {
   if(! posterior %in% names(bT$posteriors)) stop("That posterior doesn't exist in the input bayesTest.")
   result <- list(
     inputs = bT$inputs,
-    posteriors = bT$posteriors[posterior],
-    distribution = bT$distribution
+    posteriors = bT$posteriors[posterior]
   )
 
   class(result) <- 'bayesTest'

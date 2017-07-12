@@ -1,11 +1,10 @@
 bayesLogNormalTest <- function(A_data,
                                B_data,
-                               priors,
-                               n_samples) {
-
-  ###
-  ## Error Checking
-  ###
+                               n_samples,
+                               m0,
+                               k0,
+                               s_sq0,
+                               v0) {
 
   if((
     any(
@@ -16,21 +15,21 @@ bayesLogNormalTest <- function(A_data,
     stop("Data input is incorrect. The support of a Log Normal Distribution is (0, Inf).")
   }
 
-  if(any(is.na(suppressWarnings(as.numeric(c(A_data, B_data)))))) stop("A_data and B_data are not ALL numeric.")
-
-  ###
-  ## Sample from posterior
-  ###
-
-  NormalResult <- bayesNormalTest(log(A_data), log(B_data), priors, n_samples)
+  NormalResult <- bayesNormalTest(log(A_data),
+                                  log(B_data),
+                                  n_samples,
+                                  m0,
+                                  k0,
+                                  s_sq0,
+                                  v0)
 
   ## Means
-  A_mus <- NormalResult$posteriors$Mu$A
-  B_mus <- NormalResult$posteriors$Mu$B
+  A_mus <- NormalResult$Mu$A
+  B_mus <- NormalResult$Mu$B
 
   ## Sigmas
-  A_sig_sqs <- NormalResult$posteriors$Sig_Sq$A
-  B_sig_sqs <- NormalResult$posteriors$Sig_Sq$B
+  A_sig_sqs <- NormalResult$Sig_Sq$A
+  B_sig_sqs <- NormalResult$Sig_Sq$B
 
   ## Transform back to log normal for interpretation
   A_means <- exp(A_mus + A_sig_sqs / 2)
@@ -39,25 +38,10 @@ bayesLogNormalTest <- function(A_data,
   A_vars <- (exp(A_sig_sqs) - 1) * exp(2 * A_mus + A_sig_sqs)
   B_vars <- (exp(B_sig_sqs) - 1) * exp(2 * B_mus + B_sig_sqs)
 
-  ###
-  ## Output the result
-  ###
-
-  result <- list(
-    inputs = as.list(match.call()[-1]),
-
-    posteriors = list(
-      Mu = list(A = A_mus, B = B_mus),
-      Sig_Sq = list(A = A_sig_sqs, B = B_sig_sqs),
-      Mean = list(A = A_means, B = B_means),
-      Var = list(A = A_vars, B = B_vars)
-    ),
-
-    distribution = "lognormal"
+  list(
+    Mu = list(A = A_mus, B = B_mus),
+    Sig_Sq = list(A = A_sig_sqs, B = B_sig_sqs),
+    Mean = list(A = A_means, B = B_means),
+    Var = list(A = A_vars, B = B_vars)
   )
-
-  class(result) <- c('bayesTest')
-
-  return(result)
-
 }

@@ -39,7 +39,7 @@ plot.bayesTest <- function(x,
 
   if(length(x$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
   if(!any(priors, posteriors, samples)) stop("Must specifiy at least one plot to make.")
-  if(isClosed(x$distribution)) stop("Can't plot 'closed form' bayesTest.")
+  if(isClosed(x$inputs$distribution)) stop("Can't plot 'closed form' bayesTest.")
 
   pri <- post <- samp <- NULL
 
@@ -78,7 +78,7 @@ print.bayesTest <- function(x, ...) {
 
   cat('--------------------------------------------\n')
   cat("Distribution used: ")
-  cat(x$distribution, '\n')
+  cat(x$inputs$distribution, '\n')
 
   cat('--------------------------------------------\n')
   cat('Using data with the following properties: \n')
@@ -242,8 +242,6 @@ c.bayesTest <- function(..., errorCheck = TRUE) {
   names(posts) <- names(tests[[1]]$posteriors)
 
   result$posteriors <- posts
-
-  result$distribution <- tests[[1]]$distribution
 
   class(result) <- 'bayesTest'
 

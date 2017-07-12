@@ -137,13 +137,38 @@ bayesTest <- function(A_data,
   )
 
   distribution <- match.arg(distribution)
+  Fun <- funs[[distribution]]
+  priorArgs <- names(formals(Fun))
+  priorArgs <- removeGenericArgs(priorArgs)
 
-  if(!distribution %in% names(funs)) stop("Did not specify a valid distribution.")
-  if(any(is.na(suppressWarnings(as.numeric(c(A_data, B_data)))))) stop("A_data and B_data are not ALL numeric.")
+  if(! distribution %in% names(funs)) stop("Did not specify a valid distribution.")
+  if(! is.numeric(c(A_data, B_data))) stop("A_data and/or B_data are not ALL numeric.")
+  if(any(is.na(c(A_data, B_data))))   stop("A_data and/or B_data have NULLs/NAs.")
+  if(! is.numeric(priors))            stop("One or more priors aren't numeric.")
 
-  fcall <- list(A_data, B_data, priors)
-  if(!isClosed(distribution)) fcall <- c(fcall, n_samples) # add samples in if its not closed form; cleaner to keep it out of closed form func
+  if(length(priorArgs) != length(priors)) {
+    stop("Incorrect number of priors for supplied distribution.")
+  }
+  if(! all(priorArgs %in% names(priors))) {
+    stop("Misnamed priors provided for supplied distribution.")
+  }
 
-  do.call(funs[[distribution]], fcall)
+  fcall <- list(A_data, B_data)
+  if(!isClosed(distribution)) fcall <- c(fcall, n_samples)
+  fcall <- c(fcall, as.list(priors))
 
+  posteriors <- do.call(Fun, fcall)
+
+  result <- list(
+    inputs = list(
+      A_data = A_data,
+      B_data = B_data,
+      priors = priors,
+      n_samples = n_samples,
+      distribution = distribution
+    ),
+    posteriors = posteriors
+  )
+  class(result) <- ifelse(isClosed(distribution), 'bayesTestClosed', 'bayesTest')
+  return(result)
 }

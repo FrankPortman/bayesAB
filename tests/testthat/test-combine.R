@@ -44,8 +44,8 @@ test_that("Success", {
   
   expect_is(successfulTestMul, "bayesTest")
   
-  expect_output(str(successfulTestMul), "List of 4") # inputs
-  expect_output(str(successfulTestMul), "List of 3") # outer
+  expect_output(str(successfulTestMul), "List of 5") # inputs
+  expect_output(str(successfulTestMul), "List of 2") # outer
   
   expect_identical(successfulTestMul, AB1 * grab(AB2, 'Mu'))
   expect_identical(successfulTestAdd, AB1 + grab(AB2, 'Mu'))

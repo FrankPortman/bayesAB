@@ -13,10 +13,10 @@ priors <- c('xm' = 17, 'alpha' = 5)
 test_that("Failures based on input types", {
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors, "jumanji" = 6), distribution = 'uniform'),
-               "Incorrect length of priors. Expecting an argument for xm and alpha ONLY.")
+               "Incorrect number of priors for supplied distribution.")
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-1], 'fergalicious' = 1), distribution = 'uniform'),
-               "Arguments don't match requirement for xm and alpha. Check names.")
+               "Misnamed priors provided for supplied distribution.")
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-2], 'alpha' = -3), distribution = 'uniform'),
                "xm and alpha are parameters of the Pareto Distribution and should be strictly > 0.", fixed = TRUE)
@@ -32,7 +32,7 @@ test_that("Success", {
   
   expect_is(successfulTest, "bayesTest")
   
-  expect_output(str(successfulTest), "List of 4") # inputs
-  expect_output(str(successfulTest), "List of 3") # outer
+  expect_output(str(successfulTest), "List of 5") # inputs
+  expect_output(str(successfulTest), "List of 2") # outer
   
 })

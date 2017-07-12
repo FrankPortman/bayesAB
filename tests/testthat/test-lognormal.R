@@ -13,13 +13,13 @@ priors <- c('m0' = 5, 'k0' = 3, 's_sq0' = 3, 'v0' = 2)
 test_that("Failures based on input types", {
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors, "jumanji" = 6), distribution = 'lognormal'),
-               "Incorrect length of priors. Expecting an argument for m0, k0, s_sq0, and v0 ONLY.")
+               "Incorrect number of priors for supplied distribution.")
   
   expect_error(bayesTest(A_data_bad_string, B_data, priors = priors, distribution = 'lognormal'),
-               "A_data and B_data are not ALL numeric.")
+               "A_data and/or B_data are not ALL numeric.")
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-1], 'fergalicious' = 1), distribution = 'lognormal'),
-               "Arguments don't match requirement for m0, k0, s_sq0, and v0. Check names.")
+               "Misnamed priors provided for supplied distribution.")
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-2], 'k0' = -3), distribution = 'lognormal'),
                "k0 is the 'variance' prior on mu ~ N(m0, k0) and must be strictly positive.", fixed = TRUE)
@@ -41,7 +41,8 @@ test_that("Success", {
   
   expect_is(successfulTest, "bayesTest")
   
+  expect_output(str(successfulTest), "List of 5") # inputs
+  expect_output(str(successfulTest), "List of 2") # outer
   expect_output(str(successfulTest), "List of 4") # inputs
-  expect_output(str(successfulTest), "List of 3") # outer
   
 })
