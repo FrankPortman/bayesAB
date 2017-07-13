@@ -34,9 +34,14 @@
 #' @export
 banditize <- function(bT, param, higher_is_better = TRUE) {
   if(missing(param)) param <- names(bT$posteriors)[1]
+  if(bT$inputs$distribution == 'combined') {
+    stop("Can't turn arbitrary combined distribution into a Bayesian Bandit.")
+  }
 
   ## Re-assign bT to be able to report the OG one later
   test <- bT
+  oldA <- unlist(test$inputs$A_data, use.names = FALSE)
+  oldB <- unlist(test$inputs$B_data, use.names = FALSE)
 
   ## Only 2 recipes for now
   choices <- c('A', 'B')
@@ -62,8 +67,8 @@ banditize <- function(bT, param, higher_is_better = TRUE) {
     if(!(all(names(results) %in% choices))) stop("`results` list must only contain names 'A' and 'B'")
     if(is.null(results$A) & is.null(results$B)) stop("A and B can't both be NULL.")
 
-    test <<- bayesTest(c(test$inputs$A_data, results$A),
-                       c(test$inputs$B_data, results$B),
+    test <<- bayesTest(c(oldA, results$A),
+                       c(oldB, results$B),
                        test$inputs$priors,
                        test$inputs$n_samples,
                        test$inputs$distribution)

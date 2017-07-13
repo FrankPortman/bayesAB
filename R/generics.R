@@ -82,9 +82,8 @@ print.bayesTest <- function(x, ...) {
   cat('--------------------------------------------\n')
   cat('Using data with the following properties: \n')
 
-  ## make this list output by default, so there are no special cases...
-  summ_outA <- if(!is.list(x$inputs$A_data)) sapply(list(x$inputs$A_data), summary) else sapply(x$inputs$A_data, summary)
-  summ_outB <- if(!is.list(x$inputs$B_data)) sapply(list(x$inputs$B_data), summary) else sapply(x$inputs$B_data, summary)
+  summ_outA <- sapply(x$inputs$A_data, summary)
+  summ_outB <- sapply(x$inputs$B_data, summary)
   print(cbind(A_data = summ_outA, B_data = summ_outB))
 
   cat('--------------------------------------------\n')

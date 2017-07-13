@@ -8,10 +8,12 @@
 #' @param f a binary function (f(x, y)) used to combine posteriors from bT1 to bT2
 #' @param params a character vector of length 2, corresponding to names of the posterior parameters you want to combine;
 #'               defaults to first posterior parameter if not supplied
-#' @param newName a string indicating the name of the new 'posterior' in the resulting object
+#' @param newName a string indicating the name of the new 'posterior' in the resulting object;
+#'                defaults to string representation of f(params[1], params[2])
 #' @return a \code{bayesTest} object with the newly combined posterior samples.
 #'
-#' @note The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`) and combine(f = `*`).
+#' @note The generics `+.bayesTest`, `*.bayesTest`, `-.bayesTest`, and `/.bayesTest` are shorthand for 
+#'       combine(f = `+`), combine(f = `*`), combine(f = `-`), and combine(f = `/`).
 #'
 #' @seealso \code{\link{grab}}
 #'
@@ -34,26 +36,39 @@
 #' # Equivalent to
 #' AB3 <- AB1 * grab(AB2, 'Mu')
 #'
+#' # To get the same posterior name as well
+#' AB3 <- rename(AB3, 'Expectation')
+#' 
+#' # Dummy example
+#' weirdVariable <- (AB1 + AB2) * (AB2 / AB1)
+#' weirdVariable <- rename(weirdVariable, 'confusingParam')
+#' 
 #' print(AB3)
 #' summary(AB3)
 #' plot(AB3)
 #' @export
-combine <- function(bT1, bT2, f = `+`, params, newName = 'Parameter') {
-  if(missing(params)) {
-    params <- c(NA, NA)
-    params[1] <- names(bT1$posteriors)[1]
-    params[2] <- names(bT2$posteriors)[1]
-  }
-
+combine <- function(bT1, bT2, f = `+`, params, newName) {
   if(
     any(
       isClosed(bT1$inputs$distribution),
       isClosed(bT2$inputs$distribution)
     )
   ) stop("Can't combine a 'closed' bayesTest.")
-
+  
+  if(missing(params)) {
+    params <- c(NA, NA)
+    params[1] <- names(bT1$posteriors)[1]
+    params[2] <- names(bT2$posteriors)[1]
+  }
+  
+  if(missing(newName)) {
+    input <- paste0(params, collapse = ", ")
+    input <- paste0('(', input, ')')
+    newName <- paste0(toString(substitute(f)), input)
+  }
+  
   if(length(params) != 2) stop('You must specify only (2) params - one for the first test and one for the second test.')
-
+  
   if(!((params[1] %in% names(bT1$posteriors)) & (params[2] %in% names(bT2$posteriors)))) {
     stop("You have specified a `param` name that doesn't exist in the posterior of the first test and/or the second test.")
   }
@@ -66,8 +81,8 @@ combine <- function(bT1, bT2, f = `+`, params, newName = 'Parameter') {
   result <- list()
 
   result$inputs <- list(
-    A_data = c(listOr(bT1$inputs$A_data), listOr(bT2$inputs$A_data)),
-    B_data = c(listOr(bT1$inputs$B_data), listOr(bT2$inputs$B_data)),
+    A_data = c(bT1$inputs$A_data, bT2$inputs$A_data),
+    B_data = c(bT1$inputs$B_data, bT2$inputs$B_data),
     priors = 'Combined distributions have no priors. Inspect each element separately for details.',
     n_samples = max(bT1$inputs$n_samples, bT2$inputs$n_samples),
     distribution = 'combined'
@@ -86,6 +101,12 @@ combine <- function(bT1, bT2, f = `+`, params, newName = 'Parameter') {
 
 #' @export
 `*.bayesTest` <- function(e1, e2) combine(e1, e2, f = `*`)
+
+#' @export
+`-.bayesTest` <- function(e1, e2) combine(e1, e2, f = `-`)
+
+#' @export
+`/.bayesTest` <- function(e1, e2) combine(e1, e2, f = `/`)
 
 #' Grab the supplied posterior from a bayesTest object
 #'
@@ -108,4 +129,22 @@ grab <- function(bT, posterior) {
 
   class(result) <- 'bayesTest'
   return(result)
+}
+
+#' Rename the posterior for a bayesTest object
+#'
+#' @description Rename the posterior param for a bayesTest object.
+#'
+#' @param bT a bayesTest object
+#' @param newName the new name you want for the posterior param (string)
+#'
+#' @return a \code{bayesTest} object with the posterior parameter renamed
+#'
+#' @seealso \code{\link{combine}}
+#'
+#' @export
+rename <- function(bT, newName) {
+  if(length(bT$posteriors) != 1) stop('Can only rename bayesTests with one posterior.')
+  names(bT$posteriors) <- newName
+  return(bT)
 }

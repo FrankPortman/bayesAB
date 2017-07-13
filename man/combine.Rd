@@ -4,7 +4,7 @@
 \alias{combine}
 \title{Combine two \code{bayesAB} objects given a binary function.}
 \usage{
-combine(bT1, bT2, f = `+`, params, newName = "Parameter")
+combine(bT1, bT2, f = `+`, params, newName)
 }
 \arguments{
 \item{bT1}{a bayesTest object}
@@ -16,7 +16,8 @@ combine(bT1, bT2, f = `+`, params, newName = "Parameter")
 \item{params}{a character vector of length 2, corresponding to names of the posterior parameters you want to combine;
 defaults to first posterior parameter if not supplied}
 
-\item{newName}{a string indicating the name of the new 'posterior' in the resulting object}
+\item{newName}{a string indicating the name of the new 'posterior' in the resulting object;
+defaults to string representation of f(params[1], params[2])}
 }
 \value{
 a \code{bayesTest} object with the newly combined posterior samples.
@@ -26,7 +27,8 @@ Combine two (or any number, in succesion) \code{bayesTest} objects into a new ar
              The resulting object is of the same class.
 }
 \note{
-The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`) and combine(f = `*`).
+The generics `+.bayesTest`, `*.bayesTest`, `-.bayesTest`, and `/.bayesTest` are shorthand for 
+      combine(f = `+`), combine(f = `*`), combine(f = `-`), and combine(f = `/`).
 }
 \examples{
 A_binom <- rbinom(100, 1, .5)
@@ -46,6 +48,13 @@ AB2 <- bayesTest(A_norm, B_norm,
 AB3 <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')
 # Equivalent to
 AB3 <- AB1 * grab(AB2, 'Mu')
+
+# To get the same posterior name as well
+AB3 <- rename(AB3, 'Expectation')
+
+# Dummy example
+weirdVariable <- (AB1 + AB2) * (AB2 / AB1)
+weirdVariable <- rename(weirdVariable, 'confusingParam')
 
 print(AB3)
 summary(AB3)

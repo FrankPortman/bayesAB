@@ -41,6 +41,11 @@ test_that("Success", {
   
   successfulTestMul <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'))
   successfulTestAdd <- combine(AB1, AB2, f = `+`, params = c('Probability', 'Mu'))
+  successfulTestSub <- combine(AB1, AB2, f = `-`, params = c('Probability', 'Mu'))
+  successfulTestDiv <- combine(AB1, AB2, f = `/`, params = c('Probability', 'Mu'))
+  
+  successfulTestMulRename <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')
+  successfulTestMulRename2 <- rename(AB1 * grab(AB2, 'Mu'), 'Expectation')
   
   expect_is(successfulTestMul, "bayesTest")
   
@@ -49,5 +54,9 @@ test_that("Success", {
   
   expect_identical(successfulTestMul, AB1 * grab(AB2, 'Mu'))
   expect_identical(successfulTestAdd, AB1 + grab(AB2, 'Mu'))
+  expect_identical(successfulTestSub, AB1 - grab(AB2, 'Mu'))
+  expect_identical(successfulTestDiv, AB1 / grab(AB2, 'Mu'))
+  
+  expect_identical(successfulTestMulRename, successfulTestMulRename2)
   
 })

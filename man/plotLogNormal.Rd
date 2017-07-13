@@ -22,6 +22,6 @@ The output can be treated like any \code{ggplot2} object and modified accordingl
 }
 \examples{
 plotLogNormal(1, 1)
-plotLogNormal(2, 5)
-\dontrun{plotLogNormal(2, 5) + ggtitle('I hate the default title!')}
+plotLogNormal(2, .5)
+\dontrun{plotLogNormal(2, .5) + ggtitle('I hate the default title!')}
 }
