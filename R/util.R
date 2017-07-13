@@ -19,8 +19,6 @@ getPostError <- function(A_samples, B_samples) {
   coalesce(mean(BoverA) * mean(B_samples[BoverA]))
 }
 
-listOr <- function(e) if(is.list(e)) e else list(e)
-
 isClosed <- function(distribution) grepl("C", distribution)
 
 removeGenericArgs <- function(vec) {
