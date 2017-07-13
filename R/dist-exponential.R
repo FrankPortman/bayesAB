@@ -19,6 +19,6 @@ bayesExponentialTest <- function(A_data,
   map <- function(data) rgamma(n_samples, length(data) + shape, sum(data) + rate)
 
   list(
-      Lambda = list(A = map(A_data), B = map(B_data))
+    Lambda = list(A = map(A_data), B = map(B_data))
   )
 }
