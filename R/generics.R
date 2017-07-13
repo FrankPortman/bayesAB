@@ -210,11 +210,7 @@ print.bayesBandit <- function(x, ...) {
 #' @param errorCheck check that objects can be concatenated? Setting this to \code{FALSE} can have unintended
 #'                   effects if the \code{bayesTest} objects have different params but can have some speedups
 #'                   if you are sure the objects are of the same type.
-#' @return A \code{summaryBayesTest} object which contains summaries of the Posterior distributions, direct probablities that A > B (by
-#' \code{percentLift}), credible intervals on (A - B) / B, and the Posterior Expected Loss on all estimated parameters.
-#'
-#' @note The Posterior Expected Loss (https://en.wikipedia.org/wiki/Bayes_estimator) is a good indicator of when to end a Bayesian
-#' AB test. If the PEL is lower than the absolute delta of the minimum effect you wish to detect, the test can be reasonably be stopped.
+#' @return A \code{bayesTest} object with concatenated posteriors.
 #'
 #' @examples
 #' A_pois <- rpois(100, 5)
