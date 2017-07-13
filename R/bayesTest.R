@@ -161,8 +161,8 @@ bayesTest <- function(A_data,
 
   result <- list(
     inputs = list(
-      A_data = A_data,
-      B_data = B_data,
+      A_data = list(A_data = A_data),
+      B_data = list(B_data = B_data),
       priors = priors,
       n_samples = n_samples,
       distribution = distribution
