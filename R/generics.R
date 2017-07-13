@@ -202,44 +202,43 @@ print.bayesBandit <- function(x, ...) {
   x$getUpdates()
 }
 
+#' Concatenate bayesTest objects
+#'
+#' @description Concatenate method for objects of class "bayesTest".
+#'
+#' @param ... \code{bayesTest} objects
+#' @param errorCheck check that objects can be concatenated? Setting this to \code{FALSE} can have unintended
+#'                   effects if the \code{bayesTest} objects have different params but can have some speedups
+#'                   if you are sure the objects are of the same type.
+#' @return A \code{bayesTest} object with concatenated posteriors.
+#'
+#' @examples
+#' A_pois <- rpois(100, 5)
+#' B_pois <- rpois(100, 4.7)
+#'
+#' AB1 <- bayesTest(A_pois, B_pois, priors = c('shape' = 25, 'rate' = 5), distribution = 'poisson')
+#' AB2 <- bayesTest(A_pois, B_pois, priors = c('shape' = 25, 'rate' = 5), distribution = 'poisson')
+#' c(AB1, AB2)
+#'
 #' @export
 c.bayesTest <- function(..., errorCheck = TRUE) {
 
   tests <- list(...)
 
   ## Check for mismatches in inputs
-  if(errorCheck) {
-    loop <- head(names(tests[[1]]$inputs), -1)
-
-    extracts <- lapply(1:length(loop), function(x) lapply(1:length(tests), function(y) tests[[y]]$inputs[[loop[x]]]))
-    extracts <- sapply(extracts, function(x) length(unique(x)))
-
-    mismatches <- loop[which(extracts != 1)]
-
-    if(length(mismatches) >= 1) {
-      errMsg <- paste0("Unable to concatenate. Mismatches in (",
-                       paste0(mismatches, collapse = ", "),
-                       "). All inputs must be the same (except n_samples).",
-                       collapse = "")
-
-      stop(errMsg)
-    }
-  }
+  if(errorCheck) checkInputsEqual(tests)
 
   result <- list()
 
   result$inputs <- tests[[1]]$inputs
   result$inputs$n_samples <- sum(sapply(tests, function(x) x$inputs$n_samples))
-
-  ## Loop through posteriors, concatenating A to A and B to B
-  As <- concatHelper(tests, 1)
-  Bs <- concatHelper(tests, 2)
-  n <- length(As)
-
-  posts <- lapply(1:n, function(x) unlist(list(As[x], Bs[x]), recursive = FALSE))
-  names(posts) <- names(tests[[1]]$posteriors)
-
-  result$posteriors <- posts
+  
+  for(posterior in names(tests[[1]]$posteriors)) {
+    posts <- lapply(tests, function(test) test$posteriors[[posterior]])
+    As <- do.call(c, lapply(posts, function(e) e$A))
+    Bs <- do.call(c, lapply(posts, function(e) e$B))
+    result$posteriors[[posterior]] <- list(A = As, B = Bs)
+  }
 
   class(result) <- 'bayesTest'
 
@@ -247,13 +246,22 @@ c.bayesTest <- function(..., errorCheck = TRUE) {
 
 }
 
-concatHelper <- function(tests, recipe) {
-  posts <- names(tests[[1]]$posteriors)
-  tmp <- lapply(1:length(posts), function(x) lapply(1:length(tests), function(y) tests[[y]]$posteriors[[x]]))
-
-  tmp <- lapply(1:length(tmp), function(x) c(sapply(1:length(tests), function(y) tmp[[x]][[y]][recipe])))
-  tmp <- lapply(tmp, function(x) unlist(x, use.names = FALSE))
-  names(tmp) <- sapply(tests[[1]]$posteriors, function(x) names(x[recipe]), USE.NAMES = FALSE)
-
-  tmp
+checkInputsEqual <- function(tests) {
+  fields <- c('A_data', 'B_data', 'priors', 'distribution')
+  checks <- c()
+  
+  for(field in fields) {
+    extract <- lapply(tests, function(test) test$inputs[[field]])
+    checks[field] <- length(unique(extract)) == 1
+  }
+  
+  failures <- names(checks[!checks])
+  
+  if(length(failures) >= 1) {
+    errMsg <- paste0("Unable to concatenate. Mismatches in (",
+                     paste0(failures, collapse = ", "),
+                     "). All inputs must be the same (except n_samples).",
+                     collapse = "")
+    stop(errMsg)
+  }
 }

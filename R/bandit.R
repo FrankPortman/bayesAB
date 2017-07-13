@@ -93,8 +93,8 @@ banditize <- function(bT, param, higher_is_better = TRUE) {
 
     summarizeUpdates <- function(vec, name) cat(name, "has had", length(vec), "additions with a mean of", mean(vec), ".\n")
 
-    summarizeUpdates(tail(test$inputs$A_data, A_ctr), "A")
-    summarizeUpdates(tail(test$inputs$B_data, B_ctr), "B")
+    summarizeUpdates(tail(test$inputs$A_data$A, A_ctr), "A")
+    summarizeUpdates(tail(test$inputs$B_data$B, B_ctr), "B")
   }
 
   out <- list(

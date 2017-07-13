@@ -25,6 +25,7 @@ reference:
     contents:
       - plot.bayesTest
       - summary.bayesTest
+      - c.bayesTest
   - title: "Helpers"
     desc: >
       Helper functions for further exploring a trained

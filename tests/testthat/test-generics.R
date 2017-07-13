@@ -27,7 +27,7 @@ test_that("Failures based on inputs", {
   
   expect_error(summary(x, credInt = 0), "Must supply a 'credInt' for every parameter with a posterior distribution.")
   
-  expect_error(c(x, AB4), "Unable to concatenate. Mismatches in (A_data, B_data, priors). All inputs must be the same (except n_samples).",
+  expect_error(c(x, AB4), "Unable to concatenate. Mismatches in (A_data, B_data, priors, distribution). All inputs must be the same (except n_samples).",
                fixed = TRUE)
 
 })
@@ -51,5 +51,8 @@ test_that("Success", {
   expect_output(print(summary(AB3)), 'P(A > B)', fixed = TRUE)
   
   expect_is(c(x, x), "bayesTest")
+  expect_identical(rep(x$posteriors$Mu$A, 2), c(x, x)$posteriors$Mu$A)
+  expect_identical(rep(x$posteriors$Mu$B, 2), c(x, x)$posteriors$Mu$B)
+  expect_identical(rep(x$posteriors$Mu$A, 3), c(x, x, x)$posteriors$Mu$A)
   
 })
