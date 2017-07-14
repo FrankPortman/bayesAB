@@ -24,3 +24,7 @@ isClosed <- function(distribution) grepl("C", distribution)
 removeGenericArgs <- function(vec) {
   vec[!vec %in% c('A_data', 'B_data', 'n_samples')]
 }
+
+funcLooper <- function(inputs, funcs) {
+  for(func in funcs) do.call(func, inputs)
+}
