@@ -13,7 +13,7 @@ BernoulliClosed <- function(A_data,
                             B_data,
                             alpha,
                             beta) {
-  prob <- bayesBernoulliTestClosed_(sum(A_data) + alpha,
+  prob <- BernoulliClosed_(sum(A_data) + alpha,
                                     length(A_data) - sum(A_data) + beta,
                                     sum(B_data) + alpha,
                                     length(B_data) - sum(B_data) + beta)
@@ -60,13 +60,13 @@ LogNormal <- function(A_data,
                       sd,
                       shape,
                       scale) {
-  NormalResult <- bayesNormalTest(log(A_data),
-                                  log(B_data),
-                                  n_samples,
-                                  mu,
-                                  sd,
-                                  shape,
-                                  scale)
+  NormalResult <- Normal(log(A_data),
+                         log(B_data),
+                         n_samples,
+                         mu,
+                         sd,
+                         shape,
+                         scale)
 
   ## Means
   A_mus <- NormalResult$Mu$A
@@ -106,7 +106,7 @@ PoissonClosed <- function(A_data,
                           B_data,
                           shape,
                           rate) {
-  prob <- bayesPoissonTestClosed_(sum(A_data) + shape,
+  prob <- PoissonClosed_(sum(A_data) + shape,
                                   length(A_data) + rate,
                                   sum(B_data) + shape,
                                   length(B_data) + rate)
