@@ -103,12 +103,50 @@
     </div>
 
     <div class="contents">
-    <div id="bayesab-0-7-0" class="section level1">
+    <div id="bayesab-1-0-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#bayesab-0-7-0" class="anchor"></a>bayesAB 0.7.0</h1>
+<a href="#bayesab-1-0-0" class="anchor"></a>bayesAB 1.0.0</h1>
 <div id="major-additions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-additions" class="anchor"></a>Major Additions</h2>
+<ul>
+<li><p>Added <code>grab</code> and <code>rename</code> to retrieve and rename posteriors from your <code>bayesTest</code> object</p></li>
+<li><p>Mostly useful in conjunction with <code>combine</code> in order to quickly chain together several <code>bayesTest</code>s</p></li>
+<li>Correctly hide legend for generic plots</li>
+<li><p>Standardized prior parameters to have the same arguments as the <code>plot{Dist}</code> functions</p></li>
+<li>This mostly changes prior inputs for <code><a href="../reference/bayesTest.html">bayesTest(distribution = c('normal', 'lognormal'))</a></code>
+</li>
+<li><p>This is a <strong>breaking</strong> change</p></li>
+</ul>
+</div>
+<div id="major-internal-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-internal-changes" class="anchor"></a>Major Internal Changes</h2>
+<ul>
+<li>Moved <code>distribution</code> metadata from <code>bayesTest$distribution</code> to <code>bayesTest$inputs$distribution</code> to be consistent</li>
+<li>Reconcile posterior names to always be <code>A</code> and <code>B</code> and not include the parameter name</li>
+<li>
+<code>A_data</code> and <code>B_data</code> in inputs are now always lists by default to make <code>combine</code> work more simply</li>
+<li>Big refactor of how <code>bayesTest</code> works internally. Dispatch per distribution is now only related to how the posterior is calculated.</li>
+<li>Some error checking has been made more generic</li>
+</ul>
+</div>
+<div id="minor-tweaksfixed" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-tweaksfixed" class="anchor"></a>Minor Tweaks/Fixed</h2>
+<ul>
+<li>Posterior Expected Loss now correctly displays 0 instead of NaN for that case</li>
+<li>Numerous doc/examples/tests cleanup</li>
+<li>Overall refactor of some methods, making it easier to read and contribute</li>
+</ul>
+</div>
+</div>
+    <div id="bayesab-0-7-0" class="section level1">
+<h1 class="hasAnchor">
+<a href="#bayesab-0-7-0" class="anchor"></a>bayesAB 0.7.0</h1>
+<div id="major-additions-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-additions-1" class="anchor"></a>Major Additions</h2>
 <ul>
 <li>added <code>banditize</code> and <code>deployBandit</code> to turn your <code>bayesTest</code> object into a Bayesian multi*armed bandit and deploy as a JSON API respectively.</li>
 <li><p>Added programmatic capabilities on top of existing interactive uses for <code>plot</code> generic function</p></li>
@@ -132,9 +170,9 @@
     <div id="bayesab-0-6-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#bayesab-0-6-0" class="anchor"></a>bayesAB 0.6.0</h1>
-<div id="major-additions-1" class="section level2">
+<div id="major-additions-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-additions-1" class="anchor"></a>Major Additions</h2>
+<a href="#major-additions-2" class="anchor"></a>Major Additions</h2>
 <ul>
 <li>First major CRAN release</li>
 <li>6 (+ 2) distributions</li>
@@ -154,6 +192,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#bayesab-1-0-0">1.0.0</a></li>
         <li><a href="#bayesab-0-7-0">0.7.0</a></li>
         <li><a href="#bayesab-0-6-0">0.6.0</a></li>
       </ul>

@@ -106,7 +106,7 @@
              The resulting object is of the same class.</p>
     
 
-    <pre class="usage"><span class='fu'>combine</span>(<span class='no'>bT1</span>, <span class='no'>bT2</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='no'>`+`</span>, <span class='no'>params</span>, <span class='kw'>newName</span> <span class='kw'>=</span> <span class='st'>"Parameter"</span>)</pre>
+    <pre class="usage"><span class='fu'>combine</span>(<span class='no'>bT1</span>, <span class='no'>bT2</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='no'>`+`</span>, <span class='no'>params</span>, <span class='no'>newName</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -130,7 +130,8 @@ defaults to first posterior parameter if not supplied</p></td>
     </tr>
     <tr>
       <th>newName</th>
-      <td><p>a string indicating the name of the new 'posterior' in the resulting object</p></td>
+      <td><p>a string indicating the name of the new 'posterior' in the resulting object;
+defaults to string representation of f(params[1], params[2])</p></td>
     </tr>
     </table>
     
@@ -140,7 +141,8 @@ defaults to first posterior parameter if not supplied</p></td>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The generics `+.bayesTest` and `*.bayesTest` are shorthand for combine(f = `+`) and combine(f = `*`).</p>
+    <p>The generics `+.bayesTest`, `*.bayesTest`, `-.bayesTest`, and `/.bayesTest` are shorthand for 
+      combine(f = `+`), combine(f = `*`), combine(f = `-`), and combine(f = `/`).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -166,58 +168,65 @@ defaults to first posterior parameter if not supplied</p></td>
 <span class='co'># Equivalent to</span>
 <span class='no'>AB3</span> <span class='kw'>&lt;-</span> <span class='no'>AB1</span> * <span class='fu'><a href='grab.html'>grab</a></span>(<span class='no'>AB2</span>, <span class='st'>'Mu'</span>)
 
+<span class='co'># To get the same posterior name as well</span>
+<span class='no'>AB3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rename.html'>rename</a></span>(<span class='no'>AB3</span>, <span class='st'>'Expectation'</span>)
+
+<span class='co'># Dummy example</span>
+<span class='no'>weirdVariable</span> <span class='kw'>&lt;-</span> (<span class='no'>AB1</span> + <span class='no'>AB2</span>) * (<span class='no'>AB2</span> / <span class='no'>AB1</span>)
+<span class='no'>weirdVariable</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rename.html'>rename</a></span>(<span class='no'>weirdVariable</span>, <span class='st'>'confusingParam'</span>)
+
 <span class='fu'>print</span>(<span class='no'>AB3</span>)</div><div class='output co'>#&gt; --------------------------------------------
 #&gt; Distribution used: combined 
 #&gt; --------------------------------------------
 #&gt; Using data with the following properties: 
-#&gt;         [,1]      [,2] [,3]       [,4]
-#&gt; Min.    0.00  1.508071 0.00 -0.8795427
-#&gt; 1st Qu. 0.00  5.038533 0.00  3.2100311
-#&gt; Median  1.00  5.699675 1.00  4.8077116
-#&gt; Mean    0.51  5.838030 0.64  4.9034026
-#&gt; 3rd Qu. 1.00  6.783418 1.00  6.8653487
-#&gt; Max.    1.00 10.545004 1.00 11.2829802
+#&gt;            A        A    B         B
+#&gt; Min.    0.00 2.375419 0.00 -1.057220
+#&gt; 1st Qu. 0.00 5.252902 0.00  3.106380
+#&gt; Median  1.00 5.981933 1.00  4.736328
+#&gt; Mean    0.55 6.131942 0.56  4.800054
+#&gt; 3rd Qu. 1.00 7.131786 1.00  6.738808
+#&gt; Max.    1.00 9.577204 1.00  8.787013
 #&gt; --------------------------------------------
 #&gt; Priors used for the calculation: 
 #&gt; [1] "Combined distributions have no priors. Inspect each element separately for details."
 #&gt; --------------------------------------------
 #&gt; Calculated posteriors for the following parameters: 
-#&gt; Parameter 
+#&gt; Expectation 
 #&gt; --------------------------------------------
 #&gt; Monte Carlo samples generated per posterior: 
 #&gt; [1] 1e+05</div><div class='input'><span class='fu'>summary</span>(<span class='no'>AB3</span>)</div><div class='output co'>#&gt; Quantiles of posteriors for A and B:
 #&gt; 
-#&gt; $Parameter
-#&gt; $Parameter$A
+#&gt; $Expectation
+#&gt; $Expectation$A
 #&gt;       0%      25%      50%      75%     100% 
-#&gt; 1.774403 2.771176 2.972613 3.175637 4.342434 
+#&gt; 2.087072 3.149682 3.360536 3.570905 4.660990 
 #&gt; 
-#&gt; $Parameter$B
+#&gt; $Expectation$B
 #&gt;       0%      25%      50%      75%     100% 
-#&gt; 1.942678 2.930831 3.121420 3.313665 4.310753 
+#&gt; 1.575800 2.500494 2.680804 2.863565 4.078830 
 #&gt; 
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
 #&gt; P(A &gt; B) by (0)%: 
 #&gt; 
-#&gt; $Parameter
-#&gt; [1] 0.35724
+#&gt; $Expectation
+#&gt; [1] 0.95017
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
 #&gt; Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 #&gt; 
-#&gt; $Parameter
-#&gt;         5%        95% 
-#&gt; -0.2410728  0.1884294 
+#&gt; $Expectation
+#&gt;           5%          95% 
+#&gt; 0.0002169751 0.5714086431 
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
 #&gt; Posterior Expected Loss for choosing B over A:
 #&gt; 
-#&gt; $Parameter
-#&gt; [1] 2.080866
+#&gt; $Expectation
+#&gt; [1] 0.1524077
 #&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB3</span>)</div><div class='img'><img src='combine-1.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='combine-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -79,7 +79,7 @@
                         <h4 class="author">Frank Portman - fportman.com - <a href="mailto:frank1214@gmail.com">frank1214@gmail.com</a>
 </h4>
             
-            <h4 class="date">2017-07-11</h4>
+            <h4 class="date">2017-07-14</h4>
           </div>
 
     
@@ -123,11 +123,11 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## Distribution used: bernoulli 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##          [,1]  [,2]
+##             A     B
 ## Min.    0.000 0.000
 ## 1st Qu. 0.000 0.000
 ## Median  0.000 0.000
-## Mean    0.244 0.212
+## Mean    0.232 0.216
 ## 3rd Qu. 0.000 0.000
 ## Max.    1.000 1.000
 ## --------------------------------------------
@@ -146,11 +146,11 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## $Probability
 ## $Probability$A
 ##        0%       25%       50%       75%      100% 
-## 0.1708509 0.2315624 0.2443148 0.2573127 0.3340360 
+## 0.1593952 0.2259474 0.2383997 0.2512581 0.3383656 
 ## 
 ## $Probability$B
 ##        0%       25%       50%       75%      100% 
-## 0.1550711 0.2163272 0.2287613 0.2413610 0.3124019 
+## 0.1596896 0.2183206 0.2306598 0.2433383 0.3150161 
 ## 
 ## 
 ## --------------------------------------------
@@ -158,7 +158,7 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Probability
-## [1] 0.72177
+## [1] 0.61438
 ## 
 ## --------------------------------------------
 ## 
@@ -166,14 +166,14 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## 
 ## $Probability
 ##         5%        95% 
-## -0.1121012  0.2847836 
+## -0.1413120  0.2452437 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Probability
-## [1] 0.06818541</code></pre>
+## [1] 0.09416636</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(AB1)</code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-4-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-2.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-3.png" width="700.8"></p>
 <p><code>print</code> talks about the inputs to the test, <code>summary</code> will do a P((A - B) / B &gt; percentLift) and credible interval on (A - B) / B calculation, and <code>plot</code> will plot the priors, posteriors, and the Monte Carlo ‘integrated’ samples.</p>
@@ -195,13 +195,13 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## Distribution used: poisson 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##          [,1]   [,2]
-## Min.     1.00  1.000
-## 1st Qu.  5.00  3.000
-## Median   6.00  5.000
-## Mean     6.48  5.132
-## 3rd Qu.  8.00  7.000
-## Max.    13.00 12.000
+##              A     B
+## Min.     1.000  1.00
+## 1st Qu.  5.000  4.00
+## Median   6.000  5.00
+## Mean     6.728  5.24
+## 3rd Qu.  8.000  7.00
+## Max.    16.000 13.00
 ## --------------------------------------------
 ## Priors used for the calculation: 
 ## shape  rate 
@@ -218,11 +218,11 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## $Lambda
 ## $Lambda$A
 ##       0%      25%      50%      75%     100% 
-## 5.814653 6.362216 6.469417 6.576489 7.125650 
+## 5.992768 6.603874 6.712796 6.823381 7.454003 
 ## 
 ## $Lambda$B
 ##       0%      25%      50%      75%     100% 
-## 4.561753 5.052159 5.147510 5.244160 5.819159 
+## 4.689289 5.157025 5.254698 5.351266 5.921634 
 ## 
 ## 
 ## --------------------------------------------
@@ -238,7 +238,7 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## 
 ## $Lambda
 ##        5%       95% 
-## 0.1827415 0.3355948 
+## 0.2034714 0.3571843 
 ## 
 ## --------------------------------------------
 ## 
@@ -267,13 +267,13 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## Distribution used: combined 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##          [,1]  [,2]  [,3]   [,4]
-## Min.    0.000  1.00 0.000  1.000
-## 1st Qu. 0.000  5.00 0.000  3.000
-## Median  0.000  6.00 0.000  5.000
-## Mean    0.244  6.48 0.212  5.132
-## 3rd Qu. 0.000  8.00 0.000  7.000
-## Max.    1.000 13.00 1.000 12.000
+##             A      A     B     B
+## Min.    0.000  1.000 0.000  1.00
+## 1st Qu. 0.000  5.000 0.000  4.00
+## Median  0.000  6.000 0.000  5.00
+## Mean    0.232  6.728 0.216  5.24
+## 3rd Qu. 0.000  8.000 0.000  7.00
+## Max.    1.000 16.000 1.000 13.00
 ## --------------------------------------------
 ## Priors used for the calculation: 
 ## [1] "Combined distributions have no priors. Inspect each element separately for details."
@@ -289,11 +289,11 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## $Expectation
 ## $Expectation$A
 ##       0%      25%      50%      75%     100% 
-## 1.072005 1.494319 1.579942 1.668278 2.138715 
+## 1.023771 1.513218 1.599906 1.690409 2.223875 
 ## 
 ## $Expectation$B
 ##        0%       25%       50%       75%      100% 
-## 0.8214391 1.1101095 1.1771782 1.2462670 1.6733847 
+## 0.8289045 1.1434013 1.2115063 1.2820865 1.6770427 
 ## 
 ## 
 ## --------------------------------------------
@@ -301,22 +301,22 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Expectation
-## [1] 0.99361
+## [1] 0.99033
 ## 
 ## --------------------------------------------
 ## 
 ## Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 ## 
 ## $Expectation
-##        5%       95% 
-## 0.1053778 0.6312375 
+##         5%        95% 
+## 0.08697256 0.60822156 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Expectation
-## [1] 0.008830827</code></pre>
+## [1] 0.01360823</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(AB3)</code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-8-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-8-2.png" width="700.8"></p>
 </div>

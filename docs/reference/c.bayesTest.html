@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the PDF of the Log Normal distribution. — plotLogNormal • bayesAB</title>
+<title>Concatenate bayesTest objects — c.bayesTest • bayesAB</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -98,41 +98,64 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the PDF of the Log Normal distribution.</h1>
+    <h1>Concatenate bayesTest objects</h1>
     </div>
 
     
-    <p>Plot the PDF of the Log Normal distribution.</p>
+    <p>Concatenate method for objects of class "bayesTest".</p>
     
 
-    <pre class="usage"><span class='fu'>plotLogNormal</span>(<span class='no'>mu</span>, <span class='no'>sigma</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for bayesTest</span>
+<span class='fu'>c</span>(<span class='no'>...</span>, <span class='kw'>errorCheck</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mu</th>
-      <td><p>\(\mu\) parameter of the Log Normal distribution.</p></td>
+      <th>...</th>
+      <td><p><code>bayesTest</code> objects</p></td>
     </tr>
     <tr>
-      <th>sigma</th>
-      <td><p>\(\sigma\) parameter of the Log Normal distribution.</p></td>
+      <th>errorCheck</th>
+      <td><p>check that objects can be concatenated? Setting this to <code>FALSE</code> can have unintended
+effects if the <code>bayesTest</code> objects have different params but can have some speedups
+if you are sure the objects are of the same type.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The PDF of Log Normal(\(\mu\), \(\sigma^2\)).</p>
-    
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>The output can be treated like any <code>ggplot2</code> object and modified accordingly.</p>
+    <p>A <code>bayesTest</code> object with concatenated posteriors.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plotLogNormal</span>(<span class='fl'>1</span>, <span class='fl'>1</span>)</div><div class='img'><img src='plotLogNormal-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotLogNormal</span>(<span class='fl'>2</span>, <span class='fl'>.5</span>)</div><div class='img'><img src='plotLogNormal-2.png' alt='' width='700' height='432.632880098887' /></div><span class='co'># NOT RUN {</span>
-<span class='fu'>plotLogNormal</span>(<span class='fl'>2</span>, <span class='fl'>.5</span>) + <span class='fu'>ggtitle</span>(<span class='st'>'I hate the default title!'</span>)
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='no'>A_pois</span> <span class='kw'>&lt;-</span> <span class='fu'>rpois</span>(<span class='fl'>100</span>, <span class='fl'>5</span>)
+<span class='no'>B_pois</span> <span class='kw'>&lt;-</span> <span class='fu'>rpois</span>(<span class='fl'>100</span>, <span class='fl'>4.7</span>)
+
+<span class='no'>AB1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bayesTest.html'>bayesTest</a></span>(<span class='no'>A_pois</span>, <span class='no'>B_pois</span>, <span class='kw'>priors</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'shape'</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='st'>'rate'</span> <span class='kw'>=</span> <span class='fl'>5</span>), <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>'poisson'</span>)
+<span class='no'>AB2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bayesTest.html'>bayesTest</a></span>(<span class='no'>A_pois</span>, <span class='no'>B_pois</span>, <span class='kw'>priors</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'shape'</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='st'>'rate'</span> <span class='kw'>=</span> <span class='fl'>5</span>), <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>'poisson'</span>)
+<span class='fu'>c</span>(<span class='no'>AB1</span>, <span class='no'>AB2</span>)</div><div class='output co'>#&gt; --------------------------------------------
+#&gt; Distribution used: poisson 
+#&gt; --------------------------------------------
+#&gt; Using data with the following properties: 
+#&gt;             A     B
+#&gt; Min.     0.00  0.00
+#&gt; 1st Qu.  4.00  3.00
+#&gt; Median   5.00  4.50
+#&gt; Mean     5.22  4.61
+#&gt; 3rd Qu.  7.00  6.00
+#&gt; Max.    12.00 12.00
+#&gt; --------------------------------------------
+#&gt; Priors used for the calculation: 
+#&gt; shape  rate 
+#&gt;    25     5 
+#&gt; --------------------------------------------
+#&gt; Calculated posteriors for the following parameters: 
+#&gt; Lambda 
+#&gt; --------------------------------------------
+#&gt; Monte Carlo samples generated per posterior: 
+#&gt; [1] 2e+05</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -140,8 +163,6 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#note">Note</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
