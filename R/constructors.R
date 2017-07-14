@@ -82,6 +82,7 @@ constructors <- function() {
       ),
       posteriors = Uniform
     )
+  )
 }
 
 getDistribution <- function(distribution) constructors()[[distribution]]
