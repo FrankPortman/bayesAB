@@ -14,7 +14,7 @@ test_that("Failures based on input types", {
                "Incorrect number of priors for supplied distribution.")
   
   expect_error(bayesTest(c(A_data, -3), B_data, priors = c('alpha' = 5, 'beta' = 3), distribution = 'bernoulli'),
-               "Data input is incorrect. Data can only contain 0's and 1's. See help docs for more info.", fixed = TRUE)
+               "A %in% c(0, 1) are not all TRUE", fixed = TRUE)
   
   expect_error(bayesTest(A_data, B_data, priors = c('alpha' = 1, 'fergalicious' = 1), distribution = 'bernoulli'),
                "Misnamed priors provided for supplied distribution.")
@@ -22,8 +22,8 @@ test_that("Failures based on input types", {
   expect_error(bayesTest(A_data, B_data, priors = c('alpha' = 'male', 'beta' = 1), distribution = 'bernoulli'),
                "One or more priors aren't numeric.")
   
-  expect_error(bayesTest(A_data, B_data, priors = c('alpha' = 0, 'beta' = 1), distribution = 'bernoulli'),
-               "alpha and beta are parameters of the Beta Distribution and should be strictly > 0.")
+  expect_error(bayesTest(A_data, B_data, priors = c('alpha' = 1, 'beta' = 0), distribution = 'bernoulli'),
+               "beta > 0 is not TRUE")
 
 })
 

@@ -16,7 +16,7 @@ test_that("Failures based on input types", {
                "Incorrect number of priors for supplied distribution.")
   
   expect_error(bayesTest(c(A_data, -3), B_data, priors = priors, distribution = 'exponential'),
-               "Data input is incorrect. The support of an Exponential Distribution is [0, Inf).", fixed = TRUE)
+               "A >= 0 are not all TRUE", fixed = TRUE)
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-1], 'fergalicious' = 1), distribution = 'exponential'),
                "Misnamed priors provided for supplied distribution.")
@@ -25,10 +25,10 @@ test_that("Failures based on input types", {
                "One or more priors aren't numeric.")
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-1], 'shape' = -3), distribution = 'exponential'),
-               "shape and rate are parameters of the Gamma Distribution and should be strictly > 0.", fixed = TRUE)
+               "shape > 0 is not TRUE", fixed = TRUE)
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-2], 'rate' = -3), distribution = 'exponential'),
-               "shape and rate are parameters of the Gamma Distribution and should be strictly > 0.", fixed = TRUE)
+               "rate > 0 is not TRUE", fixed = TRUE)
 
 })
 

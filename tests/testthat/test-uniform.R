@@ -19,10 +19,10 @@ test_that("Failures based on input types", {
                "Misnamed priors provided for supplied distribution.")
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-2], 'alpha' = -3), distribution = 'uniform'),
-               "xm and alpha are parameters of the Pareto Distribution and should be strictly > 0.", fixed = TRUE)
+               "alpha > 0 is not TRUE", fixed = TRUE)
   
   expect_error(bayesTest(c(A_data, -1), B_data, priors = priors, distribution = 'uniform'),
-               "Data input is incorrect. The support of a Uniform distribution in bayesAB is (0, Inf).", fixed = TRUE)
+               "A >= 0 are not all TRUE", fixed = TRUE)
 
 })
 

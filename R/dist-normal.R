@@ -29,30 +29,3 @@ drawMusAndSigmas <- function(data,
   return(list(mu_samples = mu_samples, sig_sq_samples = sig_sq_samples))
 
 }
-
-bayesNormalTest <- function(A_data,
-                            B_data,
-                            n_samples,
-                            mu,
-                            sd,
-                            shape,
-                            scale) {
-
-  if(sd <= 0) stop("sd is the 'sd' prior on Mu ~ N(mu, sd^2) and must be strictly positive.")
-  if(shape <= 0) stop("shape is the 'shape' prior on sig_sq ~ InvGamma(shape, scale) and must be strictly positive.")
-  if(scale <= 0) stop("scale is the 'scale' prior on sig_sq ~ InvGamma(shape, scale) and must be strictly positive.")
-
-  A <- drawMusAndSigmas(A_data, mu, sd, shape, scale, n_samples)
-  B <- drawMusAndSigmas(B_data, mu, sd, shape, scale, n_samples)
-
-  A_mus <- A$mu_samples
-  B_mus <- B$mu_samples
-
-  A_sig_sqs <- A$sig_sq_samples
-  B_sig_sqs <- B$sig_sq_samples
-
-  list(
-    Mu = list(A = A_mus, B = B_mus),
-    Sig_Sq = list(A = A_sig_sqs, B = B_sig_sqs)
-  )
-}

@@ -124,24 +124,12 @@ bayesTest <- function(A_data,
                                        'poisson', 'exponential', 'uniform',
                                        'bernoulliC', 'poissonC')) {
 
-  # Current naming convention is capital 'C' for non MC integration methods
-  funs <- list(
-    "bernoulli" = bayesBernoulliTest,
-    "normal" = bayesNormalTest,
-    "lognormal" = bayesLogNormalTest,
-    "poisson" = bayesPoissonTest,
-    "exponential" = bayesExponentialTest,
-    "uniform" = bayesUniformTest,
-    "bernoulliC" = bayesBernoulliTestClosed,
-    "poissonC" = bayesPoissonTestClosed
-  )
-
   distribution <- match.arg(distribution)
-  Fun <- funs[[distribution]]
-  priorArgs <- names(formals(Fun))
+  Funcs <- getDistribution(distribution)
+
+  priorArgs <- names(formals(Funcs$posteriors))
   priorArgs <- removeGenericArgs(priorArgs)
 
-  if(! distribution %in% names(funs)) stop("Did not specify a valid distribution.")
   if(! is.numeric(c(A_data, B_data))) stop("A_data and/or B_data are not ALL numeric.")
   if(any(is.na(c(A_data, B_data))))   stop("A_data and/or B_data have NULLs/NAs.")
   if(! is.numeric(priors))            stop("One or more priors aren't numeric.")
@@ -153,11 +141,18 @@ bayesTest <- function(A_data,
     stop("Misnamed priors provided for supplied distribution.")
   }
 
-  fcall <- list(A_data, B_data)
-  if(!isClosed(distribution)) fcall <- c(fcall, n_samples)
-  fcall <- c(fcall, as.list(priors))
+  # Check Data
+  funcLooper(list(A_data, B_data), Funcs$dataChecks)
 
-  posteriors <- do.call(Fun, fcall)
+  # Check Priors
+  funcLooper(as.list(priors), Funcs$priorChecks)
+
+  # Construct call
+  fcall <- list(A_data = A_data, B_data = B_data)
+  fcall <- c(fcall, as.list(priors))
+  if(!isClosed(distribution)) fcall <- c(fcall, n_samples = n_samples)
+
+  posteriors <- do.call(Funcs$posteriors, fcall)
 
   result <- list(
     inputs = list(
