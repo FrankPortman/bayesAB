@@ -22,16 +22,16 @@ test_that("Failures based on input types", {
                "Misnamed priors provided for supplied distribution.")
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-2], 'sd' = -3), distribution = 'lognormal'),
-               "sd is the 'sd' prior on Mu ~ N(mu, sd^2) and must be strictly positive.", fixed = TRUE)
+               "sd > 0 is not TRUE", fixed = TRUE)
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-3], 'shape' = -3), distribution = 'lognormal'),
-               "shape is the 'shape' prior on sig_sq ~ InvGamma(shape, scale) and must be strictly positive.", fixed = TRUE)
+               "shape > 0 is not TRUE", fixed = TRUE)
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-4], 'scale' = -3), distribution = 'lognormal'),
-               "scale is the 'scale' prior on sig_sq ~ InvGamma(shape, scale) and must be strictly positive.", fixed = TRUE)
+               "scale > 0 is not TRUE", fixed = TRUE)
   
   expect_error(bayesTest(c(A_data, -1), B_data, priors = priors, distribution = 'lognormal'),
-               "Data input is incorrect. The support of a Log Normal Distribution is (0, Inf).", fixed = TRUE)
+               "A >= 0 are not all TRUE", fixed = TRUE)
 
 })
 
