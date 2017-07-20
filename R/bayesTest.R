@@ -132,7 +132,7 @@ bayesTest <- function(A_data,
 
   if(! is.numeric(c(A_data, B_data))) stop("A_data and/or B_data are not ALL numeric.")
   if(any(is.na(c(A_data, B_data))))   stop("A_data and/or B_data have NULLs/NAs.")
-  if(! is.numeric(priors))            stop("One or more priors aren't numeric.")
+  if(! is.numeric(unlist(priors)))    stop("One or more priors aren't numeric.")
 
   if(length(priorArgs) != length(priors)) {
     stop("Incorrect number of priors for supplied distribution.")
