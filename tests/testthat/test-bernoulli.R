@@ -22,6 +22,9 @@ test_that("Failures based on input types", {
   expect_error(bayesTest(A_data, B_data, priors = c('alpha' = 'male', 'beta' = 1), distribution = 'bernoulli'),
                "One or more priors aren't numeric.")
   
+  expect_error(bayesTest(A_data, B_data, priors = list('alpha' = 'male', 'beta' = 1), distribution = 'bernoulli'),
+               "One or more priors aren't numeric.")
+  
   expect_error(bayesTest(A_data, B_data, priors = c('alpha' = 1, 'beta' = 0), distribution = 'bernoulli'),
                "beta > 0 is not TRUE")
 
@@ -29,11 +32,14 @@ test_that("Failures based on input types", {
 
 test_that("Success", {
   
-  successfulTest <- bayesTest(A_data, B_data, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
+  successfulTest <-     bayesTest(A_data, B_data, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
+  successfulTestList <- bayesTest(A_data, B_data, priors = list('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
   
   expect_is(successfulTest, "bayesTest")
+  expect_is(successfulTestList, "bayesTest")
   
   expect_output(str(successfulTest), "List of 5") # inputs
   expect_output(str(successfulTest), "List of 2") # outer
-  
+  expect_output(str(successfulTestList), "List of 5") # inputs
+  expect_output(str(successfulTestList), "List of 2") # outer
 })
