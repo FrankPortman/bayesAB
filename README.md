@@ -13,8 +13,11 @@ Bayesian methods provide several benefits over frequentist methods in the contex
 A/B tests - namely in interpretability. Instead of p-values you get direct
 probabilities on whether A is better than B (and by how much). Instead of point estimates
 your posterior distributions are parametrized random variables which can be summarized
-any number of ways. Bayesian tests are also immune to 'peeking' and are thus valid whenever
-a test is stopped.
+any number of ways. 
+
+While Bayesian AB tests are still not immune to peeking in the broadest
+sense, you can use the 'Posterior Expected Loss' provided in the package to draw conclusions
+at any point with respect to your threshold for error.
 
 The general bayesAB workflow is as follows:
 
