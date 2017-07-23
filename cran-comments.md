@@ -9,7 +9,5 @@ This is a stable release of bayesAB. There is one minor API change in terms of a
 ## R CMD check results
 There were no ERRORs or WARNINGs.
 
-There was 1 NOTE telling me who the LICENSE holder is.
-
 ## Dependencies
 There are currently no dependencies for this package.

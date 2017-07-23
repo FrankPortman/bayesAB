@@ -106,9 +106,7 @@
 #' summary(AB1)
 #' plot(AB1)
 #'
-#' print(AB2)
 #' summary(AB2)
-#' plot(AB2)
 #'
 #' # Create a new variable that is the probability multiiplied
 #' # by the normally distributed variable (expected value of something)
