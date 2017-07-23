@@ -23,11 +23,11 @@ defaults to string representation of f(params[1], params[2])}
 a \code{bayesTest} object with the newly combined posterior samples.
 }
 \description{
-Combine two (or any number, in succesion) \code{bayesTest} objects into a new arbitrary posterior distribution.
+Combine two (or any number, in succession) \code{bayesTest} objects into a new arbitrary posterior distribution.
              The resulting object is of the same class.
 }
 \note{
-The generics `+.bayesTest`, `*.bayesTest`, `-.bayesTest`, and `/.bayesTest` are shorthand for 
+The generics `+.bayesTest`, `*.bayesTest`, `-.bayesTest`, and `/.bayesTest` are shorthand for
       combine(f = `+`), combine(f = `*`), combine(f = `-`), and combine(f = `/`).
 }
 \examples{

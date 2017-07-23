@@ -5,7 +5,7 @@
 #' @param x an object of class "bayesTest"
 #' @param percentLift a vector of length(x$posteriors). Each entry corresponds to the percent lift ((A - B) / B) to plot for for
 #'        the respective posterior in x. Note this is on a 'point' scale. percentLift = 5 implies you want to test for a 5\% lift.
-#' @param priors logical indiciating whether prior plots should be generated.
+#' @param priors logical indicating whether prior plots should be generated.
 #' @param posteriors logical indicating whether posterior plots should be generated.
 #' @param samples logical indicating whether sample plots should be generated.
 #' @param ... graphics parameters to be passed to the plotting routines. (For example \code{p}, in prior plots)
@@ -110,7 +110,7 @@ print.bayesTest <- function(x, ...) {
 #' @param credInt a vector of length(x$posteriors). Each entry corresponds to the width of credible interval of (A - B) / B to calculate for
 #'        the respective posterior in x. Also on a 'point' scale.
 #' @param ... additional arguments affecting the summary produced.
-#' @return A \code{summaryBayesTest} object which contains summaries of the Posterior distributions, direct probablities that A > B (by
+#' @return A \code{summaryBayesTest} object which contains summaries of the Posterior distributions, direct probabilities that A > B (by
 #' \code{percentLift}), credible intervals on (A - B) / B, and the Posterior Expected Loss on all estimated parameters.
 #'
 #' @note The Posterior Expected Loss (https://en.wikipedia.org/wiki/Bayes_estimator) is a good indicator of when to end a Bayesian
@@ -232,7 +232,7 @@ c.bayesTest <- function(..., errorCheck = TRUE) {
 
   result$inputs <- tests[[1]]$inputs
   result$inputs$n_samples <- sum(sapply(tests, function(x) x$inputs$n_samples))
-  
+
   for(posterior in names(tests[[1]]$posteriors)) {
     posts <- lapply(tests, function(test) test$posteriors[[posterior]])
     As <- do.call(c, lapply(posts, function(e) e$A))
@@ -249,14 +249,14 @@ c.bayesTest <- function(..., errorCheck = TRUE) {
 checkInputsEqual <- function(tests) {
   fields <- c('A_data', 'B_data', 'priors', 'distribution')
   checks <- c()
-  
+
   for(field in fields) {
     extract <- lapply(tests, function(test) test$inputs[[field]])
     checks[field] <- length(unique(extract)) == 1
   }
-  
+
   failures <- names(checks[!checks])
-  
+
   if(length(failures) >= 1) {
     errMsg <- paste0("Unable to concatenate. Mismatches in (",
                      paste0(failures, collapse = ", "),

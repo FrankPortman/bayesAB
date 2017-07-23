@@ -20,7 +20,7 @@ the respective posterior in x. Also on a 'point' scale.}
 \item{...}{additional arguments affecting the summary produced.}
 }
 \value{
-A \code{summaryBayesTest} object which contains summaries of the Posterior distributions, direct probablities that A > B (by
+A \code{summaryBayesTest} object which contains summaries of the Posterior distributions, direct probabilities that A > B (by
 \code{percentLift}), credible intervals on (A - B) / B, and the Posterior Expected Loss on all estimated parameters.
 }
 \description{

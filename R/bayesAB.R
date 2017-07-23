@@ -13,7 +13,7 @@
 #'
 #' The general bayesAB workflow is as follows:
 #' \itemize{
-#'    \item  Decide how you wanta to parametrize your data (Poisson for counts of email submissions, Bernoulli for CTR on an ad, etc.)
+#'    \item  Decide how you want to parametrize your data (Poisson for counts of email submissions, Bernoulli for CTR on an ad, etc.)
 #'    \item  Use our helper functions to decide on priors for your data (\link{bayesTest}, \link{plotDistributions})
 #'    \item  Fit a \link{bayesTest} object
 #'        \itemize{ \item Optional: Use \link{combine} to munge together several \link{bayesTest} objects together for an arbitrary / non-analytical target distribution}

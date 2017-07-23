@@ -46,7 +46,7 @@ be specified at the time of invoking the function. Currently, there are \emph{ei
 
 \itemize{
 
-\item Bernoulli: If your data is well modeled by 1s and 0s, according to a specific probability \code{p} of a 1 occuring
+\item Bernoulli: If your data is well modeled by 1s and 0s, according to a specific probability \code{p} of a 1 occurring
    \itemize{\item For example, click-through-rate /conversions for a page
             \item Data \bold{must} be in a \{0, 1\} format where 1 corresponds to a 'success' as per the Bernoulli distribution
             \item Uses a conjugate \code{Beta} distribution for the parameter \bold{p} in the Bernoulli distribution
@@ -57,14 +57,14 @@ be specified at the time of invoking the function. Currently, there are \emph{ei
 of the underlying distribution
    \itemize{\item Data \emph{can} be negative if it makes sense for your experiment
             \item Uses a conjugate \code{Normal} distribution for the parameter \bold{\eqn{\mu}} in the Normal Distribution
-            \item Uses a conjugate \code{Inverse Gamma} distribution for the parameter \bold{\eqn{\sigma^2}} in the Normal Ditribution
+            \item Uses a conjugate \code{Inverse Gamma} distribution for the parameter \bold{\eqn{\sigma^2}} in the Normal Distribution
             \item \code{mu}, \code{sd}, \code{shape}, and \code{scale} must be set for prior
             distributions over \bold{\eqn{\mu}, \eqn{\sigma^2}} in accordance with the parameters of the conjugate prior distributions:
             \itemize{\item \eqn{\mu} ~ Normal(mu, sd^2) \item \eqn{\sigma^2} ~ InvGamma(shape, scale)}}
 
 \item LogNormal: If your data is well modeled by the log-normal distribution, with parameters \eqn{\mu}, \eqn{\sigma^2} as the \bold{parameters}
 of the corresponding log-normal distribution (log of data is ~ N(\eqn{\mu}, \eqn{\sigma^2}))
-   \itemize{\item Support for a log-normal distribution is stricly positive
+   \itemize{\item Support for a log-normal distribution is strictly positive
             \item The Bayesian model requires same conjugate priors on \eqn{\mu}, \eqn{\sigma^2} as for the Normal Distribution priors
             \item Note: The \eqn{\mu} and \eqn{\sigma^2} are not the mean/variance of lognormal numbers themselves but are rather the
                   corresponding parameters of the lognormal distribution. Thus, posteriors for the statistics 'Mean' and 'Variance'
