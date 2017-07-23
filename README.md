@@ -98,7 +98,7 @@ print(AB1)
 Distribution used: bernoulli 
 --------------------------------------------
 Using data with the following properties: 
-        [,1] [,2]
+           A    B
 Min.    0.00 0.00
 1st Qu. 0.00 0.00
 Median  1.00 0.00
@@ -107,8 +107,12 @@ Mean    0.55 0.44
 Max.    1.00 1.00
 --------------------------------------------
 Priors used for the calculation: 
-alpha  beta 
-    1     1 
+$alpha
+[1] 1
+
+$beta
+[1] 1
+
 --------------------------------------------
 Calculated posteriors for the following parameters: 
 Probability 
