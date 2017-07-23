@@ -14,9 +14,9 @@ BernoulliClosed <- function(A_data,
                             alpha,
                             beta) {
   prob <- BernoulliClosed_(sum(A_data) + alpha,
-                                    length(A_data) - sum(A_data) + beta,
-                                    sum(B_data) + alpha,
-                                    length(B_data) - sum(B_data) + beta)
+                           length(A_data) - sum(A_data) + beta,
+                           sum(B_data) + alpha,
+                           length(B_data) - sum(B_data) + beta)
   list(Probability = prob)
 }
 
@@ -107,9 +107,9 @@ PoissonClosed <- function(A_data,
                           shape,
                           rate) {
   prob <- PoissonClosed_(sum(A_data) + shape,
-                                  length(A_data) + rate,
-                                  sum(B_data) + shape,
-                                  length(B_data) + rate)
+                         length(A_data) + rate,
+                         sum(B_data) + shape,
+                         length(B_data) + rate)
   list(Lambda = prob)
 }
 

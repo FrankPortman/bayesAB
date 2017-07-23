@@ -48,7 +48,10 @@
 #' \item LogNormal: If your data is well modeled by the log-normal distribution, with parameters \eqn{\mu}, \eqn{\sigma^2} as the \bold{parameters}
 #' of the corresponding log-normal distribution (log of data is ~ N(\eqn{\mu}, \eqn{\sigma^2}))
 #'    \itemize{\item Support for a log-normal distribution is stricly positive
-#'             \item The Bayesian model requires same conjugate priors on \eqn{\mu}, \eqn{\sigma^2} as for the Normal Distribution priors}
+#'             \item The Bayesian model requires same conjugate priors on \eqn{\mu}, \eqn{\sigma^2} as for the Normal Distribution priors
+#'             \item Note: The \eqn{\mu} and \eqn{\sigma^2} are not the mean/variance of lognormal numbers themselves but are rather the
+#'                   corresponding parameters of the lognormal distribution. Thus, posteriors for the statistics 'Mean' and 'Variance'
+#'                   are returned alongside 'Mu' and 'Sig_Sq' for interpretability.}
 #'
 #' \item Poisson: If your data is well modeled by the Poisson distribution, with parameter \eqn{\lambda} controlling the average number of events
 #' per interval.
@@ -123,17 +126,32 @@ bayesTest <- function(A_data,
                       distribution = c('bernoulli', 'normal', 'lognormal',
                                        'poisson', 'exponential', 'uniform',
                                        'bernoulliC', 'poissonC')) {
-
+  # Coerce inputs
   distribution <- match.arg(distribution)
-  Funcs <- getDistribution(distribution)
+  data <- list(A_data = A_data, B_data = B_data)
+  priors <- as.list(priors)
 
+  # Import generic data/priors checks
+  genericDataChecks <- list(
+    checkNumericData,
+    checkCompleteData
+  )
+  genericPriorChecks <- list(
+      checkNumericPriors
+  )
+
+  # Import and prepare distribution specific functions
+  Funcs <- getDistribution(distribution)
   priorArgs <- names(formals(Funcs$posteriors))
   priorArgs <- removeGenericArgs(priorArgs)
 
-  if(! is.numeric(c(A_data, B_data))) stop("A_data and/or B_data are not ALL numeric.")
-  if(any(is.na(c(A_data, B_data))))   stop("A_data and/or B_data have NULLs/NAs.")
-  if(! is.numeric(unlist(priors)))    stop("One or more priors aren't numeric.")
+  ###
+  # Generic checks
+  ###
+  funcLooper(data, genericDataChecks)
+  funcLooper(priors, genericPriorChecks)
 
+  # The following are explicit for clarity in error messages
   if(length(priorArgs) != length(priors)) {
     stop("Incorrect number of priors for supplied distribution.")
   }
@@ -141,15 +159,14 @@ bayesTest <- function(A_data,
     stop("Misnamed priors provided for supplied distribution.")
   }
 
-  # Check Data
-  funcLooper(list(A_data, B_data), Funcs$dataChecks)
+  ###
+  # Distribution specific checks
+  ###
+  funcLooper(data, Funcs$dataChecks)
+  funcLooper(priors, Funcs$priorChecks)
 
-  # Check Priors
-  funcLooper(as.list(priors), Funcs$priorChecks)
-
-  # Construct call
-  fcall <- list(A_data = A_data, B_data = B_data)
-  fcall <- c(fcall, as.list(priors))
+  # Construct call for posterior
+  fcall <- c(data, priors)
   if(!isClosed(distribution)) fcall <- c(fcall, n_samples = n_samples)
 
   posteriors <- do.call(Funcs$posteriors, fcall)
