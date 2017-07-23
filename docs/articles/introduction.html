@@ -79,7 +79,7 @@
                         <h4 class="author">Frank Portman - fportman.com - <a href="mailto:frank1214@gmail.com">frank1214@gmail.com</a>
 </h4>
             
-            <h4 class="date">2017-07-22</h4>
+            <h4 class="date">2017-07-23</h4>
           </div>
 
     
@@ -123,13 +123,13 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## Distribution used: bernoulli 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##            A     B
-## Min.    0.00 0.000
-## 1st Qu. 0.00 0.000
-## Median  0.00 0.000
-## Mean    0.28 0.196
-## 3rd Qu. 1.00 0.000
-## Max.    1.00 1.000
+##             A     B
+## Min.    0.000 0.000
+## 1st Qu. 0.000 0.000
+## Median  0.000 0.000
+## Mean    0.252 0.208
+## 3rd Qu. 0.750 0.000
+## Max.    1.000 1.000
 ## --------------------------------------------
 ## Priors used for the calculation: 
 ## $alpha
@@ -150,11 +150,11 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## $Probability
 ## $Probability$A
 ##        0%       25%       50%       75%      100% 
-## 0.1689733 0.2488181 0.2617792 0.2750472 0.3528311 
+## 0.1683192 0.2355190 0.2481124 0.2611376 0.3380261 
 ## 
 ## $Probability$B
 ##        0%       25%       50%       75%      100% 
-## 0.1494114 0.2089394 0.2210600 0.2333539 0.3004904 
+## 0.1542845 0.2146901 0.2268462 0.2394347 0.3148443 
 ## 
 ## 
 ## --------------------------------------------
@@ -162,7 +162,7 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Probability
-## [1] 0.93777
+## [1] 0.78869
 ## 
 ## --------------------------------------------
 ## 
@@ -170,14 +170,14 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## 
 ## $Probability
 ##          5%         95% 
-## -0.01133332  0.42080812 
+## -0.09019446  0.31579737 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Probability
-## [1] 0.01540872</code></pre>
+## [1] 0.05185692</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(AB1)</code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-4-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-2.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-3.png" width="700.8"></p>
 <p><code>print</code> talks about the inputs to the test, <code>summary</code> will do a P((A - B) / B &gt; percentLift) and credible interval on (A - B) / B calculation, and <code>plot</code> will plot the priors, posteriors, and the Monte Carlo ‘integrated’ samples.</p>
@@ -200,12 +200,12 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## --------------------------------------------
 ## Using data with the following properties: 
 ##              A      B
-## Min.     0.000  0.000
+## Min.     1.000  0.000
 ## 1st Qu.  5.000  4.000
 ## Median   6.000  5.000
-## Mean     6.424  5.584
+## Mean     6.452  5.444
 ## 3rd Qu.  8.000  7.000
-## Max.    13.000 12.000
+## Max.    13.000 13.000
 ## --------------------------------------------
 ## Priors used for the calculation: 
 ## $shape
@@ -226,11 +226,11 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## $Lambda
 ## $Lambda$A
 ##       0%      25%      50%      75%     100% 
-## 5.748475 6.307818 6.413568 6.521338 7.153752 
+## 5.821786 6.335722 6.443074 6.550117 7.178059 
 ## 
 ## $Lambda$B
 ##       0%      25%      50%      75%     100% 
-## 5.001498 5.491512 5.590379 5.691811 6.267248 
+## 4.860359 5.355771 5.453580 5.552080 6.101787 
 ## 
 ## 
 ## --------------------------------------------
@@ -238,22 +238,22 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Lambda
-## [1] 0.99996
+## [1] 1
 ## 
 ## --------------------------------------------
 ## 
 ## Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 ## 
 ## $Lambda
-##         5%        95% 
-## 0.08083483 0.21781820 
+##        5%       95% 
+## 0.1127449 0.2541495 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Lambda
-## [1] 0.0002408784</code></pre>
+## [1] 0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(AB2)</code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-6-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-6-2.png" width="700.8"></p>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_vline).</code></pre>
@@ -277,13 +277,13 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## Distribution used: combined 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##            A      A     B      B
-## Min.    0.00  0.000 0.000  0.000
-## 1st Qu. 0.00  5.000 0.000  4.000
-## Median  0.00  6.000 0.000  5.000
-## Mean    0.28  6.424 0.196  5.584
-## 3rd Qu. 1.00  8.000 0.000  7.000
-## Max.    1.00 13.000 1.000 12.000
+##             A      A     B      B
+## Min.    0.000  1.000 0.000  0.000
+## 1st Qu. 0.000  5.000 0.000  4.000
+## Median  0.000  6.000 0.000  5.000
+## Mean    0.252  6.452 0.208  5.444
+## 3rd Qu. 0.750  8.000 0.000  7.000
+## Max.    1.000 13.000 1.000 13.000
 ## --------------------------------------------
 ## Priors used for the calculation: 
 ## [1] "Combined distributions have no priors. Inspect each element separately for details."
@@ -299,11 +299,11 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## $Expectation
 ## $Expectation$A
 ##       0%      25%      50%      75%     100% 
-## 1.130711 1.591328 1.678484 1.767879 2.291252 
+## 1.032008 1.512913 1.598243 1.686716 2.181688 
 ## 
 ## $Expectation$B
 ##        0%       25%       50%       75%      100% 
-## 0.8034903 1.1647425 1.2356157 1.3084027 1.7436082 
+## 0.8264899 1.1667261 1.2366528 1.3092681 1.7114299 
 ## 
 ## 
 ## --------------------------------------------
@@ -311,7 +311,7 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Expectation
-## [1] 0.99558
+## [1] 0.98539
 ## 
 ## --------------------------------------------
 ## 
@@ -319,18 +319,16 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## 
 ## $Expectation
 ##        5%       95% 
-## 0.1228338 0.6459197 
+## 0.0641028 0.5699655 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Expectation
-## [1] 0.006479952</code></pre>
+## [1] 0.0208975</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(AB3)</code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-8-1.png" width="700.8"></p>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_vline).</code></pre>
-<p><img src="introduction_files/figure-html/unnamed-chunk-8-2.png" width="700.8"></p>
+<p><img src="introduction_files/figure-html/unnamed-chunk-8-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-8-2.png" width="700.8"></p>
 </div>
 <div id="conclusion" class="section level3">
 <h3 class="hasAnchor">
