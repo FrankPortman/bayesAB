@@ -138,7 +138,9 @@ banditize <- function(bT, param, higher_is_better = TRUE) {
 #'
 #' @export
 deployBandit <- function(bandit, port = 8000) {
-
+  if(!requireNamespace("plumber", quietly = TRUE)) {
+    stop('plumber (>= 0.3.0) is required for this function to work!')
+  }
   # Create a new router
   router <- plumber::plumber$new()
 

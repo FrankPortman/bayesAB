@@ -12,8 +12,7 @@ Imports:
     Rcpp (>= 0.12.4),
     ggplot2,
     reshape2,
-    methods,
-    plumber (>= 0.3.0)
+    methods
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
 Encoding: UTF-8
@@ -23,5 +22,6 @@ Suggests:
     testthat,
     knitr,
     rmarkdown,
-    magrittr
+    magrittr,
+    plumber (>= 0.3.0)
 VignetteBuilder: knitr
