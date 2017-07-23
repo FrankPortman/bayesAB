@@ -79,7 +79,7 @@
                         <h4 class="author">Frank Portman - fportman.com - <a href="mailto:frank1214@gmail.com">frank1214@gmail.com</a>
 </h4>
             
-            <h4 class="date">2017-07-14</h4>
+            <h4 class="date">2017-07-22</h4>
           </div>
 
     
@@ -123,17 +123,21 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## Distribution used: bernoulli 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##             A     B
-## Min.    0.000 0.000
-## 1st Qu. 0.000 0.000
-## Median  0.000 0.000
-## Mean    0.232 0.216
-## 3rd Qu. 0.000 0.000
-## Max.    1.000 1.000
+##            A     B
+## Min.    0.00 0.000
+## 1st Qu. 0.00 0.000
+## Median  0.00 0.000
+## Mean    0.28 0.196
+## 3rd Qu. 1.00 0.000
+## Max.    1.00 1.000
 ## --------------------------------------------
 ## Priors used for the calculation: 
-## alpha  beta 
-##    65   200 
+## $alpha
+## [1] 65
+## 
+## $beta
+## [1] 200
+## 
 ## --------------------------------------------
 ## Calculated posteriors for the following parameters: 
 ## Probability 
@@ -146,11 +150,11 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## $Probability
 ## $Probability$A
 ##        0%       25%       50%       75%      100% 
-## 0.1593952 0.2259474 0.2383997 0.2512581 0.3383656 
+## 0.1689733 0.2488181 0.2617792 0.2750472 0.3528311 
 ## 
 ## $Probability$B
 ##        0%       25%       50%       75%      100% 
-## 0.1596896 0.2183206 0.2306598 0.2433383 0.3150161 
+## 0.1494114 0.2089394 0.2210600 0.2333539 0.3004904 
 ## 
 ## 
 ## --------------------------------------------
@@ -158,22 +162,22 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Probability
-## [1] 0.61438
+## [1] 0.93777
 ## 
 ## --------------------------------------------
 ## 
 ## Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 ## 
 ## $Probability
-##         5%        95% 
-## -0.1413120  0.2452437 
+##          5%         95% 
+## -0.01133332  0.42080812 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Probability
-## [1] 0.09416636</code></pre>
+## [1] 0.01540872</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(AB1)</code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-4-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-2.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-3.png" width="700.8"></p>
 <p><code>print</code> talks about the inputs to the test, <code>summary</code> will do a P((A - B) / B &gt; percentLift) and credible interval on (A - B) / B calculation, and <code>plot</code> will plot the priors, posteriors, and the Monte Carlo ‘integrated’ samples.</p>
@@ -195,17 +199,21 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## Distribution used: poisson 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##              A     B
-## Min.     1.000  1.00
-## 1st Qu.  5.000  4.00
-## Median   6.000  5.00
-## Mean     6.728  5.24
-## 3rd Qu.  8.000  7.00
-## Max.    16.000 13.00
+##              A      B
+## Min.     0.000  0.000
+## 1st Qu.  5.000  4.000
+## Median   6.000  5.000
+## Mean     6.424  5.584
+## 3rd Qu.  8.000  7.000
+## Max.    13.000 12.000
 ## --------------------------------------------
 ## Priors used for the calculation: 
-## shape  rate 
-##    30     5 
+## $shape
+## [1] 30
+## 
+## $rate
+## [1] 5
+## 
 ## --------------------------------------------
 ## Calculated posteriors for the following parameters: 
 ## Lambda 
@@ -218,11 +226,11 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## $Lambda
 ## $Lambda$A
 ##       0%      25%      50%      75%     100% 
-## 5.992768 6.603874 6.712796 6.823381 7.454003 
+## 5.748475 6.307818 6.413568 6.521338 7.153752 
 ## 
 ## $Lambda$B
 ##       0%      25%      50%      75%     100% 
-## 4.689289 5.157025 5.254698 5.351266 5.921634 
+## 5.001498 5.491512 5.590379 5.691811 6.267248 
 ## 
 ## 
 ## --------------------------------------------
@@ -230,24 +238,26 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Lambda
-## [1] 1
+## [1] 0.99996
 ## 
 ## --------------------------------------------
 ## 
 ## Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 ## 
 ## $Lambda
-##        5%       95% 
-## 0.2034714 0.3571843 
+##         5%        95% 
+## 0.08083483 0.21781820 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Lambda
-## [1] 0</code></pre>
+## [1] 0.0002408784</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(AB2)</code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-6-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-6-2.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-6-3.png" width="700.8"></p>
+<p><img src="introduction_files/figure-html/unnamed-chunk-6-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-6-2.png" width="700.8"></p>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_vline).</code></pre>
+<p><img src="introduction_files/figure-html/unnamed-chunk-6-3.png" width="700.8"></p>
 </div>
 <div id="combining-distribution" class="section level3">
 <h3 class="hasAnchor">
@@ -267,13 +277,13 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## Distribution used: combined 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##             A      A     B     B
-## Min.    0.000  1.000 0.000  1.00
-## 1st Qu. 0.000  5.000 0.000  4.00
-## Median  0.000  6.000 0.000  5.00
-## Mean    0.232  6.728 0.216  5.24
-## 3rd Qu. 0.000  8.000 0.000  7.00
-## Max.    1.000 16.000 1.000 13.00
+##            A      A     B      B
+## Min.    0.00  0.000 0.000  0.000
+## 1st Qu. 0.00  5.000 0.000  4.000
+## Median  0.00  6.000 0.000  5.000
+## Mean    0.28  6.424 0.196  5.584
+## 3rd Qu. 1.00  8.000 0.000  7.000
+## Max.    1.00 13.000 1.000 12.000
 ## --------------------------------------------
 ## Priors used for the calculation: 
 ## [1] "Combined distributions have no priors. Inspect each element separately for details."
@@ -289,11 +299,11 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## $Expectation
 ## $Expectation$A
 ##       0%      25%      50%      75%     100% 
-## 1.023771 1.513218 1.599906 1.690409 2.223875 
+## 1.130711 1.591328 1.678484 1.767879 2.291252 
 ## 
 ## $Expectation$B
 ##        0%       25%       50%       75%      100% 
-## 0.8289045 1.1434013 1.2115063 1.2820865 1.6770427 
+## 0.8034903 1.1647425 1.2356157 1.3084027 1.7436082 
 ## 
 ## 
 ## --------------------------------------------
@@ -301,24 +311,26 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Expectation
-## [1] 0.99033
+## [1] 0.99558
 ## 
 ## --------------------------------------------
 ## 
 ## Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 ## 
 ## $Expectation
-##         5%        95% 
-## 0.08697256 0.60822156 
+##        5%       95% 
+## 0.1228338 0.6459197 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Expectation
-## [1] 0.01360823</code></pre>
+## [1] 0.006479952</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(AB3)</code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-8-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-8-2.png" width="700.8"></p>
+<p><img src="introduction_files/figure-html/unnamed-chunk-8-1.png" width="700.8"></p>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_vline).</code></pre>
+<p><img src="introduction_files/figure-html/unnamed-chunk-8-2.png" width="700.8"></p>
 </div>
 <div id="conclusion" class="section level3">
 <h3 class="hasAnchor">

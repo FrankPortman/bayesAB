@@ -175,6 +175,9 @@ of the underlying distribution</p><ul>
 <li><p>LogNormal: If your data is well modeled by the log-normal distribution, with parameters \(\mu\), \(\sigma^2\) as the <b>parameters</b>
 of the corresponding log-normal distribution (log of data is ~ N(\(\mu\), \(\sigma^2\)))</p><ul>
 <li><p>The Bayesian model requires same conjugate priors on \(\mu\), \(\sigma^2\) as for the Normal Distribution priors</p></li>
+<li><p>Note: The \(\mu\) and \(\sigma^2\) are not the mean/variance of lognormal numbers themselves but are rather the
+                  corresponding parameters of the lognormal distribution. Thus, posteriors for the statistics 'Mean' and 'Variance'
+                  are returned alongside 'Mu' and 'Sig_Sq' for interpretability.</p></li>
 </ul></li>
 <li><p>Poisson: If your data is well modeled by the Poisson distribution, with parameter \(\lambda\) controlling the average number of events
 per interval.</p><ul>
@@ -235,8 +238,12 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; Max.    1.00 1.0
 #&gt; --------------------------------------------
 #&gt; Priors used for the calculation: 
-#&gt; alpha  beta 
-#&gt;     1     1 
+#&gt; $alpha
+#&gt; [1] 1
+#&gt; 
+#&gt; $beta
+#&gt; [1] 1
+#&gt; 
 #&gt; --------------------------------------------
 #&gt; Calculated posteriors for the following parameters: 
 #&gt; Probability 
@@ -275,7 +282,7 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; 
 #&gt; $Probability
 #&gt; [1] 0.5958145
-#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB1</span>)</div><div class='img'><img src='bayesTest-1.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-2.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB1</span>)</div><div class='img'><img src='bayesTest-1.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-2.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_vline).</span></div><div class='img'><img src='bayesTest-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='fu'>print</span>(<span class='no'>AB2</span>)</div><div class='output co'>#&gt; --------------------------------------------
 #&gt; Distribution used: normal 
 #&gt; --------------------------------------------
@@ -289,8 +296,18 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; Max.    10.323493 11.265252
 #&gt; --------------------------------------------
 #&gt; Priors used for the calculation: 
-#&gt;    mu    sd shape scale 
-#&gt;     5     1     3     1 
+#&gt; $mu
+#&gt; [1] 5
+#&gt; 
+#&gt; $sd
+#&gt; [1] 1
+#&gt; 
+#&gt; $shape
+#&gt; [1] 3
+#&gt; 
+#&gt; $scale
+#&gt; [1] 1
+#&gt; 
 #&gt; --------------------------------------------
 #&gt; Calculated posteriors for the following parameters: 
 #&gt; Mu, Sig_Sq 
@@ -349,7 +366,7 @@ approach infinity. See <a href='plot.bayesTest.html'>plot.bayesTest</a> for how 
 #&gt; 
 #&gt; $Sig_Sq
 #&gt; [1] 7.346345
-#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB2</span>)</div><div class='img'><img src='bayesTest-4.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-5.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-6.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-7.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-8.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-9.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB2</span>)</div><div class='img'><img src='bayesTest-4.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-5.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-6.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='bayesTest-7.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_vline).</span></div><div class='img'><img src='bayesTest-8.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_vline).</span></div><div class='img'><img src='bayesTest-9.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Create a new variable that is the probability multiiplied</span>
 <span class='co'># by the normally distributed variable (expected value of something)</span>
 <span class='no'>AB3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='combine.html'>combine</a></span>(<span class='no'>AB1</span>, <span class='no'>AB2</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='no'>`*`</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'Probability'</span>, <span class='st'>'Mu'</span>), <span class='kw'>newName</span> <span class='kw'>=</span> <span class='st'>'Expectation'</span>)
