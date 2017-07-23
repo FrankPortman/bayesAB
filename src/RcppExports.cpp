@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // PoissonClosed_
 double PoissonClosed_(double alpha_1, double beta_1, double alpha_2, double beta_2);
-RcppExport SEXP bayesAB_PoissonClosed_(SEXP alpha_1SEXP, SEXP beta_1SEXP, SEXP alpha_2SEXP, SEXP beta_2SEXP) {
+RcppExport SEXP _bayesAB_PoissonClosed_(SEXP alpha_1SEXP, SEXP beta_1SEXP, SEXP alpha_2SEXP, SEXP beta_2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -21,7 +21,7 @@ END_RCPP
 }
 // BernoulliClosed_
 double BernoulliClosed_(double alpha_1, double beta_1, double alpha_2, double beta_2);
-RcppExport SEXP bayesAB_BernoulliClosed_(SEXP alpha_1SEXP, SEXP beta_1SEXP, SEXP alpha_2SEXP, SEXP beta_2SEXP) {
+RcppExport SEXP _bayesAB_BernoulliClosed_(SEXP alpha_1SEXP, SEXP beta_1SEXP, SEXP alpha_2SEXP, SEXP beta_2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;

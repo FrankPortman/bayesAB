@@ -2,10 +2,10 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 PoissonClosed_ <- function(alpha_1, beta_1, alpha_2, beta_2) {
-    .Call('bayesAB_PoissonClosed_', PACKAGE = 'bayesAB', alpha_1, beta_1, alpha_2, beta_2)
+    .Call('_bayesAB_PoissonClosed_', PACKAGE = 'bayesAB', alpha_1, beta_1, alpha_2, beta_2)
 }
 
 BernoulliClosed_ <- function(alpha_1, beta_1, alpha_2, beta_2) {
-    .Call('bayesAB_BernoulliClosed_', PACKAGE = 'bayesAB', alpha_1, beta_1, alpha_2, beta_2)
+    .Call('_bayesAB_BernoulliClosed_', PACKAGE = 'bayesAB', alpha_1, beta_1, alpha_2, beta_2)
 }
 
