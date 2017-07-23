@@ -22,7 +22,7 @@ test_that("Failures based on input types", {
                "alpha > 0 is not TRUE", fixed = TRUE)
   
   expect_error(bayesTest(c(A_data, -1), B_data, priors = priors, distribution = 'uniform'),
-               "A >= 0 are not all TRUE", fixed = TRUE)
+               "A_data >= 0 are not all TRUE", fixed = TRUE)
 
 })
 

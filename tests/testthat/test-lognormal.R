@@ -16,7 +16,7 @@ test_that("Failures based on input types", {
                "Incorrect number of priors for supplied distribution.")
   
   expect_error(bayesTest(A_data_bad_string, B_data, priors = priors, distribution = 'lognormal'),
-               "A_data and/or B_data are not ALL numeric.")
+               "is.numeric(A_data) is not TRUE", fixed = TRUE)
   
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-1], 'fergalicious' = 1), distribution = 'lognormal'),
                "Misnamed priors provided for supplied distribution.")
@@ -31,7 +31,7 @@ test_that("Failures based on input types", {
                "scale > 0 is not TRUE", fixed = TRUE)
   
   expect_error(bayesTest(c(A_data, -1), B_data, priors = priors, distribution = 'lognormal'),
-               "A >= 0 are not all TRUE", fixed = TRUE)
+               "A_data >= 0 are not all TRUE", fixed = TRUE)
 
 })
 

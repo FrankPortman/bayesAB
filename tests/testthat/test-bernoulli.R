@@ -14,7 +14,7 @@ test_that("Failures based on input types", {
                "Incorrect number of priors for supplied distribution.")
   
   expect_error(bayesTest(c(A_data, -3), B_data, priors = c('alpha' = 5, 'beta' = 3), distribution = 'bernoulli'),
-               "A %in% c(0, 1) are not all TRUE", fixed = TRUE)
+               "A_data %in% c(0, 1) are not all TRUE", fixed = TRUE)
   
   expect_error(bayesTest(A_data, B_data, priors = c('alpha' = 1, 'fergalicious' = 1), distribution = 'bernoulli'),
                "Misnamed priors provided for supplied distribution.")

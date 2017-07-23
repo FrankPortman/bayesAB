@@ -36,19 +36,27 @@ samplePlot <- function(A, B, name, percentLift) {
 
   diff <- getLift(A, B)
   cutoff <- percentLift / 100
+  inner <- quantile(diff, c(.01, .99))
 
-  diff <- data.frame(diff = diff, cutoff = diff < cutoff)
+  diff <- data.frame(diff = diff,
+                     cutoff = diff < cutoff,
+                     inside = diff >= inner[1] & diff <= inner[2])
 
   prop <- 1 - sum(diff$cutoff) / nrow(diff)
   prop <- round(prop * 100, digits = 1)
 
-  p <- ggplot2::qplot(diff, data = diff, fill = cutoff, binwidth = diff(range(diff)) / 250) +
-    ggplot2::geom_vline(xintercept = cutoff)
+  p <- ggplot2::qplot(diff,
+                     data = diff,
+                     fill = cutoff,
+                     binwidth = diff(range(inner)) / 250,
+                     na.rm = TRUE) +
+    ggplot2::geom_vline(xintercept = cutoff) +
+    ggplot2::xlim(inner[1], inner[2])
 
   m <- max(ggplot2::ggplot_build(p)$layout$panel_ranges[[1]]$y.range)
 
-  xpos <- mean(diff$diff[diff$cutoff == F])
-  if(is.nan(xpos)) xpos <-  mean(diff$diff[diff$cutoff == T])
+  xpos <- mean(diff$diff[diff$cutoff == F & diff$inside == T])
+  if(is.nan(xpos)) xpos <- mean(diff$diff[diff$cutoff == T & diff$inside == T])
 
   p <- p + ggplot2::annotate('text', x = xpos, y = m / 3, label = paste(prop, '%', sep = ""), size = 6) +
     ggplot2::xlab('(A - B) / B') +

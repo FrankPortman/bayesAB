@@ -65,7 +65,10 @@ of the underlying distribution
 \item LogNormal: If your data is well modeled by the log-normal distribution, with parameters \eqn{\mu}, \eqn{\sigma^2} as the \bold{parameters}
 of the corresponding log-normal distribution (log of data is ~ N(\eqn{\mu}, \eqn{\sigma^2}))
    \itemize{\item Support for a log-normal distribution is stricly positive
-            \item The Bayesian model requires same conjugate priors on \eqn{\mu}, \eqn{\sigma^2} as for the Normal Distribution priors}
+            \item The Bayesian model requires same conjugate priors on \eqn{\mu}, \eqn{\sigma^2} as for the Normal Distribution priors
+            \item Note: The \eqn{\mu} and \eqn{\sigma^2} are not the mean/variance of lognormal numbers themselves but are rather the
+                  corresponding parameters of the lognormal distribution. Thus, posteriors for the statistics 'Mean' and 'Variance'
+                  are returned alongside 'Mu' and 'Sig_Sq' for interpretability.}
 
 \item Poisson: If your data is well modeled by the Poisson distribution, with parameter \eqn{\lambda} controlling the average number of events
 per interval.
