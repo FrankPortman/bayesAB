@@ -37,6 +37,10 @@ samplePlot <- function(A, B, name, percentLift) {
   diff <- getLift(A, B)
   cutoff <- percentLift / 100
   inner <- quantile(diff, c(.01, .99))
+  
+  # Always include percentLift in the plot
+  inner[1] <- min(inner[1], percentLift)
+  inner[2] <- max(inner[2], percentLift)
 
   diff <- data.frame(diff = diff,
                      cutoff = diff < cutoff,
@@ -50,6 +54,7 @@ samplePlot <- function(A, B, name, percentLift) {
                      fill = cutoff,
                      binwidth = diff(range(inner)) / 250,
                      na.rm = TRUE) +
+    ggplot2::scale_fill_manual(values = c('TRUE' = '#00B6EB', 'FALSE' = '#F8766D')) +
     ggplot2::geom_vline(xintercept = cutoff) +
     ggplot2::xlim(inner[1], inner[2])
 
