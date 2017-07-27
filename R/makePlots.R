@@ -46,7 +46,7 @@ samplePlot <- function(A, B, name, percentLift) {
                      under = diff < cutoff,
                      inside = diff >= inner[1] & diff <= inner[2])
 
-  prop <- 1 - sum(diff$cutoff) / nrow(diff)
+  prop <- 1 - sum(diff$under) / nrow(diff)
   prop <- round(prop * 100, digits = 1)
 
   p <- ggplot2::qplot(diff,
