@@ -36,32 +36,32 @@ samplePlot <- function(A, B, name, percentLift) {
 
   diff <- getLift(A, B)
   cutoff <- percentLift / 100
-  inner <- quantile(diff, c(.01, .99))
+  inner <- quantile(diff, c(.005, .995))
   
   # Always include percentLift in the plot
   inner[1] <- min(inner[1], percentLift)
   inner[2] <- max(inner[2], percentLift)
 
   diff <- data.frame(diff = diff,
-                     cutoff = diff < cutoff,
+                     under = diff < cutoff,
                      inside = diff >= inner[1] & diff <= inner[2])
 
   prop <- 1 - sum(diff$cutoff) / nrow(diff)
   prop <- round(prop * 100, digits = 1)
 
   p <- ggplot2::qplot(diff,
-                     data = diff,
-                     fill = cutoff,
-                     binwidth = diff(range(inner)) / 250,
-                     na.rm = TRUE) +
+                      data = diff,
+                      fill = under,
+                      binwidth = diff(range(inner)) / 250,
+                      na.rm = TRUE) +
     ggplot2::scale_fill_manual(values = c('TRUE' = '#00B6EB', 'FALSE' = '#F8766D')) +
     ggplot2::geom_vline(xintercept = cutoff) +
     ggplot2::xlim(inner[1], inner[2])
 
   m <- max(ggplot2::ggplot_build(p)$layout$panel_ranges[[1]]$y.range)
 
-  xpos <- mean(diff$diff[diff$cutoff == F & diff$inside == T])
-  if(is.nan(xpos)) xpos <- mean(diff$diff[diff$cutoff == T & diff$inside == T])
+  xpos <- mean(diff$diff[diff$under == F & diff$inside == T])
+  if(is.nan(xpos)) xpos <- mean(diff$diff[diff$under == T & diff$inside == T])
 
   p <- p + ggplot2::annotate('text', x = xpos, y = m / 3, label = paste(prop, '%', sep = ""), size = 6) +
     ggplot2::xlab('(A - B) / B') +
