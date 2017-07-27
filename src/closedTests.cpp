@@ -24,7 +24,7 @@ double BernoulliClosed_(double alpha_1, double beta_1, double alpha_2, double be
   double total = 0;
   for(int i = 0; i < alpha_2; i++) {
     double lt = lbeta(alpha_1 + i, beta_1 + beta_2) -
-                log(beta_2 + 1) -
+                log(beta_2 + i) -
                 lbeta(1 + i, beta_2) -
                 lbeta(alpha_1, beta_1);
     total += exp(lt);
