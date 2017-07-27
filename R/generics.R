@@ -46,7 +46,7 @@ plot.bayesTest <- function(x,
 
   if(priors) pri <- plotPriors(x)
   if(posteriors) post <- plotPosteriors(x)
-  if(samples) samp <- plotSamples(x, percentLift = percentLift)
+  if(samples) samp <- plotSamples(x, percentLift)
 
   out <- list(
     priors = pri,

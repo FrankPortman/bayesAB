@@ -95,7 +95,7 @@ plotConstructor <- function(fun, lift) {
     out <- vector(mode = 'list', length = length(bayesAB$posteriors))
     names(out) <- names(bayesAB$posteriors)
     
-    lifts <- eval(as.list(match.call()[-1])$percentLift)
+    lifts <- c(...)
     
     for(i in seq_along(bayesAB$posteriors)) {
       p <- bayesAB$posteriors[[i]]
