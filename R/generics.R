@@ -42,11 +42,11 @@ plot.bayesTest <- function(x,
   if(!any(priors, posteriors, samples)) stop("Must specifiy at least one plot to make.")
   if(isClosed(x$inputs$distribution)) stop("Can't plot 'closed form' bayesTest.")
 
-  pri <- post <- samp <- NULL
+  pri <- post <- samp <- list() # Initialize empty list
 
   if(priors) pri <- plotPriors(x)
   if(posteriors) post <- plotPosteriors(x)
-  if(samples) samp <- plotSamples(x, percentLift = percentLift)
+  if(samples) samp <- plotSamples(x, percentLift)
 
   out <- list(
     priors = pri,

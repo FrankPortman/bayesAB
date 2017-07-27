@@ -11,7 +11,6 @@ License: MIT + file LICENSE
 Imports:
     Rcpp (>= 0.12.4),
     ggplot2,
-    reshape2,
     methods
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
