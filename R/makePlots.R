@@ -13,19 +13,16 @@ plotPriors <- function(bayesAB) {
   labs <- names(vals)
 
   labChecker <- function(...) all(c(...) %in% labs)
-
-  out <- list()
-
-  for(name in names(funs)) {
-    fun <- funs[[name]]
-    inputs <- names(formals(fun))
-    if(labChecker(inputs)) {
-      pri <- do.call(fun, as.list(vals[inputs]))
-      pri <- list(pri)
-      names(pri) <- name
-      out <- c(out, pri)
-    }
-  }
+  
+  matched <- Filter(function(f) {
+    inputs <- names(formals(f))
+    labChecker(inputs)
+  }, funs)
+  
+  out <- lapply(matched, function(f) {
+    inputs <- names(formals(f))
+    do.call(f, vals[inputs])
+  })
 
   out
 
@@ -39,8 +36,8 @@ samplePlot <- function(A, B, name, percentLift) {
   inner <- quantile(diff, c(.005, .995))
   
   # Always include percentLift in the plot
-  inner[1] <- min(inner[1], percentLift)
-  inner[2] <- max(inner[2], percentLift)
+  inner[1] <- min(inner[1], cutoff)
+  inner[2] <- max(inner[2], cutoff)
 
   diff <- data.frame(diff = diff,
                      under = diff < cutoff,
@@ -75,13 +72,13 @@ samplePlot <- function(A, B, name, percentLift) {
 
 # Plot posteriors (samples only, not closed form distribution)
 posteriorPlot <- function(A, B, name) {
+  
+  makeDF <- function(dat) data.frame(recipe = deparse(substitute(dat)), value = dat)
+  A <- makeDF(A)
+  B <- makeDF(B)
+  plotDat <- rbind(A, B)
 
-  ## CRAN hack
-  value <- Var2 <- NULL
-
-  plotDat <- reshape2::melt(cbind(A,B))
-
-  p <- ggplot2::ggplot(plotDat, ggplot2::aes(x = value, group = Var2, fill = Var2)) +
+  p <- ggplot2::ggplot(plotDat, ggplot2::aes(x = value, group = recipe, fill = recipe)) +
     ggplot2::geom_density(alpha = 0.75) +
     ggplot2::xlab(NULL) +
     ggplot2::ylab('Density') +
@@ -93,15 +90,21 @@ posteriorPlot <- function(A, B, name) {
 }
 
 # Constructor function for plotSamples and plotPosteriors
-plotConstructor <- function(fun, ...) {
+plotConstructor <- function(fun, lift) {
   function(bayesAB, ...) {
-    out <- list()
-    for(name in names(bayesAB$posteriors)) {
-      p <- bayesAB$posteriors[[name]]
-      pl <- fun(A = p$A, B = p$B, name = name, ...) + theme_bayesAB()
+    out <- vector(mode = 'list', length = length(bayesAB$posteriors))
+    names(out) <- names(bayesAB$posteriors)
+    
+    lifts <- c(...)
+    
+    for(i in seq_along(bayesAB$posteriors)) {
+      p <- bayesAB$posteriors[[i]]
+      call <- list(A = p$A, B = p$B, name = names(out)[i])
+      if(lift) call <- c(call, lifts[i])
+      pl <- do.call(fun, call)
+      pl <- pl + theme_bayesAB()
       pl <- list(pl)
-      names(pl) <- name
-      out <- c(out, pl)
+      out[i] <- pl
     }
     return(out)
   }
@@ -114,5 +117,5 @@ theme_bayesAB <- function() {
                    title = ggplot2::element_text(size = 12))
 }
 
-plotSamples <- plotConstructor(samplePlot, percentLift)
-plotPosteriors <- plotConstructor(posteriorPlot)
+plotSamples <- plotConstructor(samplePlot, TRUE)
+plotPosteriors <- plotConstructor(posteriorPlot, FALSE)
