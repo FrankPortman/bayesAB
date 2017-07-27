@@ -35,10 +35,15 @@ test_that("Failures based on input types", {
 test_that("Success", {
   
   successfulTest <- bayesTest(A_data, B_data, priors = priors, distribution = 'poissonC')
+  successfulTest2 <- bayesTest(A_data, B_data, priors = priors, distribution = 'poisson')
+  
   
   expect_is(successfulTest, "bayesTestClosed")
   
   expect_output(str(successfulTest), "List of 2") # outer
   expect_output(str(successfulTest), "List of 5") # outer
+  p1 <- summary(successfulTest)$probability$Lambda
+  p2 <- summary(successfulTest2)$probability$Lambda
+  expect_true(abs(p1 - p2) < .01)
   
 })

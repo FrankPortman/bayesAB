@@ -30,9 +30,14 @@ test_that("Failures based on input types", {
 test_that("Success", {
   
   successfulTest <- bayesTest(A_data, B_data, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulliC')
+  successfulTest2 <- bayesTest(A_data, B_data, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
   
   expect_is(successfulTest, "bayesTestClosed")
   
   expect_output(str(successfulTest), "List of 2") # outer
   expect_output(str(successfulTest), "List of 5") # inputs
+  p1 <- summary(successfulTest)$probability$Probability
+  p2 <- summary(successfulTest2)$probability$Probability
+  expect_true(abs(p1 - p2) < .01)
+  
 })
