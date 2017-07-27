@@ -30,6 +30,8 @@ plotPriors <- function(bayesAB) {
 
 # Plot samples based on lift, name of var, and data
 samplePlot <- function(A, B, name, percentLift) {
+  
+  under <- NULL # CRAN NSE hack
 
   diff <- getLift(A, B)
   cutoff <- percentLift / 100
@@ -72,6 +74,8 @@ samplePlot <- function(A, B, name, percentLift) {
 
 # Plot posteriors (samples only, not closed form distribution)
 posteriorPlot <- function(A, B, name) {
+  
+  value <- recipe <- NULL #CRAN NSE hack
   
   makeDF <- function(dat) data.frame(recipe = deparse(substitute(dat)), value = dat)
   A <- makeDF(A)
