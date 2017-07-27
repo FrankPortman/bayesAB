@@ -28,6 +28,8 @@ Plot method for objects of class "bayesTest".
 You can either directly plot a bayesTest object (in which case it will plot interactively), or you can save the plot
 object to a variable and extract what you need separately. If extracted, you can treat it like any \code{ggplot2} object and
 modify it accordingly.
+
+Plots are slightly truncated on the extremes to solve the general case of potentially long tail-ends.
 }
 \examples{
 A_pois <- rpois(100, 5)
