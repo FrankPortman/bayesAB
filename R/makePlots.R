@@ -13,12 +13,12 @@ plotPriors <- function(bayesAB) {
   labs <- names(vals)
 
   labChecker <- function(...) all(c(...) %in% labs)
-  
+
   matched <- Filter(function(f) {
     inputs <- names(formals(f))
     labChecker(inputs)
   }, funs)
-  
+
   out <- lapply(matched, function(f) {
     inputs <- names(formals(f))
     do.call(f, vals[inputs])
@@ -29,14 +29,14 @@ plotPriors <- function(bayesAB) {
 }
 
 # Plot samples based on lift, name of var, and data
-samplePlot <- function(A, B, name, percentLift) {
-  
+samplePlot <- function(A, B, name, percentLift, f = function(a, b) (a-b)/b) {
+
   under <- NULL # CRAN NSE hack
 
-  diff <- getLift(A, B)
+  diff <- f(A, B)
   cutoff <- percentLift / 100
   inner <- quantile(diff, c(.005, .995))
-  
+
   # Always include percentLift in the plot
   inner[1] <- min(inner[1], cutoff)
   inner[2] <- max(inner[2], cutoff)
@@ -74,9 +74,9 @@ samplePlot <- function(A, B, name, percentLift) {
 
 # Plot posteriors (samples only, not closed form distribution)
 posteriorPlot <- function(A, B, name) {
-  
+
   value <- recipe <- NULL #CRAN NSE hack
-  
+
   makeDF <- function(dat) data.frame(recipe = deparse(substitute(dat)), value = dat)
   A <- makeDF(A)
   B <- makeDF(B)
@@ -98,9 +98,9 @@ plotConstructor <- function(fun, lift) {
   function(bayesAB, ...) {
     out <- vector(mode = 'list', length = length(bayesAB$posteriors))
     names(out) <- names(bayesAB$posteriors)
-    
+
     lifts <- c(...)
-    
+
     for(i in seq_along(bayesAB$posteriors)) {
       p <- bayesAB$posteriors[[i]]
       call <- list(A = p$A, B = p$B, name = names(out)[i])
