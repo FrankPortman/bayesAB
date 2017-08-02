@@ -14,9 +14,10 @@ getLift <- function(A_samples, B_samples) {
 coalesce <- function(n) ifelse(is.na(n) | is.nan(n), 0, n)
 
 # Expected loss from switching from B to A
-getPostError <- function(A_samples, B_samples) {
+getPostError <- function(A_samples, B_samples, f = function(a, b) (a-b)/b) {
   BoverA <- B_samples > A_samples
-  coalesce(mean(BoverA) * mean(B_samples[BoverA]))
+  loss <- f(B_samples, A_samples)
+  coalesce(mean(BoverA) * mean(loss[BoverA]))
 }
 
 isClosed <- function(distribution) grepl("C", distribution)
