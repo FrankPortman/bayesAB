@@ -42,7 +42,7 @@ qinvgamma_ <- function(area, shape, scale) {
   if(area <= .Machine$double.eps) {
     return(0)
   }
-  return(1 / qgamma(1 - area, shape, scale))
+  return(1 / qgamma(1 - area, shape, scale = scale))
 }
 qinvgamma <- Vectorize(qinvgamma_, vectorize.args = 'area')
 
@@ -51,9 +51,7 @@ dinvgamma_ <- function(x, shape, scale) {
       stop("Shape or scale parameter negative in dinvgamma().\n")
     }
     if(x == 0) return(0)
-    alpha <- shape
-    beta <- scale
-    log.density <- alpha * log(beta) - lgamma(alpha) - (alpha + 1) * log(x) - (beta / x)
+    log.density <- dgamma(1/x, shape, scale = scale, log = TRUE) - 2 * log(x)
     return(exp(log.density))
 }
 dinvgamma <- Vectorize(dinvgamma_, vectorize.args = 'x')
@@ -79,7 +77,6 @@ plotDist_ <- function(support, hseq, dist, params) {
     support <- support[notEmpty]
     hseq <- hseq[notEmpty]
   }
-    
 
   paramList <- sapply(names(params), function(p) paste(p, params[p], sep = " = ", collapse = ""), USE.NAMES = FALSE)
   paramList <- paste0(paramList, collapse = ", ")
