@@ -19,7 +19,7 @@ drawMusAndSigmas <- function(data,
   sig_sq_samples <- (1 / rgamma(n_samples, alpha_n, scale = 1 / beta_n))
 
   mean_norm <- mu_n
-  sd_norm <- sqrt(sig_sq_samples / nu_0)
+  sd_norm <- sqrt(sig_sq_samples / nu_n)
   mu_samples <- rnorm(n_samples, mean_norm, sd_norm)
 
   return(list(mu_samples = mu_samples, sig_sq_samples = sig_sq_samples))
