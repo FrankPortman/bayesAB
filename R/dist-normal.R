@@ -16,7 +16,7 @@ drawMusAndSigmas <- function(data,
   alpha_n <- alpha_0 + N / 2
   beta_n <- beta_0 + ssd / 2 + N * nu_0 * (the_mean - mu_0)^2 / nu_n / 2
 
-  sig_sq_samples <- (1 / rgamma(n_samples, alpha_n, beta_n))
+  sig_sq_samples <- (1 / rgamma(n_samples, alpha_n, scale = 1 / beta_n))
 
   mean_norm <- mu_n
   sd_norm <- sqrt(sig_sq_samples / nu_0)
