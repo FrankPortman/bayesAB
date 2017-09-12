@@ -196,10 +196,10 @@ plotInvGamma <- plotDist('invgamma', 'Inverse Gamma', c('shape', 'scale'))
 
 #' Plot the bivariate PDF of the Normal Inverse Gamma Distribution.
 #'
-#' @param mu
-#' @param lambda
-#' @param alpha
-#' @param beta
+#' @param mu mu parameter of the Normal Inverse Gamma distribution.
+#' @param lambda lambda parameter of the Normal Inverse Gamma distribution.
+#' @param alpha alpha parameter of the Normal Inverse Gamma distribution.
+#' @param beta beta parameter of the Normal Inverse Gamma distribution.
 #' @return The PDF of NormalInverseGamma(mu, lambda, alpha, beta)
 #' @note This is a bivariate distribution (commonly used to model mean and
 #'       variance of the normal distribution) and returns a 2d contour
