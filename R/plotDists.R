@@ -30,34 +30,6 @@
 #' their \code{body} will be substituted directly
 NULL
 
-dpareto <- function(x, xm, alpha) ifelse(x > xm , alpha * xm ** alpha / (x ** (alpha + 1)), 0)
-ppareto <- function(q, xm, alpha) ifelse(q > xm , 1 - (xm / q) ** alpha, 0 )
-qpareto <- function(p, xm, alpha) ifelse(p < 0 | p > 1, NaN, xm * (1 - p) ** (-1 / alpha))
-rpareto <- function(n, xm, alpha) qpareto(runif(n), xm, alpha)
-
-qinvgamma_ <- function(area, shape, scale) {
-  if((1 - area) <= .Machine$double.eps) {
-    return(Inf)
-  }
-  if(area <= .Machine$double.eps) {
-    return(0)
-  }
-  return(1 / qgamma(1 - area, shape, scale))
-}
-qinvgamma <- Vectorize(qinvgamma_, vectorize.args = 'area')
-
-dinvgamma_ <- function(x, shape, scale) {
-    if (shape <= 0 | scale <= 0) {
-      stop("Shape or scale parameter negative in dinvgamma().\n")
-    }
-    if(x == 0) return(0)
-    alpha <- shape
-    beta <- scale
-    log.density <- alpha * log(beta) - lgamma(alpha) - (alpha + 1) * log(x) - (beta / x)
-    return(exp(log.density))
-}
-dinvgamma <- Vectorize(dinvgamma_, vectorize.args = 'x')
-
 plotDist_ <- function(support, hseq, dist, params) {
 
   discretes <- c('Poisson')
@@ -79,7 +51,6 @@ plotDist_ <- function(support, hseq, dist, params) {
     support <- support[notEmpty]
     hseq <- hseq[notEmpty]
   }
-    
 
   paramList <- sapply(names(params), function(p) paste(p, params[p], sep = " = ", collapse = ""), USE.NAMES = FALSE)
   paramList <- paste0(paramList, collapse = ", ")
@@ -222,3 +193,23 @@ plotBeta <- plotDist('beta', 'Beta', c('alpha', 'beta'))
 #' \dontrun{plotInvGamma(1, 17) + ggtitle('I hate the default title!')}
 #' @export
 plotInvGamma <- plotDist('invgamma', 'Inverse Gamma', c('shape', 'scale'))
+
+#' Plot the bivariate PDF of the Normal Inverse Gamma Distribution.
+#'
+#' @param mu
+#' @param lambda
+#' @param alpha
+#' @param beta
+#' @return The PDF of NormalInverseGamma(mu, lambda, alpha, beta)
+#' @note This is a bivariate distribution (commonly used to model mean and
+#'       variance of the normal distribution) and returns a 2d contour
+#'       plot instead of a typical one dimensional PDF. You may want to experiment
+#'       with both this distribution and the \code{plotNormal} and \code{plotInvGamma}
+#'       outputs separately before arriving at a suitable set of priors for the
+#'       Normal and LogNormal \code{bayesTest}.
+#' @examples
+#' plotNormalInvGamma(3, 1, 1, 1)
+#' @export
+plotNormalInvGamma <- function(mu, lambda, alpha, beta) {
+  5
+}

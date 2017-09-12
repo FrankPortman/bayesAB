@@ -2,11 +2,12 @@
 plotPriors <- function(bayesAB) {
 
   funs <- list(
-    "beta"     = plotBeta,
-    "normal"   = plotNormal,
-    "invgamma" = plotInvGamma,
-    "gamma"    = plotGamma,
-    "pareto"   = plotPareto
+    "beta"           = plotBeta,
+    "normal"         = plotNormal,
+    "invgamma"       = plotInvGamma,
+    "gamma"          = plotGamma,
+    "pareto"         = plotPareto,
+    "normalinvgamma" = plotNormalInvGamma
   )
 
   vals <- bayesAB$inputs$priors

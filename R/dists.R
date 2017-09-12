@@ -16,14 +16,12 @@ qinvgamma_ <- function(area, shape, scale) {
 qinvgamma <- Vectorize(qinvgamma_, vectorize.args = 'area')
 
 dinvgamma_ <- function(x, shape, scale) {
-    if (shape <= 0 | scale <= 0) {
-      stop("Shape or scale parameter negative in dinvgamma().\n")
-    }
-    if(x == 0) return(0)
-    alpha <- shape
-    beta <- scale
-    log.density <- alpha * log(beta) - lgamma(alpha) - (alpha + 1) * log(x) - (beta / x)
-    return(exp(log.density))
+  if (shape <= 0 | scale <= 0) {
+    stop("Shape or scale parameter negative in dinvgamma().\n")
+  }
+  if(x == 0) return(0)
+  log.density <- shape * log(scale) - lgamma(shape) - (shape + 1) * log(x) - (scale / x)
+  return(exp(log.density))
 }
 
 dinvgamma <- Vectorize(dinvgamma_, vectorize.args = 'x')
