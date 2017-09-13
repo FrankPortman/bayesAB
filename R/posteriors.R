@@ -41,11 +41,11 @@ Normal <- function(A_data,
   A <- drawMusAndSigmas(A_data, mu, sd, shape, scale, n_samples)
   B <- drawMusAndSigmas(B_data, mu, sd, shape, scale, n_samples)
 
-  A_mus <- A$mu_samples
-  B_mus <- B$mu_samples
+  A_mus <- A$mu
+  B_mus <- B$mu
 
-  A_sig_sqs <- A$sig_sq_samples
-  B_sig_sqs <- B$sig_sq_samples
+  A_sig_sqs <- A$sig_sq
+  B_sig_sqs <- B$sig_sq
 
   list(
     Mu = list(A = A_mus, B = B_mus),
