@@ -1,8 +1,8 @@
 drawMusAndSigmas <- function(data,
-                             m0,
-                             k0,
-                             s_sq0,
-                             v0,
+                             mu_0,
+                             nu_0,
+                             alpha_0,
+                             beta_0,
                              n_samples) {
 
   N <- length(data)
@@ -10,20 +10,17 @@ drawMusAndSigmas <- function(data,
 
   ssd <- sum((data - the_mean) ^ 2)
 
-  kN <- k0 + N
-  mN <- (k0 / kN) * m0 + (N / kN) * the_mean
-  vN <- v0 + N
+  nu_n <- nu_0 + N
+  mu_n <- (nu_0 * mu_0 + N * the_mean) / nu_n
 
-  vN_times_s_sqN <- v0 * s_sq0 + ssd + (N * k0 * (m0 - the_mean) ^ 2) / kN
+  alpha_n <- alpha_0 + N / 2
+  beta_n <- beta_0 + ssd / 2 + N * nu_0 * (the_mean - mu_0)^2 / nu_n / 2
 
-  alpha <- vN / 2
-  beta <- vN_times_s_sqN / 2
+  sig_sq_samples <- (1 / rgamma(n_samples, alpha_n, scale = 1 / beta_n))
 
-  sig_sq_samples <- (1 / rgamma(n_samples, alpha, beta))
-
-  mean_norm <- mN
-  var_norm <- sqrt(sig_sq_samples) / kN
-  mu_samples <- rnorm(n_samples, mean_norm, var_norm)
+  mean_norm <- mu_n
+  sd_norm <- sqrt(sig_sq_samples / nu_n)
+  mu_samples <- rnorm(n_samples, mean_norm, sd_norm)
 
   return(list(mu_samples = mu_samples, sig_sq_samples = sig_sq_samples))
 
