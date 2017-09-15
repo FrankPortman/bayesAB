@@ -8,7 +8,7 @@ drawMusAndSigmas <- function(data,
   n <- length(data)
   xbar <- mean(data)
 
-  ss <- var(data) * n
+  ss <- var(data) * (n - 1)
 
   new_mu <- lambda * mu + n * xbar
   new_mu <- new_mu / (lambda + n)
