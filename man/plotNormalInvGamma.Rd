@@ -7,13 +7,13 @@
 plotNormalInvGamma(mu, lambda, alpha, beta)
 }
 \arguments{
-\item{mu}{mu parameter of the Normal Inverse Gamma distribution.}
+\item{mu}{\eqn{\mu} parameter of the Normal Inverse Gamma distribution.}
 
-\item{lambda}{lambda parameter of the Normal Inverse Gamma distribution.}
+\item{lambda}{\eqn{\lambda} parameter of the Normal Inverse Gamma distribution.}
 
-\item{alpha}{alpha parameter of the Normal Inverse Gamma distribution.}
+\item{alpha}{\eqn{\alpha} parameter of the Normal Inverse Gamma distribution.}
 
-\item{beta}{beta parameter of the Normal Inverse Gamma distribution.}
+\item{beta}{\eqn{\beta} parameter of the Normal Inverse Gamma distribution.}
 }
 \value{
 The PDF of NormalInverseGamma(mu, lambda, alpha, beta)

@@ -19,6 +19,10 @@ Plot the PDF of the Inverse Gamma distribution.
 }
 \note{
 The output can be treated like any \code{ggplot2} object and modified accordingly.
+      Also note that the \code{scale} parameter of the Inverse Gamma distribution is
+      analogous to the \code{beta} (or rate) parameter of the regular Gamma distribution.
+      The \code{beta} parameter of the \link{plotNormalInvGamma} distribution is analogous
+      to the \code{scale} parameter here.
 }
 \examples{
 plotInvGamma(2, 4)

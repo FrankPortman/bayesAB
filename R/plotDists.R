@@ -187,6 +187,10 @@ plotBeta <- plotDist('beta', 'Beta', c('alpha', 'beta'))
 #' @param scale scale parameter of the Inverse Gamma distribution.
 #' @return The PDF of InvGamma(shape, scale).
 #' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
+#'       Also note that the \code{scale} parameter of the Inverse Gamma distribution is
+#'       analogous to the \code{beta} (or rate) parameter of the regular Gamma distribution.
+#'       The \code{beta} parameter of the \link{plotNormalInvGamma} distribution is analogous
+#'       to the \code{scale} parameter here.
 #' @examples
 #' plotInvGamma(2, 4)
 #' plotInvGamma(1, 17)
@@ -196,10 +200,10 @@ plotInvGamma <- plotDist('invgamma', 'Inverse Gamma', c('shape', 'scale'))
 
 #' Plot the bivariate PDF of the Normal Inverse Gamma Distribution.
 #'
-#' @param mu mu parameter of the Normal Inverse Gamma distribution.
-#' @param lambda lambda parameter of the Normal Inverse Gamma distribution.
-#' @param alpha alpha parameter of the Normal Inverse Gamma distribution.
-#' @param beta beta parameter of the Normal Inverse Gamma distribution.
+#' @param mu \eqn{\mu} parameter of the Normal Inverse Gamma distribution.
+#' @param lambda \eqn{\lambda} parameter of the Normal Inverse Gamma distribution.
+#' @param alpha \eqn{\alpha} parameter of the Normal Inverse Gamma distribution.
+#' @param beta \eqn{\beta} parameter of the Normal Inverse Gamma distribution.
 #' @return The PDF of NormalInverseGamma(mu, lambda, alpha, beta)
 #' @note This is a bivariate distribution (commonly used to model mean and
 #'       variance of the normal distribution) and returns a 2d contour
@@ -211,5 +215,28 @@ plotInvGamma <- plotDist('invgamma', 'Inverse Gamma', c('shape', 'scale'))
 #' plotNormalInvGamma(3, 1, 1, 1)
 #' @export
 plotNormalInvGamma <- function(mu, lambda, alpha, beta) {
-  5
+  # Currently we do this in a semi-hacky way to ensure we cover the whole
+  # probability field
+  steps <- 750
+
+  max_sig_sq <- qgamma(.99, alpha, beta)
+
+  x_range <- c(mu - 5 * max_sig_sq, mu + 5 * max_sig_sq)
+  sig_sq_range <- c(.001, max_sig_sq)
+
+  x <- seq(min(x_range), max(x_range), diff(x_range) / steps)
+  sig_sq <- seq(min(sig_sq_range), max(sig_sq_range), diff(sig_sq_range) / steps)
+
+  inputs <- expand.grid(x, sig_sq)
+  out <- dNormalInverseGamma(inputs$Var1, inputs$Var2, mu, lambda, alpha, beta)
+  dat <- data.frame(x = x, sig_sq = sig_sq, res = out)
+
+  p <- ggplot2::ggplot(dat, ggplot2::aes_string('x', 'sig_sq', z = 'res')) +
+    ggplot2::stat_contour(ggplot2::aes_string(fill = '..level..'), geom = "polygon", bins = 10) +
+    ggplot2::scale_fill_continuous(name = 'Probability Density', position = 'bottom') +
+    theme_bayesAB() +
+    ggplot2::theme(legend.position = 'bottom')
+
+  p
+
 }
