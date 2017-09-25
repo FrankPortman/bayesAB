@@ -1,6 +1,7 @@
 constructors <- function() {
   list(
     "bernoulli" = list(
+      prior = 'Beta',
       dataChecks = list(
         checkBinomialData
       ),
@@ -11,6 +12,7 @@ constructors <- function() {
     ),
 
     "bernoulliC" = list(
+      prior = 'Beta',
       dataChecks = list(
         checkBinomialData
       ),
@@ -21,27 +23,28 @@ constructors <- function() {
     ),
 
     "normal" = list(
+      prior = 'NormalInvGamma',
       dataChecks = list(),
       priorChecks = list(
-        checkNormalPriors,
-        checkInvGammaPriors
+        checkNormalInvGammaPriors
       ),
       posteriors = Normal
     ),
 
     "lognormal" = list(
+      prior = 'NormalInvGamma',
       dataChecks = list(
         checkPositiveData,
         checkNotZeroData
       ),
       priorChecks = list(
-        checkNormalPriors,
-        checkInvGammaPriors
+        checkNormalInvGammaPriors
       ),
       posteriors = LogNormal
     ),
 
     "poisson" = list(
+      prior = 'Gamma',
       dataChecks = list(
         checkPositiveData,
         checkIntegerData
@@ -53,6 +56,7 @@ constructors <- function() {
     ),
 
     "poissonC" = list(
+      prior = 'Gamma',
       dataChecks = list(
         checkPositiveData,
         checkIntegerData
@@ -64,6 +68,7 @@ constructors <- function() {
     ),
 
     "exponential" = list(
+      prior = 'Gamma',
       dataChecks = list(
         checkPositiveData
       ),
@@ -74,6 +79,7 @@ constructors <- function() {
     ),
 
     "uniform" = list(
+      prior = 'Pareto',
       dataChecks = list(
         checkPositiveData
       ),

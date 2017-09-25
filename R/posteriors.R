@@ -35,11 +35,11 @@ Normal <- function(A_data,
                    B_data,
                    n_samples,
                    mu,
-                   sd,
-                   shape,
-                   scale) {
-  A <- drawMusAndSigmas(A_data, mu, sd, shape, scale, n_samples)
-  B <- drawMusAndSigmas(B_data, mu, sd, shape, scale, n_samples)
+                   lambda,
+                   alpha,
+                   beta) {
+  A <- drawMusAndSigmas(A_data, mu, lambda, alpha, beta, n_samples)
+  B <- drawMusAndSigmas(B_data, mu, lambda, alpha, beta, n_samples)
 
   A_mus <- A$mu
   B_mus <- B$mu
@@ -57,16 +57,16 @@ LogNormal <- function(A_data,
                       B_data,
                       n_samples,
                       mu,
-                      sd,
-                      shape,
-                      scale) {
+                      lambda,
+                      alpha,
+                      beta) {
   NormalResult <- Normal(log(A_data),
                          log(B_data),
                          n_samples,
                          mu,
-                         sd,
-                         shape,
-                         scale)
+                         lambda,
+                         alpha,
+                         beta)
 
   ## Means
   A_mus <- NormalResult$Mu$A

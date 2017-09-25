@@ -30,5 +30,7 @@ test_that("Success", {
   expect_equal(qinvgamma(1 - (.Machine$double.eps) / 2, 2, 2), Inf)
   expect_equal(dpareto(c(0, 1, 2), 1, 1), c(0, 0, .25))
   expect_equal(dpareto(c(5, 15), 20, 3), c(0, 0))
+  expect_equal(max(plotNormalInvGamma(3, 100, 51, 216)$data$sig_sq), qgamma(.99, 51, 216) * 100)
+  expect_equal(plotNormalInvGamma(3, 1, 1, 1)$labels$y, 'sig_sq')
 
 })

@@ -4,7 +4,7 @@ context('generics')
 A_data <- rlnorm(100)
 B_data <- rlnorm(100)
 
-priors <- c('mu' = 5, 'sd' = 3, 'shape' = 3, 'scale' = 2)
+priors <- c('mu' = 5, 'lambda' = 3, 'alpha' = 3, 'beta' = 2)
 
 x <- bayesTest(A_data, B_data, priors = priors, distribution = 'lognormal')
 
@@ -36,8 +36,8 @@ test_that("Success", {
   
   expect_silent(plot(x))
   expect_silent(plot(x, rep(.5, 4)))
-  expect_equal(length(plot(x, posteriors = FALSE, samples = FALSE)$priors), 2)
-  expect_equal(names(plot(x, posteriors = FALSE, samples = FALSE)$priors), c('normal', 'invgamma'))
+  expect_equal(length(plot(x, posteriors = FALSE, samples = FALSE)$priors), 1)
+  expect_equal(names(plot(x, posteriors = FALSE, samples = FALSE)$priors), c('NormalInvGamma'))
   
   expect_silent(print(plot(x)))
   expect_silent(print(plot(x, rep(.5, 4))))

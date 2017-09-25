@@ -12,13 +12,13 @@ AB1 <- bayesTest(A_binom, B_binom,
                  priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
 
 AB2 <- bayesTest(A_norm, B_norm, 
-                 priors = c('mu' = 5, 'sd' = 1, 'shape' = 3, 'scale' = 1), distribution = 'normal')
+                 priors = c('mu' = 5, 'lambda' = 1, 'alpha' = 3, 'beta' = 1), distribution = 'normal')
 
 AB3 <- bayesTest(A_binom, B_binom, 
                  priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulliC')
 
 AB4 <- bayesTest(A_norm, B_norm, 
-                 priors = c('mu' = 5, 'sd' = 1, 'shape' = 3, 'scale' = 1), distribution = 'normal', n_samples = 1e3)
+                 priors = c('mu' = 5, 'lambda' = 1, 'alpha' = 3, 'beta' = 1), distribution = 'normal', n_samples = 1e3)
 
 test_that("Failures based on input types", {
   

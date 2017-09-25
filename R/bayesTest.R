@@ -101,9 +101,12 @@
 #' A_norm <- rnorm(100, 6, 1.5)
 #' B_norm <- rnorm(100, 5, 2.5)
 #'
-#' AB1 <- bayesTest(A_binom, B_binom, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
+#' AB1 <- bayesTest(A_binom, B_binom, 
+#'                  priors = c('alpha' = 1, 'beta' = 1), 
+#'                  distribution = 'bernoulli')
 #' AB2 <- bayesTest(A_norm, B_norm,
-#'                 priors = c('mu' = 5, 'sd' = 1, 'shape' = 3, 'scale' = 1), distribution = 'normal')
+#'                  priors = c('mu' = 5, 'lambda' = 1, 'alpha' = 3, 'beta' = 1), 
+#'                  distribution = 'normal')
 #'
 #' print(AB1)
 #' summary(AB1)
@@ -180,6 +183,7 @@ bayesTest <- function(A_data,
       n_samples = n_samples,
       distribution = distribution
     ),
+    prior = Funcs$prior,
     posteriors = posteriors
   )
   class(result) <- ifelse(isClosed(distribution), 'bayesTestClosed', 'bayesTest')

@@ -217,9 +217,9 @@ plotInvGamma <- plotDist('invgamma', 'Inverse Gamma', c('shape', 'scale'))
 plotNormalInvGamma <- function(mu, lambda, alpha, beta) {
   # Currently we do this in a semi-hacky way to ensure we cover the whole
   # probability field
-  steps <- 750
+  steps <- 500
 
-  max_sig_sq <- qgamma(.99, alpha, beta)
+  max_sig_sq <- qgamma(.99, alpha, beta) * lambda
 
   x_range <- c(mu - 5 * max_sig_sq, mu + 5 * max_sig_sq)
   sig_sq_range <- c(.001, max_sig_sq)
@@ -229,9 +229,11 @@ plotNormalInvGamma <- function(mu, lambda, alpha, beta) {
 
   inputs <- expand.grid(x, sig_sq)
   out <- dNormalInverseGamma(inputs$Var1, inputs$Var2, mu, lambda, alpha, beta)
-  dat <- data.frame(x = x, sig_sq = sig_sq, res = out)
+  dat <- data.frame(x = inputs$Var1, sig_sq = inputs$Var2, res = out)
 
   p <- ggplot2::ggplot(dat, ggplot2::aes_string('x', 'sig_sq', z = 'res')) +
+    ggplot2::ggtitle(paste0('Normal Inverse Gamma PDF for ',
+                            paste0(c(mu, lambda, alpha, beta), collapse = ", "))) +
     ggplot2::stat_contour(ggplot2::aes_string(fill = '..level..'), geom = "polygon", bins = 10) +
     ggplot2::scale_fill_continuous(name = 'Probability Density', position = 'bottom') +
     theme_bayesAB() +

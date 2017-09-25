@@ -42,8 +42,8 @@ AB1 <- bayesTest(A_binom, B_binom,
                  distribution = 'bernoulli')
 
 AB2 <- bayesTest(A_norm, B_norm,
-                priors = c('mu' = 5, 'sd' = 1, 'shape' = 3, 'scale' = 1),
-                distribution = 'normal')
+                 priors = c('mu' = 5, 'lambda' = 1, 'alpha' = 3, 'beta' = 1),
+                 distribution = 'normal')
 
 AB3 <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')
 # Equivalent to

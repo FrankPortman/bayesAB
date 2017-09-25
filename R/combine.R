@@ -29,8 +29,8 @@
 #'                  distribution = 'bernoulli')
 #'
 #' AB2 <- bayesTest(A_norm, B_norm,
-#'                 priors = c('mu' = 5, 'sd' = 1, 'shape' = 3, 'scale' = 1),
-#'                 distribution = 'normal')
+#'                  priors = c('mu' = 5, 'lambda' = 1, 'alpha' = 3, 'beta' = 1),
+#'                  distribution = 'normal')
 #'
 #' AB3 <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')
 #' # Equivalent to
@@ -88,6 +88,7 @@ combine <- function(bT1, bT2, f = `+`, params, newName) {
     distribution = 'combined'
   )
 
+  result$prior <- NULL
   result$posteriors[[newName]] <- list(A = f(A1, A2), B = f(B1, B2))
 
   class(result) <- c('bayesTest')
