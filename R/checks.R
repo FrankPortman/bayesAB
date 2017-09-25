@@ -11,7 +11,6 @@ checkBinomialData <- function(A_data, B_data) stopifnot(A_data %in% c(0, 1), B_d
 checkIntegerData <- function(A_data, B_data) stopifnot(as.integer(A_data) == A_data, as.integer(B_data) == B_data)
 
 checkGammaPriors <- function(shape, rate, ...) stopifnot(shape > 0, rate > 0)
-checkNormalPriors <- function(mu, sd, ...) stopifnot(sd > 0)
-checkInvGammaPriors <- function(shape, scale, ...) stopifnot(shape > 0, scale > 0)
 checkBetaPriors <- function(alpha, beta, ...) stopifnot(alpha > 0, beta > 0)
 checkParetoPriors <- function(xm, alpha, ...) stopifnot(xm > 0, alpha > 0)
+checkNormalInvGammaPriors <- function(mu, lambda, alpha, beta) stopifnot(lambda > 0, alpha > 0, beta > 0)

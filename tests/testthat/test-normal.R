@@ -8,7 +8,7 @@ A_data_bad_string <- c(A_data, "porcupine")
 A_data_bad_prop <- c(A_data, .3)
 A_data_bad_non_unique <- c(A_data, 2)
 
-priors <- c('mu' = 5, 'sd' = 3, 'shape' = 3, 'scale' = 2)
+priors <- c('mu' = 5, 'lambda' = 3, 'alpha' = 3, 'beta' = 2)
 
 test_that("Failures based on input types", {
   
@@ -21,14 +21,14 @@ test_that("Failures based on input types", {
   expect_error(bayesTest(A_data, B_data, priors = c(priors[-1], 'fergalicious' = 1), distribution = 'normal'),
                "Misnamed priors provided for supplied distribution.")
   
-  expect_error(bayesTest(A_data, B_data, priors = c(priors[-2], 'sd' = -3), distribution = 'normal'),
-               "sd > 0 is not TRUE", fixed = TRUE)
+  expect_error(bayesTest(A_data, B_data, priors = c(priors[-2], 'lambda' = -3), distribution = 'normal'),
+               "lambda > 0 is not TRUE", fixed = TRUE)
   
-  expect_error(bayesTest(A_data, B_data, priors = c(priors[-3], 'shape' = -3), distribution = 'normal'),
-               "shape > 0 is not TRUE", fixed = TRUE)
+  expect_error(bayesTest(A_data, B_data, priors = c(priors[-3], 'alpha' = -3), distribution = 'normal'),
+               "alpha > 0 is not TRUE", fixed = TRUE)
   
-  expect_error(bayesTest(A_data, B_data, priors = c(priors[-4], 'scale' = -3), distribution = 'normal'),
-               "scale > 0 is not TRUE", fixed = TRUE)
+  expect_error(bayesTest(A_data, B_data, priors = c(priors[-4], 'beta' = -3), distribution = 'normal'),
+               "beta > 0 is not TRUE", fixed = TRUE)
 
 })
 
@@ -40,5 +40,6 @@ test_that("Success", {
   
   expect_output(str(successfulTest), "List of 5")
   expect_output(str(successfulTest), "List of 2")
+  expect_output(str(successfulTest), "List of 3")
   
 })

@@ -1,30 +1,24 @@
 drawMusAndSigmas <- function(data,
-                             m0,
-                             k0,
-                             s_sq0,
-                             v0,
+                             mu,
+                             lambda,
+                             alpha,
+                             beta,
                              n_samples) {
 
-  N <- length(data)
-  the_mean <- mean(data)
+  n <- length(data)
+  xbar <- mean(data)
 
-  ssd <- sum((data - the_mean) ^ 2)
+  ss <- var(data) * (n - 1)
 
-  kN <- k0 + N
-  mN <- (k0 / kN) * m0 + (N / kN) * the_mean
-  vN <- v0 + N
+  new_mu <- lambda * mu + n * xbar
+  new_mu <- new_mu / (lambda + n)
 
-  vN_times_s_sqN <- v0 * s_sq0 + ssd + (N * k0 * (m0 - the_mean) ^ 2) / kN
+  new_lambda <- lambda + n
 
-  alpha <- vN / 2
-  beta <- vN_times_s_sqN / 2
+  new_alpha <- alpha + n / 2
 
-  sig_sq_samples <- (1 / rgamma(n_samples, alpha, beta))
+  new_beta <- beta + .5 * (ss + (n * lambda) / (lambda + n) * (xbar - mu) ^ 2)
 
-  mean_norm <- mN
-  var_norm <- sqrt(sig_sq_samples) / kN
-  mu_samples <- rnorm(n_samples, mean_norm, var_norm)
-
-  return(list(mu_samples = mu_samples, sig_sq_samples = sig_sq_samples))
+  rNormalInverseGamma(n_samples, new_mu, new_lambda, new_alpha, new_beta)
 
 }

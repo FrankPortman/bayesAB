@@ -39,11 +39,14 @@
 #' \item Normal: If your data is well modeled by the normal distribution, with parameters \eqn{\mu}, \eqn{\sigma^2} controlling mean and variance
 #' of the underlying distribution
 #'    \itemize{\item Data \emph{can} be negative if it makes sense for your experiment
-#'             \item Uses a conjugate \code{Normal} distribution for the parameter \bold{\eqn{\mu}} in the Normal Distribution
-#'             \item Uses a conjugate \code{Inverse Gamma} distribution for the parameter \bold{\eqn{\sigma^2}} in the Normal Distribution
-#'             \item \code{mu}, \code{sd}, \code{shape}, and \code{scale} must be set for prior
-#'             distributions over \bold{\eqn{\mu}, \eqn{\sigma^2}} in accordance with the parameters of the conjugate prior distributions:
-#'             \itemize{\item \eqn{\mu} ~ Normal(mu, sd^2) \item \eqn{\sigma^2} ~ InvGamma(shape, scale)}}
+#'             \item Uses a conjugate \code{NormalInverseGamma} distribution for the parameters \bold{\eqn{\mu}} and \bold{\eqn{\sigma^2}} in the 
+#'                   Normal Distribution.
+#'             \item \code{mu}, \code{lambda}, \code{alpha}, and \code{beta} must be set for prior
+#'             distributions over \bold{\eqn{\mu, \sigma^2}} in accordance with the parameters of the conjugate prior distributions:
+#'             \itemize{\item \eqn{\mu, \sigma^2} ~ NormalInverseGamma(mu, lambda, alpha, beta)}
+#'             \item This is a bivariate distribution (commonly used to model mean and variance of the normal distribution). 
+#'                   You may want to experiment with both this distribution and the \code{plotNormal} and \code{plotInvGamma} outputs 
+#'                   separately before arriving at a suitable set of priors for the Normal and LogNormal \code{bayesTest}}.
 #'
 #' \item LogNormal: If your data is well modeled by the log-normal distribution, with parameters \eqn{\mu}, \eqn{\sigma^2} as the \bold{parameters}
 #' of the corresponding log-normal distribution (log of data is ~ N(\eqn{\mu}, \eqn{\sigma^2}))
@@ -98,9 +101,12 @@
 #' A_norm <- rnorm(100, 6, 1.5)
 #' B_norm <- rnorm(100, 5, 2.5)
 #'
-#' AB1 <- bayesTest(A_binom, B_binom, priors = c('alpha' = 1, 'beta' = 1), distribution = 'bernoulli')
+#' AB1 <- bayesTest(A_binom, B_binom, 
+#'                  priors = c('alpha' = 1, 'beta' = 1), 
+#'                  distribution = 'bernoulli')
 #' AB2 <- bayesTest(A_norm, B_norm,
-#'                 priors = c('mu' = 5, 'sd' = 1, 'shape' = 3, 'scale' = 1), distribution = 'normal')
+#'                  priors = c('mu' = 5, 'lambda' = 1, 'alpha' = 3, 'beta' = 1), 
+#'                  distribution = 'normal')
 #'
 #' print(AB1)
 #' summary(AB1)
@@ -177,6 +183,7 @@ bayesTest <- function(A_data,
       n_samples = n_samples,
       distribution = distribution
     ),
+    prior = Funcs$prior,
     posteriors = posteriors
   )
   class(result) <- ifelse(isClosed(distribution), 'bayesTestClosed', 'bayesTest')

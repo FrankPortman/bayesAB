@@ -33,7 +33,7 @@
 #' @name bayesAB
 #' @importFrom graphics par
 #' @importFrom methods is
-#' @importFrom stats dbeta dnorm qgamma quantile rbeta rgamma rnorm dgamma dpois qpois runif dlnorm qlnorm
+#' @importFrom stats dbeta dnorm qgamma quantile rbeta rgamma rnorm dgamma dpois qpois runif dlnorm qlnorm pnorm var
 #' @importFrom utils tail packageVersion head
 #' @useDynLib bayesAB
 #' @importFrom Rcpp evalCpp

@@ -29,3 +29,7 @@ removeGenericArgs <- function(vec) {
 funcLooper <- function(inputs, funcs) {
   for(func in funcs) do.call(func, inputs)
 }
+
+getDistPlotFunc <- function(dist) {
+  eval(parse(text = paste0('plot', dist)))   
+}

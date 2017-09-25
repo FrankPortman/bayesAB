@@ -1,31 +1,11 @@
 # Plot priors based on matching of prior params in bayesAB test object
 plotPriors <- function(bayesAB) {
-
-  funs <- list(
-    "beta"     = plotBeta,
-    "normal"   = plotNormal,
-    "invgamma" = plotInvGamma,
-    "gamma"    = plotGamma,
-    "pareto"   = plotPareto
-  )
-
-  vals <- bayesAB$inputs$priors
-  labs <- names(vals)
-
-  labChecker <- function(...) all(c(...) %in% labs)
-
-  matched <- Filter(function(f) {
-    inputs <- names(formals(f))
-    labChecker(inputs)
-  }, funs)
-
-  out <- lapply(matched, function(f) {
-    inputs <- names(formals(f))
-    do.call(f, vals[inputs])
-  })
-
-  out
-
+  p <- NULL
+  if(bayesAB$inputs$distribution != 'combined') {
+    p <- list(do.call(getDistPlotFunc(bayesAB$prior), bayesAB$inputs$priors))
+    names(p) <- bayesAB$prior
+  }
+  p
 }
 
 # Plot samples based on lift, name of var, and data

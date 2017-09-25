@@ -30,34 +30,6 @@
 #' their \code{body} will be substituted directly
 NULL
 
-dpareto <- function(x, xm, alpha) ifelse(x > xm , alpha * xm ** alpha / (x ** (alpha + 1)), 0)
-ppareto <- function(q, xm, alpha) ifelse(q > xm , 1 - (xm / q) ** alpha, 0 )
-qpareto <- function(p, xm, alpha) ifelse(p < 0 | p > 1, NaN, xm * (1 - p) ** (-1 / alpha))
-rpareto <- function(n, xm, alpha) qpareto(runif(n), xm, alpha)
-
-qinvgamma_ <- function(area, shape, scale) {
-  if((1 - area) <= .Machine$double.eps) {
-    return(Inf)
-  }
-  if(area <= .Machine$double.eps) {
-    return(0)
-  }
-  return(1 / qgamma(1 - area, shape, scale))
-}
-qinvgamma <- Vectorize(qinvgamma_, vectorize.args = 'area')
-
-dinvgamma_ <- function(x, shape, scale) {
-    if (shape <= 0 | scale <= 0) {
-      stop("Shape or scale parameter negative in dinvgamma().\n")
-    }
-    if(x == 0) return(0)
-    alpha <- shape
-    beta <- scale
-    log.density <- alpha * log(beta) - lgamma(alpha) - (alpha + 1) * log(x) - (beta / x)
-    return(exp(log.density))
-}
-dinvgamma <- Vectorize(dinvgamma_, vectorize.args = 'x')
-
 plotDist_ <- function(support, hseq, dist, params) {
 
   discretes <- c('Poisson')
@@ -79,7 +51,6 @@ plotDist_ <- function(support, hseq, dist, params) {
     support <- support[notEmpty]
     hseq <- hseq[notEmpty]
   }
-    
 
   paramList <- sapply(names(params), function(p) paste(p, params[p], sep = " = ", collapse = ""), USE.NAMES = FALSE)
   paramList <- paste0(paramList, collapse = ", ")
@@ -216,9 +187,58 @@ plotBeta <- plotDist('beta', 'Beta', c('alpha', 'beta'))
 #' @param scale scale parameter of the Inverse Gamma distribution.
 #' @return The PDF of InvGamma(shape, scale).
 #' @note The output can be treated like any \code{ggplot2} object and modified accordingly.
+#'       Also note that the \code{scale} parameter of the Inverse Gamma distribution is
+#'       analogous to the \code{beta} (or rate) parameter of the regular Gamma distribution.
+#'       The \code{beta} parameter of the \link{plotNormalInvGamma} distribution is analogous
+#'       to the \code{scale} parameter here.
 #' @examples
 #' plotInvGamma(2, 4)
 #' plotInvGamma(1, 17)
 #' \dontrun{plotInvGamma(1, 17) + ggtitle('I hate the default title!')}
 #' @export
 plotInvGamma <- plotDist('invgamma', 'Inverse Gamma', c('shape', 'scale'))
+
+#' Plot the bivariate PDF of the Normal Inverse Gamma Distribution.
+#'
+#' @param mu \eqn{\mu} parameter of the Normal Inverse Gamma distribution.
+#' @param lambda \eqn{\lambda} parameter of the Normal Inverse Gamma distribution.
+#' @param alpha \eqn{\alpha} parameter of the Normal Inverse Gamma distribution.
+#' @param beta \eqn{\beta} parameter of the Normal Inverse Gamma distribution.
+#' @return The PDF of NormalInverseGamma(mu, lambda, alpha, beta)
+#' @note This is a bivariate distribution (commonly used to model mean and
+#'       variance of the normal distribution) and returns a 2d contour
+#'       plot instead of a typical one dimensional PDF. You may want to experiment
+#'       with both this distribution and the \code{plotNormal} and \code{plotInvGamma}
+#'       outputs separately before arriving at a suitable set of priors for the
+#'       Normal and LogNormal \code{bayesTest}.
+#' @examples
+#' plotNormalInvGamma(3, 1, 1, 1)
+#' @export
+plotNormalInvGamma <- function(mu, lambda, alpha, beta) {
+  # Currently we do this in a semi-hacky way to ensure we cover the whole
+  # probability field
+  steps <- 500
+
+  max_sig_sq <- qgamma(.99, alpha, beta) * lambda
+
+  x_range <- c(mu - 5 * max_sig_sq, mu + 5 * max_sig_sq)
+  sig_sq_range <- c(.001, max_sig_sq)
+
+  x <- seq(min(x_range), max(x_range), diff(x_range) / steps)
+  sig_sq <- seq(min(sig_sq_range), max(sig_sq_range), diff(sig_sq_range) / steps)
+
+  inputs <- expand.grid(x, sig_sq)
+  out <- dNormalInverseGamma(inputs$Var1, inputs$Var2, mu, lambda, alpha, beta)
+  dat <- data.frame(x = inputs$Var1, sig_sq = inputs$Var2, res = out)
+
+  p <- ggplot2::ggplot(dat, ggplot2::aes_string('x', 'sig_sq', z = 'res')) +
+    ggplot2::ggtitle(paste0('Normal Inverse Gamma PDF for ',
+                            paste0(c(mu, lambda, alpha, beta), collapse = ", "))) +
+    ggplot2::stat_contour(ggplot2::aes_string(fill = '..level..'), geom = "polygon", bins = 10) +
+    ggplot2::scale_fill_continuous(name = 'Probability Density', position = 'bottom') +
+    theme_bayesAB() +
+    ggplot2::theme(legend.position = 'bottom')
+
+  p
+
+}

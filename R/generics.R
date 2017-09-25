@@ -89,7 +89,9 @@ print.bayesTest <- function(x, ...) {
   print(cbind(A_data = summ_outA, B_data = summ_outB))
 
   cat('--------------------------------------------\n')
-  cat('Priors used for the calculation: \n')
+  cat('Conjugate Prior Distribution: ')
+  cat(x$prior, '\n')
+  cat('Conjugate Prior Parameters: \n')
   print(x$inputs$priors)
 
   cat('--------------------------------------------\n')
