@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the PDF of the Inverse Gamma distribution. — plotInvGamma • bayesAB</title>
+<title>Plot the bivariate PDF of the Normal Inverse Gamma Distribution. — plotNormalInvGamma • bayesAB</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -98,45 +98,52 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the PDF of the Inverse Gamma distribution.</h1>
+    <h1>Plot the bivariate PDF of the Normal Inverse Gamma Distribution.</h1>
     </div>
 
     
-    <p>Plot the PDF of the Inverse Gamma distribution.</p>
+    <p>Plot the bivariate PDF of the Normal Inverse Gamma Distribution.</p>
     
 
-    <pre class="usage"><span class='fu'>plotInvGamma</span>(<span class='no'>shape</span>, <span class='no'>scale</span>)</pre>
+    <pre class="usage"><span class='fu'>plotNormalInvGamma</span>(<span class='no'>mu</span>, <span class='no'>lambda</span>, <span class='no'>alpha</span>, <span class='no'>beta</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>shape</th>
-      <td><p>shape parameter of the Inverse Gamma distribution.</p></td>
+      <th>mu</th>
+      <td><p>\(\mu\) parameter of the Normal Inverse Gamma distribution.</p></td>
     </tr>
     <tr>
-      <th>scale</th>
-      <td><p>scale parameter of the Inverse Gamma distribution.</p></td>
+      <th>lambda</th>
+      <td><p>\(\lambda\) parameter of the Normal Inverse Gamma distribution.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>\(\alpha\) parameter of the Normal Inverse Gamma distribution.</p></td>
+    </tr>
+    <tr>
+      <th>beta</th>
+      <td><p>\(\beta\) parameter of the Normal Inverse Gamma distribution.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The PDF of InvGamma(shape, scale).</p>
+    <p>The PDF of NormalInverseGamma(mu, lambda, alpha, beta)</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The output can be treated like any <code>ggplot2</code> object and modified accordingly.
-      Also note that the <code>scale</code> parameter of the Inverse Gamma distribution is
-      analogous to the <code>beta</code> (or rate) parameter of the regular Gamma distribution.
-      The <code>beta</code> parameter of the <a href='plotNormalInvGamma.html'>plotNormalInvGamma</a> distribution is analogous
-      to the <code>scale</code> parameter here.</p>
+    <p>This is a bivariate distribution (commonly used to model mean and
+      variance of the normal distribution) and returns a 2d contour
+      plot instead of a typical one dimensional PDF. You may want to experiment
+      with both this distribution and the <code>plotNormal</code> and <code>plotInvGamma</code>
+      outputs separately before arriving at a suitable set of priors for the
+      Normal and LogNormal <code>bayesTest</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plotInvGamma</span>(<span class='fl'>2</span>, <span class='fl'>4</span>)</div><div class='img'><img src='plotInvGamma-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotInvGamma</span>(<span class='fl'>1</span>, <span class='fl'>17</span>)</div><div class='img'><img src='plotInvGamma-2.png' alt='' width='700' height='432.632880098887' /></div><span class='co'># NOT RUN {</span>
-<span class='fu'>plotInvGamma</span>(<span class='fl'>1</span>, <span class='fl'>17</span>) + <span class='fu'>ggtitle</span>(<span class='st'>'I hate the default title!'</span>)
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='fu'>plotNormalInvGamma</span>(<span class='fl'>3</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)</div><div class='img'><img src='plotNormalInvGamma-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

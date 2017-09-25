@@ -161,8 +161,8 @@ defaults to string representation of f(params[1], params[2])</p></td>
                  <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>'bernoulli'</span>)
 
 <span class='no'>AB2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bayesTest.html'>bayesTest</a></span>(<span class='no'>A_norm</span>, <span class='no'>B_norm</span>,
-                <span class='kw'>priors</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'mu'</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='st'>'sd'</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='st'>'shape'</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='st'>'scale'</span> <span class='kw'>=</span> <span class='fl'>1</span>),
-                <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>'normal'</span>)
+                 <span class='kw'>priors</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'mu'</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='st'>'lambda'</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='st'>'alpha'</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='st'>'beta'</span> <span class='kw'>=</span> <span class='fl'>1</span>),
+                 <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>'normal'</span>)
 
 <span class='no'>AB3</span> <span class='kw'>&lt;-</span> <span class='fu'>combine</span>(<span class='no'>AB1</span>, <span class='no'>AB2</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='no'>`*`</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'Probability'</span>, <span class='st'>'Mu'</span>), <span class='kw'>newName</span> <span class='kw'>=</span> <span class='st'>'Expectation'</span>)
 <span class='co'># Equivalent to</span>
@@ -179,15 +179,16 @@ defaults to string representation of f(params[1], params[2])</p></td>
 #&gt; Distribution used: combined 
 #&gt; --------------------------------------------
 #&gt; Using data with the following properties: 
-#&gt;            A        A    B         B
-#&gt; Min.    0.00 2.375419 0.00 -1.057220
-#&gt; 1st Qu. 0.00 5.252902 0.00  3.106380
-#&gt; Median  1.00 5.981933 1.00  4.736328
-#&gt; Mean    0.55 6.131942 0.56  4.800054
-#&gt; 3rd Qu. 1.00 7.131786 1.00  6.738808
-#&gt; Max.    1.00 9.577204 1.00  8.787013
+#&gt;            A         A    B         B
+#&gt; Min.    0.00  2.034456 0.00 -1.040968
+#&gt; 1st Qu. 0.00  5.253974 0.00  3.650038
+#&gt; Median  0.00  6.029424 1.00  4.876042
+#&gt; Mean    0.43  6.193758 0.63  5.117383
+#&gt; 3rd Qu. 1.00  7.232727 1.00  6.851740
+#&gt; Max.    1.00 11.206724 1.00 10.962007
 #&gt; --------------------------------------------
-#&gt; Priors used for the calculation: 
+#&gt; Conjugate Prior Distribution:  
+#&gt; Conjugate Prior Parameters: 
 #&gt; [1] "Combined distributions have no priors. Inspect each element separately for details."
 #&gt; --------------------------------------------
 #&gt; Calculated posteriors for the following parameters: 
@@ -199,11 +200,11 @@ defaults to string representation of f(params[1], params[2])</p></td>
 #&gt; $Expectation
 #&gt; $Expectation$A
 #&gt;       0%      25%      50%      75%     100% 
-#&gt; 2.087072 3.149682 3.360536 3.570905 4.660990 
+#&gt; 1.465084 2.456112 2.662991 2.872966 3.972414 
 #&gt; 
 #&gt; $Expectation$B
 #&gt;       0%      25%      50%      75%     100% 
-#&gt; 1.575800 2.500494 2.680804 2.863565 4.078830 
+#&gt; 1.954614 3.015963 3.207659 3.403317 4.620632 
 #&gt; 
 #&gt; 
 #&gt; --------------------------------------------
@@ -211,22 +212,22 @@ defaults to string representation of f(params[1], params[2])</p></td>
 #&gt; P(A &gt; B) by (0)%: 
 #&gt; 
 #&gt; $Expectation
-#&gt; [1] 0.95017
+#&gt; [1] 0.09878
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
 #&gt; Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 #&gt; 
 #&gt; $Expectation
-#&gt;           5%          95% 
-#&gt; 0.0002169751 0.5714086431 
+#&gt;          5%         95% 
+#&gt; -0.35161381  0.05196047 
 #&gt; 
 #&gt; --------------------------------------------
 #&gt; 
 #&gt; Posterior Expected Loss for choosing B over A:
 #&gt; 
 #&gt; $Expectation
-#&gt; [1] 0.1524077
+#&gt; [1] 0.2263177
 #&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>AB3</span>)</div><div class='img'><img src='combine-1.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='combine-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -79,7 +79,7 @@
                         <h4 class="author">Frank Portman - fportman.com - <a href="mailto:frank1214@gmail.com">frank1214@gmail.com</a>
 </h4>
             
-            <h4 class="date">2017-07-23</h4>
+            <h4 class="date">2017-09-25</h4>
           </div>
 
     
@@ -143,11 +143,11 @@ out_stronger_priors &lt;-<span class="st"> </span><span class="kw">ifelse</span>
 out_diffuse &lt;-<span class="st"> </span><span class="kw">ifelse</span>(out_diffuse <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">|</span><span class="st"> </span>out_diffuse <span class="op">&gt;=</span><span class="st"> </span>.<span class="dv">95</span>, <span class="dv">1</span>, <span class="dv">0</span>)</code></pre></div>
 <p>Now, A and B shouldn’t have any difference between the two but occasionally we will see a Type 1 error. That’s what the bottom 3 lines are doing. If P(A &gt; B) is &lt;=0.05 or &gt;= .95 we call one of the recipes “significantly” better. Observe what happens with each case of prior.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(out_weaker_priors)</code></pre></div>
-<pre><code>## [1] 0.063</code></pre>
+<pre><code>## [1] 0.092</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(out_stronger_priors)</code></pre></div>
-<pre><code>## [1] 0.022</code></pre>
+<pre><code>## [1] 0.024</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(out_diffuse)</code></pre></div>
-<pre><code>## [1] 0.076</code></pre>
+<pre><code>## [1] 0.111</code></pre>
 <p>The diffuse priors have the most Type 1 errors, followed by the weak priors, followed by the strong priors; to be expected.</p>
 <p>Finally, we can fit another bayesTest (:D) to determine whether the differences between Type 1 error percents across priors are different from one another.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t1 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(out_diffuse, out_weaker_priors, <span class="dt">priors =</span> <span class="kw">c</span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">1</span>), <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)
@@ -165,11 +165,11 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayes
 ## $Probability
 ## $Probability$A
 ##         0%        25%        50%        75%       100% 
-## 0.04335268 0.07094944 0.07648169 0.08237170 0.11688331 
+## 0.07239762 0.10487009 0.11148204 0.11831392 0.16287681 
 ## 
 ## $Probability$B
 ##         0%        25%        50%        75%       100% 
-## 0.03417469 0.05852760 0.06357128 0.06889153 0.10070879 
+## 0.05822264 0.08652677 0.09255503 0.09885870 0.13767744 
 ## 
 ## 
 ## --------------------------------------------
@@ -177,7 +177,7 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayes
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Probability
-## [1] 0.87074
+## [1] 0.91921
 ## 
 ## --------------------------------------------
 ## 
@@ -185,25 +185,25 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayes
 ## 
 ## $Probability
 ##          5%         95% 
-## -0.08108986  0.57545960 
+## -0.03269391  0.50204276 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Probability
-## [1] 0.009459438</code></pre>
+## [1] 0.005080276</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(t2)</code></pre></div>
 <pre><code>## Quantiles of posteriors for A and B:
 ## 
 ## $Probability
 ## $Probability$A
 ##         0%        25%        50%        75%       100% 
-## 0.04406858 0.07107655 0.07661334 0.08233689 0.12072655 
+## 0.07493909 0.10496541 0.11148721 0.11834738 0.15902627 
 ## 
 ## $Probability$B
 ##          0%         25%         50%         75%        100% 
-## 0.008312552 0.019612985 0.022664529 0.025938962 0.048355999 
+## 0.008965488 0.021504536 0.024647075 0.028082554 0.052926814 
 ## 
 ## 
 ## --------------------------------------------
@@ -219,7 +219,7 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayes
 ## 
 ## $Probability
 ##       5%      95% 
-## 1.329301 4.047712 
+## 2.205452 5.576050 
 ## 
 ## --------------------------------------------
 ## 
