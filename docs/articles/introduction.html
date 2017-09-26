@@ -127,8 +127,8 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## Min.    0.000 0.000
 ## 1st Qu. 0.000 0.000
 ## Median  0.000 0.000
-## Mean    0.292 0.184
-## 3rd Qu. 1.000 0.000
+## Mean    0.248 0.172
+## 3rd Qu. 0.000 0.000
 ## Max.    1.000 1.000
 ## --------------------------------------------
 ## Conjugate Prior Distribution: Beta 
@@ -151,11 +151,11 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## $Probability
 ## $Probability$A
 ##        0%       25%       50%       75%      100% 
-## 0.1881961 0.2545502 0.2675466 0.2808563 0.3564060 
+## 0.1602854 0.2336695 0.2462963 0.2591364 0.3311030 
 ## 
 ## $Probability$B
 ##        0%       25%       50%       75%      100% 
-## 0.1423670 0.2031949 0.2151722 0.2274901 0.3020077 
+## 0.1389548 0.1973542 0.2092080 0.2215236 0.2945749 
 ## 
 ## 
 ## --------------------------------------------
@@ -163,22 +163,22 @@ B_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Probability
-## [1] 0.97558
+## [1] 0.92203
 ## 
 ## --------------------------------------------
 ## 
 ## Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 ## 
 ## $Probability
-##         5%        95% 
-## 0.03573459 0.49488635 
+##          5%         95% 
+## -0.02493976  0.42466850 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Probability
-## [1] 0.001066769</code></pre>
+## [1] 0.004249824</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(AB1)</code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-4-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-2.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-3.png" width="700.8"></p>
 <p><code>print</code> talks about the inputs to the test, <code>summary</code> will do a P((A - B) / B &gt; percentLift) and credible interval on (A - B) / B calculation, and <code>plot</code> will plot the priors, posteriors, and the Monte Carlo ‘integrated’ samples.</p>
@@ -200,13 +200,13 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## Distribution used: poisson 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##              A     B
-## Min.     1.000  0.00
-## 1st Qu.  5.000  4.00
-## Median   7.000  5.00
-## Mean     6.772  5.44
-## 3rd Qu.  8.000  7.00
-## Max.    15.000 14.00
+##             A      B
+## Min.     1.00  1.000
+## 1st Qu.  5.00  4.000
+## Median   6.00  5.000
+## Mean     6.42  5.416
+## 3rd Qu.  8.00  7.000
+## Max.    14.00 13.000
 ## --------------------------------------------
 ## Conjugate Prior Distribution: Gamma 
 ## Conjugate Prior Parameters: 
@@ -228,11 +228,11 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## $Lambda
 ## $Lambda$A
 ##       0%      25%      50%      75%     100% 
-## 6.044739 6.646889 6.756393 6.866301 7.419686 
+## 5.744445 6.303583 6.409875 6.517426 7.089945 
 ## 
 ## $Lambda$B
 ##       0%      25%      50%      75%     100% 
-## 4.826260 5.351709 5.450162 5.548613 6.137701 
+## 4.766755 5.328039 5.426263 5.526119 6.155046 
 ## 
 ## 
 ## --------------------------------------------
@@ -248,7 +248,7 @@ B_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="
 ## 
 ## $Lambda
 ##        5%       95% 
-## 0.1684572 0.3155940 
+## 0.1123637 0.2548193 
 ## 
 ## --------------------------------------------
 ## 
@@ -277,13 +277,13 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## Distribution used: combined 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##             A      A     B     B
-## Min.    0.000  1.000 0.000  0.00
-## 1st Qu. 0.000  5.000 0.000  4.00
-## Median  0.000  7.000 0.000  5.00
-## Mean    0.292  6.772 0.184  5.44
-## 3rd Qu. 1.000  8.000 0.000  7.00
-## Max.    1.000 15.000 1.000 14.00
+##             A     A     B      B
+## Min.    0.000  1.00 0.000  1.000
+## 1st Qu. 0.000  5.00 0.000  4.000
+## Median  0.000  6.00 0.000  5.000
+## Mean    0.248  6.42 0.172  5.416
+## 3rd Qu. 0.000  8.00 0.000  7.000
+## Max.    1.000 14.00 1.000 13.000
 ## --------------------------------------------
 ## Conjugate Prior Distribution:  
 ## Conjugate Prior Parameters: 
@@ -300,11 +300,11 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## $Expectation
 ## $Expectation$A
 ##       0%      25%      50%      75%     100% 
-## 1.264795 1.715578 1.806660 1.902125 2.469089 
+## 1.050199 1.493232 1.578029 1.665053 2.238176 
 ## 
 ## $Expectation$B
 ##        0%       25%       50%       75%      100% 
-## 0.7907784 1.1041781 1.1726574 1.2435616 1.7073896 
+## 0.7364866 1.0674733 1.1347617 1.2049303 1.6500061 
 ## 
 ## 
 ## --------------------------------------------
@@ -312,7 +312,7 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Expectation
-## [1] 0.99995
+## [1] 0.99677
 ## 
 ## --------------------------------------------
 ## 
@@ -320,14 +320,14 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## 
 ## $Expectation
 ##        5%       95% 
-## 0.2727461 0.8709381 
+## 0.1412051 0.6982818 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Expectation
-## [1] 9.767476e-07</code></pre>
+## [1] 0.0001283356</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(AB3)</code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-8-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-8-2.png" width="700.8"></p>
 </div>

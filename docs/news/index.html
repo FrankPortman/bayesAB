@@ -103,6 +103,36 @@
     </div>
 
     <div class="contents">
+    <div id="bayesab-1-1-0" class="section level1">
+<h1 class="hasAnchor">
+<a href="#bayesab-1-1-0" class="anchor"></a>bayesAB 1.1.0</h1>
+<div id="breaking" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking" class="anchor"></a>Breaking</h2>
+<ul>
+<li><p>Changed conjugate prior of Normal/LogNormal distributions to be the <code>NormalInverseGamma</code> distribution from a combination of the <code>Normal</code> and <code>Inverse Gamma</code> distributions. This distribution is bivariate and gives us a 2d estimate for both <code>x</code> and <code>sig_sq</code>. The params for this distribution are <code>mu</code>, <code>lambda</code>, <code>alpha</code>, <code>beta</code> and are different from the old priors that Normal/LogNormal were expecting.</p></li>
+<li><p>Various doc changes to illustrate these changes and new expectations</p></li>
+</ul>
+</div>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major Changes</h2>
+<ul>
+<li>Fix closed form distributions and added tests</li>
+<li>Calculation Posterior Expected Loss is now correct and represents a true loss function</li>
+<li>Added <code>plotNormalInvGamma</code>
+</li>
+</ul>
+</div>
+<div id="minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes" class="anchor"></a>Minor Changes</h2>
+<ul>
+<li>Colors for sample plots are now hardcoded (red for &gt; 0 and blue for &lt; 0)</li>
+<li>Plots are truncated at the extremes to avoid very long tails</li>
+</ul>
+</div>
+</div>
     <div id="bayesab-1-0-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#bayesab-1-0-0" class="anchor"></a>bayesAB 1.0.0</h1>
@@ -192,6 +222,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#bayesab-1-1-0">1.1.0</a></li>
         <li><a href="#bayesab-1-0-0">1.0.0</a></li>
         <li><a href="#bayesab-0-7-0">0.7.0</a></li>
         <li><a href="#bayesab-0-6-0">0.6.0</a></li>
