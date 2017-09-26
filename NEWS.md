@@ -1,3 +1,19 @@
+# bayesAB 1.1.0
+
+## Breaking
+* Changed conjugate prior of Normal/LogNormal distributions to be the `NormalInverseGamma` distribution from a combination of the `Normal` and `Inverse Gamma` distributions. This distribution is bivariate and gives us a 2d estimate for both `x` and `sig_sq`. The params for this distribution are `mu`, `lambda`, `alpha`, `beta` and are different from the old priors that Normal/LogNormal were expecting.
+
+  * Various doc changes to illustrate these changes and new expectations
+
+## Major Changes
+* Fix closed form distributions and added tests
+* Calculation Posterior Expected Loss is now correct and represents a true loss function
+* Added `plotNormalInvGamma`
+
+## Minor Changes
+* Colors for sample plots are now hardcoded (red for > 0 and blue for < 0)
+* Plots are truncated at the extremes to avoid very long tails
+
 # bayesAB 1.0.0
 
 ## Major Additions
