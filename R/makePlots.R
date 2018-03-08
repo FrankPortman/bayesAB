@@ -1,3 +1,39 @@
+
+# Plot the object with custom features as Maximum of Likelihood (Mode) and Credible Interval, end to end display
+bayesAB_display <- function(AB_obj, metric, percentLift, ymax, scale_y_mode) {
+  plot_AB <- (AB_obj %>% plot(,percentLift) 
+              %>% '[['("samples") 
+              %>% '[['("Probability"))
+  diff_data <- (plot_AB %>% '[['("data")  
+                %>% '[['("diff"))
+  
+  # 95% CI calculation                                  
+  CI_data <- (diff_data %>% quantile(,probs = c(0.05, 0.95))
+              %>% as.data.frame()
+              %>% '[['(1))
+  
+  # mode calculation
+  mode <- (diff_data %>% modeest::mlv(,method="short") 
+           %>% extract2(1))
+  
+  # plot display
+  plot_AB <- (plot_AB 
+              + geom_vline(color = 'grey20', linetype = 2, size = 0.3, xintercept = mode)
+              + ggtitle(paste('Bayesian lift - control vs. treatment \n', 
+                              metric, 
+                              ' : 90% CI =',
+                              paste(round(CI_data,2), sep="  ", collapse=" - "))) 
+              + annotate("text", 
+                         x = mode, 
+                         y = scale_y_mode, 
+                         label = paste ("Mode ==", round(mode,2)), 
+                         parse = TRUE, color = 'grey10')
+              + theme(plot.title = element_text(size=12))
+              + scale_x_continuous(limits=c(-0.5,1)) 
+              + scale_y_continuous(limits=c(0,ymax)))
+  plot_AB
+}
+
 # Plot priors based on matching of prior params in bayesAB test object
 plotPriors <- function(bayesAB) {
   p <- NULL
