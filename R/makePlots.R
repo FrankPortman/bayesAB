@@ -9,7 +9,7 @@ plotPriors <- function(bayesAB) {
 }
 
 # Plot samples based on lift, name of var, and data
-samplePlot <- function(A, B, name, percentLift, f = function(a, b) (a-b)/b) {
+samplePlot <- function(A, B, name, percentLift, f = function(a, b) (a-b)/a) {
 
   under <- NULL # CRAN NSE hack
 
@@ -43,9 +43,9 @@ samplePlot <- function(A, B, name, percentLift, f = function(a, b) (a-b)/b) {
   if(is.nan(xpos)) xpos <- mean(diff$diff[diff$under == T & diff$inside == T])
 
   p <- p + ggplot2::annotate('text', x = xpos, y = m / 3, label = paste(prop, '%', sep = ""), size = 6) +
-    ggplot2::xlab('(A - B) / B') +
+    ggplot2::xlab('(A - B) / A') +
     ggplot2::ylab('Density') +
-    ggplot2::ggtitle(paste0('Histogram of (A - B) / B Samples : ', name)) +
+    ggplot2::ggtitle(paste0('Histogram of (A - B) / A Samples : ', name)) +
     ggplot2::guides(fill = FALSE)
 
   p
