@@ -1,7 +1,7 @@
 Package: bayesAB
 Type: Package
 Title: Fast Bayesian Methods for AB Testing
-Version: 1.1.0
+Version: 1.1.1
 Date: 2017-09-25
 Authors@R: person("Frank", "Portman", email = "frank1214@gmail.com", role = c("aut", "cre"))
 Description: A suite of functions that allow the user to analyze A/B test
