@@ -58,5 +58,7 @@ test_that("Success", {
   expect_identical(successfulTestDiv, AB1 / grab(AB2, 'Mu'))
   
   expect_identical(successfulTestMulRename, successfulTestMulRename2)
+
+  expect_equal(3, length(grab(AB2, 'MU')))
   
 })
