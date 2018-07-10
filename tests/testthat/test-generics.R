@@ -30,6 +30,10 @@ test_that("Failures based on inputs", {
   expect_error(c(x, AB4), "Unable to concatenate. Mismatches in (A_data, B_data, priors, distribution). All inputs must be the same (except n_samples).",
                fixed = TRUE)
 
+  expect_error(plot(AB3), "Can't plot 'closed form' bayesTest.", fixed = TRUE)
+
+  expect_error(summary(x, credInt = c(5, 5, 5, 5)), "Credible interval width must be in (0, 1).", fixed = TRUE)
+
 })
 
 test_that("Success", {

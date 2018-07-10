@@ -124,6 +124,7 @@ combine <- function(bT1, bT2, f = `+`, params, newName) {
 grab <- function(bT, posterior) {
   if(! posterior %in% names(bT$posteriors)) stop("That posterior doesn't exist in the input bayesTest.")
   result <- list(
+    prior = bT$prior,
     inputs = bT$inputs,
     posteriors = bT$posteriors[posterior]
   )

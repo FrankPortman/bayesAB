@@ -35,6 +35,10 @@ test_that("Failures based on input types", {
   expect_warning(combine(AB1, AB4, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation'),
                  "n_samples not equal. Make sure `f` handles recycling appropriately.", fixed = TRUE)
 
+  expect_error(grab(AB2, 'MU'), "That posterior doesn't exist in the input bayesTest.", fixed = TRUE)
+
+  expect_error(rename(AB2, 'lol'), 'Can only rename bayesTests with one posterior.', fixed = TRUE)
+
 })
 
 test_that("Success", {
@@ -58,5 +62,7 @@ test_that("Success", {
   expect_identical(successfulTestDiv, AB1 / grab(AB2, 'Mu'))
   
   expect_identical(successfulTestMulRename, successfulTestMulRename2)
+
+  expect_equal(3, length(grab(AB2, 'Mu')))
   
 })
