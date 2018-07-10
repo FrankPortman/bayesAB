@@ -37,7 +37,7 @@ samplePlot <- function(A, B, name, percentLift, f = function(a, b) (a-b)/b) {
     ggplot2::geom_vline(xintercept = cutoff) +
     ggplot2::xlim(inner[1], inner[2])
 
-  m <- max(ggplot2::ggplot_build(p)$layout$panel_ranges[[1]]$y.range)
+  m <- max(ggplot2::ggplot_build(p)$layout$panel_params[[1]]$y.range)
 
   xpos <- mean(diff$diff[diff$under == F & diff$inside == T])
   if(is.nan(xpos)) xpos <- mean(diff$diff[diff$under == T & diff$inside == T])
