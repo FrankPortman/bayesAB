@@ -40,7 +40,6 @@ plot.bayesTest <- function(x,
 
   if(length(x$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
   if(!any(priors, posteriors, samples)) stop("Must specifiy at least one plot to make.")
-  if(isClosed(x$inputs$distribution)) stop("Can't plot 'closed form' bayesTest.")
 
   pri <- post <- samp <- list() # Initialize empty list
 
@@ -58,6 +57,11 @@ plot.bayesTest <- function(x,
 
   return(out)
 
+}
+
+#' @export
+plot.bayesTestClosed <- function(x, ...) {
+  stop("Can't plot 'closed form' bayesTest.")
 }
 
 #' @export
@@ -137,7 +141,7 @@ summary.bayesTest <- function(object,
 
   if(length(object$posteriors) != length(percentLift)) stop("Must supply a 'percentLift' for every parameter with a posterior distribution.")
   if(length(object$posteriors) != length(credInt)) stop("Must supply a 'credInt' for every parameter with a posterior distribution.")
-  if(any(credInt <= 0) | any(credInt >= 1)) stop("Credible interval width ust be in (0, 1).")
+  if(any(credInt <= 0) | any(credInt >= 1)) stop("Credible interval width must be in (0, 1).")
 
   lifts <- lapply(object$posteriors, function(x) do.call(getLift, unname(x)))
   posteriorExpectedLoss <- lapply(object$posteriors, function(x) do.call(getPostError, unname(x)))
