@@ -59,6 +59,6 @@ test_that("Success", {
   
   expect_identical(successfulTestMulRename, successfulTestMulRename2)
 
-  expect_equal(3, length(grab(AB2, 'MU')))
+  expect_equal(3, length(grab(AB2, 'Mu')))
   
 })
