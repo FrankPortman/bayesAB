@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • bayesAB</title>
+<title>Changelog • bayesAB</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Changelog" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +56,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bayesAB</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bayesAB</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -76,7 +89,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -88,6 +101,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -95,23 +109,41 @@
       
       </header>
 
-      <div class="row">
-
-  <div class="col-md-9">
+<div class="row">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Change log <small>All releases</small></h1>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/FrankPortman/bayesAB/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="contents">
+    <div id="bayesab-1-1-1" class="section level1">
+<h1 class="page-header">
+<a href="#bayesab-1-1-1" class="anchor"></a>bayesAB 1.1.1<small> Unreleased </small>
+</h1>
+<div id="minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes" class="anchor"></a>Minor Changes</h2>
+<ul>
+<li>Bug fixes for most recent version of ggplot2. Hopefully the API is stabe from here on out.</li>
+<li>Fixed <code>grab</code> to correctly return the <code>priors</code> property in addition to <code>posteriors</code> and <code>inputs</code>.</li>
+<li>Fixed the <code>print</code> generic for the <code>bayesTestClosed</code> types to error out informatively</li>
+</ul>
+</div>
+</div>
     <div id="bayesab-1-1-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#bayesab-1-1-0" class="anchor"></a>bayesAB 1.1.0</h1>
+<h1 class="page-header">
+<a href="#bayesab-1-1-0" class="anchor"></a>bayesAB 1.1.0<small> 2017-09-26 </small>
+</h1>
 <div id="breaking" class="section level2">
 <h2 class="hasAnchor">
 <a href="#breaking" class="anchor"></a>Breaking</h2>
 <ul>
-<li><p>Changed conjugate prior of Normal/LogNormal distributions to be the <code>NormalInverseGamma</code> distribution from a combination of the <code>Normal</code> and <code>Inverse Gamma</code> distributions. This distribution is bivariate and gives us a 2d estimate for both <code>x</code> and <code>sig_sq</code>. The params for this distribution are <code>mu</code>, <code>lambda</code>, <code>alpha</code>, <code>beta</code> and are different from the old priors that Normal/LogNormal were expecting.</p></li>
-<li><p>Various doc changes to illustrate these changes and new expectations</p></li>
+<li>
+<p>Changed conjugate prior of Normal/LogNormal distributions to be the <code>NormalInverseGamma</code> distribution from a combination of the <code>Normal</code> and <code>Inverse Gamma</code> distributions. This distribution is bivariate and gives us a 2d estimate for both <code>x</code> and <code>sig_sq</code>. The params for this distribution are <code>mu</code>, <code>lambda</code>, <code>alpha</code>, <code>beta</code> and are different from the old priors that Normal/LogNormal were expecting.</p>
+<ul>
+<li>Various doc changes to illustrate these changes and new expectations</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="major-changes" class="section level2">
@@ -124,9 +156,9 @@
 </li>
 </ul>
 </div>
-<div id="minor-changes" class="section level2">
+<div id="minor-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes" class="anchor"></a>Minor Changes</h2>
+<a href="#minor-changes-1" class="anchor"></a>Minor Changes</h2>
 <ul>
 <li>Colors for sample plots are now hardcoded (red for &gt; 0 and blue for &lt; 0)</li>
 <li>Plots are truncated at the extremes to avoid very long tails</li>
@@ -134,19 +166,28 @@
 </div>
 </div>
     <div id="bayesab-1-0-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#bayesab-1-0-0" class="anchor"></a>bayesAB 1.0.0</h1>
+<h1 class="page-header">
+<a href="#bayesab-1-0-0" class="anchor"></a>bayesAB 1.0.0<small> 2017-07-23 </small>
+</h1>
 <div id="major-additions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-additions" class="anchor"></a>Major Additions</h2>
 <ul>
-<li><p>Added <code>grab</code> and <code>rename</code> to retrieve and rename posteriors from your <code>bayesTest</code> object</p></li>
-<li><p>Mostly useful in conjunction with <code>combine</code> in order to quickly chain together several <code>bayesTest</code>s</p></li>
+<li>
+<p>Added <code>grab</code> and <code>rename</code> to retrieve and rename posteriors from your <code>bayesTest</code> object</p>
+<ul>
+<li>Mostly useful in conjunction with <code>combine</code> in order to quickly chain together several <code>bayesTest</code>s</li>
+</ul>
+</li>
 <li>Correctly hide legend for generic plots</li>
-<li><p>Standardized prior parameters to have the same arguments as the <code>plot{Dist}</code> functions</p></li>
+<li>
+<p>Standardized prior parameters to have the same arguments as the <code>plot{Dist}</code> functions</p>
+<ul>
 <li>This mostly changes prior inputs for <code><a href="../reference/bayesTest.html">bayesTest(distribution = c('normal', 'lognormal'))</a></code>
 </li>
-<li><p>This is a <strong>breaking</strong> change</p></li>
+<li>This is a <strong>breaking</strong> change</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="major-internal-changes" class="section level2">
@@ -172,34 +213,48 @@
 </div>
 </div>
     <div id="bayesab-0-7-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#bayesab-0-7-0" class="anchor"></a>bayesAB 0.7.0</h1>
+<h1 class="page-header">
+<a href="#bayesab-0-7-0" class="anchor"></a>bayesAB 0.7.0<small> 2016-10-09 </small>
+</h1>
 <div id="major-additions-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-additions-1" class="anchor"></a>Major Additions</h2>
 <ul>
 <li>added <code>banditize</code> and <code>deployBandit</code> to turn your <code>bayesTest</code> object into a Bayesian multi*armed bandit and deploy as a JSON API respectively.</li>
-<li><p>Added programmatic capabilities on top of existing interactive uses for <code>plot</code> generic function</p></li>
-<li><p>You can now assign <code>plot(bayesTestObj)</code> to a variable and not have it automatically plot.</p></li>
+<li>
+<p>Added programmatic capabilities on top of existing interactive uses for <code>plot</code> generic function</p>
+<ul>
+<li>You can now assign <code>plot(bayesTestObj)</code> to a variable and not have it automatically plot.</li>
+</ul>
+</li>
 <li>Added quantile summary of calculated posteriors to the output of <code>summary.bayesTest</code>
 </li>
-<li><p>Added Posterior Expected Loss to output of <code>summary.bayesTest</code></p></li>
+<li>
+<p>Added Posterior Expected Loss to output of <code>summary.bayesTest</code></p>
+<ul>
 <li>This is useful to know when to stop your Bayesian AB Test</li>
-<li><p>Supports the risk of choosing ‘B’ over ‘A’ (ordering is important) and makes more sense if A &gt; B currently in the test</p></li>
+<li>Supports the risk of choosing ‘B’ over ‘A’ (ordering is important) and makes more sense if A &gt; B currently in the test</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="minor-tweaksfixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-tweaksfixes" class="anchor"></a>Minor Tweaks/Fixes</h2>
 <ul>
-<li><p>outputs from <code>plot</code> generics are now explicitly <code>ggplot</code> objects and can be modified as such</p></li>
-<li><p>You can input your own titles/axis labels/etc if the defaults don’t fit your use case</p></li>
+<li>
+<p>outputs from <code>plot</code> generics are now explicitly <code>ggplot</code> objects and can be modified as such</p>
+<ul>
+<li>You can input your own titles/axis labels/etc if the defaults don’t fit your use case</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
     <div id="bayesab-0-6-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#bayesab-0-6-0" class="anchor"></a>bayesAB 0.6.0</h1>
+<h1 class="page-header">
+<a href="#bayesab-0-6-0" class="anchor"></a>bayesAB 0.6.0<small> 2016-09-13 </small>
+</h1>
 <div id="major-additions-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-additions-2" class="anchor"></a>Major Additions</h2>
@@ -215,13 +270,13 @@
 </ul>
 </div>
 </div>
-    </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#bayesab-1-1-1">1.1.1</a></li>
         <li><a href="#bayesab-1-1-0">1.1.0</a></li>
         <li><a href="#bayesab-1-0-0">1.0.0</a></li>
         <li><a href="#bayesab-0-7-0">0.7.0</a></li>
@@ -238,11 +293,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

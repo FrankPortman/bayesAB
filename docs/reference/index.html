@@ -18,13 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Function reference" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +56,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bayesAB</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bayesAB</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -76,7 +89,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -88,6 +101,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -95,168 +109,164 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;1.1.0</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-running-a-bayesian-ab-test" class="hasAnchor"><a href="#section-running-a-bayesian-ab-test" class="anchor"></a>Running a Bayesian AB Test</h2>
-            <p class="section-desc"><p>Construct a Bayesian AB Test object from some data and priors.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bayesTest.html">bayesTest</a></code> </p>
-          </td>
-          <td><p>Fit a Bayesian model to A/B test data.</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-plotting-distributions" class="hasAnchor"><a href="#section-plotting-distributions" class="anchor"></a>Plotting Distributions</h2>
-            <p class="section-desc"><p>Functions for plotting distributions. Useful for experimenting with data and choosing priors for your bayesTest objects.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotBeta.html">plotBeta</a></code> </p>
-          </td>
-          <td><p>Plot the PDF of the Beta distribution.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotGamma.html">plotGamma</a></code> </p>
-          </td>
-          <td><p>Plot the PDF of the Gamma distribution.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotInvGamma.html">plotInvGamma</a></code> </p>
-          </td>
-          <td><p>Plot the PDF of the Inverse Gamma distribution.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotLogNormal.html">plotLogNormal</a></code> </p>
-          </td>
-          <td><p>Plot the PDF of the Log Normal distribution.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotNormal.html">plotNormal</a></code> </p>
-          </td>
-          <td><p>Plot the PDF of the Normal distribution.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotPareto.html">plotPareto</a></code> </p>
-          </td>
-          <td><p>Plot the PDF of the Pareto distribution.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotPoisson.html">plotPoisson</a></code> </p>
-          </td>
-          <td><p>Plot the PDF of the Poisson distribution.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotNormalInvGamma.html">plotNormalInvGamma</a></code> </p>
-          </td>
-          <td><p>Plot the bivariate PDF of the Normal Inverse Gamma Distribution.</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-generics" class="hasAnchor"><a href="#section-generics" class="anchor"></a>Generics</h2>
-            <p class="section-desc"><p>Generic functions that can help you examine a trained bayesTest object.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot.bayesTest.html">plot</a></code> </p>
-          </td>
-          <td><p>Plot bayesTest objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="summary.bayesTest.html">summary</a></code> </p>
-          </td>
-          <td><p>Summarize bayesTest objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="c.bayesTest.html">c</a></code> </p>
-          </td>
-          <td><p>Concatenate bayesTest objects</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-helpers" class="hasAnchor"><a href="#section-helpers" class="anchor"></a>Helpers</h2>
-            <p class="section-desc"><p>Helper functions for further exploring a trained bayesTest object.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="grab.html">grab</a></code> </p>
-          </td>
-          <td><p>Grab the supplied posterior from a bayesTest object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rename.html">rename</a></code> </p>
-          </td>
-          <td><p>Rename the posterior for a bayesTest object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="combine.html">combine</a></code> </p>
-          </td>
-          <td><p>Combine two <code>bayesAB</code> objects given a binary function.</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-deploying" class="hasAnchor"><a href="#section-deploying" class="anchor"></a>Deploying</h2>
-            <p class="section-desc"><p>Functions to construct and deploy a Bayesian Bandit from a bayesTest object.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="banditize.html">banditize</a></code> </p>
-          </td>
-          <td><p>Create a multi-armed Bayesian bandit object.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="deployBandit.html">deployBandit</a></code> </p>
-          </td>
-          <td><p>Deploy a bayesBandit object as a JSON API.</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-running-a-bayesian-ab-test" class="hasAnchor"><a href="#section-running-a-bayesian-ab-test" class="anchor"></a>Running a Bayesian AB Test</h2>
+          <p class="section-desc"><p>Construct a Bayesian AB Test object from some data and priors.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="bayesTest.html">bayesTest()</a></code> </p>
+        </td>
+        <td><p>Fit a Bayesian model to A/B test data.</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-plotting-distributions" class="hasAnchor"><a href="#section-plotting-distributions" class="anchor"></a>Plotting Distributions</h2>
+          <p class="section-desc"><p>Functions for plotting distributions. Useful for experimenting with data and choosing priors for your bayesTest objects.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="plotBeta.html">plotBeta()</a></code> </p>
+        </td>
+        <td><p>Plot the PDF of the Beta distribution.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotGamma.html">plotGamma()</a></code> </p>
+        </td>
+        <td><p>Plot the PDF of the Gamma distribution.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotInvGamma.html">plotInvGamma()</a></code> </p>
+        </td>
+        <td><p>Plot the PDF of the Inverse Gamma distribution.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotLogNormal.html">plotLogNormal()</a></code> </p>
+        </td>
+        <td><p>Plot the PDF of the Log Normal distribution.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotNormal.html">plotNormal()</a></code> </p>
+        </td>
+        <td><p>Plot the PDF of the Normal distribution.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotPareto.html">plotPareto()</a></code> </p>
+        </td>
+        <td><p>Plot the PDF of the Pareto distribution.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotPoisson.html">plotPoisson()</a></code> </p>
+        </td>
+        <td><p>Plot the PDF of the Poisson distribution.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotNormalInvGamma.html">plotNormalInvGamma()</a></code> </p>
+        </td>
+        <td><p>Plot the bivariate PDF of the Normal Inverse Gamma Distribution.</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-generics" class="hasAnchor"><a href="#section-generics" class="anchor"></a>Generics</h2>
+          <p class="section-desc"><p>Generic functions that can help you examine a trained bayesTest object.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="plot.bayesTest.html">plot(<i>&lt;bayesTest&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot bayesTest objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="summary.bayesTest.html">summary(<i>&lt;bayesTest&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Summarize bayesTest objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="c.bayesTest.html">c(<i>&lt;bayesTest&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Concatenate bayesTest objects</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-helpers" class="hasAnchor"><a href="#section-helpers" class="anchor"></a>Helpers</h2>
+          <p class="section-desc"><p>Helper functions for further exploring a trained bayesTest object.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="grab.html">grab()</a></code> </p>
+        </td>
+        <td><p>Grab the supplied posterior from a bayesTest object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rename.html">rename()</a></code> </p>
+        </td>
+        <td><p>Rename the posterior for a bayesTest object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="combine.html">combine()</a></code> </p>
+        </td>
+        <td><p>Combine two <code>bayesAB</code> objects given a binary function.</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-deploying" class="hasAnchor"><a href="#section-deploying" class="anchor"></a>Deploying</h2>
+          <p class="section-desc"><p>Functions to construct and deploy a Bayesian Bandit from a bayesTest object.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="banditize.html">banditize()</a></code> </p>
+        </td>
+        <td><p>Create a multi-armed Bayesian bandit object.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="deployBandit.html">deployBandit()</a></code> </p>
+        </td>
+        <td><p>Deploy a bayesBandit object as a JSON API.</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -277,11 +287,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

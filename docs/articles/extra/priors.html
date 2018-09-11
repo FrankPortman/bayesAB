@@ -8,14 +8,17 @@
 <title>Priors and Bayesian AB Testing • bayesAB</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
-<script src="../../jquery.sticky-kit.min.js"></script><script src="../../pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<script src="../../pkgdown.js"></script><meta property="og:title" content="Priors and Bayesian AB Testing">
+<meta property="og:description" content="">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -24,12 +27,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../../index.html">bayesAB</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../../index.html">bayesAB</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../..//index.html">
+  <a href="../../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -53,7 +60,7 @@
   </ul>
 </li>
 <li>
-  <a href="../../news/index.html">News</a>
+  <a href="../../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -73,18 +80,21 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Priors and Bayesian AB Testing</h1>
                         <h4 class="author">Frank Portman - fportman.com - <a href="mailto:frank1214@gmail.com">frank1214@gmail.com</a>
 </h4>
             
-            <h4 class="date">2017-09-25</h4>
-          </div>
+            <h4 class="date">2018-07-14</h4>
+      
+      <small class="dont-index">Source: <a href="https://github.com/FrankPortman/bayesAB/blob/master/vignettes/extra/priors.Rmd"><code>vignettes/extra/priors.Rmd</code></a></small>
+      <div class="hidden name"><code>priors.Rmd</code></div>
+
+    </div>
 
     
     
-<div class="contents">
 <div id="why-should-we-care-about-priors" class="section level2">
 <h2 class="hasAnchor">
 <a href="#why-should-we-care-about-priors" class="anchor"></a>Why should we care about priors?</h2>
@@ -98,9 +108,9 @@
 <p>Question 1 has a few objective and a few subjective answers to it. The main benefits are ones that I’ve already highlighted in the README/vignette of the bayesAB package. To briefly summarize, we get direct probabilities for A &gt; B (rather than p-values) and distributions over the parameter estimates rather than point estimates. Finally, we can also leverage <strong>priors</strong> which help with the low sample size and low base rate problems.</p>
 <p>To start, let’s go back to what a <strong>prior</strong> actually is in a Bayesian context. There are countless mathematical resources out there (including part of my previous blog post) so I’ll only about this conceptually. Simply put, a <strong>prior</strong> lets you specify some sort of, ahem, <em>prior</em> information about a certain parameter so that the end <strong>posterior</strong> on that parameter encapsualtes both the <strong>data</strong> you saw and the <strong>prior</strong> you inputted. Priors can come from a variety of places including past experiments, literature, and domain expertise into the problem. <a href="http://www.sumsar.net/blog/2015/11/a-bayesian-model-to-calculate-whether-my-wife-is-pregnant/">See this blogpost</a> for a great example of somebody combining their own past data and literature to form very strong priors.</p>
 <p><strong>Priors</strong> can be weak or strong. The weakest prior will be completely <strong>objective</strong> and thus assign an equal probability to each value for the parameter. Examples of this include a Beta(1, 1) prior for the Bernoulli distribution. In these cases, the <strong>posterior</strong> distribution is completely reliant on the <strong>data</strong>. A strong <strong>prior</strong> will convey a very precise belief as to where a parameter’s values may lie. For example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bayesAB)
-
-<span class="kw"><a href="../../reference/plotBeta.html">plotBeta</a></span>(<span class="dv">1000</span>, <span class="dv">1000</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(bayesAB)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="../../reference/plotBeta.html">plotBeta</a></span>(<span class="dv">1000</span>, <span class="dv">1000</span>)</a></code></pre></div>
 <p><img src="priors_blog/strong_priors-1.png" width="700.8" style="display: block; margin: auto;"></p>
 <p>The stronger the <strong>prior</strong> the more say it has in the <strong>posterior</strong> distribution. Of course, according to the <a href="https://en.wikipedia.org/wiki/Bernstein%E2%80%93von_Mises_theorem">Bernstein–von Mises theorem</a> the <strong>posterior</strong> is effectively independent of the <strong>prior</strong> once a large enough sample size has been reached for the <strong>data</strong>. How quickly this is the case, depends on the strength of your <strong>prior</strong>.</p>
 <p>Do you need (weak/strong) <strong>priors</strong>? Not necessarily. You can still leverage the interpretability benefits of Bayesian AB testing even without priors. At worst, you’ll also get slightly more pertinent results since you can parametrize your metrics as the appropriate distribution random variable. However, without <strong>priors</strong> of some kind (and to be clear, not random bullshit priors either) you run into similar issues as with Frequentist AB testing, namely Type 1 and Type 2 errors. A Type 1 error is calling one version better when it really isn’t, and a Type 2 error is calling a better version equal or worse. Both typically arise from low sample size/base rate and are controlled by reaching appropriate sample size as per a <a href="https://en.wikipedia.org/wiki/Statistical_power">power calculation</a>.</p>
@@ -115,61 +125,61 @@
 <h2 class="hasAnchor">
 <a href="#simulation" class="anchor"></a>Simulation</h2>
 <p>Let’s do a quick simulation to illustrate some of the above points. Let’s make three examples: weak priors, strong priors, and diffuse priors (quick tip: the <a href="https://en.wikipedia.org/wiki/Jeffreys_prior">Jeffrey’s Prior</a> of a Gamma distribution is Gamma(eps, eps) where eps is smallllll). We’ll be taking 2 x 100 samples from a Poisson distribution with the same <span class="math inline">\(\lambda\)</span> parameters. The strong and weak priors will be centered around this value of 2.3.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
-
-n &lt;-<span class="st"> </span><span class="fl">1e3</span>
-out_weaker_priors &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, n)
-out_stronger_priors &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, n)
-out_diffuse &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, n)
-
-getProb &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">summary</span>(x)<span class="op">$</span>probability<span class="op">$</span>Lambda
-
-<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
-  A &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">100</span>, <span class="fl">2.3</span>)
-  B &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">100</span>, <span class="fl">2.3</span>)
-  
-  out_weaker_priors[i] &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(A, B, <span class="dt">priors =</span> <span class="kw">c</span>(<span class="st">'shape'</span> =<span class="st"> </span><span class="dv">23</span>, <span class="st">'rate'</span> =<span class="st"> </span><span class="dv">10</span>), <span class="dt">distribution =</span> <span class="st">'poisson'</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span>getProb
-  
-  out_stronger_priors[i] &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(A, B, <span class="dt">priors =</span> <span class="kw">c</span>(<span class="st">'shape'</span> =<span class="st"> </span><span class="dv">230</span>, <span class="st">'rate'</span> =<span class="st"> </span><span class="dv">100</span>), <span class="dt">distribution =</span> <span class="st">'poisson'</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span>getProb
-  
-  out_diffuse[i] &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(A, B, <span class="dt">priors =</span> <span class="kw">c</span>(<span class="st">'shape'</span> =<span class="st"> </span><span class="fl">0.00001</span>, <span class="st">'rate'</span> =<span class="st"> </span><span class="fl">0.00001</span>), <span class="dt">distribution =</span> <span class="st">'poisson'</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span>getProb
-}
-  
-out_weaker_priors &lt;-<span class="st"> </span><span class="kw">ifelse</span>(out_weaker_priors <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">|</span><span class="st"> </span>out_weaker_priors <span class="op">&gt;=</span><span class="st"> </span>.<span class="dv">95</span>, <span class="dv">1</span>, <span class="dv">0</span>)
-out_stronger_priors &lt;-<span class="st"> </span><span class="kw">ifelse</span>(out_stronger_priors <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">|</span><span class="st"> </span>out_stronger_priors <span class="op">&gt;=</span><span class="st"> </span>.<span class="dv">95</span>, <span class="dv">1</span>, <span class="dv">0</span>)
-out_diffuse &lt;-<span class="st"> </span><span class="kw">ifelse</span>(out_diffuse <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">|</span><span class="st"> </span>out_diffuse <span class="op">&gt;=</span><span class="st"> </span>.<span class="dv">95</span>, <span class="dv">1</span>, <span class="dv">0</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">n &lt;-<span class="st"> </span><span class="fl">1e3</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">out_weaker_priors &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, n)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">out_stronger_priors &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, n)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">out_diffuse &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, n)</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">getProb &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">summary</span>(x)<span class="op">$</span>probability<span class="op">$</span>Lambda</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">  A &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">100</span>, <span class="fl">2.3</span>)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">  B &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">100</span>, <span class="fl">2.3</span>)</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">  </a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">  out_weaker_priors[i] &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(A, B, <span class="dt">priors =</span> <span class="kw">c</span>(<span class="st">'shape'</span> =<span class="st"> </span><span class="dv">23</span>, <span class="st">'rate'</span> =<span class="st"> </span><span class="dv">10</span>), <span class="dt">distribution =</span> <span class="st">'poisson'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">    </span>getProb</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">  </a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">  out_stronger_priors[i] &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(A, B, <span class="dt">priors =</span> <span class="kw">c</span>(<span class="st">'shape'</span> =<span class="st"> </span><span class="dv">230</span>, <span class="st">'rate'</span> =<span class="st"> </span><span class="dv">100</span>), <span class="dt">distribution =</span> <span class="st">'poisson'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="st">    </span>getProb</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">  </a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">  out_diffuse[i] &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(A, B, <span class="dt">priors =</span> <span class="kw">c</span>(<span class="st">'shape'</span> =<span class="st"> </span><span class="fl">0.00001</span>, <span class="st">'rate'</span> =<span class="st"> </span><span class="fl">0.00001</span>), <span class="dt">distribution =</span> <span class="st">'poisson'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="st">    </span>getProb</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">}</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">  </a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">out_weaker_priors &lt;-<span class="st"> </span><span class="kw">ifelse</span>(out_weaker_priors <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">|</span><span class="st"> </span>out_weaker_priors <span class="op">&gt;=</span><span class="st"> </span><span class="fl">.95</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb2-25" data-line-number="25">out_stronger_priors &lt;-<span class="st"> </span><span class="kw">ifelse</span>(out_stronger_priors <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">|</span><span class="st"> </span>out_stronger_priors <span class="op">&gt;=</span><span class="st"> </span><span class="fl">.95</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb2-26" data-line-number="26">out_diffuse &lt;-<span class="st"> </span><span class="kw">ifelse</span>(out_diffuse <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">|</span><span class="st"> </span>out_diffuse <span class="op">&gt;=</span><span class="st"> </span><span class="fl">.95</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a></code></pre></div>
 <p>Now, A and B shouldn’t have any difference between the two but occasionally we will see a Type 1 error. That’s what the bottom 3 lines are doing. If P(A &gt; B) is &lt;=0.05 or &gt;= .95 we call one of the recipes “significantly” better. Observe what happens with each case of prior.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(out_weaker_priors)</code></pre></div>
-<pre><code>## [1] 0.075</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(out_stronger_priors)</code></pre></div>
-<pre><code>## [1] 0.018</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(out_diffuse)</code></pre></div>
-<pre><code>## [1] 0.094</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">mean</span>(out_weaker_priors)</a></code></pre></div>
+<pre><code>## [1] 0.078</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">mean</span>(out_stronger_priors)</a></code></pre></div>
+<pre><code>## [1] 0.017</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">mean</span>(out_diffuse)</a></code></pre></div>
+<pre><code>## [1] 0.093</code></pre>
 <p>The diffuse priors have the most Type 1 errors, followed by the weak priors, followed by the strong priors; to be expected.</p>
 <p>Finally, we can fit another bayesTest (:D) to determine whether the differences between Type 1 error percents across priors are different from one another.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t1 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(out_diffuse, out_weaker_priors, <span class="dt">priors =</span> <span class="kw">c</span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">1</span>), <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)
-t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(out_diffuse, out_stronger_priors, <span class="dt">priors =</span> <span class="kw">c</span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">1</span>), <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)
-
-<span class="kw">plot</span>(t1)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">t1 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(out_diffuse, out_weaker_priors, <span class="dt">priors =</span> <span class="kw">c</span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">1</span>), <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(out_diffuse, out_stronger_priors, <span class="dt">priors =</span> <span class="kw">c</span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">1</span>), <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw">plot</span>(t1)</a></code></pre></div>
 <p><img src="priors_blog/bern-1.png" width="700.8" style="display: block; margin: auto;"><img src="priors_blog/bern-2.png" width="700.8" style="display: block; margin: auto;"><img src="priors_blog/bern-3.png" width="700.8" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(t2, <span class="dt">priors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">plot</span>(t2, <span class="dt">priors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="priors_blog/bern-4.png" width="700.8" style="display: block; margin: auto;"><img src="priors_blog/bern-5.png" width="700.8" style="display: block; margin: auto;"></p>
 <p>As we can see, it’s somewhat clear that the diffuse is worse than the weak and very clear that the diffuse is worse than the stronger priors. Note that in our case I use a diffuse prior of Beta(1, 1) since I have no idea what’s normal going into this simulation.</p>
 <p>Finally we can check the output of <code>summary</code> to see if the <strong>Posterior Expected Loss</strong> is within our constraints.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(t1)</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">summary</span>(t1)</a></code></pre></div>
 <pre><code>## Quantiles of posteriors for A and B:
 ## 
 ## $Probability
 ## $Probability$A
 ##         0%        25%        50%        75%       100% 
-## 0.05888193 0.08850332 0.09456012 0.10089475 0.13695475 
+## 0.05871031 0.08748028 0.09352565 0.09990036 0.14129146 
 ## 
 ## $Probability$B
 ##         0%        25%        50%        75%       100% 
-## 0.04318033 0.07004783 0.07554035 0.08133655 0.11804567 
+## 0.04723182 0.07292105 0.07851827 0.08438090 0.11887638 
 ## 
 ## 
 ## --------------------------------------------
@@ -177,7 +187,7 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayes
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Probability
-## [1] 0.93581
+## [1] 0.88399
 ## 
 ## --------------------------------------------
 ## 
@@ -185,25 +195,25 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayes
 ## 
 ## $Probability
 ##          5%         95% 
-## -0.01776859  0.59660642 
+## -0.06405645  0.51940572 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Probability
-## [1] 0.004310741</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(t2)</code></pre></div>
+## [1] 0.008782598</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">summary</span>(t2)</a></code></pre></div>
 <pre><code>## Quantiles of posteriors for A and B:
 ## 
 ## $Probability
 ## $Probability$A
 ##         0%        25%        50%        75%       100% 
-## 0.05995514 0.08848801 0.09455660 0.10091781 0.13928839 
+## 0.05756891 0.08741533 0.09358038 0.09990291 0.13778689 
 ## 
 ## $Probability$B
 ##          0%         25%         50%         75%        100% 
-## 0.005827711 0.015908170 0.018630119 0.021669234 0.042970433 
+## 0.004722745 0.014994834 0.017639702 0.020594476 0.040853811 
 ## 
 ## 
 ## --------------------------------------------
@@ -219,7 +229,7 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayes
 ## 
 ## $Probability
 ##       5%      95% 
-## 2.434417 6.808360 
+## 2.548928 7.254989 
 ## 
 ## --------------------------------------------
 ## 
@@ -228,7 +238,6 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayes
 ## $Probability
 ## [1] 0</code></pre>
 <p>If the <strong>Posterior Expected Loss</strong> is lower than our threshold for caring on abs(A - B) then we can call this test and accept the current results. The PEL is small in both cases, and possibly 0/NaN for <code>t2</code> so it’s quite clear that priors, even weak ones, have a significant positive effect on Type 1 Errors. Remember that we see this effect partially because our <strong>priors</strong> were of a similar shape to the <strong>data</strong>. If the <strong>priors</strong> and the <strong>data</strong> disagree, the effects might not be so clear cut and you will need more <strong>data</strong> to have a stable <strong>posterior</strong>.</p>
-</div>
 </div>
   </div>
 
@@ -251,11 +260,13 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayes
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>
