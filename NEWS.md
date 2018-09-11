@@ -1,3 +1,10 @@
+# bayesAB 1.1.1
+
+## Minor Changes
+* Bug fixes for most recent version of ggplot2. Hopefully the API is stabe from here on out.
+* Fixed `grab` to correctly return the `priors` property in addition to `posteriors` and `inputs`.
+* Fixed the `print` generic for the `bayesTestClosed` types to error out informatively
+
 # bayesAB 1.1.0
 
 ## Breaking
