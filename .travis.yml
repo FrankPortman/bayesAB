@@ -9,4 +9,4 @@ r_packages:
   - covr
 
 after_success:
-  - Rscript -e 'covr::codecov(line_exclusions = list("R/bandit.R", "src/init.cpp", "R/plotDists.R" = 78:104, "R/makePlots.R" = 77:95, "R/dists.R" = 42:48))'
+  - Rscript -e 'covr::codecov(line_exclusions = list("R/bandit.R", "src/init.cpp", "R/plotDists.R" = 78:104, "R/makePlots.R" = 43:95, "R/dists.R" = 42:48))'
