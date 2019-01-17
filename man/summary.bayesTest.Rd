@@ -5,8 +5,8 @@
 \title{Summarize bayesTest objects}
 \usage{
 \method{summary}{bayesTest}(object, percentLift = rep(0,
-  length(object$posteriors)), credInt = rep(0.9, length(object$posteriors)),
-  ...)
+  length(object$posteriors)), credInt = rep(0.9,
+  length(object$posteriors)), ...)
 }
 \arguments{
 \item{object}{an object of class "bayesTest"}
