@@ -7,8 +7,8 @@
 #' @param priors Named vector or named list providing priors as required by the specified distribution:
 #' \itemize{
 #'           \item     For 'bernoulli' distribution \code{list("alpha" = val1, "beta" = val2)}
-#'           \item     For 'normal' distribution \code{c("mu" = val1, "sd" = val2, "shape" = val3, "scale" = val4)}
-#'           \item     For 'lognormal' distribution \code{c("mu" = val1, "sd" = val2, "shape" = val3, "scale" = val4)}
+#'           \item     For 'normal' distribution \code{c("mu" = val1, "lambda" = val2, "alpha" = val3, "beta" = val4)}
+#'           \item     For 'lognormal' distribution \code{c("mu" = val1, "lambda" = val2, "alpha" = val3, "beta" = val4)}
 #'           \item     For 'poisson' distribution \code{c("shape" = val1, "rate" = val2)}
 #'           \item     For 'exponential' distribution \code{list("shape" = val1, "rate" = val2)}
 #'           \item     For 'uniform' distribution \code{c("xm" = val1, "alpha" = val2)}

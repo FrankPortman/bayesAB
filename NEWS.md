@@ -1,3 +1,8 @@
+# bayesAB 1.1.2
+
+## Minor Changes
+* Fix documentation to reflect the changes to `NormalInverseGamma` in `1.1.0`.
+
 # bayesAB 1.1.1
 
 ## Minor Changes
