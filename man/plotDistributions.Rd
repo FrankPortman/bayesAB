@@ -18,7 +18,7 @@ These are helper functions to help explore data and/or choose priors. Click furt
 }
 }
 \note{
-Choosing priors correctly is very important. Please see http://fportman.com/blog/bayesab-0-dot-7-0-plus-a-primer-on-priors/ for a detailed example of choosing priors
+Choosing priors correctly is very important. Please see http://fportman.com/writing/bayesab-0-dot-7-0-plus-a-primer-on-priors/ for a detailed example of choosing priors
 within bayesAB. Here are some ways to leverage objective/diffuse (assigning equal probability to all values) priors:
 
 \itemize{\item \code{Beta}(1, 1)
