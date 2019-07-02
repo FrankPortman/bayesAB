@@ -23,11 +23,12 @@
 #' AB1 <- bayesTest(A_pois, B_pois, priors = c('shape' = 25, 'rate' = 5), distribution = 'poisson')
 #'
 #' plot(AB1)
-#' plot(AB1, percentLift = 5)
+#' \donttest{plot(AB1, percentLift = 5)}
 #'
-#' p <- plot(AB1)
-#'
-#' p$posteriors$Lambda
+#' \donttest{
+#'     p <- plot(AB1)
+#'     p$posteriors$Lambda
+#' }
 #' \dontrun{p$posteriors$Lambda + ggtitle('yolo') # modify ggplot2 object directly}
 #'
 #' @export
