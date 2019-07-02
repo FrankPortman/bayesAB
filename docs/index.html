@@ -98,11 +98,17 @@
 <ul>
 <li>Decide how you want to parametrize your data (Poisson for counts of email submissions, Bernoulli for CTR on an ad, etc.)</li>
 <li>Use our helper functions to decide on priors for your data (<code><a href="reference/bayesTest.html">?bayesTest</a></code>, <code><a href="reference/plotDistributions.html">?plotDistributions</a></code>)</li>
-<li>Fit a <code>bayesTest</code> object</li>
+<li>Fit a <code>bayesTest</code> object
+<ul>
 <li>Optional: Use <code>combine</code> to munge together several <code>bayesTest</code> objects together for an arbitrary / non-analytical target distribution</li>
+</ul>
+</li>
 <li>
-<code>print</code>, <code>plot</code>, and <code>summary</code> to interpret your results</li>
+<code>print</code>, <code>plot</code>, and <code>summary</code> to interpret your results
+<ul>
 <li>Determine whether to stop your test early given the Posterior Expected Loss in <code>summary</code> output</li>
+</ul>
+</li>
 </ul>
 <p>Optionally, use <code>banditize</code> and/or <code>deployBandit</code> to turn a pre-calculated (or empty) <code>bayesTest</code> into a multi-armed bandit that can serve recipe recommendations and adapt as new data comes in.</p>
 <p>Note, while bayesAB was designed to exploit data related to A/B/etc tests, you can use the package to conduct Bayesian analysis on virtually any vector of data, as long as it can be parametrized by the available functions.</p>
@@ -111,10 +117,10 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Get the latest stable release from CRAN:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"bayesAB"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"bayesAB"</span>)</a></code></pre></div>
 <p>Or the dev version straight from Github:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)
-devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"frankportman/bayesAB"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"frankportman/bayesAB"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -125,26 +131,26 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <li><a href="http://fportman.com/blog/bayesab-0-dot-7-0-plus-a-primer-on-priors/">bayesAB 0.7.0 + a Primer on Priors</a></li>
 </ul>
 <p>For a more in-depth look please check the package vignettes with <code><a href="https://www.rdocumentation.org/packages/utils/topics/browseVignettes">browseVignettes(package = "bayesAB")</a></code> or the pre-knit HTML version on CRAN <a href="https://CRAN.R-project.org/package=bayesAB/vignettes/introduction.html">here</a>. Brief example below. Run the following code for a quick overview of bayesAB:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bayesAB)
-
-<span class="co"># Choose bernoulli test priors</span>
-<span class="kw"><a href="reference/plotBeta.html">plotBeta</a></span>(<span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bayesAB)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co"># Choose bernoulli test priors</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="reference/plotBeta.html">plotBeta</a></span>(<span class="dv">2</span>, <span class="dv">3</span>)</a></code></pre></div>
 <p><img src="https://user-images.githubusercontent.com/2442871/27848261-b3fcb34a-60f8-11e7-99f5-224b802d91d5.png" alt="image"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Choose normal test priors</span>
-<span class="kw"><a href="reference/plotInvGamma.html">plotInvGamma</a></span>(<span class="dv">12</span>, <span class="dv">4</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># Choose normal test priors</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="reference/plotInvGamma.html">plotInvGamma</a></span>(<span class="dv">12</span>, <span class="dv">4</span>)</a></code></pre></div>
 <p><img src="https://user-images.githubusercontent.com/2442871/27848279-cfe19166-60f8-11e7-92dd-58462e9a67e8.png" alt="image"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Binomial">rbinom</a></span>(<span class="dv">100</span>, <span class="dv">1</span>, .<span class="dv">5</span>)
-B_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Binomial">rbinom</a></span>(<span class="dv">100</span>, <span class="dv">1</span>, .<span class="dv">55</span>)
-
-<span class="co"># Fit bernoulli test</span>
-AB1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/bayesTest.html">bayesTest</a></span>(A_binom,
-                 B_binom,
-                 <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">1</span>),
-                 <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)
-
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(AB1)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">A_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Binomial">rbinom</a></span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="fl">.5</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">B_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Binomial">rbinom</a></span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="fl">.55</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># Fit bernoulli test</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">AB1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/bayesTest.html">bayesTest</a></span>(A_binom,</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">                 B_binom,</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">                 <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">                 <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(AB1)</a></code></pre></div>
 <p><img src="https://user-images.githubusercontent.com/2442871/27848286-dfbbac3e-60f8-11e7-8d18-bac057aad6b1.png" alt="image"><img src="https://user-images.githubusercontent.com/2442871/27848293-ede96ea4-60f8-11e7-930e-ba07ded67ae1.png" alt="image"><img src="https://user-images.githubusercontent.com/2442871/27848297-f5d18624-60f8-11e7-8d87-71edfc3a5616.png" alt="image"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(AB1)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(AB1)</a></code></pre></div>
 <pre><code>--------------------------------------------
 Distribution used: bernoulli 
 --------------------------------------------
@@ -171,7 +177,7 @@ Probability
 Monte Carlo samples generated per posterior: 
 [1] 1e+05
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(AB1)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(AB1)</a></code></pre></div>
 <pre><code>Quantiles of posteriors for A and B:
 
 $Probability

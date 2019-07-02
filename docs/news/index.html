@@ -152,8 +152,12 @@
 <h2 class="hasAnchor">
 <a href="#breaking" class="anchor"></a>Breaking</h2>
 <ul>
-<li><p>Changed conjugate prior of Normal/LogNormal distributions to be the <code>NormalInverseGamma</code> distribution from a combination of the <code>Normal</code> and <code>Inverse Gamma</code> distributions. This distribution is bivariate and gives us a 2d estimate for both <code>x</code> and <code>sig_sq</code>. The params for this distribution are <code>mu</code>, <code>lambda</code>, <code>alpha</code>, <code>beta</code> and are different from the old priors that Normal/LogNormal were expecting.</p></li>
-<li><p>Various doc changes to illustrate these changes and new expectations</p></li>
+<li>
+<p>Changed conjugate prior of Normal/LogNormal distributions to be the <code>NormalInverseGamma</code> distribution from a combination of the <code>Normal</code> and <code>Inverse Gamma</code> distributions. This distribution is bivariate and gives us a 2d estimate for both <code>x</code> and <code>sig_sq</code>. The params for this distribution are <code>mu</code>, <code>lambda</code>, <code>alpha</code>, <code>beta</code> and are different from the old priors that Normal/LogNormal were expecting.</p>
+<ul>
+<li>Various doc changes to illustrate these changes and new expectations</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="major-changes" class="section level2">
@@ -183,13 +187,21 @@
 <h2 class="hasAnchor">
 <a href="#major-additions" class="anchor"></a>Major Additions</h2>
 <ul>
-<li><p>Added <code>grab</code> and <code>rename</code> to retrieve and rename posteriors from your <code>bayesTest</code> object</p></li>
-<li><p>Mostly useful in conjunction with <code>combine</code> in order to quickly chain together several <code>bayesTest</code>s</p></li>
+<li>
+<p>Added <code>grab</code> and <code>rename</code> to retrieve and rename posteriors from your <code>bayesTest</code> object</p>
+<ul>
+<li>Mostly useful in conjunction with <code>combine</code> in order to quickly chain together several <code>bayesTest</code>s</li>
+</ul>
+</li>
 <li>Correctly hide legend for generic plots</li>
-<li><p>Standardized prior parameters to have the same arguments as the <code>plot{Dist}</code> functions</p></li>
+<li>
+<p>Standardized prior parameters to have the same arguments as the <code>plot{Dist}</code> functions</p>
+<ul>
 <li>This mostly changes prior inputs for <code><a href="../reference/bayesTest.html">bayesTest(distribution = c('normal', 'lognormal'))</a></code>
 </li>
-<li><p>This is a <strong>breaking</strong> change</p></li>
+<li>This is a <strong>breaking</strong> change</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="major-internal-changes" class="section level2">
@@ -223,21 +235,33 @@
 <a href="#major-additions-1" class="anchor"></a>Major Additions</h2>
 <ul>
 <li>added <code>banditize</code> and <code>deployBandit</code> to turn your <code>bayesTest</code> object into a Bayesian multi*armed bandit and deploy as a JSON API respectively.</li>
-<li><p>Added programmatic capabilities on top of existing interactive uses for <code>plot</code> generic function</p></li>
-<li><p>You can now assign <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(bayesTestObj)</a></code> to a variable and not have it automatically plot.</p></li>
+<li>
+<p>Added programmatic capabilities on top of existing interactive uses for <code>plot</code> generic function</p>
+<ul>
+<li>You can now assign <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(bayesTestObj)</a></code> to a variable and not have it automatically plot.</li>
+</ul>
+</li>
 <li>Added quantile summary of calculated posteriors to the output of <code>summary.bayesTest</code>
 </li>
-<li><p>Added Posterior Expected Loss to output of <code>summary.bayesTest</code></p></li>
+<li>
+<p>Added Posterior Expected Loss to output of <code>summary.bayesTest</code></p>
+<ul>
 <li>This is useful to know when to stop your Bayesian AB Test</li>
-<li><p>Supports the risk of choosing ‘B’ over ‘A’ (ordering is important) and makes more sense if A &gt; B currently in the test</p></li>
+<li>Supports the risk of choosing ‘B’ over ‘A’ (ordering is important) and makes more sense if A &gt; B currently in the test</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="minor-tweaksfixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-tweaksfixes" class="anchor"></a>Minor Tweaks/Fixes</h2>
 <ul>
-<li><p>outputs from <code>plot</code> generics are now explicitly <code>ggplot</code> objects and can be modified as such</p></li>
-<li><p>You can input your own titles/axis labels/etc if the defaults don’t fit your use case</p></li>
+<li>
+<p>outputs from <code>plot</code> generics are now explicitly <code>ggplot</code> objects and can be modified as such</p>
+<ul>
+<li>You can input your own titles/axis labels/etc if the defaults don’t fit your use case</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>

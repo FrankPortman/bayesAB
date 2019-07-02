@@ -84,10 +84,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introduction to bayesAB</h1>
-                        <h4 class="author">Frank Portman - fportman.com - <a href="mailto:frank1214@gmail.com">frank1214@gmail.com</a>
+                        <h4 class="author">Frank Portman - fportman.com - <a href="mailto:frank1214@gmail.com" class="email">frank1214@gmail.com</a>
 </h4>
             
-            <h4 class="date">2019-01-17</h4>
+            <h4 class="date">2019-07-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/FrankPortman/bayesAB/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -117,30 +117,30 @@
 <h3 class="hasAnchor">
 <a href="#bernoulli" class="anchor"></a>Bernoulli</h3>
 <p>Let’s say we are testing two versions of Page 1, to see the CTR onto Page 2. For this example, we’ll just simulate some data with the properties we desire.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bayesAB)
-
-A_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Binomial">rbinom</a></span>(<span class="dv">250</span>, <span class="dv">1</span>, .<span class="dv">25</span>)
-B_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Binomial">rbinom</a></span>(<span class="dv">250</span>, <span class="dv">1</span>, .<span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bayesAB)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">A_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Binomial">rbinom</a></span>(<span class="dv">250</span>, <span class="dv">1</span>, <span class="fl">.25</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">B_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Binomial">rbinom</a></span>(<span class="dv">250</span>, <span class="dv">1</span>, <span class="fl">.2</span>)</a></code></pre></div>
 <p>Of course, we can see the probabilities we chose for the example, but let’s say our prior knowledge tells us that the parameter <code>p</code> in the Bernoulli distribution should roughly fall over the .2-.3 range. Let’s also say that we’re very sure about this prior range and so we want to choose a pretty strict prior. The conjugate prior for the Bernoulli distribution is the Beta distribution. (<code><a href="../reference/bayesTest.html">?bayesTest</a></code> for more info).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotBeta.html">plotBeta</a></span>(<span class="dv">100</span>, <span class="dv">200</span>) <span class="co"># looks a bit off</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/plotBeta.html">plotBeta</a></span>(<span class="dv">100</span>, <span class="dv">200</span>) <span class="co"># looks a bit off</span></a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-2-1.png" width="700.8"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotBeta.html">plotBeta</a></span>(<span class="dv">65</span>, <span class="dv">200</span>) <span class="co"># perfect</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/plotBeta.html">plotBeta</a></span>(<span class="dv">65</span>, <span class="dv">200</span>) <span class="co"># perfect</span></a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-2-2.png" width="700.8"></p>
 <p>Now that we’ve settled on a prior, let’s fit our <code>bayesTest</code> object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">AB1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bayesTest.html">bayesTest</a></span>(A_binom, B_binom, <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">65</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">200</span>), <span class="dt">n_samples =</span> <span class="fl">1e5</span>, <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">AB1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bayesTest.html">bayesTest</a></span>(A_binom, B_binom, <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">65</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">200</span>), <span class="dt">n_samples =</span> <span class="fl">1e5</span>, <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)</a></code></pre></div>
 <p><code>bayesTest</code> objects come coupled with <code>print</code>, <code>plot</code> and <code>summary</code> generics. Let’s check them out:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(AB1)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(AB1)</a></code></pre></div>
 <pre><code>## --------------------------------------------
 ## Distribution used: bernoulli 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##             A     B
-## Min.    0.000 0.000
-## 1st Qu. 0.000 0.000
-## Median  0.000 0.000
-## Mean    0.276 0.208
-## 3rd Qu. 1.000 0.000
-## Max.    1.000 1.000
+##             A    B
+## Min.    0.000 0.00
+## 1st Qu. 0.000 0.00
+## Median  0.000 0.00
+## Mean    0.256 0.18
+## 3rd Qu. 1.000 0.00
+## Max.    1.000 1.00
 ## --------------------------------------------
 ## Conjugate Prior Distribution: Beta 
 ## Conjugate Prior Parameters: 
@@ -156,17 +156,17 @@ B_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdoc
 ## --------------------------------------------
 ## Monte Carlo samples generated per posterior: 
 ## [1] 1e+05</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(AB1)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(AB1)</a></code></pre></div>
 <pre><code>## Quantiles of posteriors for A and B:
 ## 
 ## $Probability
 ## $Probability$A
 ##        0%       25%       50%       75%      100% 
-## 0.1854801 0.2469183 0.2598322 0.2729908 0.3535652 
+## 0.1759566 0.2373865 0.2501217 0.2630968 0.3531991 
 ## 
 ## $Probability$B
 ##        0%       25%       50%       75%      100% 
-## 0.1548793 0.2144200 0.2266636 0.2393087 0.3209866 
+## 0.1444721 0.2012199 0.2132452 0.2254698 0.3012037 
 ## 
 ## 
 ## --------------------------------------------
@@ -174,7 +174,7 @@ B_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdoc
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Probability
-## [1] 0.89229
+## [1] 0.9202
 ## 
 ## --------------------------------------------
 ## 
@@ -182,15 +182,15 @@ B_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdoc
 ## 
 ## $Probability
 ##          5%         95% 
-## -0.04466922  0.37429405 
+## -0.02695294  0.41732241 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Probability
-## [1] 0.006071484</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(AB1)</code></pre></div>
+## [1] 0.004306333</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(AB1)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-4-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-2.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-3.png" width="700.8"></p>
 <p><code>print</code> talks about the inputs to the test, <code>summary</code> will do a P((A - B) / B &gt; percentLift) and credible interval on (A - B) / B calculation, and <code>plot</code> will plot the priors, posteriors, and the Monte Carlo ‘integrated’ samples.</p>
 </div>
@@ -198,26 +198,26 @@ B_binom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdoc
 <h3 class="hasAnchor">
 <a href="#poisson" class="anchor"></a>Poisson</h3>
 <p>Now we are on Page 2. On Page 2 you have any number of ‘interactions’ you can make (being vague is fun). Let’s say we wish to parametrize the amount of ‘interactions’ a user has by the Poisson distribution. Let’s also say, our priors would have us believe that the bulk of users will make between 5-6 interactions but we aren’t <em>too</em> sure on that number so we will allow a reasonable probability for other values. The conjugate prior for the Poisson distribution is the Gamma distribution.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A_pois &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Poisson">rpois</a></span>(<span class="dv">250</span>, <span class="fl">6.5</span>)
-B_pois &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Poisson">rpois</a></span>(<span class="dv">250</span>, <span class="fl">5.5</span>)
-
-<span class="kw"><a href="../reference/plotGamma.html">plotGamma</a></span>(<span class="dv">30</span>, <span class="dv">5</span>) <span class="co"># 5-6 seem likely enough</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">A_pois &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Poisson">rpois</a></span>(<span class="dv">250</span>, <span class="fl">6.5</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">B_pois &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Poisson">rpois</a></span>(<span class="dv">250</span>, <span class="fl">5.5</span>)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw"><a href="../reference/plotGamma.html">plotGamma</a></span>(<span class="dv">30</span>, <span class="dv">5</span>) <span class="co"># 5-6 seem likely enough</span></a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-5-1.png" width="700.8"></p>
 <p>Let’s fit our <code>bayesTest</code> object in a similar manner.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">AB2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bayesTest.html">bayesTest</a></span>(A_pois, B_pois, <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'shape'</span> =<span class="st"> </span><span class="dv">30</span>, <span class="st">'rate'</span> =<span class="st"> </span><span class="dv">5</span>), <span class="dt">n_samples =</span> <span class="fl">1e5</span>, <span class="dt">distribution =</span> <span class="st">'poisson'</span>)
-
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(AB2)</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">AB2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bayesTest.html">bayesTest</a></span>(A_pois, B_pois, <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'shape'</span> =<span class="st"> </span><span class="dv">30</span>, <span class="st">'rate'</span> =<span class="st"> </span><span class="dv">5</span>), <span class="dt">n_samples =</span> <span class="fl">1e5</span>, <span class="dt">distribution =</span> <span class="st">'poisson'</span>)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(AB2)</a></code></pre></div>
 <pre><code>## --------------------------------------------
 ## Distribution used: poisson 
 ## --------------------------------------------
 ## Using data with the following properties: 
 ##              A      B
-## Min.     1.000  1.000
+## Min.     0.000  0.000
 ## 1st Qu.  5.000  4.000
-## Median   7.000  5.000
-## Mean     6.476  5.324
-## 3rd Qu.  8.000  6.000
-## Max.    13.000 13.000
+## Median   6.000  6.000
+## Mean     6.608  5.612
+## 3rd Qu.  8.000  7.000
+## Max.    15.000 12.000
 ## --------------------------------------------
 ## Conjugate Prior Distribution: Gamma 
 ## Conjugate Prior Parameters: 
@@ -233,17 +233,17 @@ B_pois &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocu
 ## --------------------------------------------
 ## Monte Carlo samples generated per posterior: 
 ## [1] 1e+05</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(AB2)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(AB2)</a></code></pre></div>
 <pre><code>## Quantiles of posteriors for A and B:
 ## 
 ## $Lambda
 ## $Lambda$A
 ##       0%      25%      50%      75%     100% 
-## 5.851739 6.359710 6.465328 6.573537 7.173025 
+## 5.961310 6.486886 6.593909 6.702575 7.285747 
 ## 
 ## $Lambda$B
 ##       0%      25%      50%      75%     100% 
-## 4.765565 5.239761 5.336867 5.434254 6.006821 
+## 5.018851 5.518862 5.618575 5.720510 6.357439 
 ## 
 ## 
 ## --------------------------------------------
@@ -259,7 +259,7 @@ B_pois &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocu
 ## 
 ## $Lambda
 ##        5%       95% 
-## 0.1412295 0.2871523 
+## 0.1062497 0.2448029 
 ## 
 ## --------------------------------------------
 ## 
@@ -267,34 +267,34 @@ B_pois &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocu
 ## 
 ## $Lambda
 ## [1] 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(AB2)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(AB2)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-6-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-6-2.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-6-3.png" width="700.8"></p>
 </div>
 <div id="combining-distribution" class="section level3">
 <h3 class="hasAnchor">
 <a href="#combining-distribution" class="anchor"></a>Combining Distribution</h3>
 <p>Another feature of <strong>bayesAB</strong> is the ability to decompose your end distribution into a series of intermediate distributions which are easier to parametrize. For example, let’s take the above example and say we want to test the effect of <strong>JUST</strong> Page 1 on Page 2’s interactions. Sure, we can try to come up with a way to parametrize the behaviors on Page 2 in the context of the conversion from Page 1, but isn’t it easier to encapsulate both parts as their own random variables, with their own informed priors from past traffic data. Using the <code>combine</code> function in <strong>bayesAB</strong> we can make this possible. Let’s consider the same test objects we have already fit. A <code>combine</code>d object would look like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">AB3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/combine.html">combine</a></span>(AB1, AB2, <span class="dt">f =</span> <span class="st">`</span><span class="dt">*</span><span class="st">`</span>, <span class="dt">params =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'Probability'</span>, <span class="st">'Lambda'</span>), <span class="dt">newName =</span> <span class="st">'Expectation'</span>)
-
-<span class="co"># also equivalent with %&gt;% if you like piping</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(magrittr)
-
-AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/combine.html">combine</a></span>(AB2, <span class="dt">f =</span> <span class="st">`</span><span class="dt">*</span><span class="st">`</span>, <span class="dt">params =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'Probability'</span>, <span class="st">'Lambda'</span>), <span class="dt">newName =</span> <span class="st">'Expectation'</span>)</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">AB3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/combine.html">combine</a></span>(AB1, AB2, <span class="dt">f =</span> <span class="st">`</span><span class="dt">*</span><span class="st">`</span>, <span class="dt">params =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'Probability'</span>, <span class="st">'Lambda'</span>), <span class="dt">newName =</span> <span class="st">'Expectation'</span>)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co"># also equivalent with %&gt;% if you like piping</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(magrittr)</a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/combine.html">combine</a></span>(AB2, <span class="dt">f =</span> <span class="st">`</span><span class="dt">*</span><span class="st">`</span>, <span class="dt">params =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'Probability'</span>, <span class="st">'Lambda'</span>), <span class="dt">newName =</span> <span class="st">'Expectation'</span>)</a></code></pre></div>
 <p>Small note: the <strong>magrittr</strong> example may not look very elegant but it comes in handy when chaining together more than just 2 <code>bayesTest</code>s.</p>
 <p>For the combined distribution, we use the <code>*</code> function (multiplication) since each value of the Poisson distribution for Page 2 is multiplied by the corresponding probability of landing on Page 2 from Page 1 in the first place. The resulting distribution can be thought of as the ‘Expected number of interactions on Page 2’ so we have chosen the name ‘Expectation’. The class of <code>bayesTest</code> is idempotent under <code>combine</code>, meaning the resulting object is also a <code>bayesTest</code>. That means the same generics apply.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(AB3)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(AB3)</a></code></pre></div>
 <pre><code>## --------------------------------------------
 ## Distribution used: combined 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##             A      A     B      B
-## Min.    0.000  1.000 0.000  1.000
-## 1st Qu. 0.000  5.000 0.000  4.000
-## Median  0.000  7.000 0.000  5.000
-## Mean    0.276  6.476 0.208  5.324
-## 3rd Qu. 1.000  8.000 0.000  6.000
-## Max.    1.000 13.000 1.000 13.000
+##             A      A    B      B
+## Min.    0.000  0.000 0.00  0.000
+## 1st Qu. 0.000  5.000 0.00  4.000
+## Median  0.000  6.000 0.00  6.000
+## Mean    0.256  6.608 0.18  5.612
+## 3rd Qu. 1.000  8.000 0.00  7.000
+## Max.    1.000 15.000 1.00 12.000
 ## --------------------------------------------
 ## Conjugate Prior Distribution:  
 ## Conjugate Prior Parameters: 
@@ -305,17 +305,17 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## --------------------------------------------
 ## Monte Carlo samples generated per posterior: 
 ## [1] 1e+05</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(AB3)</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(AB3)</a></code></pre></div>
 <pre><code>## Quantiles of posteriors for A and B:
 ## 
 ## $Expectation
 ## $Expectation$A
 ##       0%      25%      50%      75%     100% 
-## 1.191933 1.591679 1.679097 1.770138 2.298786 
+## 1.145981 1.561072 1.649445 1.739258 2.379020 
 ## 
 ## $Expectation$B
 ##        0%       25%       50%       75%      100% 
-## 0.8285924 1.1404253 1.2090286 1.2808566 1.8036867 
+## 0.7986352 1.1272984 1.1976034 1.2700320 1.7573540 
 ## 
 ## 
 ## --------------------------------------------
@@ -323,7 +323,7 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Expectation
-## [1] 0.99769
+## [1] 0.99599
 ## 
 ## --------------------------------------------
 ## 
@@ -331,15 +331,15 @@ AB3 &lt;-<span class="st"> </span>AB1 <span class="op">%&gt;%</span>
 ## 
 ## $Expectation
 ##        5%       95% 
-## 0.1470727 0.6811700 
+## 0.1315679 0.6774352 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Expectation
-## [1] 9.049222e-05</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(AB3)</code></pre></div>
+## [1] 0.0001440658</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(AB3)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-8-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-8-2.png" width="700.8"></p>
 </div>
 <div id="conclusion" class="section level3">
