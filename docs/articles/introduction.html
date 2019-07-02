@@ -134,13 +134,13 @@
 ## Distribution used: bernoulli 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##             A    B
-## Min.    0.000 0.00
-## 1st Qu. 0.000 0.00
-## Median  0.000 0.00
-## Mean    0.256 0.18
-## 3rd Qu. 1.000 0.00
-## Max.    1.000 1.00
+##             A     B
+## Min.    0.000 0.000
+## 1st Qu. 0.000 0.000
+## Median  0.000 0.000
+## Mean    0.264 0.248
+## 3rd Qu. 1.000 0.000
+## Max.    1.000 1.000
 ## --------------------------------------------
 ## Conjugate Prior Distribution: Beta 
 ## Conjugate Prior Parameters: 
@@ -162,11 +162,11 @@
 ## $Probability
 ## $Probability$A
 ##        0%       25%       50%       75%      100% 
-## 0.1759566 0.2373865 0.2501217 0.2630968 0.3531991 
+## 0.1800473 0.2412950 0.2540387 0.2670910 0.3409753 
 ## 
 ## $Probability$B
 ##        0%       25%       50%       75%      100% 
-## 0.1444721 0.2012199 0.2132452 0.2254698 0.3012037 
+## 0.1767633 0.2336161 0.2463689 0.2593703 0.3327495 
 ## 
 ## 
 ## --------------------------------------------
@@ -174,22 +174,22 @@
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Probability
-## [1] 0.9202
+## [1] 0.61298
 ## 
 ## --------------------------------------------
 ## 
 ## Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 ## 
 ## $Probability
-##          5%         95% 
-## -0.02695294  0.41732241 
+##         5%        95% 
+## -0.1360307  0.2335515 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Probability
-## [1] 0.004306333</code></pre>
+## [1] 0.03114722</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(AB1)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-4-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-2.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-4-3.png" width="700.8"></p>
 <p><code>print</code> talks about the inputs to the test, <code>summary</code> will do a P((A - B) / B &gt; percentLift) and credible interval on (A - B) / B calculation, and <code>plot</code> will plot the priors, posteriors, and the Monte Carlo ‘integrated’ samples.</p>
@@ -212,12 +212,12 @@
 ## --------------------------------------------
 ## Using data with the following properties: 
 ##              A      B
-## Min.     0.000  0.000
-## 1st Qu.  5.000  4.000
-## Median   6.000  6.000
-## Mean     6.608  5.612
+## Min.     1.000  1.000
+## 1st Qu.  4.000  4.000
+## Median   6.000  5.000
+## Mean     6.296  5.592
 ## 3rd Qu.  8.000  7.000
-## Max.    15.000 12.000
+## Max.    14.000 14.000
 ## --------------------------------------------
 ## Conjugate Prior Distribution: Gamma 
 ## Conjugate Prior Parameters: 
@@ -239,11 +239,11 @@
 ## $Lambda
 ## $Lambda$A
 ##       0%      25%      50%      75%     100% 
-## 5.961310 6.486886 6.593909 6.702575 7.285747 
+## 5.617590 6.183904 6.289262 6.395405 7.006690 
 ## 
 ## $Lambda$B
 ##       0%      25%      50%      75%     100% 
-## 5.018851 5.518862 5.618575 5.720510 6.357439 
+## 4.954419 5.499291 5.598951 5.699240 6.442674 
 ## 
 ## 
 ## --------------------------------------------
@@ -251,22 +251,22 @@
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Lambda
-## [1] 1
+## [1] 0.9994
 ## 
 ## --------------------------------------------
 ## 
 ## Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 ## 
 ## $Lambda
-##        5%       95% 
-## 0.1062497 0.2448029 
+##         5%        95% 
+## 0.05851637 0.19231519 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Lambda
-## [1] 0</code></pre>
+## [1] 5.919709e-06</code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(AB2)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-6-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-6-2.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-6-3.png" width="700.8"></p>
 </div>
@@ -288,13 +288,13 @@
 ## Distribution used: combined 
 ## --------------------------------------------
 ## Using data with the following properties: 
-##             A      A    B      B
-## Min.    0.000  0.000 0.00  0.000
-## 1st Qu. 0.000  5.000 0.00  4.000
-## Median  0.000  6.000 0.00  6.000
-## Mean    0.256  6.608 0.18  5.612
-## 3rd Qu. 1.000  8.000 0.00  7.000
-## Max.    1.000 15.000 1.00 12.000
+##             A      A     B      B
+## Min.    0.000  1.000 0.000  1.000
+## 1st Qu. 0.000  4.000 0.000  4.000
+## Median  0.000  6.000 0.000  5.000
+## Mean    0.264  6.296 0.248  5.592
+## 3rd Qu. 1.000  8.000 0.000  7.000
+## Max.    1.000 14.000 1.000 14.000
 ## --------------------------------------------
 ## Conjugate Prior Distribution:  
 ## Conjugate Prior Parameters: 
@@ -311,11 +311,11 @@
 ## $Expectation
 ## $Expectation$A
 ##       0%      25%      50%      75%     100% 
-## 1.145981 1.561072 1.649445 1.739258 2.379020 
+## 1.082949 1.513345 1.597481 1.684152 2.188463 
 ## 
 ## $Expectation$B
-##        0%       25%       50%       75%      100% 
-## 0.7986352 1.1272984 1.1976034 1.2700320 1.7573540 
+##       0%      25%      50%      75%     100% 
+## 0.971017 1.304221 1.379182 1.455722 1.925366 
 ## 
 ## 
 ## --------------------------------------------
@@ -323,22 +323,22 @@
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Expectation
-## [1] 0.99599
+## [1] 0.90286
 ## 
 ## --------------------------------------------
 ## 
 ## Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 ## 
 ## $Expectation
-##        5%       95% 
-## 0.1315679 0.6774352 
+##         5%        95% 
+## -0.0390819  0.3987103 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Expectation
-## [1] 0.0001440658</code></pre>
+## [1] 0.005479544</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(AB3)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-8-1.png" width="700.8"><img src="introduction_files/figure-html/unnamed-chunk-8-2.png" width="700.8"></p>
 </div>

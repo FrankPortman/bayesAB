@@ -154,11 +154,11 @@
 <a class="sourceLine" id="cb2-26" data-line-number="26">out_diffuse &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ifelse">ifelse</a></span>(out_diffuse <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">|</span><span class="st"> </span>out_diffuse <span class="op">&gt;=</span><span class="st"> </span><span class="fl">.95</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a></code></pre></div>
 <p>Now, A and B shouldn’t have any difference between the two but occasionally we will see a Type 1 error. That’s what the bottom 3 lines are doing. If P(A &gt; B) is &lt;=0.05 or &gt;= .95 we call one of the recipes “significantly” better. Observe what happens with each case of prior.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(out_weaker_priors)</a></code></pre></div>
-<pre><code>## [1] 0.078</code></pre>
+<pre><code>## [1] 0.082</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(out_stronger_priors)</a></code></pre></div>
-<pre><code>## [1] 0.022</code></pre>
+<pre><code>## [1] 0.018</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(out_diffuse)</a></code></pre></div>
-<pre><code>## [1] 0.099</code></pre>
+<pre><code>## [1] 0.1</code></pre>
 <p>The diffuse priors have the most Type 1 errors, followed by the weak priors, followed by the strong priors; to be expected.</p>
 <p>Finally, we can fit another bayesTest (:D) to determine whether the differences between Type 1 error percents across priors are different from one another.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">t1 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(out_diffuse, out_weaker_priors, <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">1</span>), <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)</a>
@@ -176,11 +176,11 @@
 ## $Probability
 ## $Probability$A
 ##         0%        25%        50%        75%       100% 
-## 0.06516994 0.09329883 0.09955044 0.10602507 0.14532694 
+## 0.06686527 0.09426705 0.10051043 0.10705556 0.14435377 
 ## 
 ## $Probability$B
 ##         0%        25%        50%        75%       100% 
-## 0.04589421 0.07300396 0.07861334 0.08446485 0.11889303 
+## 0.05135635 0.07684274 0.08258698 0.08858263 0.12394182 
 ## 
 ## 
 ## --------------------------------------------
@@ -188,33 +188,33 @@
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Probability
-## [1] 0.95016
+## [1] 0.91956
 ## 
 ## --------------------------------------------
 ## 
 ## Credible Interval on (A - B) / B for interval length(s) (0.9) : 
 ## 
 ## $Probability
-##           5%          95% 
-## 0.0001473654 0.6074843630 
+##          5%         95% 
+## -0.03424719  0.53745999 
 ## 
 ## --------------------------------------------
 ## 
 ## Posterior Expected Loss for choosing B over A:
 ## 
 ## $Probability
-## [1] 0.003128456</code></pre>
+## [1] 0.005454061</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(t2)</a></code></pre></div>
 <pre><code>## Quantiles of posteriors for A and B:
 ## 
 ## $Probability
 ## $Probability$A
-##         0%        25%        50%        75%       100% 
-## 0.06431220 0.09324035 0.09949420 0.10600358 0.14393722 
+##        0%       25%       50%       75%      100% 
+## 0.0643316 0.0941962 0.1005115 0.1070404 0.1484078 
 ## 
 ## $Probability$B
 ##          0%         25%         50%         75%        100% 
-## 0.007748307 0.019631230 0.022642918 0.025960903 0.050499510 
+## 0.006062974 0.015907039 0.018637114 0.021651891 0.044431093 
 ## 
 ## 
 ## --------------------------------------------
@@ -230,7 +230,7 @@
 ## 
 ## $Probability
 ##       5%      95% 
-## 2.061604 5.487234 
+## 2.667822 7.263698 
 ## 
 ## --------------------------------------------
 ## 
