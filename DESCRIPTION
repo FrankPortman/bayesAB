@@ -2,7 +2,7 @@ Package: bayesAB
 Type: Package
 Title: Fast Bayesian Methods for AB Testing
 Version: 1.1.2
-Date: 2019-01-17
+Date: 2019-07-02
 Authors@R: person("Frank", "Portman", email = "frank1214@gmail.com", role = c("aut", "cre"))
 Description: A suite of functions that allow the user to analyze A/B test
     data in a Bayesian framework. Intended to be a drop-in replacement for
@@ -10,8 +10,9 @@ Description: A suite of functions that allow the user to analyze A/B test
 License: MIT + file LICENSE
 Imports:
     Rcpp (>= 0.12.4),
-    ggplot2 (>= 3.0.0),
-    methods
+    ggplot2 (>= 3.2.0),
+    methods,
+    rlang (>= 0.4.0)
 LinkingTo: Rcpp
 RoxygenNote: 6.1.0
 Encoding: UTF-8

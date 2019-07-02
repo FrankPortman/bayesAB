@@ -1,13 +1,13 @@
-## Version 1.1.1 Submission
-Minor release mainly for fixing bugs around the newest version of ggplot2. Two other minor bug fixes for functions to make them more correct.
+## Version 1.1.2 Submission
+Minor release for fixing a bug caused by latest release of ggplot2. No API changes.
 
 ## Test environments
-- local OS X install, R 3.5.1
-- ubuntu 12.04 (on travis-ci), R 3.5.1
+- local OS X install, R 3.6.0
+- ubuntu 14.04 (on travis-ci), R 3.6.0
 - win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs or WARNINGs.
+There were no ERRORs,WARNINGs, or NOTEs.
 
 ## Dependencies
 There are currently no dependencies for this package.

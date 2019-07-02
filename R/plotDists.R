@@ -15,7 +15,7 @@
 #' \item \link{plotPoisson}
 #' }
 #'
-#' @note Choosing priors correctly is very important. Please see http://fportman.com/blog/bayesab-0-dot-7-0-plus-a-primer-on-priors/ for a detailed example of choosing priors
+#' @note Choosing priors correctly is very important. Please see http://fportman.com/writing/bayesab-0-dot-7-0-plus-a-primer-on-priors/ for a detailed example of choosing priors
 #' within bayesAB. Here are some ways to leverage objective/diffuse (assigning equal probability to all values) priors:
 #'
 #' \itemize{\item \code{Beta}(1, 1)
@@ -34,28 +34,30 @@ plotDist_ <- function(support, hseq, dist, params) {
 
   discretes <- c('Poisson')
 
-  ribbon_or_bar <- ggplot2::geom_ribbon(ymin = 0,
-                                        ymax = hseq,
+  ribbon_or_bar <- ggplot2::geom_ribbon(ggplot2::aes(ymax = .data$hseq),
+                                        ymin = 0,
                                         size = 2,
                                         color = I("lightblue"),
                                         fill = "lightgreen",
                                         alpha = .25)
 
   if(dist %in% discretes) {
-    ribbon_or_bar <- ggplot2::geom_bar(stat = "identity",
+    ribbon_or_bar <- ggplot2::geom_col(size = 2,
                                        color = I("lightblue"),
                                        fill = "lightgreen",
-                                       alpha = .25,
-                                       size = 2)
+                                       alpha = .25)
     notEmpty <- hseq != 0
     support <- support[notEmpty]
     hseq <- hseq[notEmpty]
   }
 
+  # Done after the if statement because we have to delete some stuff for discrete case
+  data <- data.frame(support, hseq)
+
   paramList <- sapply(names(params), function(p) paste(p, params[p], sep = " = ", collapse = ""), USE.NAMES = FALSE)
   paramList <- paste0(paramList, collapse = ", ")
 
-  p <- ggplot2::qplot(x = support, y = hseq, geom = "line") +
+  p <- ggplot2::ggplot(data, ggplot2::aes(support, hseq)) +
     ggplot2::xlab(NULL) +
     ggplot2::ylab('PDF') +
     ggplot2::ggtitle(paste0(
