@@ -116,12 +116,13 @@
 #'
 #' # Create a new variable that is the probability multiiplied
 #' # by the normally distributed variable (expected value of something)
-#' AB3 <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')
+#' \donttest{
+#'     AB3 <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')
 #'
-#' print(AB3)
-#' summary(AB3)
-#' plot(AB3)
-#'
+#'     print(AB3)
+#'     summary(AB3)
+#'     plot(AB3)
+#' }
 #' @export
 bayesTest <- function(A_data,
                       B_data,
