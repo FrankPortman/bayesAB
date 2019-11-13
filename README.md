@@ -157,7 +157,7 @@ $Probability
 
 --------------------------------------------
 
-Posterior Expected Loss for choosing B over A:
+Posterior Expected Loss for choosing A over B:
 
 $Probability
 [1] 0.03105786

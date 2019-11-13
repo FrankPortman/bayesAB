@@ -185,7 +185,7 @@ print.summaryBayesTest <- function(x, ...) {
 
   cat('--------------------------------------------\n\n')
 
-  cat('Posterior Expected Loss for choosing B over A:\n\n')
+  cat('Posterior Expected Loss for choosing A over B:\n\n')
   print(x$posteriorExpectedLoss)
 
 }
