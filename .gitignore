@@ -11,3 +11,4 @@ vignettes/*.html
 todo
 R/flow.R
 R/checks2.R
+docs
