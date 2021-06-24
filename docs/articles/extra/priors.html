@@ -6,18 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Priors and Bayesian AB Testing • bayesAB</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../../bootstrap-toc.css">
+<script src="../../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><meta property="og:title" content="Priors and Bayesian AB Testing">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="bayesAB">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">bayesAB</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -38,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -66,8 +67,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/FrankPortman/bayesAB">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/FrankPortman/bayesAB/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -80,14 +81,15 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
+
+      </header><script src="priors_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Priors and Bayesian AB Testing</h1>
+      <h1 data-toc-skip>Priors and Bayesian AB Testing</h1>
                         <h4 class="author">Frank Portman - fportman.com - <a href="mailto:frank1214@gmail.com" class="email">frank1214@gmail.com</a>
 </h4>
             
-            <h4 class="date">2019-07-02</h4>
+            <h4 class="date">2021-06-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/FrankPortman/bayesAB/blob/master/vignettes/extra/priors.Rmd"><code>vignettes/extra/priors.Rmd</code></a></small>
       <div class="hidden name"><code>priors.Rmd</code></div>
@@ -109,16 +111,17 @@
 <p>Question 1 has a few objective and a few subjective answers to it. The main benefits are ones that I’ve already highlighted in the README/vignette of the bayesAB package. To briefly summarize, we get direct probabilities for A &gt; B (rather than p-values) and distributions over the parameter estimates rather than point estimates. Finally, we can also leverage <strong>priors</strong> which help with the low sample size and low base rate problems.</p>
 <p>To start, let’s go back to what a <strong>prior</strong> actually is in a Bayesian context. There are countless mathematical resources out there (including part of my previous blog post) so I’ll only about this conceptually. Simply put, a <strong>prior</strong> lets you specify some sort of, ahem, <em>prior</em> information about a certain parameter so that the end <strong>posterior</strong> on that parameter encapsualtes both the <strong>data</strong> you saw and the <strong>prior</strong> you inputted. Priors can come from a variety of places including past experiments, literature, and domain expertise into the problem. <a href="http://www.sumsar.net/blog/2015/11/a-bayesian-model-to-calculate-whether-my-wife-is-pregnant/">See this blogpost</a> for a great example of somebody combining their own past data and literature to form very strong priors.</p>
 <p><strong>Priors</strong> can be weak or strong. The weakest prior will be completely <strong>objective</strong> and thus assign an equal probability to each value for the parameter. Examples of this include a Beta(1, 1) prior for the Bernoulli distribution. In these cases, the <strong>posterior</strong> distribution is completely reliant on the <strong>data</strong>. A strong <strong>prior</strong> will convey a very precise belief as to where a parameter’s values may lie. For example:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bayesAB)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="../../reference/plotBeta.html">plotBeta</a></span>(<span class="dv">1000</span>, <span class="dv">1000</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FrankPortman/bayesAB">bayesAB</a></span><span class="op">)</span>
+
+<span class="fu"><a href="../../reference/plotBeta.html">plotBeta</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1000</span><span class="op">)</span></code></pre></div>
 <p><img src="priors_blog/strong_priors-1.png" width="700.8" style="display: block; margin: auto;"></p>
 <p>The stronger the <strong>prior</strong> the more say it has in the <strong>posterior</strong> distribution. Of course, according to the <a href="https://en.wikipedia.org/wiki/Bernstein%E2%80%93von_Mises_theorem">Bernstein–von Mises theorem</a> the <strong>posterior</strong> is effectively independent of the <strong>prior</strong> once a large enough sample size has been reached for the <strong>data</strong>. How quickly this is the case, depends on the strength of your <strong>prior</strong>.</p>
 <p>Do you need (weak/strong) <strong>priors</strong>? Not necessarily. You can still leverage the interpretability benefits of Bayesian AB testing even without priors. At worst, you’ll also get slightly more pertinent results since you can parametrize your metrics as the appropriate distribution random variable. However, without <strong>priors</strong> of some kind (and to be clear, not random bullshit priors either) you run into similar issues as with Frequentist AB testing, namely Type 1 and Type 2 errors. A Type 1 error is calling one version better when it really isn’t, and a Type 2 error is calling a better version equal or worse. Both typically arise from low sample size/base rate and are controlled by reaching appropriate sample size as per a <a href="https://en.wikipedia.org/wiki/Statistical_power">power calculation</a>.</p>
 <div id="so-what-can-we-do" class="section level3">
 <h3 class="hasAnchor">
 <a href="#so-what-can-we-do" class="anchor"></a>So what can we do?</h3>
-<p>Have no fear! Even without good and/or strong <strong>priors</strong> there are still ways to control for false positives and all that good stuff. We use something called <strong>Expected Posterior Loss</strong> or “based on the current winner, what is the expected loss you would see should you choose wrongly”. If this value is lower than your <strong>threshold of caring</strong> (<code><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs(A - b)</a></code>) then you can go ahead and call your test. This value implictly encompasses the uncertainty about your <strong>posteriors</strong>.</p>
+<p>Have no fear! Even without good and/or strong <strong>priors</strong> there are still ways to control for false positives and all that good stuff. We use something called <strong>Expected Posterior Loss</strong> or “based on the current winner, what is the expected loss you would see should you choose wrongly”. If this value is lower than your <strong>threshold of caring</strong> (<code><a href="https://rdrr.io/r/base/MathFun.html">abs(A - b)</a></code>) then you can go ahead and call your test. This value implictly encompasses the uncertainty about your <strong>posteriors</strong>.</p>
 <p>Okay cool, that roughly answers Questions 1-4 in some order.</p>
 </div>
 </div>
@@ -126,61 +129,68 @@
 <h2 class="hasAnchor">
 <a href="#simulation" class="anchor"></a>Simulation</h2>
 <p>Let’s do a quick simulation to illustrate some of the above points. Let’s make three examples: weak priors, strong priors, and diffuse priors (quick tip: the <a href="https://en.wikipedia.org/wiki/Jeffreys_prior">Jeffrey’s Prior</a> of a Gamma distribution is Gamma(eps, eps) where eps is smallllll). We’ll be taking 2 x 100 samples from a Poisson distribution with the same <span class="math inline">\(\lambda\)</span> parameters. The strong and weak priors will be centered around this value of 2.3.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(magrittr)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">n &lt;-<span class="st"> </span><span class="fl">1e3</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">out_weaker_priors &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="ot">NA</span>, n)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">out_stronger_priors &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="ot">NA</span>, n)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">out_diffuse &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="ot">NA</span>, n)</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">getProb &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(x)<span class="op">$</span>probability<span class="op">$</span>Lambda</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">  A &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Poisson">rpois</a></span>(<span class="dv">100</span>, <span class="fl">2.3</span>)</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">  B &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Poisson">rpois</a></span>(<span class="dv">100</span>, <span class="fl">2.3</span>)</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">  </a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">  out_weaker_priors[i] &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(A, B, <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'shape'</span> =<span class="st"> </span><span class="dv">23</span>, <span class="st">'rate'</span> =<span class="st"> </span><span class="dv">10</span>), <span class="dt">distribution =</span> <span class="st">'poisson'</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">    </span>getProb</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">  </a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">  out_stronger_priors[i] &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(A, B, <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'shape'</span> =<span class="st"> </span><span class="dv">230</span>, <span class="st">'rate'</span> =<span class="st"> </span><span class="dv">100</span>), <span class="dt">distribution =</span> <span class="st">'poisson'</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="st">    </span>getProb</a>
-<a class="sourceLine" id="cb2-19" data-line-number="19">  </a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">  out_diffuse[i] &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(A, B, <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'shape'</span> =<span class="st"> </span><span class="fl">0.00001</span>, <span class="st">'rate'</span> =<span class="st"> </span><span class="fl">0.00001</span>), <span class="dt">distribution =</span> <span class="st">'poisson'</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="st">    </span>getProb</a>
-<a class="sourceLine" id="cb2-22" data-line-number="22">}</a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">  </a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">out_weaker_priors &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ifelse">ifelse</a></span>(out_weaker_priors <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">|</span><span class="st"> </span>out_weaker_priors <span class="op">&gt;=</span><span class="st"> </span><span class="fl">.95</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25">out_stronger_priors &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ifelse">ifelse</a></span>(out_stronger_priors <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">|</span><span class="st"> </span>out_stronger_priors <span class="op">&gt;=</span><span class="st"> </span><span class="fl">.95</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb2-26" data-line-number="26">out_diffuse &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ifelse">ifelse</a></span>(out_diffuse <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">|</span><span class="st"> </span>out_diffuse <span class="op">&gt;=</span><span class="st"> </span><span class="fl">.95</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">magrittr</span><span class="op">)</span>
+
+<span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e3</span>
+<span class="va">out_weaker_priors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="va">n</span><span class="op">)</span>
+<span class="va">out_stronger_priors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="va">n</span><span class="op">)</span>
+<span class="va">out_diffuse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="va">n</span><span class="op">)</span>
+
+<span class="va">getProb</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">$</span><span class="va">probability</span><span class="op">$</span><span class="va">Lambda</span>
+
+<span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">2.3</span><span class="op">)</span>
+  <span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">2.3</span><span class="op">)</span>
+  
+  <span class="va">out_weaker_priors</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/bayesTest.html">bayesTest</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, priors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'shape'</span> <span class="op">=</span> <span class="fl">23</span>, <span class="st">'rate'</span> <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, distribution <span class="op">=</span> <span class="st">'poisson'</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="va">getProb</span>
+  
+  <span class="va">out_stronger_priors</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/bayesTest.html">bayesTest</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, priors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'shape'</span> <span class="op">=</span> <span class="fl">230</span>, <span class="st">'rate'</span> <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>, distribution <span class="op">=</span> <span class="st">'poisson'</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="va">getProb</span>
+  
+  <span class="va">out_diffuse</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/bayesTest.html">bayesTest</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, priors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'shape'</span> <span class="op">=</span> <span class="fl">0.00001</span>, <span class="st">'rate'</span> <span class="op">=</span> <span class="fl">0.00001</span><span class="op">)</span>, distribution <span class="op">=</span> <span class="st">'poisson'</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="va">getProb</span>
+<span class="op">}</span>
+  
+<span class="va">out_weaker_priors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">out_weaker_priors</span> <span class="op">&lt;=</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">out_weaker_priors</span> <span class="op">&gt;=</span> <span class="fl">.95</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="va">out_stronger_priors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">out_stronger_priors</span> <span class="op">&lt;=</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">out_stronger_priors</span> <span class="op">&gt;=</span> <span class="fl">.95</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="va">out_diffuse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">out_diffuse</span> <span class="op">&lt;=</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">out_diffuse</span> <span class="op">&gt;=</span> <span class="fl">.95</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></code></pre></div>
 <p>Now, A and B shouldn’t have any difference between the two but occasionally we will see a Type 1 error. That’s what the bottom 3 lines are doing. If P(A &gt; B) is &lt;=0.05 or &gt;= .95 we call one of the recipes “significantly” better. Observe what happens with each case of prior.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(out_weaker_priors)</a></code></pre></div>
-<pre><code>## [1] 0.082</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(out_stronger_priors)</a></code></pre></div>
-<pre><code>## [1] 0.018</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(out_diffuse)</a></code></pre></div>
-<pre><code>## [1] 0.1</code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">out_weaker_priors</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.091</code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">out_stronger_priors</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.021</code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">out_diffuse</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.114</code></pre>
 <p>The diffuse priors have the most Type 1 errors, followed by the weak priors, followed by the strong priors; to be expected.</p>
 <p>Finally, we can fit another bayesTest (:D) to determine whether the differences between Type 1 error percents across priors are different from one another.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">t1 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(out_diffuse, out_weaker_priors, <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">1</span>), <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">t2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bayesTest.html">bayesTest</a></span>(out_diffuse, out_stronger_priors, <span class="dt">priors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'alpha'</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">'beta'</span> =<span class="st"> </span><span class="dv">1</span>), <span class="dt">distribution =</span> <span class="st">'bernoulli'</span>)</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(t1)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/bayesTest.html">bayesTest</a></span><span class="op">(</span><span class="va">out_diffuse</span>, <span class="va">out_weaker_priors</span>, priors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'alpha'</span> <span class="op">=</span> <span class="fl">1</span>, <span class="st">'beta'</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, distribution <span class="op">=</span> <span class="st">'bernoulli'</span><span class="op">)</span>
+<span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/bayesTest.html">bayesTest</a></span><span class="op">(</span><span class="va">out_diffuse</span>, <span class="va">out_stronger_priors</span>, priors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'alpha'</span> <span class="op">=</span> <span class="fl">1</span>, <span class="st">'beta'</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, distribution <span class="op">=</span> <span class="st">'bernoulli'</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">t1</span><span class="op">)</span></code></pre></div>
 <p><img src="priors_blog/bern-1.png" width="700.8" style="display: block; margin: auto;"><img src="priors_blog/bern-2.png" width="700.8" style="display: block; margin: auto;"><img src="priors_blog/bern-3.png" width="700.8" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(t2, <span class="dt">priors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">t2</span>, priors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="priors_blog/bern-4.png" width="700.8" style="display: block; margin: auto;"><img src="priors_blog/bern-5.png" width="700.8" style="display: block; margin: auto;"></p>
 <p>As we can see, it’s somewhat clear that the diffuse is worse than the weak and very clear that the diffuse is worse than the stronger priors. Note that in our case I use a diffuse prior of Beta(1, 1) since I have no idea what’s normal going into this simulation.</p>
 <p>Finally we can check the output of <code>summary</code> to see if the <strong>Posterior Expected Loss</strong> is within our constraints.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(t1)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">t1</span><span class="op">)</span></code></pre></div>
 <pre><code>## Quantiles of posteriors for A and B:
 ## 
 ## $Probability
 ## $Probability$A
 ##         0%        25%        50%        75%       100% 
-## 0.06686527 0.09426705 0.10051043 0.10705556 0.14435377 
+## 0.07603743 0.10790512 0.11450705 0.12147267 0.16454018 
 ## 
 ## $Probability$B
 ##         0%        25%        50%        75%       100% 
-## 0.05135635 0.07684274 0.08258698 0.08858263 0.12394182 
+## 0.05467446 0.08547900 0.09155279 0.09781554 0.13397715 
 ## 
 ## 
 ## --------------------------------------------
@@ -188,7 +198,7 @@
 ## P(A &gt; B) by (0)%: 
 ## 
 ## $Probability
-## [1] 0.91956
+## [1] 0.95398
 ## 
 ## --------------------------------------------
 ## 
@@ -196,25 +206,26 @@
 ## 
 ## $Probability
 ##          5%         95% 
-## -0.03424719  0.53745999 
+## 0.004921894 0.558579217 
 ## 
 ## --------------------------------------------
 ## 
-## Posterior Expected Loss for choosing B over A:
+## Posterior Expected Loss for choosing A over B:
 ## 
 ## $Probability
-## [1] 0.005454061</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(t2)</a></code></pre></div>
+## [1] 0.002568839</code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span></code></pre></div>
 <pre><code>## Quantiles of posteriors for A and B:
 ## 
 ## $Probability
 ## $Probability$A
-##        0%       25%       50%       75%      100% 
-## 0.0643316 0.0941962 0.1005115 0.1070404 0.1484078 
+##         0%        25%        50%        75%       100% 
+## 0.07537035 0.10787286 0.11451427 0.12141106 0.16255948 
 ## 
 ## $Probability$B
 ##          0%         25%         50%         75%        100% 
-## 0.006062974 0.015907039 0.018637114 0.021651891 0.044431093 
+## 0.007601054 0.018689928 0.021610712 0.024857245 0.048699994 
 ## 
 ## 
 ## --------------------------------------------
@@ -230,11 +241,11 @@
 ## 
 ## $Probability
 ##       5%      95% 
-## 2.667822 7.263698 
+## 2.681464 6.858321 
 ## 
 ## --------------------------------------------
 ## 
-## Posterior Expected Loss for choosing B over A:
+## Posterior Expected Loss for choosing A over B:
 ## 
 ## $Probability
 ## [1] 0</code></pre>
@@ -242,18 +253,14 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#why-should-we-care-about-priors">Why should we care about priors?</a></li>
-      <li><a href="#simulation">Simulation</a></li>
-      </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
+
 
 
       <footer><div class="copyright">
@@ -261,12 +268,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

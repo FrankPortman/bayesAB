@@ -8,21 +8,29 @@
 
 <title>Changelog • bayesAB</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,7 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Changelog" />
+
 
 
 
@@ -44,9 +54,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -60,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bayesAB</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -68,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,11 +105,10 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/FrankPortman/bayesAB">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/FrankPortman/bayesAB/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,34 +119,47 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/FrankPortman/bayesAB/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="bayesab-1-1-2" class="section level1">
-<h1 class="page-header">
-<a href="#bayesab-1-1-2" class="anchor"></a>bayesAB 1.1.2<small> Unreleased </small>
+    <div id="bayesab-113" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.3">
+<a href="#bayesab-113" class="anchor"></a>bayesAB 1.1.3<small> Unreleased </small>
 </h1>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor Changes</h2>
 <ul>
-<li>Fix documentation to reflect the changes to <code>NormalInverseGamma</code> in <code>1.1.0</code>.</li>
+<li>Fix ggplot2 deprecation warning introduced in latest version.</li>
 </ul>
 </div>
 </div>
-    <div id="bayesab-1-1-1" class="section level1">
-<h1 class="page-header">
-<a href="#bayesab-1-1-1" class="anchor"></a>bayesAB 1.1.1<small> 2018-07-14 </small>
+    <div id="bayesab-112" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.2">
+<a href="#bayesab-112" class="anchor"></a>bayesAB 1.1.2<small> 2019-07-02 </small>
 </h1>
 <div id="minor-changes-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes-1" class="anchor"></a>Minor Changes</h2>
+<ul>
+<li>Fix documentation to reflect the changes to <code>NormalInverseGamma</code> in <code>1.1.0</code>.</li>
+</ul>
+</div>
+</div>
+    <div id="bayesab-111" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.1">
+<a href="#bayesab-111" class="anchor"></a>bayesAB 1.1.1<small> 2018-07-14 </small>
+</h1>
+<div id="minor-changes-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes-2" class="anchor"></a>Minor Changes</h2>
 <ul>
 <li>Bug fixes for most recent version of ggplot2. Hopefully the API is stabe from here on out.</li>
 <li>Fixed <code>grab</code> to correctly return the <code>priors</code> property in addition to <code>posteriors</code> and <code>inputs</code>.</li>
@@ -144,9 +167,9 @@
 </ul>
 </div>
 </div>
-    <div id="bayesab-1-1-0" class="section level1">
-<h1 class="page-header">
-<a href="#bayesab-1-1-0" class="anchor"></a>bayesAB 1.1.0<small> 2017-09-26 </small>
+    <div id="bayesab-110" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.0">
+<a href="#bayesab-110" class="anchor"></a>bayesAB 1.1.0<small> 2017-09-26 </small>
 </h1>
 <div id="breaking" class="section level2">
 <h2 class="hasAnchor">
@@ -170,18 +193,18 @@
 </li>
 </ul>
 </div>
-<div id="minor-changes-2" class="section level2">
+<div id="minor-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-2" class="anchor"></a>Minor Changes</h2>
+<a href="#minor-changes-3" class="anchor"></a>Minor Changes</h2>
 <ul>
 <li>Colors for sample plots are now hardcoded (red for &gt; 0 and blue for &lt; 0)</li>
 <li>Plots are truncated at the extremes to avoid very long tails</li>
 </ul>
 </div>
 </div>
-    <div id="bayesab-1-0-0" class="section level1">
-<h1 class="page-header">
-<a href="#bayesab-1-0-0" class="anchor"></a>bayesAB 1.0.0<small> 2017-07-23 </small>
+    <div id="bayesab-100" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#bayesab-100" class="anchor"></a>bayesAB 1.0.0<small> 2017-07-23 </small>
 </h1>
 <div id="major-additions" class="section level2">
 <h2 class="hasAnchor">
@@ -193,7 +216,7 @@
 <li>Mostly useful in conjunction with <code>combine</code> in order to quickly chain together several <code>bayesTest</code>s</li>
 </ul>
 </li>
-<li>Correctly hide legend for generic plots</li>
+<li><p>Correctly hide legend for generic plots</p></li>
 <li>
 <p>Standardized prior parameters to have the same arguments as the <code>plot{Dist}</code> functions</p>
 <ul>
@@ -226,23 +249,22 @@
 </ul>
 </div>
 </div>
-    <div id="bayesab-0-7-0" class="section level1">
-<h1 class="page-header">
-<a href="#bayesab-0-7-0" class="anchor"></a>bayesAB 0.7.0<small> 2016-10-09 </small>
+    <div id="bayesab-070" class="section level1">
+<h1 class="page-header" data-toc-text="0.7.0">
+<a href="#bayesab-070" class="anchor"></a>bayesAB 0.7.0<small> 2016-10-09 </small>
 </h1>
 <div id="major-additions-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-additions-1" class="anchor"></a>Major Additions</h2>
 <ul>
-<li>added <code>banditize</code> and <code>deployBandit</code> to turn your <code>bayesTest</code> object into a Bayesian multi*armed bandit and deploy as a JSON API respectively.</li>
+<li><p>added <code>banditize</code> and <code>deployBandit</code> to turn your <code>bayesTest</code> object into a Bayesian multi*armed bandit and deploy as a JSON API respectively.</p></li>
 <li>
 <p>Added programmatic capabilities on top of existing interactive uses for <code>plot</code> generic function</p>
 <ul>
-<li>You can now assign <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(bayesTestObj)</a></code> to a variable and not have it automatically plot.</li>
+<li>You can now assign <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot(bayesTestObj)</a></code> to a variable and not have it automatically plot.</li>
 </ul>
 </li>
-<li>Added quantile summary of calculated posteriors to the output of <code>summary.bayesTest</code>
-</li>
+<li><p>Added quantile summary of calculated posteriors to the output of <code>summary.bayesTest</code></p></li>
 <li>
 <p>Added Posterior Expected Loss to output of <code>summary.bayesTest</code></p>
 <ul>
@@ -265,9 +287,9 @@
 </ul>
 </div>
 </div>
-    <div id="bayesab-0-6-0" class="section level1">
-<h1 class="page-header">
-<a href="#bayesab-0-6-0" class="anchor"></a>bayesAB 0.6.0<small> 2016-09-13 </small>
+    <div id="bayesab-060" class="section level1">
+<h1 class="page-header" data-toc-text="0.6.0">
+<a href="#bayesab-060" class="anchor"></a>bayesAB 0.6.0<small> 2016-09-13 </small>
 </h1>
 <div id="major-additions-2" class="section level2">
 <h2 class="hasAnchor">
@@ -286,21 +308,14 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#bayesab-1-1-2">1.1.2</a></li>
-        <li><a href="#bayesab-1-1-1">1.1.1</a></li>
-        <li><a href="#bayesab-1-1-0">1.1.0</a></li>
-        <li><a href="#bayesab-1-0-0">1.0.0</a></li>
-        <li><a href="#bayesab-0-7-0">0.7.0</a></li>
-        <li><a href="#bayesab-0-6-0">0.6.0</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -308,13 +323,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
