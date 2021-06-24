@@ -7,6 +7,7 @@ before_install:
 
 r_packages:
   - covr
+  - plumber
 
 after_success:
   - Rscript -e 'covr::codecov(line_exclusions = list("R/bandit.R", "src/init.cpp", "R/plotDists.R" = 80:106, "R/makePlots.R" = 43:95, "R/dists.R" = 42:48))'

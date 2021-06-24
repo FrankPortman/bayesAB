@@ -4,9 +4,14 @@
 \alias{bayesTest}
 \title{Fit a Bayesian model to A/B test data.}
 \usage{
-bayesTest(A_data, B_data, priors, n_samples = 1e+05,
-  distribution = c("bernoulli", "normal", "lognormal", "poisson",
-  "exponential", "uniform", "bernoulliC", "poissonC"))
+bayesTest(
+  A_data,
+  B_data,
+  priors,
+  n_samples = 1e+05,
+  distribution = c("bernoulli", "normal", "lognormal", "poisson", "exponential",
+    "uniform", "bernoulliC", "poissonC")
+)
 }
 \arguments{
 \item{A_data}{Vector of collected samples from recipe A}
@@ -134,10 +139,11 @@ summary(AB2)
 
 # Create a new variable that is the probability multiiplied
 # by the normally distributed variable (expected value of something)
-AB3 <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')
+\donttest{
+    AB3 <- combine(AB1, AB2, f = `*`, params = c('Probability', 'Mu'), newName = 'Expectation')
 
-print(AB3)
-summary(AB3)
-plot(AB3)
-
+    print(AB3)
+    summary(AB3)
+    plot(AB3)
+}
 }

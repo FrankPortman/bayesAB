@@ -1,3 +1,8 @@
+# bayesAB 1.1.3
+
+## Minor Changes
+* Fix ggplot2 deprecation warning introduced in latest version.
+
 # bayesAB 1.1.2
 
 ## Minor Changes

@@ -3,7 +3,6 @@
 \docType{package}
 \name{bayesAB}
 \alias{bayesAB}
-\alias{bayesAB-package}
 \title{bayesAB: Fast Bayesian Methods for A/B Testing}
 \description{
 bayesAB provides a suite of functions that allow the user to analyze A/B test

@@ -4,8 +4,14 @@
 \alias{plot.bayesTest}
 \title{Plot bayesTest objects}
 \usage{
-\method{plot}{bayesTest}(x, percentLift = rep(0, length(x$posteriors)),
-  priors = TRUE, posteriors = TRUE, samples = TRUE, ...)
+\method{plot}{bayesTest}(
+  x,
+  percentLift = rep(0, length(x$posteriors)),
+  priors = TRUE,
+  posteriors = TRUE,
+  samples = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{an object of class "bayesTest"}
