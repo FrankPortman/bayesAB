@@ -46,7 +46,7 @@ samplePlot <- function(A, B, name, percentLift, f = function(a, b) (a-b)/b) {
     ggplot2::xlab('(A - B) / B') +
     ggplot2::ylab('Density') +
     ggplot2::ggtitle(paste0('Histogram of (A - B) / B Samples : ', name)) +
-    ggplot2::guides(fill = FALSE)
+    ggplot2::guides(fill = "none")
 
   p
 
