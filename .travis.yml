@@ -4,6 +4,7 @@ warnings_are_errors: false
 
 before_install:
   - tlmgr install ucs
+  - sudo apt-get -y install libsodium-dev
 
 r_packages:
   - covr
